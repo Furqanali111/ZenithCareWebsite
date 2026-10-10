@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 /**
  * Security headers applied to every response.
@@ -7,18 +8,22 @@ import type { NextConfig } from "next";
  * shortcut: CSP uses 'unsafe-inline' for scripts + styles so Next's inline
  * runtime boot and Tailwind's inline critical CSS keep working out of the
  * box. Tighten with nonce-based CSP + strict-dynamic in a dedicated
- * security-hardening PR once Phase 2 features (Calendly, Formspree,
- * Plausible) are wired and we can allowlist their hosts in one pass.
+ * security-hardening PR once Phase 2 features (Calendly, Formspree) are
+ * wired and we can allowlist their hosts in one pass.
  */
 const isDev = process.env.NODE_ENV !== "production";
 
-// Turbopack HMR needs eval() in dev. Prod stays strict.
+// Hosts the browser is allowed to load scripts from.
+// - vercel-scripts: Web Vitals / Speed Insights
+// - plausible: analytics (optional, loaded only when env var set — see layout)
+const scriptHosts = "https://va.vercel-scripts.com https://plausible.io";
 const scriptSrc = isDev
-  ? "'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com"
-  : "'self' 'unsafe-inline' https://va.vercel-scripts.com";
+  ? `'self' 'unsafe-inline' 'unsafe-eval' ${scriptHosts}`
+  : `'self' 'unsafe-inline' ${scriptHosts}`;
 
-// Vercel Web Vitals / Speed Insights beacon.
-const connectSrc = "'self' https://vitals.vercel-insights.com https://vercel.live";
+// Hosts the browser is allowed to send fetch/XHR/beacon to.
+const connectSrc =
+  "'self' https://vitals.vercel-insights.com https://vercel.live https://plausible.io";
 
 const securityHeaders = [
   {
@@ -56,6 +61,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // Treat .md and .mdx files alongside .tsx as pages/components.
+  pageExtensions: ["ts", "tsx", "md", "mdx"],
   turbopack: {
     rules: {
       "*.css": {
@@ -65,13 +72,14 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: securityHeaders,
-      },
-    ];
+    return [{ source: "/:path*", headers: securityHeaders }];
   },
 };
 
-export default nextConfig;
+/**
+ * MDX plugin set is deliberately empty for v1. Add remark-gfm / rehype-slug
+ * / rehype-pretty-code when the first post actually needs the feature.
+ */
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
