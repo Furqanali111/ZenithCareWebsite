@@ -5,6 +5,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { ThemeProvider } from "@/components/theme-provider";
+import { JsonLd, organizationLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -52,6 +53,7 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-background text-foreground">
+        <JsonLd data={organizationLd()} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
