@@ -119,7 +119,7 @@ Both `develop` and every `release/*` must have:
 
 ## 5. Commit messages
 
-Conventional Commits. Every commit on a branch should be meaningful. The final squashed message is what matters most — write it as the PR title.
+Conventional Commits, **subject line only — no body**. One line, imperative, under ~70 chars. Everything else (why, how, risks, shortcuts) lives in the PR body, not the commit.
 
 Format:
 ```
@@ -136,7 +136,9 @@ docs(seo): expand llms.txt with resources section
 chore(deps): bump next to 14.2.5
 ```
 
-The body (optional) explains **why**, not what. The diff shows the what.
+Reason: subject-only commits read cleanly in `git log --oneline`, release notes, and PR titles. The PR body is where you explain the change — that's what reviewers and future-you will actually read.
+
+**Attribution lines** (`Co-Authored-By:`, etc.) still belong in commits per the harness rule, appended on their own line(s) at the end. No prose body in between.
 
 ## 6. PR template
 

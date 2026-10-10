@@ -51,7 +51,8 @@ Invoke the right skill BEFORE acting. If a skill applies to the current task, us
 | Debugging a tricky bug | **`superpowers:systematic-debugging`**. |
 | Any multi-option design or implementation decision | **`superpowers:brainstorming`**. |
 | Writing or shipping new non-trivial logic (API-ish, parsers, calculators) | **`superpowers:test-driven-development`** — ROI calculator must ship with at least a small assert-based self-check per Ponytail rules. |
-| Before merging a PR with risky changes | **`code-review`** (built-in) or **`ponytail:ponytail-review`**. |
+| Before handing a code PR back to the user | **`ponytail:ponytail-review`** on the diff — mandatory, not optional. Apply the review's findings before declaring the PR ready. |
+| Full-repo quality sweep before launch or major milestones | **`ponytail:ponytail-audit`**. |
 | Writing or editing the plan or TRD | **`superpowers:writing-plans`**. |
 
 **Skills NOT to use**: anything specific to other domains (sales, bio-research, trading, etc.). Ignore.
