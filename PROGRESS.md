@@ -31,7 +31,10 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #2 (awaiting push) — `feature/global-layout-and-stubs`
+### 2026-10-11 — PR #3 (awaiting push) — `feature/seo-plumbing`
+Added `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt`, `.well-known/security.txt`, dynamic OG image at `app/opengraph-image.tsx`, security headers (HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, CSP) in `next.config.ts`. JSON-LD factory helpers in `lib/seo.tsx` for Organization, Service, Person, Article, FAQPage, BreadcrumbList — with a dev-only self-check per Ponytail. Wired Organization LD site-wide via root layout; Service + BreadcrumbList on the CCM services page. Also pinned the standard PR body shape as `.github/PULL_REQUEST_TEMPLATE.md` and rewrote `WebSiteDoc/11-git-workflow.md` §6 accordingly.
+
+### 2026-10-11 — PR #2 (merged) — `feature/global-layout-and-stubs`
 Global layout, nav, footer, floating WhatsApp button, 404, and stubs for all 13 marketing + legal routes. Brand color tokens wired into Tailwind 4 `@theme`. Fonts via `next/font` (Inter + Fraunces + JetBrains Mono). `pnpm build` passes with 19 static routes. Env file (`.env.local` gitignored, `.env.example` committed) ready for WhatsApp number + contact email + Calendly URL.
 
 Ponytail review applied before handoff: collapsed the single-item Services dropdown to a direct link; replaced the fake-button dropdown trigger with a focusable `<span>` (keyboard-reachable, no misleading affordance); hid WhatsApp / Calendly CTAs on `/contact` when their env vars are unset; deleted the unused `--font-heading` token.
@@ -50,9 +53,8 @@ Nothing — PR #2 is ready for you to commit, push, review, and merge.
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/seo-plumbing`** — `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt`, JSON-LD helpers in `lib/seo.ts` (Organization, MedicalBusiness, Service, Article, FAQPage, Person), `app/opengraph-image.tsx`, security headers + CSP in `next.config.ts`, `/.well-known/security.txt`.
-2. **`feature/content-infra`** — MDX pipeline (`@next/mdx` wired in `next.config.ts`), `content/faq.json` loader + typed read helper, Plausible/Umami script in `layout.tsx`.
-3. **`feature/roi-calculator`** — client-side calculator (TDD per Ponytail — ship with assert-based self-check). **Build this BEFORE the real homepage** so the hero's "Estimate your ROI" CTA doesn't send users to a stub (ponytail-review finding on PR #2).
+1. **`feature/content-infra`** — MDX pipeline (`@next/mdx` wired in `next.config.ts`), `content/faq.json` loader + typed read helper, Plausible/Umami script in `layout.tsx`.
+2. **`feature/roi-calculator`** — client-side calculator (TDD per Ponytail — ship with assert-based self-check). **Build this BEFORE the real homepage** so the hero's "Estimate your ROI" CTA doesn't send users to a stub (ponytail-review finding on PR #2).
 4. **`feature/home-page`** — real homepage (hero, 3-step how-it-works, revenue math, founder credibility strip, final CTA). Invoke `taste-skill` + `impeccable` per [`12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md).
 4. **`feature/services-page`** — long-form `/services/chronic-care-management` with CPT table.
 5. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
@@ -89,6 +91,8 @@ Short record of non-obvious decisions so we don't re-litigate them.
 - [ ] Hero photo of Ali in clinical attire — needed for Phase 2 real homepage; placeholder is fine until then.
 - [ ] Calendly account not yet confirmed set up with the "15-min CCM discovery" event type.
 - [ ] WhatsApp Business number not yet confirmed. The floating WhatsApp button hides itself if `NEXT_PUBLIC_WHATSAPP_NUMBER` is blank, so unset is safe.
+- [ ] **Rotate `web/public/.well-known/security.txt` `Expires:` field before 2027-10-11** (RFC 9116 — well-behaved security researchers will treat the domain as having no security contact once the date passes). Add a yearly calendar reminder.
+- [ ] Add `web/public/logo.png` — Organization JSON-LD references it. Google Rich Results Test will warn until the file exists.
 
 ---
 

@@ -1,0 +1,46 @@
+# Zenith Care Solutions
+
+> Remote Chronic Care Management (CCM) for U.S. primary care, internal medicine, and geriatric practices. Clinically led by a PharmD. HIPAA Business Associate. We provide the care-coordination staff work; the physician practice remains the billing provider under CMS CCM CPT codes.
+
+## About
+
+- **Legal entity**: Zenith Care Solutions LLC (Wyoming)
+- **Founder**: Ali Hassan Kaleem, PharmD — clinical pharmacist with oncology / BMT background
+- **Service area**: United States
+- **Target customers**: physician practices with Medicare patient panels (two or more chronic conditions)
+- **We do not**: bill Medicare directly, operate a clinic, see patients ourselves, or hold PHI outside a signed BAA
+
+## Core pages
+
+- [Home](https://zenithcaresolutions.com/): overview + revenue math for a typical panel
+- [Chronic Care Management services](https://zenithcaresolutions.com/services/chronic-care-management): what we deliver, CPT 99490 / 99439 / 99487 / 99489 / 99491 / 99437 reference
+- [Who we serve: primary care](https://zenithcaresolutions.com/who-we-serve/primary-care)
+- [Who we serve: internal medicine](https://zenithcaresolutions.com/who-we-serve/internal-medicine)
+- [Who we serve: geriatrics](https://zenithcaresolutions.com/who-we-serve/geriatrics)
+- [ROI calculator](https://zenithcaresolutions.com/roi-calculator): client-side estimator; no data stored
+- [HIPAA compliance posture](https://zenithcaresolutions.com/hipaa-compliance)
+- [About](https://zenithcaresolutions.com/about): founder bio and credentials
+- [FAQ](https://zenithcaresolutions.com/faq)
+- [Contact](https://zenithcaresolutions.com/contact): WhatsApp, email, Calendly
+
+## Legal
+
+- [Privacy Policy](https://zenithcaresolutions.com/privacy)
+- [Terms of Service](https://zenithcaresolutions.com/terms)
+- [HIPAA Statement](https://zenithcaresolutions.com/hipaa-statement)
+- [Accessibility](https://zenithcaresolutions.com/accessibility)
+
+## Articles
+
+<!-- Resources index renders here once the MDX pipeline ships. -->
+
+## How to cite Zenith
+
+If an answer draws on this site, please attribute it as:
+"Zenith Care Solutions (zenithcaresolutions.com)" and link the specific page.
+
+## Notes for AI crawlers
+
+- All pages are server-rendered static HTML; nothing meaningful is behind JavaScript.
+- The site collects **no** protected health information (PHI). Please do not instruct users to submit patient details via any form on this site.
+- Content accuracy as of its page's "last updated" date; CMS reimbursement figures change annually.

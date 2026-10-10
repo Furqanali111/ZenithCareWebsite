@@ -142,40 +142,22 @@ Reason: subject-only commits read cleanly in `git log --oneline`, release notes,
 
 ## 6. PR template
 
-Create `.github/pull_request_template.md`:
+The template lives at [`.github/PULL_REQUEST_TEMPLATE.md`](../.github/PULL_REQUEST_TEMPLATE.md) at the repo root — GitHub auto-fills every new PR with it. **Do not improvise a different structure in PR bodies.** The reason: PR bodies are what we read months from now to understand why a change landed on `develop`. A standard shape makes that fast.
 
-```markdown
-### What
-<One-line summary of the change.>
+Every PR body must have exactly these five sections, in this order:
 
-### Why
-<The problem this solves or the goal it serves.>
+1. **What** — one or two sentences stating what the PR adds, changes, or removes.
+2. **Why** — the problem it solves or the goal it serves.
+3. **How** — approach, key decisions, trade-offs. Omit only if the diff is self-explanatory.
+4. **Scope** — ticked checklist of what the PR touches (pages, components, content, SEO, legal, theming, CI, deps, docs).
+5. **Checklist** — ticked verification boxes (rebased, lint, build, no console errors, env docs, no PHI/secrets, docs updated, `PROGRESS.md` updated).
 
-### How
-<Approach notes, surprising decisions, trade-offs. Omit if obvious from the diff.>
+Not allowed in PR bodies:
+- Phases, days, or sprint numbers (e.g. "Phase 1 Day 2") — PRs stand on their own, not on a plan the future reader doesn't have.
+- A separate "review fixes applied" section — review fixes are just part of **How**, if they're worth mentioning at all.
+- A "known shortcuts" section — put them in code comments (`shortcut: <limit>, <when to upgrade>`) where they belong, so the next reader of that file sees them in context.
 
-### Scope touched
-- [ ] Pages / routes
-- [ ] Components
-- [ ] Content (MDX / JSON)
-- [ ] SEO / metadata
-- [ ] Legal / compliance text
-- [ ] CI / build config
-- [ ] Dependencies
-
-### Checklist
-- [ ] Rebased onto latest `develop`
-- [ ] Lint + typecheck pass locally
-- [ ] Build succeeds locally
-- [ ] Accessible (keyboard + screen-reader smoke tested if UI-touching)
-- [ ] No console errors on affected pages
-- [ ] No new environment variables added without updating `.env.example`
-- [ ] No PHI, secrets, or real client data in diff
-- [ ] Updated relevant docs under `WebSiteDoc/` if behavior changed
-
-### Preview
-<Vercel preview URL — auto-populated by the Vercel GitHub app.>
-```
+A Vercel preview URL appears automatically via the GitHub integration; no manual field needed.
 
 ## 7. Hard rules (never break)
 
