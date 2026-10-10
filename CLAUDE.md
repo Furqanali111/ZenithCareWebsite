@@ -103,3 +103,91 @@ Full details: `WebSiteDoc/11-git-workflow.md`. Core rules every session must fol
 - No force-push on shared branches. No direct push to `develop` or any `release/*` under any circumstance, including admin.
 - No merge of your own PR without at least one approval.
 - Hotfixes must be back-ported to `develop` via a second PR so the next release doesn't regress.
+- **Commit messages: one-line subject only** — Conventional Commits (`feat(scope): …`). No prose body. Everything explanatory goes in the PR body. Attribution lines (`Co-Authored-By:`) still appended per harness rule.
+- **Before handing a code PR back**: run the `ponytail:ponytail-review` skill on the diff and apply its findings. This is mandatory, not optional.
+
+---
+ 
+## Mandatory plugin usage — ALWAYS enforce these rules
+ 
+These plugins are installed in this workspace. Claude **must** invoke the relevant skill before acting, every time. No exceptions.
+ 
+### Ponytail (always active)
+ 
+`ponytail:ponytail` is active for every task in this repo. Rules:
+ 
+- Invoke `ponytail:ponytail-review` before committing or finishing any non-trivial change.
+- Invoke `ponytail:ponytail-audit` when asked to assess tech debt or scope creep.
+- Invoke `ponytail:ponytail-gain` when evaluating whether a feature is worth adding.
+- The shortest working diff wins. Delete before you add. No abstraction nobody asked for.
+### Graphify / data visualization (dataviz skill)
+ 
+Any chart, graph, metric, stat tile, or data visualization — including ROI calculators, CCM revenue projections, or dashboard mockups — **must** invoke the `dataviz` skill before writing a single line of chart code or choosing colors. This applies to:
+ 
+- HTML/React artifacts with charts
+- Inline SVG charts
+- Any matplotlib / plotly / Recharts / D3 usage
+- Stat tiles or KPI rows on any page
+Output: read `references/palette.md` if present; otherwise derive the palette from the brand (Zenith teal/navy) before rendering.
+ 
+### Superpowers (always check before acting)
+ 
+`superpowers:using-superpowers` governs all task entry. Before any response on a non-trivial task:
+ 
+- New feature / page → invoke `superpowers:brainstorming` first.
+- Bug / broken build → invoke `superpowers:systematic-debugging` first.
+- Multi-file change → invoke `superpowers:writing-plans`, then `superpowers:executing-plans`.
+- PR or branch finish → invoke `superpowers:finishing-a-development-branch`.
+- Code review requested → invoke `superpowers:requesting-code-review` or `superpowers:receiving-code-review`.
+### SEO (searchfit-seo)
+ 
+Every page, blog post, or content addition must pass through:
+ 
+- `searchfit-seo:on-page-seo` — before shipping any new page.
+- `searchfit-seo:schema-markup` — for all service/FAQ/LocalBusiness schema on public pages.
+- `searchfit-seo:seo-audit` — when asked to audit the site or a section.
+- `searchfit-seo:keyword-clustering` — when planning blog content or new landing pages.
+- `searchfit-seo:ai-visibility` — ensure pages are optimized for AI search engines (Perplexity, ChatGPT, etc.) as well as Google.
+### Frontend design (taste-skill + impeccable)
+ 
+Any UI work — new component, page layout, or visual redesign — must invoke:
+ 
+- `taste-skill:taste-skill` (design taste frontend) before writing component markup.
+- `taste-skill:soft-skill` for high-end visual polish (hero sections, testimonial blocks, CTA areas).
+- `impeccable:impeccable` when producing a finished, pixel-ready UI section for review or handoff.
+- `design:accessibility-review` before shipping any interactive or form-heavy page (WCAG 2.1 AA is a hard requirement for this healthcare site).
+### Engineering quality
+ 
+- `engineering:code-review` — invoke before merging any PR or finishing a feature branch.
+- `engineering:deploy-checklist` — invoke before every Vercel deployment.
+- `engineering:testing-strategy` — invoke when adding new API routes or form logic.
+- `engineering:tech-debt` — invoke when asked about refactoring or dependency upgrades.
+### Memory / context (claude-mem)
+ 
+- `claude-mem:learn-codebase` — invoke at the start of a new session if codebase context is stale.
+- `claude-mem:make-plan` — invoke before multi-session work to persist the plan.
+- `claude-mem:handoff` — invoke when wrapping up a session so the next one has full context.
+- `claude-mem:mem-search` — search memory before asking the user for context they may have already provided.
+### Website quality
+ 
+- `website-quality-checker:website-quality-checker` — invoke before any public launch or major content push.
+---
+ 
+## Quick-reference: which plugin for which task
+ 
+| Task | Invoke first |
+|---|---|
+| Any code change | `ponytail:ponytail` (always on) |
+| New component / page | `superpowers:brainstorming` → `taste-skill:taste-skill` |
+| Chart / metric / ROI calc | `dataviz` |
+| New blog post | `searchfit-seo:on-page-seo` + `searchfit-seo:keyword-clustering` |
+| Schema markup | `searchfit-seo:schema-markup` |
+| Accessibility check | `design:accessibility-review` |
+| Bug fix | `superpowers:systematic-debugging` |
+| Pre-deploy | `engineering:deploy-checklist` + `website-quality-checker:website-quality-checker` |
+| Code review | `engineering:code-review` + `ponytail:ponytail-review` |
+| Session start (new context) | `claude-mem:learn-codebase` + `claude-mem:mem-search` |
+| Session end | `claude-mem:handoff` |
+| Tech debt / refactor | `ponytail:ponytail-audit` + `engineering:tech-debt` |
+| Pixel-ready UI handoff | `impeccable:impeccable` |
+ 

@@ -42,7 +42,7 @@ The buyer is a 45–65-year-old practice manager or physician who evaluates on a
 | Text muted | `--ink-600` | `#4B5563` | Secondary text |
 | Border | `--border-200` | `#E5E7EB` | Dividers, card borders |
 
-**Dark mode**: deferred unless shadcn/ui ships it free. If enabled, invert surface + ink only, keep brand colors.
+**Dark mode**: shipped in v1 via `next-themes` with `attribute="class"`, defaults to the viewer's OS preference, user-toggleable from the top nav. The `.dark` block in `app/globals.css` keeps brand accents (navy becomes surface, gold stays as the accent); surface + ink invert.
 
 **Contrast rule**: body text on surface = AAA. All CTAs AA+.
 
