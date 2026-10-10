@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { nav, site } from "@/lib/site";
 
 export function Nav() {
@@ -43,22 +44,26 @@ export function Nav() {
               {item.label}
             </Link>
           ))}
-          <Button asChild size="sm" className="ml-2">
+          <ThemeToggle className="ml-1" />
+          <Button asChild size="sm" className="ml-1">
             <Link href="/contact">Book a call</Link>
           </Button>
         </nav>
 
         {/* Mobile trigger */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Open navigation menu"
-            >
-              <Menu className="size-5" />
-            </Button>
-          </SheetTrigger>
+          <div className="flex items-center gap-1 md:hidden">
+            <ThemeToggle />
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Open navigation menu"
+              >
+                <Menu className="size-5" />
+              </Button>
+            </SheetTrigger>
+          </div>
           <SheetContent side="right" className="w-80">
             <SheetHeader>
               <SheetTitle className="font-serif text-base">

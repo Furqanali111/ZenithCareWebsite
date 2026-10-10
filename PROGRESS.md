@@ -34,6 +34,10 @@ Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. 
 ### 2026-10-11 — PR #2 (awaiting push) — `feature/global-layout-and-stubs`
 Global layout, nav, footer, floating WhatsApp button, 404, and stubs for all 13 marketing + legal routes. Brand color tokens wired into Tailwind 4 `@theme`. Fonts via `next/font` (Inter + Fraunces + JetBrains Mono). `pnpm build` passes with 19 static routes. Env file (`.env.local` gitignored, `.env.example` committed) ready for WhatsApp number + contact email + Calendly URL.
 
+Ponytail review applied before handoff: collapsed the single-item Services dropdown to a direct link; replaced the fake-button dropdown trigger with a focusable `<span>` (keyboard-reachable, no misleading affordance); hid WhatsApp / Calendly CTAs on `/contact` when their env vars are unset; deleted the unused `--font-heading` token.
+
+Dark mode shipped in this PR (reversing an earlier decision to defer): `next-themes` with `attribute="class"`, defaults to OS preference, Sun/Moon toggle in the top nav. Icon swap is pure CSS via Tailwind `dark:` variant — no React state, no hydration dance. Brand palette has a matching `.dark` token block in `app/globals.css`.
+
 ---
 
 ## In progress
@@ -48,18 +52,18 @@ Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementatio
 
 1. **`feature/seo-plumbing`** — `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt`, JSON-LD helpers in `lib/seo.ts` (Organization, MedicalBusiness, Service, Article, FAQPage, Person), `app/opengraph-image.tsx`, security headers + CSP in `next.config.ts`, `/.well-known/security.txt`.
 2. **`feature/content-infra`** — MDX pipeline (`@next/mdx` wired in `next.config.ts`), `content/faq.json` loader + typed read helper, Plausible/Umami script in `layout.tsx`.
-3. **`feature/home-page`** — real homepage (hero, 3-step how-it-works, revenue math, founder credibility strip, final CTA). Invoke `taste-skill` + `impeccable` per [`12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md).
+3. **`feature/roi-calculator`** — client-side calculator (TDD per Ponytail — ship with assert-based self-check). **Build this BEFORE the real homepage** so the hero's "Estimate your ROI" CTA doesn't send users to a stub (ponytail-review finding on PR #2).
+4. **`feature/home-page`** — real homepage (hero, 3-step how-it-works, revenue math, founder credibility strip, final CTA). Invoke `taste-skill` + `impeccable` per [`12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md).
 4. **`feature/services-page`** — long-form `/services/chronic-care-management` with CPT table.
 5. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
 6. **`feature/about-page`** — founder bio with PharmD credentials + Person JSON-LD.
 7. **`feature/hipaa-compliance-page`** — trust page content.
-8. **`feature/roi-calculator`** — client-side calculator (TDD per Ponytail — ship with assert-based self-check).
-9. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
-10. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
-11. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-12. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
-13. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-14. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+8. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
+9. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
+10. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
+11. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
+12. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+13. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 

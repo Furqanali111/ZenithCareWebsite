@@ -100,11 +100,7 @@
   --sidebar-ring: #13315c;
 }
 
-/*
-  Dark mode is deferred for v1 (see WebSiteDoc/04-design-brief.md §3).
-  The .dark block below is kept so shadcn primitives don't break if any
-  consumer forces dark; we are not shipping a theme toggle.
-*/
+/* Dark mode — applied when `html` has class `dark` (set by next-themes). */
 .dark {
   --background: #0b2545;
   --foreground: #f7f8fa;

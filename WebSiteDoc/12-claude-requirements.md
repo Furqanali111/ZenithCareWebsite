@@ -108,7 +108,6 @@ Invoke the right skill BEFORE acting. If a skill applies to the current task, us
 - `/get-started` form (dropped in favor of `/contact`)
 - LLM chatbot (deferred to v1.1 — v1 ships without a chatbot or with a placeholder button)
 - Backend API routes, databases, auth, user accounts
-- Dark mode (unless shadcn/ui ships it free)
 - Newsletter, site search, comments, i18n
 - Service pages for billing / credentialing / coding / AR (future expansion)
 
