@@ -105,6 +105,7 @@ Full details: `WebSiteDoc/11-git-workflow.md`. Core rules every session must fol
 - Hotfixes must be back-ported to `develop` via a second PR so the next release doesn't regress.
 - **Commit messages: one-line subject only** — Conventional Commits (`feat(scope): …`). No prose body. Everything explanatory goes in the PR body. Attribution lines (`Co-Authored-By:`) still appended per harness rule.
 - **Before handing a code PR back**: run the `ponytail:ponytail-review` skill on the diff and apply its findings. This is mandatory, not optional.
+- **Dangling references are intentional.** If a review (ponytail or otherwise) suggests *removing* a reference to a missing asset / content key / env var — e.g. "drop `organizationLd.logo` because `/logo.png` doesn't exist yet", "stop loading `faq.json` because it's empty" — do **not** remove it. Add the missing target to [`WebSiteDoc/13-deferred-items.md`](WebSiteDoc/13-deferred-items.md) instead. Removing the reference just costs us the day the asset lands.
 
 ---
  

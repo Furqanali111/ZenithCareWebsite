@@ -22,6 +22,7 @@ Before taking any action in this repo, read in this order:
    - Phase / sequencing → [`06-implementation-plan.md`](06-implementation-plan.md)
    - Launch sign-off → [`10-launch-checklist.md`](10-launch-checklist.md)
 3. [`11-git-workflow.md`](11-git-workflow.md) — branch and PR rules, non-negotiable
+4. [`13-deferred-items.md`](13-deferred-items.md) — catalog of placeholders deliberately left dangling (missing assets, env vars, content). **Never remove a dangling reference** — add the target here instead. See §3.9 below.
 
 Do not reason from memory of a previous session. The docs are the source of truth.
 
@@ -112,6 +113,20 @@ Invoke the right skill BEFORE acting. If a skill applies to the current task, us
 - Service pages for billing / credentialing / coding / AR (future expansion)
 
 Full exclusion list: [`01-product-requirements.md`](01-product-requirements.md) §7, [`03-app-flow.md`](03-app-flow.md) §9, [`05-data-schema.md`](05-data-schema.md) §6.
+
+### 3.9 Dangling references are intentional — never delete them
+
+Many references in code point at targets that don't exist yet: `/logo.png`, an empty `content/faq.json`, a `NEXT_PUBLIC_WHATSAPP_NUMBER` env that hides a button when unset, a stub page waiting for real copy. These are **deliberate**. The ponytail stance here is that:
+
+> keeping a reference in place means the day the asset lands, nothing in the codebase needs to change — just drop the file / add the content / set the env var and ship.
+
+Rules:
+
+- When any review (ponytail, code-review, searchfit-seo, impeccable, taste-skill, …) proposes removing a reference because the target is missing, **do not remove it**. Instead, add the missing target to [`13-deferred-items.md`](13-deferred-items.md) under the right section.
+- The one exception is a reference that would **actively break the user experience** today — a 404 the user clicks into, a broken form submit, a crash. Those get hidden or guarded (see `WhatsAppButton` / `/contact` gating patterns), not deleted.
+- "Guarding" means the component checks for the env/asset and renders nothing (or a safe fallback) when it's missing. The reference stays in code; only the UI output is conditional.
+
+If you catch yourself about to delete a reference because "it doesn't exist yet", stop and ask: can I guard it instead?
 
 ---
 

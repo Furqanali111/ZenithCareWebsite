@@ -31,7 +31,12 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #3 (awaiting push) — `feature/seo-plumbing`
+### 2026-10-11 — PR #4 (awaiting push) — `feature/content-infra`
+Wired MDX via `@next/mdx` + `mdx-components.tsx` + `pageExtensions: ['ts','tsx','md','mdx']` in `next.config.ts`. Added typed FAQ loader at `lib/faq.ts` with build-time duplicate-id and empty-field validation that throws loudly in both dev and prod; current `content/faq.json` is still `{ items: [] }` — real Q&As ship with the FAQ page PR. Added optional Plausible script to the root layout with defence-in-depth gating (`NODE_ENV === "production"` AND `VERCEL_ENV` is undefined-or-"production" AND domain env is set); `plausible.io` allowlisted in CSP. New devDep: `@types/mdx`.
+
+Also introduced `WebSiteDoc/13-deferred-items.md` as the single catalog of dangling references (missing assets, empty content, unset env vars, setup to-dos, time-based reminders, future-PR traps) — plus pinned the "never remove a dangling reference, add it to that doc instead" rule in `CLAUDE.md` and `12-claude-requirements.md` §3.9. The `PROGRESS.md` "Open questions" section now links to that doc instead of duplicating the list.
+
+### 2026-10-11 — PR #3 (merged) — `feature/seo-plumbing`
 Added `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt`, `.well-known/security.txt`, dynamic OG image at `app/opengraph-image.tsx`, security headers (HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, CSP) in `next.config.ts`. JSON-LD factory helpers in `lib/seo.tsx` for Organization, Service, Person, Article, FAQPage, BreadcrumbList — with a dev-only self-check per Ponytail. Wired Organization LD site-wide via root layout; Service + BreadcrumbList on the CCM services page. Also pinned the standard PR body shape as `.github/PULL_REQUEST_TEMPLATE.md` and rewrote `WebSiteDoc/11-git-workflow.md` §6 accordingly.
 
 ### 2026-10-11 — PR #2 (merged) — `feature/global-layout-and-stubs`
@@ -53,8 +58,7 @@ Nothing — PR #2 is ready for you to commit, push, review, and merge.
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/content-infra`** — MDX pipeline (`@next/mdx` wired in `next.config.ts`), `content/faq.json` loader + typed read helper, Plausible/Umami script in `layout.tsx`.
-2. **`feature/roi-calculator`** — client-side calculator (TDD per Ponytail — ship with assert-based self-check). **Build this BEFORE the real homepage** so the hero's "Estimate your ROI" CTA doesn't send users to a stub (ponytail-review finding on PR #2).
+1. **`feature/roi-calculator`** — client-side calculator (TDD per Ponytail — ship with assert-based self-check). **Build this BEFORE the real homepage** so the hero's "Estimate your ROI" CTA doesn't send users to a stub (ponytail-review finding on PR #2).
 4. **`feature/home-page`** — real homepage (hero, 3-step how-it-works, revenue math, founder credibility strip, final CTA). Invoke `taste-skill` + `impeccable` per [`12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md).
 4. **`feature/services-page`** — long-form `/services/chronic-care-management` with CPT table.
 5. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
@@ -86,13 +90,9 @@ Short record of non-obvious decisions so we don't re-litigate them.
 
 ## Open questions / blockers
 
-- [ ] GitHub branch-protection rules not yet applied on `develop` and `release/*` — set in GitHub Settings → Branches per [`11-git-workflow.md`](WebSiteDoc/11-git-workflow.md) §4.
-- [ ] No attorney retained yet — needed before Phase 4 so legal pages can go live.
-- [ ] Hero photo of Ali in clinical attire — needed for Phase 2 real homepage; placeholder is fine until then.
-- [ ] Calendly account not yet confirmed set up with the "15-min CCM discovery" event type.
-- [ ] WhatsApp Business number not yet confirmed. The floating WhatsApp button hides itself if `NEXT_PUBLIC_WHATSAPP_NUMBER` is blank, so unset is safe.
-- [ ] **Rotate `web/public/.well-known/security.txt` `Expires:` field before 2027-10-11** (RFC 9116 — well-behaved security researchers will treat the domain as having no security contact once the date passes). Add a yearly calendar reminder.
-- [ ] Add `web/public/logo.png` — Organization JSON-LD references it. Google Rich Results Test will warn until the file exists.
+The full catalog of placeholders, missing assets, env vars that need production values, external accounts to set up, time-based reminders, and known traps lives in [`WebSiteDoc/13-deferred-items.md`](WebSiteDoc/13-deferred-items.md). Check that first before asking "is X ready to fill in?"
+
+Session-level blockers only — things that actively prevent the next PR from being merged — go here. Currently: none.
 
 ---
 
