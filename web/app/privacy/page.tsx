@@ -218,7 +218,7 @@ export default function PrivacyPage() {
             To exercise any of these rights, email us at{" "}
             <Link
               href={`mailto:${PRIVACY_EMAIL}`}
-              className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+              className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
             >
               {PRIVACY_EMAIL}
             </Link>
@@ -255,7 +255,7 @@ export default function PrivacyPage() {
             Email:{" "}
             <Link
               href={`mailto:${PRIVACY_EMAIL}`}
-              className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+              className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
             >
               {PRIVACY_EMAIL}
             </Link>

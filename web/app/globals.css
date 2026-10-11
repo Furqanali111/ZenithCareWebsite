@@ -218,4 +218,61 @@
       radial-gradient(circle at 1px 1px, color-mix(in oklch, var(--color-brand-700) 15%, transparent) 1px, transparent 0);
     background-size: 24px 24px;
   }
+  .dark .bg-dotgrid {
+    background-image:
+      radial-gradient(circle at 1px 1px, color-mix(in oklch, var(--color-accent-600) 25%, transparent) 1px, transparent 0);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Dark-mode-aware semantic text/surface utilities.                           */
+/*                                                                            */
+/* These replaced ~170 hardcoded `text-[color:var(--color-brand-900)]`-style  */
+/* burns that were invisible in dark mode (navy on navy). Declared via        */
+/* @utility (NOT @layer components) so Tailwind v4 generates `hover:`,        */
+/* `focus:`, `dark:` and other variants for them — a `hover:text-brand-ink`   */
+/* on a link now actually flips on hover.                                     */
+/*                                                                            */
+/* Color flipping is handled by CSS variables that re-declare under .dark,    */
+/* so hover and base states both pick up the correct dark color without       */
+/* parallel `.dark .hover\:...` override rules.                               */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --text-brand-ink: #0b2545;       /* strong headings — matches --color-brand-900 */
+  --text-ink-strong: #111827;      /* strong body text */
+  --text-body-ink: #4b5563;        /* body copy */
+  --text-brand-accent: #13315c;    /* links / brand-tint text */
+  --surface-tint: #f7f8fa;         /* soft section backgrounds */
+}
+.dark {
+  --text-brand-ink: #f1f5fb;       /* warm near-white tuned for navy backdrops */
+  --text-ink-strong: #f1f5fb;
+  --text-body-ink: #c7d4e4;        /* warm blue-grey; passes WCAG AA on brand-900 */
+  --text-brand-accent: #8da9c4;    /* accent-600 */
+  --surface-tint: #0e2a52;         /* one notch lighter than brand-900 page bg */
+}
+
+@utility text-brand-ink {
+  color: var(--text-brand-ink);
+}
+@utility text-ink-strong {
+  color: var(--text-ink-strong);
+}
+@utility text-body-ink {
+  color: var(--text-body-ink);
+}
+@utility text-brand-accent {
+  color: var(--text-brand-accent);
+}
+@utility bg-surface-tint {
+  background-color: var(--surface-tint);
+}
+
+/* Dark-mode border override for the Tailwind-generated `.border-brand-100`
+   utility (auto-derived from --color-brand-100 in @theme inline). Specificity
+   0,2,0 beats the generated 0,1,0, so this cleanly flips without a duplicate
+   base-declaration. */
+.dark .border-brand-100 {
+  border-color: rgba(255, 255, 255, 0.12);
 }

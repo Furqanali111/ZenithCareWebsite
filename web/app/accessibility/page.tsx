@@ -71,7 +71,7 @@ export default function AccessibilityPage() {
             Please email{" "}
             <Link
               href={`mailto:${ACCESSIBILITY_EMAIL}`}
-              className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+              className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
             >
               {ACCESSIBILITY_EMAIL}
             </Link>{" "}
@@ -108,7 +108,7 @@ export default function AccessibilityPage() {
             Email:{" "}
             <Link
               href={`mailto:${ACCESSIBILITY_EMAIL}`}
-              className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+              className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
             >
               {ACCESSIBILITY_EMAIL}
             </Link>

@@ -37,7 +37,7 @@ export default function RoiCalculatorPage() {
           <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight md:text-5xl">
             Estimate your CCM reimbursement
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+          <p className="mt-5 text-base leading-relaxed text-body-ink">
             Two inputs. A representative monthly and annual figure. No data
             leaves your browser — the calculator is entirely client-side.
           </p>

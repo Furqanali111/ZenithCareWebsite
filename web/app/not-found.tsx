@@ -18,7 +18,7 @@ export default function NotFound() {
       <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight md:text-5xl">
         We couldn&rsquo;t find that page.
       </h1>
-      <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+      <p className="mt-5 text-base leading-relaxed text-body-ink">
         The link may be out of date, or the page has moved. Here are a few
         places that will almost certainly help.
       </p>

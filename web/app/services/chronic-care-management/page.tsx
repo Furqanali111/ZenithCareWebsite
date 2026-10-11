@@ -42,10 +42,10 @@ export default function ServicesCCMPage() {
         <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
           <div className="max-w-3xl">
             <HeroEyebrow>Services</HeroEyebrow>
-            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
               Chronic Care Management, delivered end to end by a clinically-led team.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
               We find eligible patients, obtain documented consent, deliver the
               20+ minutes of monthly non-face-to-face care coordination that
               CCM requires, and keep the care plan up to date inside your EHR.
@@ -72,24 +72,24 @@ export default function ServicesCCMPage() {
       <TrustStrip tone="surface" />
 
       {/* ─── What CCM is ──────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               What Chronic Care Management is, in one page.
             </h2>
           </header>
 
           <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
-            <div className="space-y-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+            <div className="space-y-5 text-base leading-relaxed text-body-ink">
               <p>
-                <strong className="font-medium text-[color:var(--color-ink-900)]">
+                <strong className="font-medium text-ink-strong">
                   Chronic Care Management (CCM)
                 </strong>{" "}
                 is a{" "}
                 <a
                   href="https://www.cms.gov/medicare/medicare-fee-for-service-payment/physicianfeesched/downloads/ccm.pdf"
-                  className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+                  className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -112,10 +112,10 @@ export default function ServicesCCMPage() {
             </div>
 
             <div>
-              <h3 className="font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">
+              <h3 className="font-serif text-lg font-semibold text-brand-ink">
                 A patient qualifies when
               </h3>
-              <ul className="mt-4 space-y-3 text-base text-[color:var(--color-ink-600)]">
+              <ul className="mt-4 space-y-3 text-base text-body-ink">
                 <BulletedListItem>
                   They have two or more chronic conditions expected to last
                   12+ months (hypertension, diabetes, COPD, CKD, depression,
@@ -145,17 +145,17 @@ export default function ServicesCCMPage() {
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
             Billing reference
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             The six CPT codes that make up a CCM program.
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+          <p className="mt-5 text-base leading-relaxed text-body-ink">
             Rates below are 2026 Medicare national averages, rounded for
             readability. Actual amounts vary by geography (Medicare locality
             adjustment) and payer contract. These are the figures that
             drive the revenue math on the{" "}
             <Link
               href="/roi-calculator"
-              className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+              className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
             >
               ROI calculator
             </Link>
@@ -169,7 +169,7 @@ export default function ServicesCCMPage() {
               Medicare CPT codes for Chronic Care Management with
               descriptions and 2026 rate estimates.
             </caption>
-            <thead className="bg-[color:var(--color-surface-50)] text-xs uppercase tracking-wide text-muted-foreground">
+            <thead className="bg-surface-tint text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th scope="col" className="px-4 py-3 font-semibold md:px-6">
                   CPT
@@ -188,10 +188,10 @@ export default function ServicesCCMPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/70 text-[color:var(--color-ink-900)]">
+            <tbody className="divide-y divide-border/70 text-ink-strong">
               {CPT_ROWS.map((row) => (
                 <tr key={row.code}>
-                  <td className="px-4 py-4 font-mono text-sm font-medium text-[color:var(--color-brand-700)] md:px-6">
+                  <td className="px-4 py-4 font-mono text-sm font-medium text-brand-accent md:px-6">
                     {row.code}
                   </td>
                   <td className="px-4 py-4 md:px-6">
@@ -216,7 +216,7 @@ export default function ServicesCCMPage() {
           Sources:{" "}
           <a
             href="https://www.cms.gov/medicare/medicare-fee-for-service-payment/physicianfeesched"
-            className="underline underline-offset-2 hover:text-[color:var(--color-ink-900)]"
+            className="underline underline-offset-2 hover:text-ink-strong"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -227,10 +227,10 @@ export default function ServicesCCMPage() {
       </section>
 
       {/* ─── Division of labor ───────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
           <header className="max-w-2xl">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               What Zenith handles. What your practice keeps.
             </h2>
           </header>
@@ -264,13 +264,13 @@ export default function ServicesCCMPage() {
 
       {/* ─── HIPAA callout ───────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <div className="rounded-2xl border border-border/70 bg-background p-8 md:p-12">
+        <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
           <div className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
             <div>
-              <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 HIPAA Business Associate from day one.
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-body-ink">
                 Zenith signs a Business Associate Agreement with every client
                 practice before any patient information changes hands.
                 Clinical staff work inside your EHR, no PHI is exported
@@ -289,12 +289,12 @@ export default function ServicesCCMPage() {
       </section>
 
       {/* ─── Final CTA band ──────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-28 text-center">
-          <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+          <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Fifteen minutes gets you a real number.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
             On the call we confirm your eligible patient count, walk through
             the per-code revenue for your panel, and tell you honestly
             whether Zenith is a fit.
@@ -369,11 +369,11 @@ const CPT_ROWS: CptRow[] = [
 
 function LaborColumn({ label, items }: { label: string; items: string[] }) {
   return (
-    <div className="rounded-xl border border-border bg-background p-6 md:p-8">
-      <h3 className="font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+      <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {label}
       </h3>
-      <ul className="mt-5 space-y-3 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+      <ul className="mt-5 space-y-3 text-base leading-relaxed text-body-ink">
         {items.map((item) => (
           <BulletedListItem key={item}>{item}</BulletedListItem>
         ))}

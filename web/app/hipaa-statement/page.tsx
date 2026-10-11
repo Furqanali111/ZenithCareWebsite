@@ -119,7 +119,7 @@ export default function HipaaStatementPage() {
             For HIPAA-related inquiries, please contact:{" "}
             <Link
               href={`mailto:${COMPLIANCE_EMAIL}`}
-              className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+              className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
             >
               {COMPLIANCE_EMAIL}
             </Link>

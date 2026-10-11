@@ -64,7 +64,7 @@ export function RoiCalculator() {
         </div>
 
         <div
-          className="rounded-lg bg-[color:var(--color-surface-50)] p-6 md:p-8"
+          className="rounded-lg bg-surface-tint p-6 md:p-8"
           role="status"
           aria-live="polite"
         >
@@ -140,7 +140,7 @@ function StatTile({
       </p>
       <p className="mt-2 flex items-baseline gap-2">
         <span
-          className={`font-serif font-semibold tracking-tight text-[color:var(--color-brand-900)] ${valueSize}`}
+          className={`font-serif font-semibold tracking-tight text-brand-ink ${valueSize}`}
         >
           {value}
         </span>

@@ -30,13 +30,13 @@ export default function ContactPage() {
       {/* ─── Hero + three-door CTAs ──────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 pt-24 pb-14 md:pt-32 md:pb-16">
         <div className="max-w-3xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
             Contact
           </span>
-          <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+          <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             Pick whichever is easiest.
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
             WhatsApp, email, a fifteen-minute call on Calendly, or the form
             below — all land with Ali directly. Please don&rsquo;t include
             patient-identifying information in any channel; patient data
@@ -68,16 +68,16 @@ export default function ContactPage() {
       </section>
 
       {/* ─── Form ────────────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">
           <header>
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Or send us a note
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Tell us about your panel.
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+            <p className="mt-4 text-base leading-relaxed text-body-ink">
               Six quick fields. We reply within one business day.
             </p>
           </header>
@@ -94,10 +94,10 @@ export default function ContactPage() {
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Or book directly
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Fifteen minutes on the calendar.
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+            <p className="mt-4 text-base leading-relaxed text-body-ink">
               Pick any slot that works. We confirm by email right after you
               book — no back-and-forth.
             </p>

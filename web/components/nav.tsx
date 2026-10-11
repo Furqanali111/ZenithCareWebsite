@@ -26,7 +26,7 @@ export function Nav() {
           aria-label={`${site.name} — Home`}
         >
           <WordmarkGlyph />
-          <span className="hidden font-serif text-[17px] font-semibold tracking-tight text-[color:var(--color-brand-900)] sm:inline">
+          <span className="hidden font-serif text-[17px] font-semibold tracking-tight text-brand-ink sm:inline">
             {site.name}
           </span>
         </Link>
@@ -42,7 +42,7 @@ export function Nav() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-[color:var(--color-brand-700)]"
+              className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
             >
               {item.label}
             </Link>
@@ -147,7 +147,7 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
     return (
       <Link
         href={only.href}
-        className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-[color:var(--color-brand-700)]"
+        className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent"
       >
         {label}
       </Link>
@@ -157,24 +157,43 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
     <div className="group relative">
       <span
         tabIndex={0}
-        className="cursor-default text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-[color:var(--color-brand-700)]"
+        className="inline-flex cursor-default items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
       >
         {label}
+        <svg
+          aria-hidden="true"
+          className="size-3.5 transition-transform group-hover:rotate-180"
+          viewBox="0 0 12 12"
+          fill="none"
+        >
+          <path
+            d="M3 4.5L6 7.5L9 4.5"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </span>
+      {/* Dropdown panel. `pt-3` on the OUTER wrapper (not margin on the card)
+          keeps the cursor-hit area continuous between trigger and card —
+          `mt-3` previously left a 12px dead-zone that closed the menu. */}
       <div
         role="menu"
-        className="invisible absolute left-1/2 top-full z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-border bg-background p-2 opacity-0 shadow-lg shadow-[color:var(--color-brand-900)]/10 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
       >
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            role="menuitem"
-            className="block rounded-lg px-3 py-2 text-sm text-[color:var(--color-ink-900)] hover:bg-[color:var(--color-brand-50)] hover:text-[color:var(--color-brand-700)]"
-          >
-            {item.label}
-          </Link>
-        ))}
+        <div className="rounded-xl border border-border bg-card p-2 shadow-lg shadow-[color:var(--color-brand-900)]/15 dark:bg-[color:var(--color-brand-800)]">
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              role="menuitem"
+              className="block rounded-lg px-3 py-2 text-sm text-ink-strong hover:bg-[color:var(--color-brand-50)] hover:text-brand-accent dark:hover:bg-white/10"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

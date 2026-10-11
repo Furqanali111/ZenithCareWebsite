@@ -63,12 +63,12 @@ export default async function PostPage({
       <article className="mx-auto max-w-3xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
         <header>
           <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-            <Link href="/resources" className="hover:text-[color:var(--color-brand-700)]">
+            <Link href="/resources" className="hover:text-brand-accent">
               ← All articles
             </Link>
           </nav>
           <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            <span className="text-[color:var(--color-brand-700)]">
+            <span className="text-brand-accent">
               {post.category}
             </span>
             <span aria-hidden="true">·</span>
@@ -78,27 +78,27 @@ export default async function PostPage({
             <span aria-hidden="true">·</span>
             <span>{post.readingMinutes} min read</span>
           </div>
-          <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+          <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             {post.title}
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+          <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
             {post.description}
           </p>
         </header>
 
         <div
           className="prose prose-neutral mt-12 max-w-none
-            [&_h2]:font-serif [&_h2]:text-[color:var(--color-brand-900)] [&_h2]:tracking-tight
-            [&_h3]:font-serif [&_h3]:text-[color:var(--color-brand-900)] [&_h3]:tracking-tight
-            [&_strong]:text-[color:var(--color-ink-900)]
-            [&_a]:text-[color:var(--color-brand-700)] hover:[&_a]:text-[color:var(--color-brand-900)]"
+            [&_h2]:font-serif [&_h2]:text-brand-ink [&_h2]:tracking-tight
+            [&_h3]:font-serif [&_h3]:text-brand-ink [&_h3]:tracking-tight
+            [&_strong]:text-ink-strong
+            [&_a]:text-brand-accent hover:[&_a]:text-brand-ink"
         >
           <Component />
         </div>
       </article>
 
       {/* ─── Author bio ─────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
             <FounderMonogram initials={founder.initials} name={founder.name} />
@@ -106,15 +106,15 @@ export default async function PostPage({
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 Written by
               </p>
-              <h2 className="mt-2 font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+              <h2 className="mt-2 font-serif text-xl font-semibold text-brand-ink">
                 {founder.name}
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-ink-600)]">
+              <p className="mt-2 text-sm leading-relaxed text-body-ink">
                 Clinical pharmacist with oncology / BMT background. Founder
                 of Zenith Care Solutions.{" "}
                 <Link
                   href="/about"
-                  className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]"
+                  className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
                 >
                   More about Ali →
                 </Link>
@@ -129,10 +129,10 @@ export default async function PostPage({
 
       {/* ─── Final CTA ─────────────────────────────────────────────── */}
       <section className="mx-auto max-w-3xl px-6 py-20 md:py-24 text-center">
-        <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+        <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
           Want to walk through this for your panel?
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
           Fifteen minutes on the calendar. We&rsquo;ll confirm your eligible
           patient count, run the per-code math, and tell you honestly
           whether Zenith is a fit.
@@ -160,17 +160,17 @@ function RelatedArticles({ currentSlug }: { currentSlug: string }) {
 
   return (
     <section className="mx-auto max-w-3xl px-6 py-16 md:py-20">
-      <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)]">
+      <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink">
         Related reading
       </h2>
       <ul className="mt-6 divide-y divide-border">
         {related.map((p) => (
           <li key={p.slug} className="py-5">
             <Link href={`/resources/${p.slug}`} className="group block">
-              <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+              <p className="text-xs uppercase tracking-[0.18em] text-brand-accent">
                 {p.category}
               </p>
-              <p className="mt-2 font-serif text-lg font-semibold text-[color:var(--color-brand-900)] group-hover:text-[color:var(--color-brand-700)]">
+              <p className="mt-2 font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">
                 {p.title}
               </p>
             </Link>

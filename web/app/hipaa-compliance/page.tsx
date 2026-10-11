@@ -27,13 +27,13 @@ export default function HipaaCompliancePage() {
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
         <div className="max-w-3xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
             Trust &amp; compliance
           </span>
-          <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+          <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             HIPAA Business Associate, from day one.
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
             Zenith signs a Business Associate Agreement with every client
             practice before any patient information changes hands. We work
             inside your EHR, use HIPAA-eligible tools, and keep PHI off any
@@ -43,7 +43,7 @@ export default function HipaaCompliancePage() {
       </section>
 
       {/* ─── Zero PHI on this site + BAA posture ─────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
           <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-start md:gap-10">
             <div
@@ -53,13 +53,13 @@ export default function HipaaCompliancePage() {
               <ShieldCheck className="size-6" />
             </div>
             <div>
-              <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 This website collects no protected health information.
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              <p className="mt-5 text-base leading-relaxed text-body-ink">
                 Our contact form, chatbot, and analytics are limited to
                 business-contact information from providers and administrators.
-                We ask every visitor to <strong className="font-medium text-[color:var(--color-ink-900)]">keep patient details out of this site and out of unencrypted email</strong>.
+                We ask every visitor to <strong className="font-medium text-ink-strong">keep patient details out of this site and out of unencrypted email</strong>.
                 If you need to share PHI with us, we&rsquo;ll do it under a
                 signed BAA, inside your EHR or an equivalent HIPAA-covered
                 channel.
@@ -86,10 +86,10 @@ export default function HipaaCompliancePage() {
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
             Safeguards
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Three layers, the HIPAA Security Rule way.
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+          <p className="mt-5 text-base leading-relaxed text-body-ink">
             Our safeguards framework mirrors the HIPAA Security Rule&rsquo;s
             Administrative, Physical, and Technical categories. The
             controls below describe the posture we operate under; the
@@ -130,14 +130,14 @@ export default function HipaaCompliancePage() {
       </section>
 
       {/* ─── Minimum Necessary + breach notification ─────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
           <div className="grid gap-10 md:grid-cols-2 md:gap-12">
             <div>
-              <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 Minimum Necessary, enforced.
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              <p className="mt-5 text-base leading-relaxed text-body-ink">
                 Zenith accesses, uses, and discloses only the PHI needed to
                 perform the clinical work in your Business Associate
                 Agreement. No bulk exports, no &ldquo;just in case&rdquo;
@@ -145,10 +145,10 @@ export default function HipaaCompliancePage() {
               </p>
             </div>
             <div>
-              <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 Breach notification, within statute.
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              <p className="mt-5 text-base leading-relaxed text-body-ink">
                 In the event of a breach of unsecured PHI, we notify your
                 practice without unreasonable delay and within the timeframe
                 required by HIPAA and the governing BAA. Your practice
@@ -162,20 +162,20 @@ export default function HipaaCompliancePage() {
 
       {/* ─── CTA + link to formal statement ──────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <div className="rounded-2xl border border-border/70 bg-background p-8 md:p-12">
+        <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
           <div className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
             <div>
-              <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 Need the audit-ready version?
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
-                Our formal <Link href="/hipaa-statement" className="text-[color:var(--color-brand-700)] underline underline-offset-2 hover:text-[color:var(--color-brand-900)]">HIPAA Statement</Link> covers role, safeguards, BAA
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-body-ink">
+                Our formal <Link href="/hipaa-statement" className="text-brand-accent underline underline-offset-2 hover:text-brand-ink">HIPAA Statement</Link> covers role, safeguards, BAA
                 scope, breach notification language, and contacts in the format
                 your compliance officer expects. Request a sample BAA on the
                 call and we&rsquo;ll send a redlineable version within two
                 business days.
               </p>
-              <ul className="mt-6 space-y-2 text-sm text-[color:var(--color-ink-600)]">
+              <ul className="mt-6 space-y-2 text-sm text-body-ink">
                 <BulletedListItem>Sample BAA based on HHS model provisions</BulletedListItem>
                 <BulletedListItem>Named compliance contact for your account</BulletedListItem>
                 <BulletedListItem>Monthly summary reports formatted for audit</BulletedListItem>
@@ -203,11 +203,11 @@ export default function HipaaCompliancePage() {
 
 function TrustCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-xl border border-border bg-background p-6 md:p-8">
-      <h3 className="font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+      <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {title}
       </h3>
-      <p className="mt-3 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+      <p className="mt-3 text-base leading-relaxed text-body-ink">
         {body}
       </p>
     </div>
@@ -222,11 +222,11 @@ function SafeguardCard({
   items: string[];
 }) {
   return (
-    <div className="rounded-xl border border-border bg-background p-6 md:p-8">
+    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
         {label}
       </p>
-      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-[color:var(--color-ink-600)]">
+      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-body-ink">
         {items.map((it) => (
           <BulletedListItem key={it}>{it}</BulletedListItem>
         ))}

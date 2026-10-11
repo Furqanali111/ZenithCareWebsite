@@ -56,13 +56,13 @@ export default function AboutPage() {
         <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
           <FounderMonogram initials={founder.initials} name={founder.name} size="lg" />
           <div>
-            <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+            <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
               About the founder
             </span>
-            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
               Zenith is run by a trained pharmacist, not a call centre.
             </h1>
-            <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+            <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
               {founder.name} founded Zenith to bring clinical staff — people
               who understand medications, comorbidities, and compliance — to
               Chronic Care Management programs that most practices either
@@ -73,13 +73,13 @@ export default function AboutPage() {
       </section>
 
       {/* ─── Credentials strip ────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Credentials
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Clinical background that matters when the patient is on five
               medications.
             </h2>
@@ -111,11 +111,11 @@ export default function AboutPage() {
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
             Why Zenith exists
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             CCM is a clinical job. We staff it that way.
           </h2>
         </header>
-        <div className="mt-8 space-y-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+        <div className="mt-8 space-y-5 text-base leading-relaxed text-body-ink">
           <p>
             Medicare reimburses physician practices for Chronic Care Management
             because the work matters: patients with two or more chronic
@@ -142,13 +142,13 @@ export default function AboutPage() {
       </section>
 
       {/* ─── What this means for your practice ───────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               What this means for your practice
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Four things you can expect, from day one.
             </h2>
           </header>
@@ -175,10 +175,10 @@ export default function AboutPage() {
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
       <section className="mx-auto max-w-3xl px-6 py-20 md:py-24 text-center">
-        <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+        <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
           Fifteen minutes with Ali.
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
           No sales script. We confirm your eligible patient count, walk
           through the per-code math, and tell you honestly whether Zenith
           is a fit.
@@ -216,14 +216,14 @@ function CredentialCard({
   detail: string;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-background p-6 md:p-8">
+    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
         {label}
       </p>
-      <p className="mt-3 font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+      <p className="mt-3 font-serif text-xl font-semibold text-brand-ink">
         {value}
       </p>
-      <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ink-600)]">
+      <p className="mt-3 text-sm leading-relaxed text-body-ink">
         {detail}
       </p>
     </div>
