@@ -15,7 +15,7 @@ This is the "what has been done / what is being done / what is next" log. It's i
 ## Current status
 
 - **Phase**: 2 (Core pages)
-- **In flight**: `feature/who-we-serve-pages` (awaiting push + PR + merge)
+- **In flight**: `feature/faq-page` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,12 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #11 (awaiting push) — `feature/who-we-serve-pages`
+### 2026-10-11 — PR #12 (awaiting push) — `feature/faq-page`
+Real `/faq` ships. Authored 15 Q&As in `content/faq.json` grouped across the five existing categories (Basics 3, Billing 4, Compliance 3, Working With Us 3, Pricing 2) — each answer self-contained in the 50–200-word range so AI assistants can excerpt without surrounding context (per the AI-SEO plan). Page groups by category with H2 headings, renders each cluster inside a shadcn Accordion (`type="multiple"` — collapsed by default, user can expand multiple at once; the FAQPage JSON-LD ships the full answer corpus regardless of DOM state, which is what Google and AI crawlers actually read). Emits `FAQPage` + `BreadcrumbList` JSON-LD. The `getAllFaqs` / `getFaqsByCategory` / `getFaqCategories` helpers from `lib/faq.ts` light up with real content; build-time validation (duplicate id, empty question/answer) ran against all 15 and passed. No new deps.
+
+Ponytail-review fixes applied before handoff: rewrote the `revenue-share-vs-per-patient` answer to remove a legal characterisation ("legal grey zone under the Anti-Kickback Statute") that put a specific regulatory claim in Zenith's voice — the Terms of Service posture is "not legal advice", so legal-sounding assertions on the FAQ were in conflict; the new copy keeps the differentiation ("predictable per-patient rate vs percentage of collections") without the legal framing. Also softened the onboarding timeline from a hard "2–4 weeks" plan with a per-week breakdown to a "3–6 weeks, scaled to panel size and EHR complexity" range with early / mid / launch phases — removes a trust-breaking SLA for the first-client onboarding where every workflow is new.
+
+### 2026-10-11 — PR #11 (merged) — `feature/who-we-serve-pages`
 Three specialty pages — `/who-we-serve/primary-care`, `/who-we-serve/internal-medicine`, `/who-we-serve/geriatrics` — ship with tailored copy. Still one dynamic route (`[specialty]/page.tsx`) with existing `generateStaticParams`; content comes from a per-specialty `SPECIALTY_CONTENT` map inside the file. Shape per page: hero → "why CCM here" + typical patient mix (two-column) → representative-revenue card (brand-navy, hero-sized number computed from the shared `CPT_RATES["99490"]` × panel × enrollment-rate, so a CMS reprice updates all three) → CTA band. Each page emits `Service` + `BreadcrumbList` JSON-LD via the existing `lib/seo.tsx` factories.
 
 Content calibrated to the three audiences: primary care emphasises the broadest condition mix and large unenrolled-eligible panels; internal medicine leads on polychronic patients and the Complex-CCM code share; geriatrics leads on near-universal Medicare + chronic-condition density and the fact a substantial portion qualifies for Complex CCM. Caught and fixed a `&rsquo;` entity-in-JS-string bug in three places before build — same shape as the services-page bug from PR #7; the entities only interpret inside JSX, not inside array string literals.
@@ -89,7 +94,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/who-we-serve-pages` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
+`feature/faq-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
 
 ---
 
@@ -97,11 +102,10 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
-2. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-3. **`feature/legal-pages`** — Privacy / Terms / Accessibility (HIPAA Statement already shipped in PR #10). Paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md).
-4. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-5. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
+2. **`feature/legal-pages`** — Privacy / Terms / Accessibility (HIPAA Statement already shipped in PR #10). Paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md).
+3. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+4. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 

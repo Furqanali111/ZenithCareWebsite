@@ -1,1 +1,94 @@
-{ "items": [] }
+{
+  "items": [
+    {
+      "id": "what-is-ccm",
+      "category": "Basics",
+      "question": "What is Chronic Care Management (CCM)?",
+      "answer": "Chronic Care Management is a Medicare program that reimburses eligible practitioners for non-face-to-face coordination of care for patients with two or more chronic conditions expected to last at least twelve months. The work includes monthly outreach, medication review, specialist follow-up, and maintaining a comprehensive care plan — all documented inside the practice's EHR."
+    },
+    {
+      "id": "who-qualifies-for-ccm",
+      "category": "Basics",
+      "question": "Which patients qualify for CCM?",
+      "answer": "A patient qualifies when they have two or more chronic conditions expected to last 12+ months (hypertension, Type 2 diabetes, COPD, CHF, CKD, depression, arthritis, dementia, and many others), are enrolled in Medicare Part B, have given documented consent to receive CCM services, and have a comprehensive care plan on file. Most established primary-care, internal-medicine, and geriatric panels have a large share of patients who qualify but aren't yet enrolled."
+    },
+    {
+      "id": "ccm-vs-rpm",
+      "category": "Basics",
+      "question": "How is CCM different from Remote Patient Monitoring (RPM)?",
+      "answer": "CCM covers non-face-to-face care coordination time — calls, documentation, follow-up — for patients with two or more chronic conditions. RPM reimburses for the collection and interpretation of physiologic data from a connected device (blood pressure cuff, glucometer, pulse oximeter). The two can be billed together for the same patient when the clinical work supports both. Zenith focuses on CCM; practices often add RPM separately."
+    },
+    {
+      "id": "ccm-cpt-codes",
+      "category": "Billing",
+      "question": "Which CPT codes does CCM use?",
+      "answer": "Six codes make up a CCM program. CPT 99490 is the base code (20+ minutes of clinical staff time per month). CPT 99439 is the 20-minute add-on. CPT 99487 is Complex CCM (60+ minutes with moderate-to-high medical decision-making). CPT 99489 is the Complex add-on (each additional 30 minutes). CPT 99491 and 99437 cover time the physician personally performs instead of clinical staff. The services page has the full reference table with 2026 rate estimates."
+    },
+    {
+      "id": "who-bills-medicare",
+      "category": "Billing",
+      "question": "Who bills Medicare — Zenith or my practice?",
+      "answer": "Your practice bills Medicare. CMS pays only the billing practitioner for CCM; Zenith cannot bill directly, nor would we want to. We operate as subcontracted clinical staff: your practice bills the CPT codes under the physician's supervision (\"incident to\"), and we invoice your practice for the clinical work performed. This is the same structure every major CCM vendor uses."
+    },
+    {
+      "id": "2026-ccm-rate",
+      "category": "Billing",
+      "question": "What does CPT 99490 reimburse in 2026?",
+      "answer": "The 2026 national-average Medicare rate for CPT 99490 is approximately $66 per enrolled patient per month at base code. Actual amounts vary by Medicare locality (geographic adjustment) and payer contract. A 200-patient panel fully enrolled at the base code therefore nets roughly $13,200/month to the practice — the anchor figure the roadmap and ROI calculator both use."
+    },
+    {
+      "id": "complex-ccm-when",
+      "category": "Billing",
+      "question": "When should we bill Complex CCM (99487) instead of the base code?",
+      "answer": "Complex CCM applies when the patient needs 60+ minutes of monthly care-coordination time AND requires moderate-to-high medical decision-making — typical of patients with multiple comorbidities, high medication burden, or recent hospitalizations. Complex CCM reimburses roughly twice the base-code rate per patient per month. Internal-medicine and geriatric panels tend to have a materially higher Complex-CCM share than primary care."
+    },
+    {
+      "id": "hipaa-posture",
+      "category": "Compliance",
+      "question": "What is Zenith's HIPAA posture?",
+      "answer": "Zenith operates as a HIPAA Business Associate under HIPAA and the HITECH Act. We sign a BAA with every client practice before touching any patient information, work inside the practice's EHR (no PHI exported to Zenith-owned tooling), use HIPAA-eligible email tooling (Google Workspace or Microsoft 365 under their respective BAAs), and apply the Minimum Necessary rule to every access. The /hipaa-compliance page covers the full posture; the /hipaa-statement page is the formal written document."
+    },
+    {
+      "id": "baa-process",
+      "category": "Compliance",
+      "question": "Do you sign a BAA, and when?",
+      "answer": "Yes — a signed Business Associate Agreement is a hard prerequisite before any patient information changes hands. We send a redlineable BAA based on current HHS sample provisions within two business days of a discovery call. Your legal or compliance team can mark it up; we work from HHS language, not vendor boilerplate, so the review usually moves fast."
+    },
+    {
+      "id": "patient-consent",
+      "category": "Compliance",
+      "question": "How is patient consent for CCM documented?",
+      "answer": "CMS requires documented consent before CCM services begin. The consent must note that the patient understands CCM is available from only one practitioner at a time, that there may be cost-sharing responsibility, and that the patient can revoke at any time. Consent can be verbal (documented in the chart) or written depending on the practice's preference. Zenith obtains consent when the practice prefers us to do that outreach; otherwise we work from the consents the practice already has on file."
+    },
+    {
+      "id": "ehr-integration",
+      "category": "Working With Us",
+      "question": "Which EHRs do you work inside?",
+      "answer": "Zenith works inside whatever EHR or CCM platform your practice already uses — we don't require a specific system. The most common ones we see are Athena, Epic, eClinicalWorks, Elation, Allscripts, Practice Fusion, and dedicated CCM platforms like ThoroughCare, Prevounce, or CareHarmony. If your platform supports delegated clinical-staff access with audit logging, we can work in it."
+    },
+    {
+      "id": "onboarding-timeline",
+      "category": "Working With Us",
+      "question": "How long does onboarding take?",
+      "answer": "Onboarding typically runs 3–6 weeks end to end, scaled to panel size and EHR complexity. The early weeks cover contracting (service agreement + BAA signed) and EHR access provisioning. Mid-onboarding we train on your workflow and documentation standards, then run pilot outreach on the first 20–30 patients to tune the process. Launch brings the full panel live and monthly time-tracking begins. We confirm a specific timeline for your practice on the discovery call."
+    },
+    {
+      "id": "who-does-the-outreach",
+      "category": "Working With Us",
+      "question": "Who actually calls my patients?",
+      "answer": "Zenith's clinical team — trained staff supervised by our PharmD founder, operating under your billing physician's \"incident to\" supervision as CMS requires. We are not a general call-centre vendor; our staff are clinically trained, understand medications and comorbidities, and are prepared to escalate anything that needs physician judgment. Patients speak with the same small team each month where possible."
+    },
+    {
+      "id": "zenith-pricing",
+      "category": "Pricing",
+      "question": "How does Zenith charge?",
+      "answer": "Zenith invoices on a per-patient-per-month basis for the clinical labor delivered. The exact rate depends on panel size, the mix of base vs Complex CCM, and whether we're also doing enrollment outreach. We walk through specifics on the 15-minute discovery call — the figure is always a transparent per-patient rate, never a percentage of your Medicare reimbursement."
+    },
+    {
+      "id": "revenue-share-vs-per-patient",
+      "category": "Pricing",
+      "question": "Do you take a cut of our Medicare reimbursement?",
+      "answer": "No. Zenith charges a flat per-patient-per-month fee for the clinical work. Your practice bills Medicare and keeps every dollar it collects; we invoice separately for the labor. Many vendors structure differently; this is what we offer, and most practice managers find a predictable per-patient rate easier to budget against than a percentage of collections."
+    }
+  ]
+}
