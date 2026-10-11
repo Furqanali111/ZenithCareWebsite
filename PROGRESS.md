@@ -15,7 +15,7 @@ This is the "what has been done / what is being done / what is next" log. It's i
 ## Current status
 
 - **Phase**: 2 (Core pages)
-- **In flight**: `feature/faq-page` (awaiting push + PR + merge)
+- **In flight**: `feature/resources-blog` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,14 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #12 (awaiting push) — `feature/faq-page`
+### 2026-10-11 — PR #13 (awaiting push) — `feature/resources-blog`
+Resources blog ships end-to-end: three real MDX posts (`cpt-99490-2026`, `in-house-vs-outsourced-ccm`, `hipaa-checklist-outsourced-ccm`), `/resources` index listing by date, `/resources/[slug]` dynamic route rendering each post with Article + Breadcrumb JSON-LD, author-bio strip reusing the `FounderMonogram` component, related-articles section, final CTA band. Sitemap now enumerates every post URL.
+
+Technical approach that avoids the Next 16 Cache Components dynamic-route trap documented in `13-deferred-items.md` §6 (now removed since this PR solves it): a static `content/posts.ts` registry statically imports each `.mdx` file with its `export const frontmatter` ESM metadata, so `generateStaticParams` iterates known slugs at build time with no `fs.readdirSync` indirection and no empty-params moment. Added `web/types/mdx.d.ts` module declaration so TypeScript sees the named `frontmatter` export alongside the default React component (not covered by stock `@types/mdx`). All three post routes prerender as static (`○`).
+
+Ponytail-review fixes applied before handoff: removed the dev-only `NODE_ENV !== "production"` guard on the posts-registry self-check so bad frontmatter actually fails the build (same bug the FAQ loader shipped with in PR #4 before its review); promoted founder identity to `lib/site.ts` as `founder = { name, initials, aboutUrl }` and swapped three hardcoded "Ali Hassan Kaleem, PharmD" / "AHK" call-sites (home / about / blog detail) to import from one source; replaced the arbitrary-variant `[&_h2]:…` className wall on the post detail page with `prose prose-neutral` + four brand-override selectors, matching the existing hipaa-statement pattern — also wired `@plugin "@tailwindcss/typography"` in `app/globals.css` since Tailwind 4 needs the CSS-side `@plugin` directive (installing the npm package alone wasn't enough). Also logged post hero images as a deferred asset slot in `13-deferred-items.md` for future rich-card image eligibility.
+
+### 2026-10-11 — PR #12 (merged) — `feature/faq-page`
 Real `/faq` ships. Authored 15 Q&As in `content/faq.json` grouped across the five existing categories (Basics 3, Billing 4, Compliance 3, Working With Us 3, Pricing 2) — each answer self-contained in the 50–200-word range so AI assistants can excerpt without surrounding context (per the AI-SEO plan). Page groups by category with H2 headings, renders each cluster inside a shadcn Accordion (`type="multiple"` — collapsed by default, user can expand multiple at once; the FAQPage JSON-LD ships the full answer corpus regardless of DOM state, which is what Google and AI crawlers actually read). Emits `FAQPage` + `BreadcrumbList` JSON-LD. The `getAllFaqs` / `getFaqsByCategory` / `getFaqCategories` helpers from `lib/faq.ts` light up with real content; build-time validation (duplicate id, empty question/answer) ran against all 15 and passed. No new deps.
 
 Ponytail-review fixes applied before handoff: rewrote the `revenue-share-vs-per-patient` answer to remove a legal characterisation ("legal grey zone under the Anti-Kickback Statute") that put a specific regulatory claim in Zenith's voice — the Terms of Service posture is "not legal advice", so legal-sounding assertions on the FAQ were in conflict; the new copy keeps the differentiation ("predictable per-patient rate vs percentage of collections") without the legal framing. Also softened the onboarding timeline from a hard "2–4 weeks" plan with a per-week breakdown to a "3–6 weeks, scaled to panel size and EHR complexity" range with early / mid / launch phases — removes a trust-breaking SLA for the first-client onboarding where every workflow is new.
@@ -94,7 +101,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/faq-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
+`feature/resources-blog` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
 
 ---
 
@@ -102,10 +109,9 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-2. **`feature/legal-pages`** — Privacy / Terms / Accessibility (HIPAA Statement already shipped in PR #10). Paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md).
-3. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-4. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **`feature/legal-pages`** — Privacy / Terms / Accessibility (HIPAA Statement already shipped in PR #10). Paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md).
+2. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+3. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 

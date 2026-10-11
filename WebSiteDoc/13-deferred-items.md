@@ -18,6 +18,7 @@ A catalog of things the code already references but whose target doesn't exist y
 | `web/public/logo.png` | `organizationLd()` in `web/lib/seo.tsx` → every page's Organization JSON-LD | 512×512 PNG, square, brand navy background with wordmark or mark; also acceptable 1200×630 for best Google rich-card. |
 | Founder portrait (e.g. `web/public/images/ali-hassan-kaleem.jpg`) | planned use on `/about` + `personLd()` + home hero | Portrait of Ali in clinical attire, neutral background, 1600+px wide. Not yet referenced in code; add path here once the photo exists so we remember to wire it. |
 | OG image per high-value page | currently we only have the default `app/opengraph-image.tsx` | Add `app/services/chronic-care-management/opengraph-image.tsx` and similar for `/about`, `/roi-calculator` when their final hero copy exists. |
+| Per-post hero images for blog articles | `web/public/images/posts/<slug>.webp` referenced by `articleLd({ image })` in `web/app/resources/[slug]/page.tsx` and (future) a hero `<Image>` in the article header | 1600×900 ideally; feeds the Google Article rich-card image slot. Omit until real art exists — a generic stock image across all posts is worse than no image for rich-result eligibility. |
 | Favicon set | not yet shipped | Replace the stock `web/app/favicon.ico` from create-next-app with brand-navy "Z" at 32×32 + Apple touch icon at 180×180. |
 
 ## 2. User-authored content with a live code reference
@@ -66,7 +67,6 @@ Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which 
 
 ## 6. Known traps to avoid (deferred to specific future PRs)
 
-- **MDX dynamic-route trap for `feature/resources-blog`**: Next 16 Cache Components rejects empty `generateStaticParams`. Author blog posts as `app/resources/[slug]/page.tsx` that reads MDX files from `content/posts/*.mdx` and populates `generateStaticParams()` from `fs.readdirSync` at build time. Do **not** drop `page.mdx` files directly under the `[slug]` segment and expect them to work.
 - **CSP tightening**: current CSP uses `'unsafe-inline'` for scripts and styles. Tighten with nonce-based CSP + `strict-dynamic` in a dedicated security-hardening PR once Calendly, Formspree, and Plausible are wired and all third-party hosts can be allowlisted in one pass.
 
 ---

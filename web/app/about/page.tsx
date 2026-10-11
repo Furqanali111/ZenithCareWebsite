@@ -4,9 +4,9 @@ import { pageMetadata, JsonLd, personLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { BulletedListItem } from "@/components/bulleted-list";
+import { founder } from "@/lib/site";
 
 const PATH = "/about";
-const FOUNDER_NAME = "Ali Hassan Kaleem, PharmD";
 
 // Personal LinkedIn URL — distinct from the Zenith company page.
 // Deliberately empty until the real slug is confirmed; the Person JSON-LD
@@ -28,7 +28,7 @@ export default function AboutPage() {
       <JsonLd
         data={[
           personLd({
-            name: FOUNDER_NAME,
+            name: founder.name,
             jobTitle: "Founder, Zenith Care Solutions",
             path: PATH,
             bio:
@@ -54,7 +54,7 @@ export default function AboutPage() {
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
         <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
-          <FounderMonogram initials="AHK" name={FOUNDER_NAME} size="lg" />
+          <FounderMonogram initials={founder.initials} name={founder.name} size="lg" />
           <div>
             <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
               About the founder
@@ -63,7 +63,7 @@ export default function AboutPage() {
               Zenith is run by a trained pharmacist, not a call centre.
             </h1>
             <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
-              {FOUNDER_NAME} founded Zenith to bring clinical staff — people
+              {founder.name} founded Zenith to bring clinical staff — people
               who understand medications, comorbidities, and compliance — to
               Chronic Care Management programs that most practices either
               don&rsquo;t run or hand to a call-centre vendor.
