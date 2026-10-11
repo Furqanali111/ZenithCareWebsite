@@ -15,7 +15,7 @@ This is the "what has been done / what is being done / what is next" log. It's i
 ## Current status
 
 - **Phase**: 2 (Core pages)
-- **In flight**: `feature/about-page` (awaiting push + PR + merge)
+- **In flight**: `feature/hipaa-compliance-page` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,14 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #9 (awaiting push) — `feature/about-page`
+### 2026-10-11 — PR #10 (awaiting push) — `feature/hipaa-compliance-page`
+Real `/hipaa-compliance` ships. Five sections: hero → "zero PHI on this site" callout with ShieldCheck icon + two trust cards (BAA before any PHI, EHR stays system of record) → three safeguard cards mirroring the HIPAA Security Rule categories (Administrative / Physical / Technical) with specific items under each → side-by-side Minimum Necessary + Breach Notification paragraph pair → CTA card that links out to the formal `/hipaa-statement`. `BreadcrumbList` JSON-LD only (no Service LD — this is a trust posture, not a service). Reuses `BulletedListItem` for every bullet list; two co-located one-caller helpers (TrustCard, SafeguardCard).
+
+Pulled the formal HIPAA Statement forward and shipped it on `/hipaa-statement` in the same PR (previously planned for `feature/legal-pages`), so the "Read the formal statement" CTA on the compliance page no longer lands on a stub. Content pastes from `WebSiteDoc/08-legal-pages-draft.md §3` with placeholders resolved: `LAST_UPDATED` = 2026-10-11, contact email = `site.email` (role aliases like `compliance@` to be swapped in once set up per `WebSiteDoc/14-go-live-accounts.md §2.4`), full mailing address noted on request only.
+
+Ponytail-review fixes applied before handoff: softened the safeguards section intro so the Administrative / Physical / Technical bullets read as framework + process ("implementation specifics — written policies, device inventory, audit-log samples, workforce training records — are shared during BAA review on request") instead of absolute present-tense attestations that would create a HIPAA misrepresentation risk pre-first-client; relaxed the BAA-send SLA from one business day to two to account for the Pakistan↔U.S. time-zone math.
+
+### 2026-10-11 — PR #9 (merged) — `feature/about-page`
 Real `/about` ships. Five sections: hero with the AHK monogram + name + lead → three credential cards (Education / Specialty / Industry) → "Why Zenith exists" narrative (3 paragraphs) → "What this means for your practice" four-item bullet grid → CTA. `Person` + `Breadcrumb` JSON-LD via existing factories, including `hasCredential` (PharmD) and `knowsAbout` (CCM, clinical pharmacy, oncology, BMT, MTM, Medicare billing). Promoted the `FounderMonogram` component out of `app/page.tsx` into `components/founder-monogram.tsx` (second caller is a real use case per the ponytail rule); supports `size="md" | "lg"` so the About hero gets a larger badge than the home strip. Homepage updated to import from the new location.
 
 Ponytail-review fixes applied before handoff: `FOUNDER_LINKEDIN` now defaults to empty and both call-sites (Person JSON-LD `sameAs` and the "Ali on LinkedIn" CTA) suppress themselves when blank — same guard pattern as the WhatsApp button, so neither Google nor a visitor hits a 404 until the real URL is confirmed; swapped the too-specific `knowsAbout: "Medicare CPT 99490"` for `"Medicare Billing"` which is the kind of topic string schema.org expects.
@@ -75,7 +82,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/about-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
+`feature/hipaa-compliance-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
 
 ---
 
@@ -83,13 +90,12 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/hipaa-compliance-page`** — trust page content.
-2. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
-3. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
-4. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-5. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
-6. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-7. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
+2. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
+3. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
+4. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
+5. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+6. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 
