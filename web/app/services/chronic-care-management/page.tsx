@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { TrustStrip } from "@/components/trust-strip";
+import { FaqSection, type FaqEntry } from "@/components/faq-section";
 import { CPT_RATES, type CptCode } from "@/lib/roi";
 
 const PATH = "/services/chronic-care-management";
 const NAME = "Chronic Care Management Services";
 const DESCRIPTION =
-  "Remote Chronic Care Management for U.S. primary care and internal medicine practices — care coordination, documentation, time tracking, and CPT 99490/99439/99487/99489 billing support.";
+  "Remote Chronic Care Management for U.S. primary care, internal medicine, and geriatric practices. Care coordination and CPT 99490 billing support, inside your EHR.";
 
 export const metadata: Metadata = pageMetadata({
   title: NAME,
@@ -24,7 +25,12 @@ export default function ServicesCCMPage() {
     <>
       <JsonLd
         data={[
-          serviceLd({ name: NAME, description: DESCRIPTION, path: PATH }),
+          serviceLd({
+            name: NAME,
+            description: DESCRIPTION,
+            path: PATH,
+            serviceType: "Chronic Care Management",
+          }),
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "Services", path: PATH },
@@ -95,8 +101,8 @@ export default function ServicesCCMPage() {
                 >
                   Medicare program
                 </a>{" "}
-                that reimburses eligible practitioners — physicians, nurse
-                practitioners, and physician assistants — for coordinating
+                that reimburses eligible practitioners (physicians, nurse
+                practitioners, and physician assistants) for coordinating
                 care for patients with two or more chronic conditions
                 expected to last at least twelve months.
               </p>
@@ -108,6 +114,30 @@ export default function ServicesCCMPage() {
                 clinical labor performed &ldquo;incident to&rdquo; your
                 supervision. This is a well-established model used by
                 every major CCM vendor.
+              </p>
+              <p>
+                See how Chronic Care Management plays out by specialty for{" "}
+                <Link
+                  href="/who-we-serve/primary-care"
+                  className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
+                >
+                  primary care
+                </Link>
+                ,{" "}
+                <Link
+                  href="/who-we-serve/internal-medicine"
+                  className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
+                >
+                  internal medicine
+                </Link>
+                , and{" "}
+                <Link
+                  href="/who-we-serve/geriatrics"
+                  className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
+                >
+                  geriatric
+                </Link>{" "}
+                practices.
               </p>
             </div>
 
@@ -239,7 +269,7 @@ export default function ServicesCCMPage() {
             <LaborColumn
               label="Zenith delivers"
               items={[
-                "Monthly patient outreach calls — medications, symptoms, follow-up, barriers to care",
+                "Monthly patient outreach calls covering medications, symptoms, follow-up, and barriers to care",
                 "Care plan documentation and quarterly updates in your EHR",
                 "Medication reconciliation and refill coordination",
                 "Specialist referral tracking and closed-loop follow-up",
@@ -253,7 +283,7 @@ export default function ServicesCCMPage() {
                 "Clinical oversight and the billing-provider relationship",
                 "Medicare billing for every CPT code we support",
                 "Final sign-off on care-plan changes requiring physician judgment",
-                "The patient relationship — Zenith never bills patients directly",
+                "The patient relationship. Zenith never bills patients directly",
                 "Access to your EHR and the configuration your IT governs",
                 "The right to end the engagement with 30 days’ notice",
               ]}
@@ -288,8 +318,15 @@ export default function ServicesCCMPage() {
         </div>
       </section>
 
+      {/* ─── FAQ (service-specific; emits FAQPage JSON-LD) ───────────── */}
+      <FaqSection
+        heading="Chronic Care Management: common questions"
+        idPrefix="ccm-faq"
+        items={CCM_FAQS}
+      />
+
       {/* ─── Final CTA band ──────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-surface-tint">
+      <section className="border-t border-border/60 bg-background">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-28 text-center">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Fifteen minutes gets you a real number.
@@ -381,3 +418,40 @@ function LaborColumn({ label, items }: { label: string; items: string[] }) {
     </div>
   );
 }
+
+/* Service-specific FAQs. Every answer is drawn from content already on this
+   page (division of labor, eligibility list, CPT table, HIPAA callout) — no
+   new claims. Questions are phrased the way practice managers actually search. */
+const CCM_FAQS: FaqEntry[] = [
+  {
+    question:
+      "Who bills Medicare for Chronic Care Management, my practice or Zenith?",
+    answer:
+      "Your practice remains the billing provider and bills Medicare for every CPT code. Zenith works as subcontracted clinical staff under your supervision (“incident to”) and invoices your practice for the care-coordination labor. Zenith does not bill Medicare or patients directly.",
+  },
+  {
+    question: "Which patients qualify for Chronic Care Management?",
+    answer:
+      "Patients with two or more chronic conditions expected to last at least twelve months, who are enrolled in Medicare Part B, have given documented consent, and have a comprehensive care plan on file. A large share of most primary-care, internal-medicine, and geriatric panels qualifies.",
+  },
+  {
+    question: "How much time does CCM require per patient each month?",
+    answer:
+      "The base code, CPT 99490, covers at least 20 minutes of non-face-to-face care coordination per enrolled patient per month. Complex CCM (CPT 99487 and 99489) covers 60 or more minutes for higher-complexity patients. Zenith's clinical team delivers and documents this time inside your EHR.",
+  },
+  {
+    question: "What CPT codes does a CCM program use?",
+    answer:
+      "CPT 99490 (base), 99439 (each additional 20 minutes), 99487 and 99489 (complex CCM), and 99491 and 99437 (physician-performed CCM). The billing-reference table above lists a 2026 Medicare national-average rate estimate for each code.",
+  },
+  {
+    question: "Does Zenith work inside our existing EHR?",
+    answer:
+      "Yes. Our clinical staff work inside the EHR you already use, with role-based access. No PHI is exported off-platform, and care-plan documentation and CMS-compliant time logs live in your system.",
+  },
+  {
+    question: "Do you sign a Business Associate Agreement before starting?",
+    answer:
+      "Yes. Zenith signs a HIPAA Business Associate Agreement with every client practice before any protected health information changes hands.",
+  },
+];

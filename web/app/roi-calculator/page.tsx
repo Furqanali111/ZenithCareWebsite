@@ -22,6 +22,7 @@ export default function RoiCalculatorPage() {
             name: "Chronic Care Management ROI Estimator",
             description: DESCRIPTION,
             path: PATH,
+            serviceType: "Chronic Care Management",
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },

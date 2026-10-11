@@ -14,13 +14,40 @@ This is the "what has been done / what is being done / what is next" log. It's i
 
 ## Current status
 
-- **Phase**: 5 (Visual redesign overhaul — code side done; operational runs next)
-- **In flight**: `feature/redesign-overhaul` (awaiting push + PR + merge)
+- **Phase**: 6 (SEO + AI-search content optimization — code side done)
+- **In flight**: `feature/seo-content-optimization` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
 
 ## Done
+
+### 2026-10-11 — PR #18 (awaiting push) — `feature/seo-content-optimization`
+SEO + AI-search optimization pass on top of the merged redesign (PRs #16, #17). No design changes, no fabricated claims — every new sentence derives from content already on the page.
+
+**Structured data**
+- New `websiteLd()` factory + sitewide `WebSite` JSON-LD (publisher-linked to the Organization node) in `app/layout.tsx`. Gives search + AI engines one canonical site identity. No SearchAction (no on-site search endpoint to honestly claim).
+- `organizationLd()` gains a `knowsAbout` list (CCM, Patient Care Coordination, Medicare CCM billing, care-coordination staffing, HIPAA BA services) so engines map the brand to its offering catalogue.
+- Fixed a `serviceLd` bug: the Patient Care Coordinator page emitted `serviceType: "Chronic Care Management"` (the helper's default). Now passes `serviceType: "Patient Care Coordination"`. Verified in rendered output.
+- New reusable `<FaqSection>` component (`components/faq-section.tsx`): renders a house Accordion + emits `FAQPage` JSON-LD from the same data. Reuses the existing `faqPageLd` factory.
+
+**On-page FAQs (highest AI-answer-engine signal)**
+- CCM service page: 6 service-specific Q&As (billing model, eligibility, time requirement, CPT codes, EHR, BAA).
+- Patient Care Coordinator page: 5 Q&As (scope, clinical-vs-admin boundary, pricing model, CCM combo, EHR access).
+- Each who-we-serve specialty: 3 specialty-specific Q&As (eligibility %, why-it-fits, condition mix) pulled from each specialty's existing CONTENT.
+- All service FAQs are DISTINCT from the general `/faq` corpus (15 Q), so no two URLs emit the same FAQPage (Google duplicate-FAQ guidance). Verified counts: CCM 6, PCC 5, each specialty 3, /faq 15.
+
+**Metadata**
+- Homepage `<title>` was `Zenith Care Solutions — Remote Chronic Care Management | Zenith Care Solutions` (78 chars, brand twice). Now `Chronic Care Management & Care Coordination` → pageMetadata appends the brand once (keyword-first, ~67 chars).
+- Contact `<title>` was `Contact Zenith Care Solutions | Zenith Care Solutions` (double brand) → now just `Contact`.
+- Tightened over-length meta descriptions: homepage (205→151 chars), CCM (184→159), PCC (212→159), primary-care (168→154). All now inside Google's ~160-char display window.
+
+**Internal linking**
+- CCM service page now links down to all three who-we-serve specialty pages with descriptive anchors ("primary care", "internal medicine", "geriatric"), completing the topic cluster (home → services → specialties → back to CCM).
+
+**Technical SEO** — already strong from prior phases; verified unchanged and correct: robots.txt allows all crawlers incl. AI bots, sitemap enumerates every route (both services + 3 specialties + posts), every page has a canonical + OG + Twitter card, llms.txt lists both services. No new crawler rules added (per the brief: no arbitrary AI-crawler restrictions).
+
+**Validation** — `pnpm lint` + `pnpm build` clean; 28 routes prerender static. Rendered JSON-LD validated in-browser on `/`, both service pages, a specialty page, and `/faq`: all parse, correct `@type`s, correct `serviceType`, correct FAQ counts. FAQ accordion renders + expands in dark mode.
 
 ### 2026-10-11 — PR #16 (awaiting push) — `feature/redesign-overhaul`
 Visual overhaul across the whole marketing surface. Preserved: URLs, CPT math, legal content, forms, env guards, SEO/JSON-LD, Calendly, Formspree, Plausible, HIPAA language, founder bio, business facts. Changed: the design system, the hero rhythm, and the service offering.

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { TrustStrip } from "@/components/trust-strip";
+import { FaqSection, type FaqEntry } from "@/components/faq-section";
 import { specialties, specialtyLabel, type Specialty } from "@/lib/site";
 import { CPT_RATES, formatUsd } from "@/lib/roi";
 
@@ -54,6 +55,7 @@ export default async function WhoWeServePage({
             name: `Chronic Care Management for ${label}`,
             description: c.metaDescription,
             path,
+            serviceType: "Chronic Care Management",
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },
@@ -179,8 +181,15 @@ export default async function WhoWeServePage({
         </div>
       </section>
 
+      {/* ─── FAQ (specialty-specific; emits FAQPage JSON-LD) ─────────── */}
+      <FaqSection
+        heading={`CCM for ${label.toLowerCase()}: common questions`}
+        idPrefix={`${specialty}-faq`}
+        items={c.faqs}
+      />
+
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-surface-tint">
+      <section className="border-t border-border/60 bg-background">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -231,12 +240,13 @@ type SpecialtyContent = {
     enrollmentRate: number;
     note?: string;
   };
+  faqs: FaqEntry[];
 };
 
 const CONTENT: Record<Specialty, SpecialtyContent> = {
   "primary-care": {
     metaDescription:
-      "Chronic Care Management for U.S. primary care practices — the broadest chronic-condition mix in medicine, often with a large share of your panel eligible but unenrolled.",
+      "Chronic Care Management for U.S. primary care practices. The broadest chronic-condition mix in medicine, often with 25 to 40 percent of your panel eligible.",
     heroHeadline:
       "Primary care panels have the biggest unbilled CCM revenue in medicine.",
     heroLead:
@@ -260,6 +270,23 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
       panel: 1500,
       enrollmentRate: 0.3,
     },
+    faqs: [
+      {
+        question: "How much of a primary care panel typically qualifies for CCM?",
+        answer:
+          "We routinely see 25 to 40 percent of an established primary-care panel qualify once the list is run against documented diagnoses. The bar is two or more chronic conditions expected to last at least twelve months, with the patient enrolled in Medicare Part B.",
+      },
+      {
+        question: "Which primary care conditions count toward CCM eligibility?",
+        answer:
+          "Common qualifying conditions include hypertension, Type 2 diabetes, hyperlipidemia, COPD and chronic asthma, depression and anxiety, obesity-related comorbidities, osteoarthritis, and early chronic kidney disease. Any two or more together can qualify a patient.",
+      },
+      {
+        question: "Does running CCM add work for my MAs and front-desk team?",
+        answer:
+          "No. Zenith's clinical team does the monthly outreach, documentation, and time tracking inside your EHR, so your medical assistants and front-desk staff stay focused on visits. Your practice bills the CPT codes and Zenith invoices for the clinical work.",
+      },
+    ],
   },
 
   "internal-medicine": {
@@ -288,6 +315,25 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
       panel: 650,
       enrollmentRate: 0.5,
     },
+    faqs: [
+      {
+        question:
+          "How much of an internal medicine panel qualifies for CCM?",
+        answer:
+          "Internal-medicine panels frequently qualify 40 to 50 percent of patients for base CCM (CPT 99490), and a meaningful subset for complex CCM (CPT 99487 and 99489), which reimburses roughly twice the base rate per patient per month.",
+      },
+      {
+        question: "Why do internal medicine panels perform well on CCM?",
+        answer:
+          "Internal-medicine patients are older on average and more likely to be managing three or four conditions at once. That profile maps directly to the Medicare codes that pay for Chronic Care Management and often qualifies a larger share for the higher-reimbursing complex-CCM codes.",
+      },
+      {
+        question:
+          "Which conditions are typical in an internal medicine CCM panel?",
+        answer:
+          "Congestive heart failure, chronic kidney disease, Type 2 diabetes with complications, COPD, atrial fibrillation, post-hospital transitions of care, hyperlipidemia with ASCVD, and osteoporosis are all common, and patients often carry several at once.",
+      },
+    ],
   },
 
   geriatrics: {
@@ -317,5 +363,22 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
       enrollmentRate: 0.7,
       note: "With a substantial Complex CCM mix typical of geriatric panels, actual reimbursement often runs 30–50% higher than the base-code figure shown.",
     },
+    faqs: [
+      {
+        question: "What share of a geriatric panel qualifies for CCM?",
+        answer:
+          "The share of a geriatric panel that qualifies for Chronic Care Management is higher than any other specialty, frequently 60 to 80 percent, because geriatric practices combine near-universal Medicare coverage with near-universal multi-condition eligibility.",
+      },
+      {
+        question: "Why does geriatrics produce the highest CCM revenue per panel?",
+        answer:
+          "Cognitive decline, polypharmacy, frailty, and cardiovascular comorbidities almost always coexist in geriatric patients. That combination pushes a substantial share of the panel into complex CCM (CPT 99487 and 99489), which reimburses roughly double the base code.",
+      },
+      {
+        question: "Which conditions count toward CCM in a geriatric panel?",
+        answer:
+          "Cognitive decline and dementia, congestive heart failure, chronic kidney disease, osteoporosis and fall-risk comorbidities, polypharmacy, frailty and functional decline, atrial fibrillation, and late-life depression are all common qualifying conditions.",
+      },
+    ],
   },
 };
