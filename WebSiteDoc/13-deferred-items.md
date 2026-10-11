@@ -43,7 +43,7 @@ In `web/.env.local` (gitignored) for local work; set in Vercel project settings 
 
 ## 4. External accounts / setup to-do
 
-Non-code work the user owns.
+Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which env var each service maps to, where to paste in Vercel): [`14-go-live-accounts.md`](14-go-live-accounts.md).
 
 - [ ] GitHub branch-protection rules on `develop` and `release/*` per [`11-git-workflow.md`](11-git-workflow.md) §4
 - [ ] Vercel project linked to the GitHub repo for automatic preview deploys

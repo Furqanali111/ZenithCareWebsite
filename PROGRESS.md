@@ -108,6 +108,8 @@ Short record of non-obvious decisions so we don't re-litigate them.
 
 The full catalog of placeholders, missing assets, env vars that need production values, external accounts to set up, time-based reminders, and known traps lives in [`WebSiteDoc/13-deferred-items.md`](WebSiteDoc/13-deferred-items.md). Check that first before asking "is X ready to fill in?"
 
+The step-by-step runbook for creating each external account and wiring it to Vercel (sign-up URLs, which env var it maps to, which Vercel scope to use, DNS steps for the custom domain, launch-day smoke tests, troubleshooting table) lives in [`WebSiteDoc/14-go-live-accounts.md`](WebSiteDoc/14-go-live-accounts.md).
+
 Session-level blockers only — things that actively prevent the next PR from being merged — go here. Currently: none.
 
 ---
