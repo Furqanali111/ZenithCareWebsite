@@ -9,8 +9,29 @@
  *
  * We render the result as a ±10% range so the UI never pretends to be exact —
  * actual mix of CPT 99439 / 99487 / 99489 add-ons swings the number both ways.
+ *
+ * SINGLE SOURCE OF TRUTH for every page that mentions a CCM rate: the services
+ * page CPT table and the homepage revenue card both read from here. CMS
+ * republishes the Physician Fee Schedule every January — update ONLY this file
+ * when the 2027 rates land and all callers follow.
  */
-export const CCM_BASE_RATE_PER_PATIENT_MONTHLY = 66;
+export const CPT_RATES = {
+  "99490": 66,
+  "99439": 46,
+  "99487": 132,
+  "99489": 70,
+  "99491": 83,
+  "99437": 59,
+} as const;
+
+export type CptCode = keyof typeof CPT_RATES;
+
+/** The homepage/outreach-pitch anchor: a representative panel at base rate. */
+export const ANCHOR_PATIENTS = 200;
+export const ANCHOR_MONTHLY = ANCHOR_PATIENTS * CPT_RATES["99490"];
+
+/** Kept for the ROI calculator's math. Derived from the rate table above. */
+export const CCM_BASE_RATE_PER_PATIENT_MONTHLY = CPT_RATES["99490"];
 
 /** Window used to render the ± range (0.10 = ±10%). */
 export const ROI_RANGE_SPREAD = 0.1;
@@ -75,10 +96,16 @@ export function formatRange(low: number, high: number): string {
 /* Fails loud in dev — console.assert is intentionally not enough.            */
 /* -------------------------------------------------------------------------- */
 if (process.env.NODE_ENV !== "production" && typeof window === "undefined") {
-  const full = estimateRoi(200, 1);
-  if (full.monthlyMid !== 13200) {
+  if (ANCHOR_MONTHLY !== 13200) {
     throw new Error(
-      `roi: 200 × 100% should produce $13,200/mo, got $${full.monthlyMid}`,
+      `roi: ANCHOR_MONTHLY drifted to ${ANCHOR_MONTHLY}. ` +
+        `If CMS repriced CPT 99490, also check: homepage revenue card, services page CPT table.`,
+    );
+  }
+  const full = estimateRoi(ANCHOR_PATIENTS, 1);
+  if (full.monthlyMid !== ANCHOR_MONTHLY) {
+    throw new Error(
+      `roi: estimateRoi is out of sync with ANCHOR_MONTHLY (${full.monthlyMid} vs ${ANCHOR_MONTHLY})`,
     );
   }
   const zero = estimateRoi(0, 0.5);
