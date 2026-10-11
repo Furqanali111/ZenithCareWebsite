@@ -15,7 +15,7 @@ This is the "what has been done / what is being done / what is next" log. It's i
 ## Current status
 
 - **Phase**: 2 (Core pages)
-- **In flight**: `feature/services-page` (awaiting push + PR + merge)
+- **In flight**: `feature/contact-page` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,12 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #7 (awaiting push) — `feature/services-page`
+### 2026-10-11 — PR #8 (awaiting push) — `feature/contact-page`
+Full `/contact` ships. Three-door hero (WhatsApp / Email / Calendly jump-link, each hidden when its env is unset — same pattern as the floating WhatsApp button) → Formspree fallback form on a surface-50 band → inline Calendly embed below. Client-side PHI guard in `web/lib/validate.ts` scans the message field for SSN / MRN / DOB / "Patient &lt;Name&gt;" patterns and blocks the submit with an inline error naming what it caught; dev-only self-check throws on four positive + three negative cases. Form includes "do not submit patient information" disclaimer wired via `aria-describedby` on both the hint banner and the message textarea. CSP in `next.config.ts` opened to `assets.calendly.com` (script), `calendly.com` (frame + connect), `*.calendly.com` (img), and `formspree.io` (connect + form-action). Form hides entirely when `NEXT_PUBLIC_FORMSPREE_ID` is unset so a dead endpoint can&rsquo;t POST to "".
+
+Ponytail-review fixes applied before handoff: dropped `noValidate` from the form so HTML5 `required` / `minLength` actually enforce before our fetch handler runs (otherwise blank submits bounce off Formspree as a generic 422 instead of focusing the empty field); narrowed the DOB regex to require a nearby trigger word (`dob` / `born` / `birth…`) so a provider mentioning "onboard by 03/15/2027" isn&rsquo;t blocked as a patient date of birth; stored the PHI pattern on component state directly instead of re-running `findPhi` on the sample string in `humanisePhi`; removed the dead `where: "message"` discriminant from the Status union.
+
+### 2026-10-11 — PR #7 (merged) — `feature/services-page`
 Long-form `/services/chronic-care-management` ships. Six sections: hero → CCM primer with eligibility criteria → six-row CPT code table (99490, 99439, 99487, 99489, 99491, 99437) with 2026 rate estimates → division-of-labor two-column strip (Zenith delivers / your practice keeps) → HIPAA Business Associate callout with link to `/hipaa-compliance` → final CTA band. Hand-rolled accessible `<table>` with `scope="col"` headers, `caption` for AT users, mono CPT numbers in brand-700. Links out to CMS Physician Fee Schedule as the authoritative source (E-E-A-T signal). Reuses existing `serviceLd` + `breadcrumbLd` factories.
 
 Ponytail-review fixes applied before handoff: hoisted CPT rates to a single `CPT_RATES` map in `lib/roi.ts` (with `ANCHOR_PATIENTS` + `ANCHOR_MONTHLY` constants) so the services-page table, the ROI calculator, and the homepage revenue card all read from one source — next time CMS reprices, one file to edit; promoted `BulletedListItem` to `components/bulleted-list.tsx` so the eligibility list, division-of-labor columns, and future FAQ / who-we-serve bullets share the same markup; rewrote the "20+ minutes per enrolled patient" bullet to describe the actual work (meds, symptoms, follow-up, barriers to care) instead of anchoring the reader to the CMS billing floor.
@@ -65,7 +70,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/services-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
+`feature/contact-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
 
 ---
 
@@ -73,15 +78,14 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
-2. **`feature/about-page`** — founder bio with PharmD credentials + Person JSON-LD.
-3. **`feature/hipaa-compliance-page`** — trust page content.
-4. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
-5. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
-6. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-7. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
-8. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-9. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **`feature/about-page`** — founder bio with PharmD credentials + Person JSON-LD.
+2. **`feature/hipaa-compliance-page`** — trust page content.
+3. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
+4. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
+5. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
+6. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
+7. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+8. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 

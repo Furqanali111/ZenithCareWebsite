@@ -1,59 +1,112 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
-import { PageStub } from "@/components/page-stub";
+import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/contact-form";
+import { CalendlyEmbed } from "@/components/calendly-embed";
 import { mailtoHref, site, whatsappHref } from "@/lib/site";
+
+const PATH = "/contact";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact Zenith Care Solutions",
   description:
     "Reach us by WhatsApp, email, our contact form, or book a 15-minute call. Do not submit patient information through this site.",
-  path: "/contact",
+  path: PATH,
 });
 
 export default function ContactPage() {
-  // Only render channels that have a real endpoint configured.
-  // Prevents dead "#" links or 404s on the production domain before
-  // the WhatsApp number / Calendly event are set up.
   const hasWhatsApp = Boolean(site.whatsappNumber);
   const hasCalendly = Boolean(site.calendlyUrl);
 
   return (
-    <PageStub eyebrow="Contact" title="Three ways to reach us">
-      <p>
-        Pick whichever is easiest. Please do not include patient-identifying
-        information in any of these channels.
-      </p>
-      <div className="mt-6 flex flex-wrap gap-3">
-        {hasWhatsApp ? (
-          <Button asChild size="lg">
-            <a
-              href={whatsappHref()}
-              target="_blank"
-              rel="noopener noreferrer"
+    <>
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: PATH },
+        ])}
+      />
+
+      {/* ─── Hero + three-door CTAs ──────────────────────────────────── */}
+      <section className="mx-auto max-w-5xl px-6 pt-24 pb-14 md:pt-32 md:pb-16">
+        <div className="max-w-3xl">
+          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+            Contact
+          </span>
+          <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+            Pick whichever is easiest.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+            WhatsApp, email, a fifteen-minute call on Calendly, or the form
+            below — all land with Ali directly. Please don&rsquo;t include
+            patient-identifying information in any channel; patient data
+            belongs in your EHR under a signed BAA.
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            {hasWhatsApp ? (
+              <Button asChild size="lg">
+                <a href={whatsappHref()} target="_blank" rel="noopener noreferrer">
+                  WhatsApp us
+                </a>
+              </Button>
+            ) : null}
+            <Button
+              asChild
+              size="lg"
+              variant={hasWhatsApp ? "outline" : "default"}
             >
-              WhatsApp us
-            </a>
-          </Button>
-        ) : null}
-        <Button asChild size="lg" variant={hasWhatsApp ? "outline" : "default"}>
-          <a href={mailtoHref()}>Email {site.email}</a>
-        </Button>
-        {hasCalendly ? (
-          <Button asChild size="lg" variant="outline">
-            <a
-              href={site.calendlyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book a 15-min call
-            </a>
-          </Button>
-        ) : null}
-      </div>
-      <p className="pt-6 text-sm text-muted-foreground">
-        Fallback contact form + inline Calendly embed land in Phase 2.
-      </p>
-    </PageStub>
+              <a href={mailtoHref()}>Email {site.email}</a>
+            </Button>
+            {hasCalendly ? (
+              <Button asChild size="lg" variant="outline">
+                <a href="#calendly">Book a 15-min call</a>
+              </Button>
+            ) : null}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Form ────────────────────────────────────────────────────── */}
+      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+        <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">
+          <header>
+            <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Or send us a note
+            </span>
+            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+              Tell us about your panel.
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              Six quick fields. We reply within one business day.
+            </p>
+          </header>
+          <div className="mt-10">
+            <ContactForm />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Inline Calendly embed ───────────────────────────────────── */}
+      {hasCalendly ? (
+        <section id="calendly" className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+          <header className="max-w-2xl">
+            <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Or book directly
+            </span>
+            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+              Fifteen minutes on the calendar.
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              Pick any slot that works. We confirm by email right after you
+              book — no back-and-forth.
+            </p>
+          </header>
+          <div className="mt-10">
+            <CalendlyEmbed />
+          </div>
+        </section>
+      ) : null}
+    </>
   );
 }
