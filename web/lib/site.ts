@@ -17,6 +17,13 @@ export const site = {
   locale: "en_US",
 } as const;
 
+/** Founder identity, shared across home, about, and blog bylines. */
+export const founder = {
+  name: "Ali Hassan Kaleem, PharmD",
+  initials: "AHK",
+  aboutUrl: "/about",
+} as const;
+
 export function whatsappHref(prefill = "Hi Zenith, I'd like to learn about CCM.") {
   const n = site.whatsappNumber.replace(/\D/g, "");
   if (!n) return "#";

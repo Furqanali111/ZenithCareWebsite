@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site, specialties } from "@/lib/site";
+import { getAllPosts } from "@/content/posts";
 
 /**
  * All indexable public routes. Keep in sync as pages are added.
@@ -39,5 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
   }));
 
-  return [...staticRoutes, ...specialtyRoutes];
+  const postRoutes: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
+    url: `${base}/resources/${p.slug}`,
+    lastModified: new Date(p.updatedAt),
+    priority: 0.6,
+    changeFrequency: "yearly",
+  }));
+
+  return [...staticRoutes, ...specialtyRoutes, ...postRoutes];
 }

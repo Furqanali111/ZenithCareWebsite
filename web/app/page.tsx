@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { FounderMonogram } from "@/components/founder-monogram";
-import { site } from "@/lib/site";
+import { founder, site } from "@/lib/site";
 import {
   ANCHOR_MONTHLY,
   ANCHOR_PATIENTS,
@@ -162,7 +162,7 @@ export default function HomePage() {
       <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
           <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
-            <FounderMonogram initials="AHK" name="Ali Hassan Kaleem, PharmD" />
+            <FounderMonogram initials={founder.initials} name={founder.name} />
             <div>
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 Clinically led
@@ -171,7 +171,7 @@ export default function HomePage() {
                 Zenith is run by a trained pharmacist, not a call centre.
               </h2>
               <p className="mt-5 max-w-prose text-base leading-relaxed text-[color:var(--color-ink-600)]">
-                Founder <strong className="font-medium text-[color:var(--color-ink-900)]">Ali Hassan Kaleem, PharmD</strong>{" "}
+                Founder <strong className="font-medium text-[color:var(--color-ink-900)]">{founder.name}</strong>{" "}
                 brings a clinical oncology and bone-marrow-transplant background
                 to every CCM workflow Zenith delivers. Your practice gets care
                 coordination from staff who understand the medications, the
