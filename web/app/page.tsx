@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { FounderMonogram } from "@/components/founder-monogram";
 import { site } from "@/lib/site";
 import {
   ANCHOR_MONTHLY,
@@ -161,7 +162,7 @@ export default function HomePage() {
       <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
           <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
-            <FounderMonogram initials="AHK" />
+            <FounderMonogram initials="AHK" name="Ali Hassan Kaleem, PharmD" />
             <div>
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 Clinically led
@@ -243,21 +244,3 @@ function HowStep({
   );
 }
 
-/**
- * Placeholder for the founder portrait until the real photo exists.
- * See WebSiteDoc/13-deferred-items.md §1. When the image lands, swap
- * this component for a <next/image> at the same slot.
- */
-function FounderMonogram({ initials }: { initials: string }) {
-  return (
-    <div
-      role="img"
-      aria-label="Ali Hassan Kaleem, PharmD"
-      className="flex size-32 shrink-0 items-center justify-center rounded-full bg-[color:var(--color-brand-900)] text-[color:var(--color-surface-0)] md:size-40"
-    >
-      <span className="font-serif text-3xl font-semibold tracking-wide md:text-4xl">
-        {initials}
-      </span>
-    </div>
-  );
-}
