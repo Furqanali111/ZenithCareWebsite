@@ -16,14 +16,30 @@ const isDev = process.env.NODE_ENV !== "production";
 // Hosts the browser is allowed to load scripts from.
 // - vercel-scripts: Web Vitals / Speed Insights
 // - plausible: analytics (optional, loaded only when env var set — see layout)
-const scriptHosts = "https://va.vercel-scripts.com https://plausible.io";
+// - assets.calendly.com: Calendly inline-widget loader
+const scriptHosts =
+  "https://va.vercel-scripts.com https://plausible.io https://assets.calendly.com";
 const scriptSrc = isDev
   ? `'self' 'unsafe-inline' 'unsafe-eval' ${scriptHosts}`
   : `'self' 'unsafe-inline' ${scriptHosts}`;
 
 // Hosts the browser is allowed to send fetch/XHR/beacon to.
+// - formspree.io: contact form submissions
+// - calendly.com: inline widget telemetry
 const connectSrc =
-  "'self' https://vitals.vercel-insights.com https://vercel.live https://plausible.io";
+  "'self' https://vitals.vercel-insights.com https://vercel.live https://plausible.io https://formspree.io https://calendly.com";
+
+// Hosts allowed to embed as <iframe>. Calendly serves its booking widget
+// from calendly.com as an iframe inside the inline-widget container.
+const frameSrc = "https://calendly.com";
+
+// Hosts allowed as the destination of a <form action="...">. We POST via
+// fetch (connect-src), but keep form-action tight in case a future form
+// submits natively.
+const formAction = "'self' https://formspree.io";
+
+// Image hosts (Calendly serves favicons / avatars from calendly.com).
+const imgSrc = "'self' data: blob: https://*.calendly.com";
 
 const securityHeaders = [
   {
@@ -45,13 +61,13 @@ const securityHeaders = [
       "default-src 'self'",
       `script-src ${scriptSrc}`,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
+      `img-src ${imgSrc}`,
       "font-src 'self' data:",
       `connect-src ${connectSrc}`,
-      "frame-src 'none'",
+      `frame-src ${frameSrc}`,
       "object-src 'none'",
       "base-uri 'self'",
-      "form-action 'self'",
+      `form-action ${formAction}`,
       "frame-ancestors 'none'",
       "upgrade-insecure-requests",
     ].join("; "),
