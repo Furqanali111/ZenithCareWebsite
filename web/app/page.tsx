@@ -4,6 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
+import {
+  ANCHOR_MONTHLY,
+  ANCHOR_PATIENTS,
+  formatUsd,
+} from "@/lib/roi";
 
 export const metadata: Metadata = pageMetadata({
   title: `${site.name} — Remote Chronic Care Management`,
@@ -69,8 +74,9 @@ export default function HomePage() {
           </div>
 
           <p className="mt-5 max-w-xl text-xs text-muted-foreground">
-            Representative example: a 200-patient CCM panel at the base code
-            ≈ $13,200/month in Medicare reimbursement. Actual results vary.
+            Representative example: a {ANCHOR_PATIENTS}-patient CCM panel at
+            the base code ≈ {formatUsd(ANCHOR_MONTHLY)}/month in Medicare
+            reimbursement. Actual results vary.
           </p>
         </div>
       </section>
@@ -116,10 +122,10 @@ export default function HomePage() {
                 Representative revenue
               </span>
               <p className="mt-5 font-serif text-6xl font-semibold tracking-tight leading-none md:text-7xl">
-                $13,200
+                {formatUsd(ANCHOR_MONTHLY)}
               </p>
               <p className="mt-3 text-base text-[color:var(--color-surface-0)]/80">
-                per month, for a 200-patient CCM panel.
+                per month, for a {ANCHOR_PATIENTS}-patient CCM panel.
               </p>
               <p className="mt-6 text-sm text-[color:var(--color-accent-600)]">
                 Based on <span className="font-mono">CPT 99490</span> base-code

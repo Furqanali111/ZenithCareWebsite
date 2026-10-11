@@ -15,7 +15,7 @@ This is the "what has been done / what is being done / what is next" log. It's i
 ## Current status
 
 - **Phase**: 2 (Core pages)
-- **In flight**: `feature/home-page` (awaiting push + PR + merge)
+- **In flight**: `feature/services-page` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,12 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #6 (awaiting push) — `feature/home-page`
+### 2026-10-11 — PR #7 (awaiting push) — `feature/services-page`
+Long-form `/services/chronic-care-management` ships. Six sections: hero → CCM primer with eligibility criteria → six-row CPT code table (99490, 99439, 99487, 99489, 99491, 99437) with 2026 rate estimates → division-of-labor two-column strip (Zenith delivers / your practice keeps) → HIPAA Business Associate callout with link to `/hipaa-compliance` → final CTA band. Hand-rolled accessible `<table>` with `scope="col"` headers, `caption` for AT users, mono CPT numbers in brand-700. Links out to CMS Physician Fee Schedule as the authoritative source (E-E-A-T signal). Reuses existing `serviceLd` + `breadcrumbLd` factories.
+
+Ponytail-review fixes applied before handoff: hoisted CPT rates to a single `CPT_RATES` map in `lib/roi.ts` (with `ANCHOR_PATIENTS` + `ANCHOR_MONTHLY` constants) so the services-page table, the ROI calculator, and the homepage revenue card all read from one source — next time CMS reprices, one file to edit; promoted `BulletedListItem` to `components/bulleted-list.tsx` so the eligibility list, division-of-labor columns, and future FAQ / who-we-serve bullets share the same markup; rewrote the "20+ minutes per enrolled patient" bullet to describe the actual work (meds, symptoms, follow-up, barriers to care) instead of anchoring the reader to the CMS billing floor.
+
+### 2026-10-11 — PR #6 (merged) — `feature/home-page`
 Real homepage shipped. Five sections: hero (centered stack, Fraunces display headline, single gold hairline accent under "Chronic Care Management", two CTAs), "How it works" (3 numbered steps on a surface-50 band), revenue math card (brand-navy surface, hero-sized $13,200 with mono CPT 99490 reference and a CTA to `/roi-calculator`), founder credibility strip (AHK monogram placeholder that swaps to a real `<Image>` when the portrait lands, per the dangling-reference rule), final CTA band. Service JSON-LD on the page via existing `serviceLd()` factory. Rejected the taste-skill's agency-flash defaults (OLED vibes, bento, scroll motion) — wrong audience for a 55-y-old practice manager at a desktop; kept generous whitespace, eyebrow pills, nested hero-number weight, and subtle `cubic-bezier` CTA transitions.
 
 Ponytail-review fixes applied before handoff: rewrote the H1 as a clean declarative sentence ("Capture the recurring Medicare revenue your practice may be leaving on the table — through Chronic Care Management.") so it stops reading as a noun fragment; dropped `whitespace-nowrap` on the gold-underlined span so iPhone-SE visitors don't get horizontal scroll; aligned the FounderMonogram `aria-label` to the sighted experience ("Ali Hassan Kaleem, PharmD") so AT users aren't told they're seeing a "placeholder".
@@ -60,7 +65,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/home-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
+`feature/services-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
 
 ---
 
@@ -68,16 +73,15 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/services-page`** — long-form `/services/chronic-care-management` with CPT table.
-2. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
-3. **`feature/about-page`** — founder bio with PharmD credentials + Person JSON-LD.
-4. **`feature/hipaa-compliance-page`** — trust page content.
-5. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
-6. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
-7. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-8. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
-9. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-10. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
+2. **`feature/about-page`** — founder bio with PharmD credentials + Person JSON-LD.
+3. **`feature/hipaa-compliance-page`** — trust page content.
+4. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
+5. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
+6. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
+7. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
+8. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+9. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 
