@@ -26,7 +26,7 @@ Content you (not a PR) need to author. Only items whose placeholder is already l
 
 | Content | Where it's referenced | What's needed |
 |---|---|---|
-| FAQ entries | `content/faq.json` → loaded by `web/lib/faq.ts`; the loader throws on duplicate ids / empty fields in both dev and prod | Author at least 15 Q&As before `feature/faq-page` ships. See `WebSiteDoc/05-data-schema.md` §3 for the shape, `WebSiteDoc/07-seo-and-aiseo-plan.md` for AI-SEO-friendly phrasing. |
+| _(none open)_ | | First 15 FAQ Q&As shipped in PR #12. Add more entries by appending to `content/faq.json` — the loader validates on build and the page re-renders automatically. |
 
 ## 3. Env vars that need production values
 
