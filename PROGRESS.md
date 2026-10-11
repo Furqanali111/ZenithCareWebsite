@@ -15,7 +15,7 @@ This is the "what has been done / what is being done / what is next" log. It's i
 ## Current status
 
 - **Phase**: 2 (Core pages)
-- **In flight**: `feature/hipaa-compliance-page` (awaiting push + PR + merge)
+- **In flight**: `feature/who-we-serve-pages` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,14 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #10 (awaiting push) — `feature/hipaa-compliance-page`
+### 2026-10-11 — PR #11 (awaiting push) — `feature/who-we-serve-pages`
+Three specialty pages — `/who-we-serve/primary-care`, `/who-we-serve/internal-medicine`, `/who-we-serve/geriatrics` — ship with tailored copy. Still one dynamic route (`[specialty]/page.tsx`) with existing `generateStaticParams`; content comes from a per-specialty `SPECIALTY_CONTENT` map inside the file. Shape per page: hero → "why CCM here" + typical patient mix (two-column) → representative-revenue card (brand-navy, hero-sized number computed from the shared `CPT_RATES["99490"]` × panel × enrollment-rate, so a CMS reprice updates all three) → CTA band. Each page emits `Service` + `BreadcrumbList` JSON-LD via the existing `lib/seo.tsx` factories.
+
+Content calibrated to the three audiences: primary care emphasises the broadest condition mix and large unenrolled-eligible panels; internal medicine leads on polychronic patients and the Complex-CCM code share; geriatrics leads on near-universal Medicare + chronic-condition density and the fact a substantial portion qualifies for Complex CCM. Caught and fixed a `&rsquo;` entity-in-JS-string bug in three places before build — same shape as the services-page bug from PR #7; the entities only interpret inside JSX, not inside array string literals.
+
+Ponytail-review fixes applied before handoff: resized each specialty's example panel so the three hero revenue numbers are visibly distinct instead of collapsing to the same hundred-dollar bucket (primary 1500 × 30% → $29,700; internal 650 × 50% → $21,450; geriatric 500 × 70% → $23,100, with the specialty note explaining the Complex-CCM lift that makes real geriatric revenue the highest in practice); moved the generic Complex-CCM caveat into the shared revenue template so each specialty note now only adds specialty-specific colour (geriatric is the only one with a note after the refactor).
+
+### 2026-10-11 — PR #10 (merged) — `feature/hipaa-compliance-page`
 Real `/hipaa-compliance` ships. Five sections: hero → "zero PHI on this site" callout with ShieldCheck icon + two trust cards (BAA before any PHI, EHR stays system of record) → three safeguard cards mirroring the HIPAA Security Rule categories (Administrative / Physical / Technical) with specific items under each → side-by-side Minimum Necessary + Breach Notification paragraph pair → CTA card that links out to the formal `/hipaa-statement`. `BreadcrumbList` JSON-LD only (no Service LD — this is a trust posture, not a service). Reuses `BulletedListItem` for every bullet list; two co-located one-caller helpers (TrustCard, SafeguardCard).
 
 Pulled the formal HIPAA Statement forward and shipped it on `/hipaa-statement` in the same PR (previously planned for `feature/legal-pages`), so the "Read the formal statement" CTA on the compliance page no longer lands on a stub. Content pastes from `WebSiteDoc/08-legal-pages-draft.md §3` with placeholders resolved: `LAST_UPDATED` = 2026-10-11, contact email = `site.email` (role aliases like `compliance@` to be swapped in once set up per `WebSiteDoc/14-go-live-accounts.md §2.4`), full mailing address noted on request only.
@@ -82,7 +89,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/hipaa-compliance-page` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
+`feature/who-we-serve-pages` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
 
 ---
 
@@ -90,12 +97,11 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
-2. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
-3. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-4. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
-5. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-6. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
+2. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
+3. **`feature/legal-pages`** — Privacy / Terms / Accessibility (HIPAA Statement already shipped in PR #10). Paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md).
+4. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+5. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 
