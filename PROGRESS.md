@@ -14,8 +14,8 @@ This is the "what has been done / what is being done / what is next" log. It's i
 
 ## Current status
 
-- **Phase**: 2 → 4 (Core pages done; polish next)
-- **In flight**: `feature/legal-pages` (awaiting push + PR + merge)
+- **Phase**: 4 (Pre-launch polish — code side done; operational runs next)
+- **In flight**: `feature/pre-launch-polish` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,14 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #14 (awaiting push) — `feature/legal-pages`
+### 2026-10-11 — PR #15 (awaiting push) — `feature/pre-launch-polish`
+Static code-side audit for Phase 4 readiness. Scope: everything measurable from source without touching a browser. Confirmed: 11 route pages + 4 inherited via `LegalPage` each render exactly one `<h1>`; every page.tsx (16 files) exports `metadata`; `JsonLd` emitted on all 14 public routes; no `console.log/debug/info/warn` left anywhere; no raw `<img>` tags (FounderMonogram uses `role="img"` + `aria-label`); forms use `Label htmlFor` association pattern throughout; sitemap enumerates every route including the three posts; robots.txt allows all AI crawlers; security headers (HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, CSP) already in place via `next.config.ts`.
+
+Two concrete fixes shipped: promoted `llms.txt` from a static file in `public/` to a route handler at `web/app/llms.txt/route.ts` that reads the three posts (and any future posts) from the `content/posts.ts` registry — one source of truth, no manual two-file edit per new post; deleted `web/components/page-stub.tsx` which had zero importers after all its usages migrated to real content in PRs #7–#14.
+
+Ponytail-review fix applied before handoff: the review flagged `llms.txt` being hand-maintained as a near-duplicate of the posts registry that will drift. Promoted to a route handler now instead of waiting for the "~10 posts" trigger — net ~15 lines added but kills a maintenance liability permanently. Route output confirmed as `○ Static` in build (prerenders alongside `/robots.txt` and `/sitemap.xml`).
+
+### 2026-10-11 — PR #14 (merged) — `feature/legal-pages`
 `/privacy`, `/terms`, `/accessibility` all ship with real content. Content pastes from `WebSiteDoc/08-legal-pages-draft.md` §1 (Privacy), §2 (Terms), §4 (Accessibility) with every placeholder resolved: dates = 2026-10-11, contact = `site.email` (same role-alias shortcut as hipaa-statement), governing law + venue = Wyoming, retention period = 3 years, analytics vendor = Plausible, address = "Wyoming, USA" (full mailing available on request). All four legal routes now have real text; next time an attorney reviews it&rsquo;s a copy edit, not a rewrite from a stub.
 
 Ponytail-review fixes applied before handoff: extracted a shared `<LegalPage title lastUpdated effectiveDate?>` component in `web/components/legal-page.tsx` and refactored all four legal pages (privacy, terms, accessibility, and the previously-shipped hipaa-statement) to use it — one place to tune the eyebrow, Fraunces H1, date-line format, and the long `prose prose-neutral …` className wall; added a sixth bullet to the Privacy state-rights list ("Other U.S. states — residents of states with comprehensive consumer privacy laws, including CT, UT, TX, MT, IA, OR, DE, NJ, and others …") so the page doesn&rsquo;t read as frozen at the 2023-era CCPA/VCDPA/CPA snapshot.
@@ -106,7 +113,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/legal-pages` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge. After this merges, every feature PR in the Up-next list is complete — remaining work is Phase 4 polish and launch.
+`feature/pre-launch-polish` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge. After this merges, remaining work is the OPERATIONAL side of Phase 4 (actual Lighthouse / axe / keyboard / screen-reader runs against the Vercel preview, UptimeRobot setup, HSTS preload submission) + launch per [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 
