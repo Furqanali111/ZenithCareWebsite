@@ -14,13 +14,36 @@ This is the "what has been done / what is being done / what is next" log. It's i
 
 ## Current status
 
-- **Phase**: 4 (Pre-launch polish — code side done; operational runs next)
-- **In flight**: `feature/pre-launch-polish` (awaiting push + PR + merge)
+- **Phase**: 5 (Visual redesign overhaul — code side done; operational runs next)
+- **In flight**: `feature/redesign-overhaul` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
 
 ## Done
+
+### 2026-10-11 — PR #16 (awaiting push) — `feature/redesign-overhaul`
+Visual overhaul across the whole marketing surface. Preserved: URLs, CPT math, legal content, forms, env guards, SEO/JSON-LD, Calendly, Formspree, Plausible, HIPAA language, founder bio, business facts. Changed: the design system, the hero rhythm, and the service offering.
+
+**Design system refresh.** Dropped `Fraunces` (taste-skill flags it as the AI-default display serif) for `Plus Jakarta Sans` mapped onto the existing `--font-serif` token — zero markup changes to pick up the new face across 15 pages. Base radius bumped `0.5rem → 0.75rem` (softer modern-clinical feel; buttons/cards/pills scale through the existing `--radius-*` multipliers). New tokens: `--color-brand-50/100/800`, `--color-gold-100`, `--color-surface-100`, `--color-ink-700/400`, `--color-border-100`, `--section-py[/-lg/-hero/-hero-lg]`. New utilities: `.section-rhythm` (one source of truth for section vertical padding), `.bg-dotgrid` (honest clinical dot-grid for hero backgrounds, no gradient-slop). Global `prefers-reduced-motion` suppressor added at `@layer base`.
+
+**New service: Patient Care Coordinator.** Second service line under `/services/patient-care-coordinator` with its own hero + trust strip + weekly-workflow cards (before-visit / during-and-after) + division-of-labor + why-Zenith + good-fit list + HIPAA callout + final CTA. Added to `nav.services`, so the Nav "Services" slot auto-promotes from a direct link to a hover-reveal menu with both CCM and PCC. Sitemap entry + `llms.txt` entry both added.
+
+**Shared components.** `<TrustStrip tone>` — 4-column credibility row (HIPAA BA / PharmD-led / Inside your EHR / CMS-aligned billing) used under every hero. `<HeroEyebrow>` — small uppercase pill with a gold dot, enforced-sparingly per taste-skill's eyebrow count rule (max `ceil(sections / 3)` per page).
+
+**Nav + Footer.** Nav height bumped 64 → 72px, inline Z-monogram glyph next to the wordmark, dropdowns re-styled with brand-50 hover state. Footer gains the same monogram, a wrapping micro-trust row (HIPAA BA / PharmD-led / Inside your EHR), and a cleaner 12-col layout.
+
+**Homepage overhaul.** Centered hero → asymmetric split: left column has copy + CTAs, right column is a legitimate "data card" visual showing representative monthly revenue + three CPT stat pills — real data, not a fake product screenshot. Trust strip under hero. New "Two remote-staffing programs" services preview grid (CCM + PCC cards). Kept How-it-works (3-step), Representative-revenue navy band, Founder credibility strip, Final CTA. The navy band now shows the Complex-CCM ceiling ($15,800/mo at 20% complex mix) so it teaches a second thing instead of restating the hero's base figure.
+
+**CCM + Who-we-serve pages.** New hero rhythm (dot-grid background + `<HeroEyebrow>`), trust strip under hero, h-11 CTAs. Dropped 3 of 4 inline eyebrow spans on the CCM page to pass taste-skill's eyebrow count check (6 sections, max 2 eyebrows total).
+
+**Dark mode polish.** Added `dark:` overrides to the three places that use the fixed-light `--color-brand-50` chip (TrustStrip icon squares, HeroEyebrow pill, homepage ServiceCard icon squares) so they don't glare on the navy dark-mode background.
+
+Ponytail-review fixes applied before handoff:
+- **(critical)** The repo's `.gitignore` had `*patient*` as a HIPAA safety net, which silently excluded the new `web/app/services/patient-care-coordinator/page.tsx` from git. Local build worked because the file was on disk; a push would have landed the branch with the whole route missing (sitemap + nav → 404s). Narrowed the pattern to data-file extensions (`*patient*.pdf`, `*.csv`, `*.xlsx`, `*.json`) so the HIPAA intent stays but product-term source paths commit. Applied the same narrowing to `*phi*`.
+- Added `/services/patient-care-coordinator` to the `llms.txt` route handler's Core-pages block so AI crawlers see the new service (the handler's HEADER is hand-maintained; worth replacing with a `nav.services` derivation later).
+- Shortened the homepage H1 from 18 words to 11 ("Remote clinical staff for the work you can bill, but can't staff.") and dropped the hero font scale from `md:text-[3.5rem]` to `md:text-5xl lg:text-[3.25rem]` so the headline fits two lines on desktop at taste-skill §4.7's cap.
+- Rewrote the navy "Representative revenue" band to show the Complex-CCM ceiling figure instead of restating the hero card's base figure — teaches base-vs-complex instead of duplicating a number. Figure derived from `CPT_RATES` so the lib/roi.ts single-source rule holds.
 
 ### 2026-10-11 — Planning complete
 All 10 planning docs under `WebSiteDoc/` committed on `develop`. See [`WebSiteDoc/`](WebSiteDoc/) for the full set.
@@ -113,7 +136,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/pre-launch-polish` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge. After this merges, remaining work is the OPERATIONAL side of Phase 4 (actual Lighthouse / axe / keyboard / screen-reader runs against the Vercel preview, UptimeRobot setup, HSTS preload submission) + launch per [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+`feature/redesign-overhaul` — code done, build + lint clean, ponytail-review pass applied. Awaiting commit + push + PR + merge. After this merges, remaining work is the OPERATIONAL side of Phase 4 (actual Lighthouse / axe / keyboard / screen-reader runs against the Vercel preview, UptimeRobot setup, HSTS preload submission) + launch per [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md). PR #15 (`feature/pre-launch-polish`) merged earlier today on `develop`.
 
 ---
 

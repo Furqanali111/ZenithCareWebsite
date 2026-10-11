@@ -41,6 +41,10 @@ export const nav = {
       label: "Chronic Care Management",
       href: "/services/chronic-care-management",
     },
+    {
+      label: "Patient Care Coordinator",
+      href: "/services/patient-care-coordinator",
+    },
   ],
   whoWeServe: [
     { label: "Primary Care", href: "/who-we-serve/primary-care" },

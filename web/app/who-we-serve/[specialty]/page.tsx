@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
+import { HeroEyebrow } from "@/components/hero-eyebrow";
+import { TrustStrip } from "@/components/trust-strip";
 import { specialties, specialtyLabel, type Specialty } from "@/lib/site";
 import { CPT_RATES, formatUsd } from "@/lib/roi";
 
@@ -62,37 +64,46 @@ export default async function WhoWeServePage({
       />
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
-        <div className="max-w-3xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
-            Who we serve · {label}
-          </span>
-          <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
-            {c.heroHeadline}
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
-            {c.heroLead}
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="/contact">Book a 15-minute call</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/roi-calculator">Estimate your ROI</Link>
-            </Button>
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-dotgrid opacity-70 [mask-image:linear-gradient(to_bottom,black,transparent)]"
+        />
+        <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
+          <div className="max-w-3xl">
+            <HeroEyebrow>Who we serve · {label}</HeroEyebrow>
+            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+              {c.heroHeadline}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+              {c.heroLead}
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" className="h-11 px-6 text-sm">
+                <Link href="/contact">Book a 15-minute call</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-11 px-6 text-sm"
+              >
+                <Link href="/roi-calculator">Estimate your ROI</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* ─── Trust strip ─────────────────────────────────────────────── */}
+      <TrustStrip tone="surface" />
+
       {/* ─── Why CCM for this specialty ──────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+      <section className="section-rhythm">
+        <div className="mx-auto max-w-5xl px-6">
           <div className="grid gap-10 md:grid-cols-2 md:gap-12">
             <div>
-              <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                Why CCM here
-              </span>
-              <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
                 {c.whyHeadline}
               </h2>
               <div className="mt-6 space-y-4 text-base leading-relaxed text-[color:var(--color-ink-600)]">
@@ -103,10 +114,7 @@ export default async function WhoWeServePage({
             </div>
 
             <div>
-              <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                Typical patient mix
-              </span>
-              <h3 className="mt-4 font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+              <h3 className="font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
                 Conditions you&rsquo;ll already be seeing
               </h3>
               <ul className="mt-5 space-y-3 text-base text-[color:var(--color-ink-600)]">
@@ -120,9 +128,14 @@ export default async function WhoWeServePage({
       </section>
 
       {/* ─── Representative revenue ──────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <div className="rounded-2xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
+      <section className="section-rhythm">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-gold-500)]/15 blur-3xl"
+            />
+            <div className="relative grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
             <div>
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-accent-600)]">
                 Representative panel
@@ -152,9 +165,15 @@ export default async function WhoWeServePage({
                 Plug in your real numbers to see the figure for your panel —
                 the calculator runs entirely in your browser.
               </p>
-              <Button asChild size="lg" variant="secondary">
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="h-11 px-6 text-sm"
+              >
                 <Link href="/roi-calculator">Estimate your panel</Link>
               </Button>
+            </div>
             </div>
           </div>
         </div>
@@ -162,7 +181,8 @@ export default async function WhoWeServePage({
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
-        <div className="mx-auto max-w-3xl px-6 py-20 md:py-24 text-center">
+        <div className="section-rhythm">
+          <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
             Fifteen minutes with a PharmD.
           </h2>
@@ -172,14 +192,20 @@ export default async function WhoWeServePage({
             honestly whether Zenith is a fit.
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="h-11 px-6 text-sm">
               <Link href="/contact">Book a 15-minute call</Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="h-11 px-6 text-sm"
+            >
               <Link href="/services/chronic-care-management">
                 CCM services overview
               </Link>
             </Button>
+          </div>
           </div>
         </div>
       </section>

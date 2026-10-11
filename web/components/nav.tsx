@@ -18,17 +18,20 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+    <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-6 px-6">
         <Link
           href="/"
-          className="font-serif text-lg font-semibold tracking-tight text-[color:var(--color-brand-900)]"
+          className="group flex items-center gap-2.5"
           aria-label={`${site.name} — Home`}
         >
-          {site.name}
+          <WordmarkGlyph />
+          <span className="hidden font-serif text-[17px] font-semibold tracking-tight text-[color:var(--color-brand-900)] sm:inline">
+            {site.name}
+          </span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop nav — single line, condensed, condenses labels at lg. */}
         <nav
           aria-label="Primary"
           className="hidden items-center gap-7 md:flex"
@@ -39,13 +42,18 @@ export function Nav() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-[color:var(--color-ink-900)] hover:text-[color:var(--color-brand-700)]"
+              className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-[color:var(--color-brand-700)]"
             >
               {item.label}
             </Link>
           ))}
-          <ThemeToggle className="ml-1" />
-          <Button asChild size="sm" className="ml-1">
+          <div className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
+          <ThemeToggle />
+          <Button
+            asChild
+            size="sm"
+            className="h-9 px-4 text-sm shadow-sm shadow-[color:var(--color-brand-900)]/15"
+          >
             <Link href="/contact">Book a call</Link>
           </Button>
         </nav>
@@ -86,7 +94,7 @@ export function Nav() {
                   {item.label}
                 </Link>
               ))}
-              <Button asChild className="mt-4">
+              <Button asChild className="mt-4 h-10 text-sm">
                 <Link href="/contact" onClick={() => setOpen(false)}>
                   Book a call
                 </Link>
@@ -99,17 +107,39 @@ export function Nav() {
   );
 }
 
+/**
+ * Tiny inline SVG wordmark glyph — the Z monogram inside a rounded square.
+ * Honest geometric mark, not an "icon" stand-in. Scales via currentColor.
+ */
+function WordmarkGlyph() {
+  return (
+    <span
+      aria-hidden="true"
+      className="relative inline-flex size-9 items-center justify-center rounded-xl bg-[color:var(--color-brand-900)] text-[color:var(--color-gold-500)]"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="size-[18px]"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 6h12L6 18h12"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
 type Item = { label: string; href: string };
 
 /**
  * One nav slot. One item → plain link. Multiple → hover-reveal menu.
- * The label is a <span tabIndex=0>, not a <button>, because the only
- * interaction is "receive focus so the menu reveals"; promising a button
- * action we never implement would be an a11y bug.
- *
- * shortcut: Tailwind group hover/focus is enough for 2–4 items. Upgrade to
- * the installed shadcn navigation-menu if we need keyboard arrow traversal
- * or a group grows past 5 items.
+ * Keyboard: focus the label span, panel opens via :focus-within.
  */
 function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
   if (items.length === 1) {
@@ -117,7 +147,7 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
     return (
       <Link
         href={only.href}
-        className="text-sm font-medium text-[color:var(--color-ink-900)] hover:text-[color:var(--color-brand-700)]"
+        className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-[color:var(--color-brand-700)]"
       >
         {label}
       </Link>
@@ -127,20 +157,20 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
     <div className="group relative">
       <span
         tabIndex={0}
-        className="cursor-default text-sm font-medium text-[color:var(--color-ink-900)] hover:text-[color:var(--color-brand-700)]"
+        className="cursor-default text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-[color:var(--color-brand-700)]"
       >
         {label}
       </span>
       <div
         role="menu"
-        className="invisible absolute left-1/2 top-full z-50 mt-3 w-60 -translate-x-1/2 rounded-md border border-border bg-background p-2 opacity-0 shadow-md transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        className="invisible absolute left-1/2 top-full z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-border bg-background p-2 opacity-0 shadow-lg shadow-[color:var(--color-brand-900)]/10 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
       >
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
             role="menuitem"
-            className="block rounded px-3 py-2 text-sm hover:bg-muted"
+            className="block rounded-lg px-3 py-2 text-sm text-[color:var(--color-ink-900)] hover:bg-[color:var(--color-brand-50)] hover:text-[color:var(--color-brand-700)]"
           >
             {item.label}
           </Link>

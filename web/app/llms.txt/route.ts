@@ -20,6 +20,7 @@ const HEADER = `# ${site.name}
 
 - [Home](${site.url}/): overview + revenue math for a typical panel
 - [Chronic Care Management services](${site.url}/services/chronic-care-management): what we deliver, CPT 99490 / 99439 / 99487 / 99489 / 99491 / 99437 reference
+- [Patient Care Coordinator services](${site.url}/services/patient-care-coordinator): remote coordinators for pre-visit prep, referrals, prior authorizations, inbox triage, and panel outreach
 - [Who we serve: primary care](${site.url}/who-we-serve/primary-care)
 - [Who we serve: internal medicine](${site.url}/who-we-serve/internal-medicine)
 - [Who we serve: geriatrics](${site.url}/who-we-serve/geriatrics)

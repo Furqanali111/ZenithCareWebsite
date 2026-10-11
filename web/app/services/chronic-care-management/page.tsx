@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
+import { HeroEyebrow } from "@/components/hero-eyebrow";
+import { TrustStrip } from "@/components/trust-strip";
 import { CPT_RATES, type CptCode } from "@/lib/roi";
 
 const PATH = "/services/chronic-care-management";
@@ -32,39 +34,48 @@ export default function ServicesCCMPage() {
       />
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
-        <div className="max-w-3xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
-            Services
-          </span>
-          <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
-            Chronic Care Management, delivered end to end by a clinically-led team.
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
-            We find eligible patients, obtain documented consent, deliver the
-            20+ minutes of monthly non-face-to-face care coordination that
-            CCM requires, and keep the care plan up to date inside your EHR.
-            Your practice remains the billing provider for every CPT code.
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="/contact">Book a 15-minute call</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/roi-calculator">Estimate your ROI</Link>
-            </Button>
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-dotgrid opacity-70 [mask-image:linear-gradient(to_bottom,black,transparent)]"
+        />
+        <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
+          <div className="max-w-3xl">
+            <HeroEyebrow>Services</HeroEyebrow>
+            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+              Chronic Care Management, delivered end to end by a clinically-led team.
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+              We find eligible patients, obtain documented consent, deliver the
+              20+ minutes of monthly non-face-to-face care coordination that
+              CCM requires, and keep the care plan up to date inside your EHR.
+              Your practice remains the billing provider for every CPT code.
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" className="h-11 px-6 text-sm">
+                <Link href="/contact">Book a 15-minute call</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-11 px-6 text-sm"
+              >
+                <Link href="/roi-calculator">Estimate your ROI</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ─── Trust strip ─────────────────────────────────────────────── */}
+      <TrustStrip tone="surface" />
 
       {/* ─── What CCM is ──────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Primer
-            </span>
-            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
               What Chronic Care Management is, in one page.
             </h2>
           </header>
@@ -219,10 +230,7 @@ export default function ServicesCCMPage() {
       <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
           <header className="max-w-2xl">
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Division of labor
-            </span>
-            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
               What Zenith handles. What your practice keeps.
             </h2>
           </header>
@@ -259,10 +267,7 @@ export default function ServicesCCMPage() {
         <div className="rounded-2xl border border-border/70 bg-background p-8 md:p-12">
           <div className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
             <div>
-              <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                Compliance
-              </span>
-              <h2 className="mt-4 font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
                 HIPAA Business Associate from day one.
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
