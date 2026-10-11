@@ -45,7 +45,7 @@ export default function HipaaCompliancePage() {
       {/* ─── Zero PHI on this site + BAA posture ─────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
-          <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-start md:gap-10">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-start md:gap-10">
             <div
               aria-hidden="true"
               className="flex size-14 shrink-0 items-center justify-center rounded-full bg-[color:var(--color-brand-900)] text-[color:var(--color-surface-0)]"
@@ -163,7 +163,7 @@ export default function HipaaCompliancePage() {
       {/* ─── CTA + link to formal statement ──────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
-          <div className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
             <div>
               <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 Need the audit-ready version?

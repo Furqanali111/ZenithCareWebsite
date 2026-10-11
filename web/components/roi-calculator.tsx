@@ -23,7 +23,7 @@ export function RoiCalculator() {
 
   return (
     <div className="rounded-xl border border-border bg-card p-6 md:p-8">
-      <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:items-start">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:items-start">
         <div className="space-y-6">
           <Field label="Eligible Medicare patients" htmlFor="roi-patients">
             <Input

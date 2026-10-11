@@ -27,7 +27,15 @@ const PATTERNS: { kind: PhiHit["pattern"]; re: RegExp }[] = [
     kind: "dob",
     re: /\b(?:dob|d\.o\.b|born|birth(?:date|day)?)\b[^\n]{0,20}\d{1,2}\/\d{1,2}\/\d{4}\b/i,
   },
-  { kind: "patient_name", re: /\bpatient\s+[A-Z][a-z]+/ },
+  // Matches "Patient Smith" / "patient Smith" (word "patient" either case,
+  // followed by a Capitalized name). The negative lookahead excludes common
+  // B2B phrases that follow "Patient" (Care, Coordinator, Portal, Experience)
+  // so a lead mentioning the service name or asking a portal/experience
+  // question isn't blocked as PHI.
+  {
+    kind: "patient_name",
+    re: /\b[Pp]atient\s+(?![Cc]are\b|[Cc]oordinator\b|[Pp]ortal\b|[Ee]xperience\b)[A-Z][a-z]+/,
+  },
 ];
 
 /** Returns the first PHI-shaped hit in `text`, or null. */
@@ -58,8 +66,14 @@ if (process.env.NODE_ENV !== "production" && typeof window === "undefined") {
   must("DOB 03/14/1952 please", "dob");
   must("born 03/14/1952", "dob");
   must("Patient Smith has diabetes", "patient_name");
+  must("the patient Johnson is overdue", "patient_name");
   must_not("Please call me at 555-1234");
   must_not("I have 2 patients ready");
+  // Our own service name and common B2B phrases must not be flagged as PHI.
+  must_not("We'd like Patient Care Coordinator staffing");
+  must_not("interested in your Patient Coordinator service");
+  must_not("Does this integrate with our Patient Portal?");
+  must_not("we want to improve Patient Experience");
   // Project / timeline dates must NOT be flagged as DOB.
   must_not("We'd like to onboard by 03/15/2027");
   must_not("Last audit was 12/31/2024");
