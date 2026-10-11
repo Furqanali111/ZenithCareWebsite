@@ -6,7 +6,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { ThemeProvider } from "@/components/theme-provider";
-import { JsonLd, organizationLd } from "@/lib/seo";
+import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 /**
@@ -82,7 +82,7 @@ export default function RootLayout({
       className={`${inter.variable} ${displayFont.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-background text-foreground">
-        <JsonLd data={organizationLd()} />
+        <JsonLd data={[organizationLd(), websiteLd()]} />
         {plausibleEnabled ? (
           <Script
             defer

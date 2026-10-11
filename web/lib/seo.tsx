@@ -72,6 +72,15 @@ export function organizationLd(): JsonLd {
     logo: abs("/logo.png"),
     description: site.tagline,
     sameAs: [site.linkedin],
+    // Services Zenith offers, surfaced so search + AI engines can map the
+    // brand to its offering catalogue. Mirrors the two /services/* pages.
+    knowsAbout: [
+      "Chronic Care Management",
+      "Patient Care Coordination",
+      "Medicare CCM billing",
+      "Care coordination staffing",
+      "HIPAA Business Associate services",
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       email: site.email,
@@ -82,18 +91,39 @@ export function organizationLd(): JsonLd {
   };
 }
 
+/**
+ * Site-level WebSite node. Gives search + AI engines a single canonical
+ * identity for the domain (name, publisher, language). No SearchAction —
+ * the site has no on-site search endpoint, and claiming one Google can't
+ * use would be a structured-data error.
+ */
+export function websiteLd(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.url}#website`,
+    url: site.url,
+    name: site.name,
+    description: site.tagline,
+    inLanguage: "en-US",
+    publisher: { "@id": `${site.url}#organization` },
+  };
+}
+
 type ServiceLdInput = {
   name: string;
   description: string;
   path: string;
-  serviceType?: string;
+  /** Required so a new service page can't silently inherit the wrong type.
+     Use "Chronic Care Management", "Patient Care Coordination", etc. */
+  serviceType: string;
 };
 
 export function serviceLd({
   name,
   description,
   path,
-  serviceType = "Chronic Care Management",
+  serviceType,
 }: ServiceLdInput): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -250,6 +280,7 @@ if (process.env.NODE_ENV !== "production" && typeof window === "undefined") {
     name: "Test",
     description: "Test",
     path: "/t",
+    serviceType: "Chronic Care Management",
   });
   console.assert(svc["@type"] === "Service", "serviceLd: wrong @type");
 

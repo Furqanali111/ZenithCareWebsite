@@ -8,7 +8,7 @@ import { mailtoHref, site, whatsappHref } from "@/lib/site";
 const PATH = "/contact";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact Zenith Care Solutions",
+  title: "Contact",
   description:
     "Reach us by WhatsApp, email, our contact form, or book a 15-minute call. Do not submit patient information through this site.",
   path: PATH,

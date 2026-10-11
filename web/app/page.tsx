@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { TrustStrip } from "@/components/trust-strip";
-import { founder, site } from "@/lib/site";
+import { founder } from "@/lib/site";
 import {
   ANCHOR_MONTHLY,
   ANCHOR_PATIENTS,
@@ -27,9 +27,11 @@ const COMPLEX_MIX_MONTHLY =
   Math.round(ANCHOR_PATIENTS * COMPLEX_MIX_FRACTION) * CPT_RATES["99487"];
 
 export const metadata: Metadata = pageMetadata({
-  title: `${site.name} — Remote Chronic Care Management`,
+  // Keyword-first, brand appended once by pageMetadata (avoids the prior
+  // double-brand 78-char title).
+  title: "Chronic Care Management & Care Coordination",
   description:
-    "Zenith Care Solutions runs end-to-end Chronic Care Management and remote Patient Care Coordinator staffing for U.S. physician practices. Clinically led by a PharmD, HIPAA Business Associate, inside your EHR.",
+    "Remote Chronic Care Management and Patient Care Coordinator staffing for U.S. physician practices. PharmD-led, HIPAA Business Associate, inside your EHR.",
   path: "/",
 });
 
@@ -42,6 +44,7 @@ export default function HomePage() {
           description:
             "End-to-end Chronic Care Management services for U.S. physician practices.",
           path: "/",
+          serviceType: "Chronic Care Management",
         })}
       />
 

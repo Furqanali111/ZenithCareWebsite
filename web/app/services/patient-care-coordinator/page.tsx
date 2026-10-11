@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { TrustStrip } from "@/components/trust-strip";
+import { FaqSection, type FaqEntry } from "@/components/faq-section";
 
 const PATH = "/services/patient-care-coordinator";
 const NAME = "Patient Care Coordinator Services";
 const DESCRIPTION =
-  "Remote patient care coordinators for U.S. physician practices — pre-visit prep, referral tracking, insurance follow-up, patient outreach, and inbox triage. Clinically supervised, HIPAA-compliant, inside your EHR.";
+  "Remote patient care coordinators for U.S. physician practices: pre-visit prep, referrals, prior authorizations, and inbox triage. HIPAA-compliant, inside your EHR.";
 
 export const metadata: Metadata = pageMetadata({
   title: NAME,
@@ -23,7 +24,12 @@ export default function PatientCareCoordinatorPage() {
     <>
       <JsonLd
         data={[
-          serviceLd({ name: NAME, description: DESCRIPTION, path: PATH }),
+          serviceLd({
+            name: NAME,
+            description: DESCRIPTION,
+            path: PATH,
+            serviceType: "Patient Care Coordination",
+          }),
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "Services", path: PATH },
@@ -224,8 +230,15 @@ export default function PatientCareCoordinatorPage() {
         </div>
       </section>
 
+      {/* ─── FAQ (service-specific; emits FAQPage JSON-LD) ───────────── */}
+      <FaqSection
+        heading="Patient Care Coordinator: common questions"
+        idPrefix="pcc-faq"
+        items={PCC_FAQS}
+      />
+
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-surface-tint">
+      <section className="border-t border-border/60 bg-background">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -289,3 +302,33 @@ function LaborColumn({ label, items }: { label: string; items: string[] }) {
     </div>
   );
 }
+
+/* Service-specific FAQs. Answers derive from the workflow cards, division-of-
+   labor table, pricing note, and HIPAA callout already on this page. */
+const PCC_FAQS: FaqEntry[] = [
+  {
+    question: "What does a remote patient care coordinator do?",
+    answer:
+      "Pre-visit chart prep, appointment reminders and no-show follow-up, insurance eligibility and prior-authorization checks, referral placement with closed-loop follow-up, patient portal and inbox triage, prescription refill coordination, and care-gap and screening outreach by panel.",
+  },
+  {
+    question: "Is this a clinical role or an administrative one?",
+    answer:
+      "It is a non-clinical coordination role. Coordinators handle scheduling, forms, portal messages, referrals, prior authorizations, and routine outreach. All clinical decisions, exam-room care, and anything requiring medical judgment stay with your clinical team, which also supervises the coordinator's work.",
+  },
+  {
+    question: "How is Patient Care Coordinator pricing structured?",
+    answer:
+      "A flat monthly rate per coordinator, scaled to the hours and panel size you need. Most practices start with one coordinator for a provider or small pod and scale from there.",
+  },
+  {
+    question: "Can we combine a coordinator with Chronic Care Management?",
+    answer:
+      "Yes. You can run Patient Care Coordinator staffing and our Chronic Care Management program together under one vendor and one Business Associate Agreement.",
+  },
+  {
+    question: "Does the coordinator access our EHR and patient portal?",
+    answer:
+      "Yes, with role-based access the same way your in-house staff would have, and only after a Business Associate Agreement is signed. No PHI is exported off your systems.",
+  },
+];
