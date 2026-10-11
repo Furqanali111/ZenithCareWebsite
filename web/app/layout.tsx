@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Nav } from "@/components/nav";
@@ -39,11 +39,15 @@ const inter = Inter({
   display: "swap",
 });
 
-const fraunces = Fraunces({
+// Display face: Plus Jakarta Sans. Mapped to `--font-serif` so existing
+// `font-serif` className usages across pages pick it up without a repo-wide
+// rename. The token name is a misnomer kept for API stability; the face is
+// sans-serif (see redesign notes in globals.css).
+const displayFont = Plus_Jakarta_Sans({
   variable: "--font-serif",
   subsets: ["latin"],
   display: "swap",
-  axes: ["opsz"],
+  weight: ["500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -75,7 +79,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${displayFont.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-background text-foreground">
         <JsonLd data={organizationLd()} />

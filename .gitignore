@@ -59,7 +59,15 @@ coverage/
 .claude/local/
 graphify-out/
 
-# Secrets safety: refuse real BAAs, signed contracts, patient data in repo
+# Secrets safety: refuse real BAAs, signed contracts, PHI-shaped data files
+# in repo. Pinned to data file extensions so source paths that use "patient"
+# as a product term (e.g. /services/patient-care-coordinator) still commit.
 *.baa.pdf
-*patient*
-*phi*
+*patient*.pdf
+*patient*.csv
+*patient*.xlsx
+*patient*.json
+*phi*.pdf
+*phi*.csv
+*phi*.xlsx
+*phi*.json

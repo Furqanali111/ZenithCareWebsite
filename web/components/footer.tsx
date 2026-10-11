@@ -1,50 +1,104 @@
 import Link from "next/link";
+import { ShieldCheck, Stethoscope, Database } from "lucide-react";
 import { mailtoHref, nav, site, whatsappHref } from "@/lib/site";
 
 export function Footer() {
+  const hasWhatsApp = Boolean(site.whatsappNumber);
   return (
     <footer className="border-t border-border bg-[color:var(--color-surface-50)]">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-4">
-        <div className="md:col-span-2">
+      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-12 md:gap-10 md:py-20">
+        {/* Brand + direct lines + micro trust marks */}
+        <div className="md:col-span-5">
           <Link
             href="/"
-            className="font-serif text-lg font-semibold tracking-tight text-[color:var(--color-brand-900)]"
+            className="inline-flex items-center gap-2.5"
+            aria-label={`${site.name} — Home`}
           >
-            {site.name}
+            <span
+              aria-hidden="true"
+              className="relative inline-flex size-9 items-center justify-center rounded-xl bg-[color:var(--color-brand-900)] text-[color:var(--color-gold-500)]"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className="size-[18px]"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 6h12L6 18h12"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+            <span className="font-serif text-lg font-semibold tracking-tight text-[color:var(--color-brand-900)]">
+              {site.name}
+            </span>
           </Link>
-          <p className="mt-3 max-w-sm text-sm text-muted-foreground">
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-[color:var(--color-ink-600)]">
             {site.tagline}
           </p>
-          <ul className="mt-6 space-y-1 text-sm">
-            <li>
-              <a
-                href={whatsappHref()}
-                className="text-[color:var(--color-brand-700)] hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp us
-              </a>
-            </li>
+
+          <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            {hasWhatsApp ? (
+              <li>
+                <a
+                  href={whatsappHref()}
+                  className="font-medium text-[color:var(--color-brand-700)] hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp us
+                </a>
+              </li>
+            ) : null}
             <li>
               <a
                 href={mailtoHref()}
-                className="text-[color:var(--color-brand-700)] hover:underline"
+                className="font-medium text-[color:var(--color-brand-700)] hover:underline"
               >
                 {site.email}
               </a>
             </li>
           </ul>
+
+          <ul className="mt-7 grid grid-cols-1 gap-2 text-xs text-[color:var(--color-ink-600)] sm:grid-cols-3">
+            <li className="inline-flex items-center gap-2">
+              <ShieldCheck
+                className="size-4 text-[color:var(--color-brand-700)]"
+                aria-hidden="true"
+              />
+              HIPAA Business Associate
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <Stethoscope
+                className="size-4 text-[color:var(--color-brand-700)]"
+                aria-hidden="true"
+              />
+              PharmD-led clinical team
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <Database
+                className="size-4 text-[color:var(--color-brand-700)]"
+                aria-hidden="true"
+              />
+              Inside your EHR
+            </li>
+          </ul>
         </div>
 
-        <div>
+        <div className="md:col-span-3">
           <FooterGroup label="Services" items={nav.services} />
           <FooterGroup label="Who We Serve" items={nav.whoWeServe} />
         </div>
 
-        <div>
-          <FooterGroup label="Company" items={nav.main} />
-          <FooterGroup label="Legal" items={nav.legal} />
+        <div className="md:col-span-4">
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-2">
+            <FooterGroup label="Company" items={nav.main} />
+            <FooterGroup label="Legal" items={nav.legal} />
+          </div>
         </div>
       </div>
 
@@ -74,7 +128,7 @@ function FooterGroup({
 }) {
   return (
     <div className="mb-6 last:mb-0">
-      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+      <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink-900)]">
         {label}
       </div>
       <ul className="mt-3 space-y-2 text-sm">
@@ -82,7 +136,7 @@ function FooterGroup({
           <li key={item.href}>
             <Link
               href={item.href}
-              className="text-[color:var(--color-ink-900)] hover:text-[color:var(--color-brand-700)]"
+              className="text-[color:var(--color-ink-600)] transition-colors hover:text-[color:var(--color-brand-700)]"
             >
               {item.label}
             </Link>

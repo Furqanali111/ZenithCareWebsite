@@ -10,6 +10,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
+  /* --font-serif is bound to a sans-serif display face (Plus Jakarta Sans)
+     in app/layout.tsx. Name kept for backwards-compat with existing
+     `font-serif` utility usage across pages; see redesign notes. */
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -44,17 +47,31 @@
 
   /* Zenith brand tokens — see WebSiteDoc/04-design-brief.md §3 */
   --color-brand-900: #0b2545;
+  --color-brand-800: #122f55;
   --color-brand-700: #13315c;
+  --color-brand-100: #dbe3ef;
+  --color-brand-50: #eef3f9;
   --color-accent-600: #8da9c4;
   --color-gold-500: #c9a227;
+  --color-gold-100: #f5ebc9;
   --color-success-600: #2f855a;
   --color-warn-600: #b7791f;
   --color-error-600: #c53030;
   --color-surface-0: #ffffff;
   --color-surface-50: #f7f8fa;
+  --color-surface-100: #eef2f6;
   --color-ink-900: #111827;
+  --color-ink-700: #1f2937;
   --color-ink-600: #4b5563;
+  --color-ink-400: #9ca3af;
   --color-border-200: #e5e7eb;
+  --color-border-100: #eef0f3;
+
+  /* Section rhythm tokens — single source for section vertical spacing. */
+  --section-py: 5rem;              /* 80px — baseline mobile */
+  --section-py-lg: 7rem;           /* 112px — desktop baseline */
+  --section-py-hero: 6rem;         /* 96px — hero top room */
+  --section-py-hero-lg: 8rem;      /* 128px — hero top room desktop */
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -91,7 +108,9 @@
   --chart-3: #8da9c4;
   --chart-4: #c9a227;
   --chart-5: #4b5563;
-  --radius: 0.5rem;
+  /* Softer base radius for a modern-clinical feel. Buttons, cards, pills
+     all scale from this via the --radius-* multipliers in @theme above. */
+  --radius: 0.75rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #111827;
   --sidebar-primary: #0b2545;
@@ -143,14 +162,60 @@
   }
   html {
     @apply font-sans antialiased;
+    /* Tabular numerals for prices and CPT codes everywhere; marketing numbers
+       read as data, not decoration. */
+    font-feature-settings: "cv11", "ss01", "ss03";
   }
   body {
     @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4 {
     @apply font-serif tracking-tight;
+    /* Display face is a sans-serif (Plus Jakarta Sans) despite the token
+       name — see @theme comment on --font-serif. */
+    font-feature-settings: "cv11", "ss01";
+    letter-spacing: -0.02em;
+  }
+  h1 {
+    letter-spacing: -0.028em;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-[color:var(--color-brand-700)];
+  }
+  /* Honor reduced-motion from the OS. Any motion that stays uses CSS
+     transitions scoped to :hover / :active, which are not affected. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Shared section container utility — avoids repeating max-width + px/py
+   across every page. Opt-in via className="section" or paired with Tailwind
+   max-w utilities when a page wants a wider band. */
+@layer components {
+  .section-rhythm {
+    padding-top: var(--section-py);
+    padding-bottom: var(--section-py);
+  }
+  @media (min-width: 768px) {
+    .section-rhythm {
+      padding-top: var(--section-py-lg);
+      padding-bottom: var(--section-py-lg);
+    }
+  }
+  /* Subtle dot-grid for hero backgrounds — more honest than a mesh gradient,
+     reads as "clinical / precise" without any gradient-slop vibe. */
+  .bg-dotgrid {
+    background-image:
+      radial-gradient(circle at 1px 1px, color-mix(in oklch, var(--color-brand-700) 15%, transparent) 1px, transparent 0);
+    background-size: 24px 24px;
   }
 }

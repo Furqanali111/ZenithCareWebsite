@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${base}/`, lastModified: now, priority: 1.0, changeFrequency: "monthly" },
     { url: `${base}/services/chronic-care-management`, lastModified: now, priority: 0.9, changeFrequency: "monthly" },
+    { url: `${base}/services/patient-care-coordinator`, lastModified: now, priority: 0.9, changeFrequency: "monthly" },
     { url: `${base}/roi-calculator`, lastModified: now, priority: 0.8, changeFrequency: "monthly" },
     { url: `${base}/hipaa-compliance`, lastModified: now, priority: 0.7, changeFrequency: "yearly" },
     { url: `${base}/about`, lastModified: now, priority: 0.7, changeFrequency: "yearly" },
