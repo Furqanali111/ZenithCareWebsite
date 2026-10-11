@@ -71,3 +71,7 @@ graphify-out/
 *phi*.csv
 *phi*.xlsx
 *phi*.json
+
+# Dev-helper config for Claude Code preview tooling. Personal to each dev;
+# format documented in Claude Code docs. Not committed.
+.claude/launch.json

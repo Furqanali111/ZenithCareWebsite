@@ -17,7 +17,7 @@ export function TrustStrip({
 }) {
   const base =
     tone === "surface"
-      ? "bg-[color:var(--color-surface-50)]"
+      ? "bg-surface-tint"
       : "bg-background";
   return (
     <section
@@ -62,16 +62,16 @@ function TrustItem({
   return (
     <div className="flex items-start gap-3">
       <span
-        className="mt-0.5 inline-flex size-9 flex-none items-center justify-center rounded-lg bg-[color:var(--color-brand-50)] text-[color:var(--color-brand-700)] dark:bg-white/10 dark:text-[color:var(--color-accent-600)]"
+        className="mt-0.5 inline-flex size-9 flex-none items-center justify-center rounded-lg bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]"
         aria-hidden="true"
       >
         {icon}
       </span>
       <div className="min-w-0">
-        <p className="font-serif text-sm font-semibold text-[color:var(--color-brand-900)]">
+        <p className="font-serif text-sm font-semibold text-brand-ink">
           {label}
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-[color:var(--color-ink-600)]">
+        <p className="mt-1 text-sm leading-relaxed text-body-ink">
           {detail}
         </p>
       </div>

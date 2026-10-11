@@ -5,7 +5,7 @@ import { mailtoHref, nav, site, whatsappHref } from "@/lib/site";
 export function Footer() {
   const hasWhatsApp = Boolean(site.whatsappNumber);
   return (
-    <footer className="border-t border-border bg-[color:var(--color-surface-50)]">
+    <footer className="border-t border-border bg-surface-tint">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-12 md:gap-10 md:py-20">
         {/* Brand + direct lines + micro trust marks */}
         <div className="md:col-span-5">
@@ -33,11 +33,11 @@ export function Footer() {
                 />
               </svg>
             </span>
-            <span className="font-serif text-lg font-semibold tracking-tight text-[color:var(--color-brand-900)]">
+            <span className="font-serif text-lg font-semibold tracking-tight text-brand-ink">
               {site.name}
             </span>
           </Link>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-[color:var(--color-ink-600)]">
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-body-ink">
             {site.tagline}
           </p>
 
@@ -46,7 +46,7 @@ export function Footer() {
               <li>
                 <a
                   href={whatsappHref()}
-                  className="font-medium text-[color:var(--color-brand-700)] hover:underline"
+                  className="font-medium text-brand-accent hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -57,31 +57,31 @@ export function Footer() {
             <li>
               <a
                 href={mailtoHref()}
-                className="font-medium text-[color:var(--color-brand-700)] hover:underline"
+                className="font-medium text-brand-accent hover:underline"
               >
                 {site.email}
               </a>
             </li>
           </ul>
 
-          <ul className="mt-7 grid grid-cols-1 gap-2 text-xs text-[color:var(--color-ink-600)] sm:grid-cols-3">
+          <ul className="mt-7 grid grid-cols-1 gap-2 text-xs text-body-ink sm:grid-cols-3">
             <li className="inline-flex items-center gap-2">
               <ShieldCheck
-                className="size-4 text-[color:var(--color-brand-700)]"
+                className="size-4 text-brand-accent"
                 aria-hidden="true"
               />
               HIPAA Business Associate
             </li>
             <li className="inline-flex items-center gap-2">
               <Stethoscope
-                className="size-4 text-[color:var(--color-brand-700)]"
+                className="size-4 text-brand-accent"
                 aria-hidden="true"
               />
               PharmD-led clinical team
             </li>
             <li className="inline-flex items-center gap-2">
               <Database
-                className="size-4 text-[color:var(--color-brand-700)]"
+                className="size-4 text-brand-accent"
                 aria-hidden="true"
               />
               Inside your EHR
@@ -128,7 +128,7 @@ function FooterGroup({
 }) {
   return (
     <div className="mb-6 last:mb-0">
-      <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink-900)]">
+      <div className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-strong">
         {label}
       </div>
       <ul className="mt-3 space-y-2 text-sm">
@@ -136,7 +136,7 @@ function FooterGroup({
           <li key={item.href}>
             <Link
               href={item.href}
-              className="text-[color:var(--color-ink-600)] transition-colors hover:text-[color:var(--color-brand-700)]"
+              className="text-body-ink transition-colors hover:text-brand-accent"
             >
               {item.label}
             </Link>

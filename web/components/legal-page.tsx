@@ -26,7 +26,7 @@ export function LegalPage({
         <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
           Legal
         </span>
-        <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+        <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-brand-ink md:text-5xl">
           {title}
         </h1>
         <p className="mt-4 text-sm text-muted-foreground">
@@ -41,7 +41,7 @@ export function LegalPage({
         </p>
       </header>
 
-      <div className="prose prose-neutral mt-10 max-w-none text-base leading-relaxed text-[color:var(--color-ink-600)] [&_h2]:mt-10 [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-[color:var(--color-brand-900)] [&_h2]:tracking-tight [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mt-2 [&_strong]:font-medium [&_strong]:text-[color:var(--color-ink-900)]">
+      <div className="prose prose-neutral mt-10 max-w-none text-base leading-relaxed text-body-ink [&_h2]:mt-10 [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-brand-ink [&_h2]:tracking-tight [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mt-2 [&_strong]:font-medium [&_strong]:text-ink-strong">
         {children}
       </div>
     </article>

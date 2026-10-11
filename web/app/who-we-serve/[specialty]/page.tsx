@@ -72,10 +72,10 @@ export default async function WhoWeServePage({
         <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
           <div className="max-w-3xl">
             <HeroEyebrow>Who we serve · {label}</HeroEyebrow>
-            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
               {c.heroHeadline}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
               {c.heroLead}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -103,10 +103,10 @@ export default async function WhoWeServePage({
         <div className="mx-auto max-w-5xl px-6">
           <div className="grid gap-10 md:grid-cols-2 md:gap-12">
             <div>
-              <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 {c.whyHeadline}
               </h2>
-              <div className="mt-6 space-y-4 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              <div className="mt-6 space-y-4 text-base leading-relaxed text-body-ink">
                 {c.whyParagraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -114,10 +114,10 @@ export default async function WhoWeServePage({
             </div>
 
             <div>
-              <h3 className="font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+              <h3 className="font-serif text-xl font-semibold text-brand-ink">
                 Conditions you&rsquo;ll already be seeing
               </h3>
-              <ul className="mt-5 space-y-3 text-base text-[color:var(--color-ink-600)]">
+              <ul className="mt-5 space-y-3 text-base text-body-ink">
                 {c.patientMix.map((cond) => (
                   <BulletedListItem key={cond}>{cond}</BulletedListItem>
                 ))}
@@ -180,13 +180,13 @@ export default async function WhoWeServePage({
       </section>
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+          <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Fifteen minutes with a PharmD.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
             We&rsquo;ll confirm how many of your {label.toLowerCase()}{" "}
             patients qualify, walk through the per-code math, and tell you
             honestly whether Zenith is a fit.

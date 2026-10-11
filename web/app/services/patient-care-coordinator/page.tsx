@@ -41,10 +41,10 @@ export default function PatientCareCoordinatorPage() {
         <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
           <div className="max-w-3xl">
             <HeroEyebrow>Services</HeroEyebrow>
-            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
               A remote care coordinator who takes the clinical admin off your front desk.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
               Dedicated staff who prep charts before visits, chase referrals and
               authorizations, triage the patient inbox, and keep your schedule
               full — so your MAs and physicians stay focused on the room.
@@ -75,10 +75,10 @@ export default function PatientCareCoordinatorPage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
           <header className="max-w-2xl">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               What a Zenith coordinator does, in a typical week.
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+            <p className="mt-5 text-base leading-relaxed text-body-ink">
               Scope is sized to your practice — most clients start with one
               coordinator for a provider or small pod and scale from there.
               Every workflow lives inside your EHR, with clinical escalation
@@ -110,11 +110,11 @@ export default function PatientCareCoordinatorPage() {
       </section>
 
       {/* ─── Division of labor ───────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-5xl px-6">
             <header className="max-w-2xl">
-              <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Where the coordinator ends and your clinicians begin.
               </h2>
             </header>
@@ -149,10 +149,10 @@ export default function PatientCareCoordinatorPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-14">
             <div>
               <HeroEyebrow>Why Zenith</HeroEyebrow>
-              <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+              <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 A coordinator who understands clinical context.
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              <p className="mt-5 text-base leading-relaxed text-body-ink">
                 Most remote-admin providers staff this role with general virtual
                 assistants. Zenith trains coordinators on the clinical workflows
                 a primary-care or specialty practice actually runs — pre-visit
@@ -160,17 +160,17 @@ export default function PatientCareCoordinatorPage() {
                 triage — under the same PharmD-led oversight that supervises
                 our CCM program.
               </p>
-              <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+              <p className="mt-5 text-base leading-relaxed text-body-ink">
                 Pricing is a flat monthly rate per coordinator, scaled to the
                 hours and panel size you need. No PHI leaves your systems.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-border/70 bg-[color:var(--color-surface-50)] p-6 md:p-8">
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+            <div className="rounded-2xl border border-border/70 bg-surface-tint p-6 md:p-8">
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
                 Good fit if your practice
               </p>
-              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-[color:var(--color-ink-600)]">
+              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-body-ink">
                 <BulletedListItem>
                   Loses visits to no-shows because reminders and prep aren&rsquo;t
                   consistent.
@@ -196,13 +196,13 @@ export default function PatientCareCoordinatorPage() {
       {/* ─── HIPAA callout ───────────────────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
-          <div className="rounded-2xl border border-border/70 bg-background p-8 md:p-12">
+          <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
             <div className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
               <div>
-                <h2 className="font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-3xl">
+                <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                   HIPAA Business Associate from day one.
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+                <p className="mt-5 max-w-2xl text-base leading-relaxed text-body-ink">
                   Coordinators work inside your EHR and portal with role-based
                   access the same way your in-house staff would. BAA signed
                   before access is provisioned. No PHI exported.
@@ -225,13 +225,13 @@ export default function PatientCareCoordinatorPage() {
       </section>
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Fifteen minutes to scope the role.
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
               Tell us where the admin bottleneck is. We&rsquo;ll sketch the
               coordinator&rsquo;s week, confirm pricing, and tell you honestly
               whether Zenith is a fit.
@@ -262,11 +262,11 @@ export default function PatientCareCoordinatorPage() {
 
 function WorkflowCard({ label, items }: { label: string; items: string[] }) {
   return (
-    <div className="rounded-xl border border-border/70 bg-background p-6 md:p-8">
-      <h3 className="font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+    <div className="rounded-xl border border-border/70 bg-card p-6 md:p-8">
+      <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {label}
       </h3>
-      <ul className="mt-5 space-y-3 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+      <ul className="mt-5 space-y-3 text-base leading-relaxed text-body-ink">
         {items.map((item) => (
           <BulletedListItem key={item}>{item}</BulletedListItem>
         ))}
@@ -277,11 +277,11 @@ function WorkflowCard({ label, items }: { label: string; items: string[] }) {
 
 function LaborColumn({ label, items }: { label: string; items: string[] }) {
   return (
-    <div className="rounded-xl border border-border bg-background p-6 md:p-8">
-      <h3 className="font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+      <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {label}
       </h3>
-      <ul className="mt-5 space-y-3 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+      <ul className="mt-5 space-y-3 text-base leading-relaxed text-body-ink">
         {items.map((item) => (
           <BulletedListItem key={item}>{item}</BulletedListItem>
         ))}

@@ -29,7 +29,7 @@ export function ContactForm() {
     // No endpoint configured — don't render a form that would submit to "".
     // Three-door CTAs above the form stay as the primary path meanwhile.
     return (
-      <p className="rounded-lg border border-dashed border-border/80 bg-[color:var(--color-surface-50)] p-6 text-sm text-muted-foreground">
+      <p className="rounded-lg border border-dashed border-border/80 bg-surface-tint p-6 text-sm text-muted-foreground">
         The fallback contact form will light up here once the Formspree
         endpoint is configured. In the meantime, use the WhatsApp, email, or
         Calendly options above.
@@ -78,12 +78,12 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-xl border border-border bg-[color:var(--color-surface-50)] p-8 text-center"
+        className="rounded-xl border border-border bg-surface-tint p-8 text-center"
       >
-        <h3 className="font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+        <h3 className="font-serif text-xl font-semibold text-brand-ink">
           Thanks — your message is in.
         </h3>
-        <p className="mt-3 text-base text-[color:var(--color-ink-600)]">
+        <p className="mt-3 text-base text-body-ink">
           We&rsquo;ll reply within one business day. If it&rsquo;s urgent,
           WhatsApp us using the button above.
         </p>
@@ -109,9 +109,9 @@ export function ContactForm() {
 
       <p
         id="contact-no-phi"
-        className="rounded-md border border-border/80 bg-[color:var(--color-surface-50)] px-4 py-3 text-sm text-muted-foreground"
+        className="rounded-md border border-border/80 bg-surface-tint px-4 py-3 text-sm text-muted-foreground"
       >
-        <strong className="font-medium text-[color:var(--color-ink-900)]">
+        <strong className="font-medium text-ink-strong">
           Please do not submit patient information
         </strong>{" "}
         — this form is for provider contact details only. Patient data

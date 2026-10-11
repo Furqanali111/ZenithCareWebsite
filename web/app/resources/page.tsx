@@ -25,13 +25,13 @@ export default function ResourcesPage() {
       />
 
       <section className="mx-auto max-w-3xl px-6 pt-24 pb-10 md:pt-32 md:pb-14">
-        <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+        <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
           Resources
         </span>
-        <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl">
+        <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
           Articles for practices evaluating CCM.
         </h1>
-        <p className="mt-6 text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+        <p className="mt-6 text-base leading-relaxed text-body-ink md:text-lg">
           Honest, practical writing on Chronic Care Management — billing,
           operations, compliance. Written by Ali Hassan Kaleem, PharmD.
         </p>
@@ -46,7 +46,7 @@ export default function ResourcesPage() {
                 className="group block"
               >
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                  <span className="text-[color:var(--color-brand-700)]">
+                  <span className="text-brand-accent">
                     {post.category}
                   </span>
                   <span aria-hidden="true">·</span>
@@ -56,13 +56,13 @@ export default function ResourcesPage() {
                   <span aria-hidden="true">·</span>
                   <span>{post.readingMinutes} min read</span>
                 </div>
-                <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug tracking-tight text-[color:var(--color-brand-900)] group-hover:text-[color:var(--color-brand-700)] md:text-3xl">
+                <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug tracking-tight text-brand-ink group-hover:text-brand-accent md:text-3xl">
                   {post.title}
                 </h2>
-                <p className="mt-3 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+                <p className="mt-3 text-base leading-relaxed text-body-ink">
                   {post.description}
                 </p>
-                <span className="mt-4 inline-block text-sm font-medium text-[color:var(--color-brand-700)]">
+                <span className="mt-4 inline-block text-sm font-medium text-brand-accent">
                   Read article →
                 </span>
               </Link>

@@ -56,7 +56,7 @@ export default function HomePage() {
           <div className="max-w-xl">
             <HeroEyebrow>For U.S. physician practices</HeroEyebrow>
 
-            <h1 className="mt-6 font-serif text-[2.25rem] font-semibold leading-[1.05] tracking-tight text-[color:var(--color-brand-900)] md:text-5xl lg:text-[3.25rem]">
+            <h1 className="mt-6 font-serif text-[2.25rem] font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-[3.25rem]">
               Remote clinical staff for the work you can bill, but can&rsquo;t{" "}
               <span className="relative inline-block">
                 staff
@@ -68,7 +68,7 @@ export default function HomePage() {
               .
             </h1>
 
-            <p className="mt-7 max-w-lg text-base leading-relaxed text-[color:var(--color-ink-600)] md:text-lg">
+            <p className="mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
               Zenith delivers remote Chronic Care Management and Patient Care
               Coordinator staffing to U.S. primary care, internal medicine, and
               geriatric practices. Clinically led. HIPAA Business Associate.
@@ -98,26 +98,26 @@ export default function HomePage() {
 
           {/* Right — glanceable revenue card (real data, not a fake screenshot) */}
           <aside aria-label="Representative CCM revenue" className="relative">
-            <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-[color:var(--color-brand-50)]/70 blur-2xl" />
-            <div className="rounded-2xl border border-border/70 bg-background p-7 shadow-xl shadow-[color:var(--color-brand-900)]/10 md:p-8">
+            <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-[color:var(--color-brand-50)]/70 blur-2xl dark:bg-[color:var(--color-accent-600)]/15" />
+            <div className="rounded-2xl border border-border/70 bg-card p-7 shadow-xl shadow-[color:var(--color-brand-900)]/10 dark:border-white/10 dark:shadow-black/40 md:p-8">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
                   Monthly revenue, typical panel
                 </span>
-                <span className="rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
+                <span className="rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]">
                   CPT 99490
                 </span>
               </div>
 
-              <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight text-[color:var(--color-brand-900)]">
+              <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight text-brand-ink">
                 <span className="text-5xl md:text-6xl">
                   {formatUsd(ANCHOR_MONTHLY)}
                 </span>
-                <span className="text-base font-medium text-[color:var(--color-ink-600)]">
+                <span className="text-base font-medium text-body-ink">
                   / month
                 </span>
               </div>
-              <p className="mt-2 text-sm text-[color:var(--color-ink-600)]">
+              <p className="mt-2 text-sm text-body-ink">
                 {ANCHOR_PATIENTS} enrolled patients × ${CPT_RATES["99490"]}{" "}
                 base-code reimbursement
               </p>
@@ -130,7 +130,7 @@ export default function HomePage() {
 
               <Link
                 href="/roi-calculator"
-                className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
+                className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent hover:text-brand-ink"
               >
                 Run the full math
                 <ArrowRight className="size-4" aria-hidden="true" />
@@ -147,10 +147,10 @@ export default function HomePage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-6xl px-6">
           <header className="max-w-2xl">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Two remote-staffing programs for one clinical operation.
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+            <p className="mt-5 text-base leading-relaxed text-body-ink">
               Run them separately or together under one BAA. Both are
               PharmD-supervised and work inside your EHR.
             </p>
@@ -186,11 +186,11 @@ export default function HomePage() {
       </section>
 
       {/* ─── How it works ─────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-6xl px-6">
             <header className="max-w-2xl">
-              <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Three steps. Your practice stays the billing provider.
               </h2>
             </header>
@@ -267,18 +267,18 @@ export default function HomePage() {
       </section>
 
       {/* ─── Founder credibility strip ───────────────────────────────── */}
-      <section className="border-t border-border/60 bg-[color:var(--color-surface-50)]">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-5xl px-6">
             <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
               <FounderMonogram initials={founder.initials} name={founder.name} />
               <div>
                 <HeroEyebrow>Clinically led</HeroEyebrow>
-                <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+                <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                   Zenith is run by a trained pharmacist, not a call centre.
                 </h2>
-                <p className="mt-5 max-w-prose text-base leading-relaxed text-[color:var(--color-ink-600)]">
-                  Founder <strong className="font-medium text-[color:var(--color-ink-900)]">{founder.name}</strong>{" "}
+                <p className="mt-5 max-w-prose text-base leading-relaxed text-body-ink">
+                  Founder <strong className="font-medium text-ink-strong">{founder.name}</strong>{" "}
                   brings a clinical oncology and bone-marrow-transplant background
                   to every workflow Zenith delivers. Your practice gets care
                   coordination from staff who understand the medications, the
@@ -291,7 +291,7 @@ export default function HomePage() {
                   <span aria-hidden="true">·</span>
                   <Link
                     href="/about"
-                    className="text-[color:var(--color-brand-700)] hover:underline"
+                    className="text-brand-accent hover:underline"
                   >
                     Read the full story →
                   </Link>
@@ -305,11 +305,11 @@ export default function HomePage() {
       {/* ─── Final CTA band ──────────────────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
-          <div className="rounded-3xl border border-border/70 bg-background px-8 py-14 text-center md:px-14 md:py-20">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-[color:var(--color-brand-900)] md:text-4xl">
+          <div className="rounded-3xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Ready to see the math for your practice?
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[color:var(--color-ink-600)]">
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
               Fifteen minutes. We confirm your eligible patient count or scope
               the coordinator role, walk through the numbers, and tell you
               honestly whether we&rsquo;re a fit.
@@ -346,11 +346,11 @@ function StatPill({
   note: string;
 }) {
   return (
-    <div className="rounded-xl border border-border/70 bg-[color:var(--color-surface-50)] p-3 text-center">
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)]">
+    <div className="rounded-xl border border-border/70 bg-surface-tint p-3 text-center">
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-accent">
         {label}
       </p>
-      <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">
+      <p className="mt-1 font-serif text-lg font-semibold text-brand-ink">
         {value}
       </p>
       <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">
@@ -376,22 +376,22 @@ function ServiceCard({
   bullets: string[];
 }) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-background p-7 transition-colors hover:border-[color:var(--color-brand-700)]/40 md:p-9">
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-7 transition-colors hover:border-[color:var(--color-brand-700)]/40 md:p-9">
       <div className="flex items-center gap-3">
-        <span className="inline-flex size-10 items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-[color:var(--color-brand-700)] dark:bg-white/10 dark:text-[color:var(--color-accent-600)]">
+        <span className="inline-flex size-10 items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]">
           {icon}
         </span>
-        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-brand-700)] dark:text-[color:var(--color-accent-600)]">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-accent dark:text-[color:var(--color-accent-600)]">
           {label}
         </span>
       </div>
-      <h3 className="mt-6 font-serif text-2xl font-semibold tracking-tight text-[color:var(--color-brand-900)]">
+      <h3 className="mt-6 font-serif text-2xl font-semibold tracking-tight text-brand-ink">
         {title}
       </h3>
-      <p className="mt-3 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+      <p className="mt-3 text-base leading-relaxed text-body-ink">
         {body}
       </p>
-      <ul className="mt-6 space-y-2.5 text-sm leading-relaxed text-[color:var(--color-ink-600)]">
+      <ul className="mt-6 space-y-2.5 text-sm leading-relaxed text-body-ink">
         {bullets.map((b) => (
           <li key={b} className="flex gap-2.5">
             <span
@@ -404,7 +404,7 @@ function ServiceCard({
       </ul>
       <Link
         href={href}
-        className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
+        className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent hover:text-brand-ink"
       >
         Explore {title}
         <ArrowRight
@@ -427,13 +427,13 @@ function HowStep({
 }) {
   return (
     <li className="flex flex-col">
-      <span className="inline-flex size-9 items-center justify-center rounded-full border border-[color:var(--color-brand-100)] bg-background font-mono text-sm font-medium text-[color:var(--color-brand-700)]">
+      <span className="inline-flex size-9 items-center justify-center rounded-full border border-brand-100 bg-card font-mono text-sm font-medium text-brand-accent">
         {number}
       </span>
-      <h3 className="mt-5 font-serif text-xl font-semibold text-[color:var(--color-brand-900)]">
+      <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink">
         {title}
       </h3>
-      <p className="mt-3 text-base leading-relaxed text-[color:var(--color-ink-600)]">
+      <p className="mt-3 text-base leading-relaxed text-body-ink">
         {body}
       </p>
     </li>
