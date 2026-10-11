@@ -14,8 +14,8 @@ This is the "what has been done / what is being done / what is next" log. It's i
 
 ## Current status
 
-- **Phase**: 1 (Scaffold)
-- **In flight**: `feature/global-layout-and-stubs` (not yet pushed — awaiting user to commit + PR)
+- **Phase**: 2 (Core pages)
+- **In flight**: `feature/roi-calculator` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,12 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #4 (awaiting push) — `feature/content-infra`
+### 2026-10-11 — PR #5 (awaiting push) — `feature/roi-calculator`
+Client-side CCM revenue estimator at `/roi-calculator`. Two inputs (eligible Medicare patients + expected enrollment %), two stat tiles (monthly + annual reimbursement, each shown as a ±10% band so no number pretends to be exact). Math lives in `web/lib/roi.ts` as pure functions with a server-only dev self-check that throws when the 200-patient-100% anchor drifts from $13,200/mo. Added shadcn `slider` component. `Service` + `BreadcrumbList` JSON-LD on the page. Nothing stored, no network, no cookies. The homepage hero's "Estimate your ROI" CTA now resolves to a real page.
+
+Ponytail-review fixes applied before handoff: removed the arbitrary 1,000-patient cap that silently halved reimbursement for larger panels; deleted the now-unused `clamp` helper; removed the unreachable `?? DEFAULT_ENROLLMENT_PCT` fallback on the Slider's `onValueChange`; dropped the duplicate `aria-label` from the Slider (the live Label text with the current % wins); added "(±10% band)" to both stat-tile captions so the range isn't unexplained.
+
+### 2026-10-11 — PR #4 (merged) — `feature/content-infra`
 Wired MDX via `@next/mdx` + `mdx-components.tsx` + `pageExtensions: ['ts','tsx','md','mdx']` in `next.config.ts`. Added typed FAQ loader at `lib/faq.ts` with build-time duplicate-id and empty-field validation that throws loudly in both dev and prod; current `content/faq.json` is still `{ items: [] }` — real Q&As ship with the FAQ page PR. Added optional Plausible script to the root layout with defence-in-depth gating (`NODE_ENV === "production"` AND `VERCEL_ENV` is undefined-or-"production" AND domain env is set); `plausible.io` allowlisted in CSP. New devDep: `@types/mdx`.
 
 Also introduced `WebSiteDoc/13-deferred-items.md` as the single catalog of dangling references (missing assets, empty content, unset env vars, setup to-dos, time-based reminders, future-PR traps) — plus pinned the "never remove a dangling reference, add it to that doc instead" rule in `CLAUDE.md` and `12-claude-requirements.md` §3.9. The `PROGRESS.md` "Open questions" section now links to that doc instead of duplicating the list.
@@ -50,7 +55,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-Nothing — PR #2 is ready for you to commit, push, review, and merge.
+`feature/roi-calculator` — code done, build + lint clean, ponytail-review fixes applied. Awaiting commit + push + PR + merge.
 
 ---
 
@@ -58,18 +63,17 @@ Nothing — PR #2 is ready for you to commit, push, review, and merge.
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/roi-calculator`** — client-side calculator (TDD per Ponytail — ship with assert-based self-check). **Build this BEFORE the real homepage** so the hero's "Estimate your ROI" CTA doesn't send users to a stub (ponytail-review finding on PR #2).
-4. **`feature/home-page`** — real homepage (hero, 3-step how-it-works, revenue math, founder credibility strip, final CTA). Invoke `taste-skill` + `impeccable` per [`12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md).
-4. **`feature/services-page`** — long-form `/services/chronic-care-management` with CPT table.
-5. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
-6. **`feature/about-page`** — founder bio with PharmD credentials + Person JSON-LD.
-7. **`feature/hipaa-compliance-page`** — trust page content.
-8. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
-9. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
-10. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
-11. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
-12. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-13. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **`feature/home-page`** — real homepage (hero, 3-step how-it-works, revenue math, founder credibility strip, final CTA). Invoke `taste-skill` + `impeccable` per [`12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md).
+2. **`feature/services-page`** — long-form `/services/chronic-care-management` with CPT table.
+3. **`feature/contact-page`** — WhatsApp + mailto + Formspree form + Calendly inline embed + client-side PHI guard.
+4. **`feature/about-page`** — founder bio with PharmD credentials + Person JSON-LD.
+5. **`feature/hipaa-compliance-page`** — trust page content.
+6. **`feature/who-we-serve-pages`** — specialty-tailored content for primary care, internal medicine, geriatrics.
+7. **`feature/faq-page`** — accordion rendering `content/faq.json` + FAQPage JSON-LD. First 15 Q&As authored.
+8. **`feature/resources-blog`** — `/resources` index + `[slug]` dynamic route + 3 seed MDX posts.
+9. **`feature/legal-pages`** — paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md) into the four legal routes.
+10. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+11. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 
