@@ -152,7 +152,7 @@ export default function PatientCareCoordinatorPage() {
       {/* ─── Why Zenith for this role ────────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-14">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-14">
             <div>
               <HeroEyebrow>Why Zenith</HeroEyebrow>
               <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -203,7 +203,7 @@ export default function PatientCareCoordinatorPage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
           <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
-            <div className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
               <div>
                 <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                   HIPAA Business Associate from day one.

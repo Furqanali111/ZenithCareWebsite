@@ -227,7 +227,7 @@ export default function HomePage() {
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-gold-500)]/15 blur-3xl"
             />
-            <div className="relative grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
+            <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
               <div>
                 <HeroEyebrow>With Complex-CCM mix</HeroEyebrow>
                 <p className="mt-5 font-serif text-6xl font-semibold tracking-tight leading-none md:text-7xl">
@@ -273,7 +273,7 @@ export default function HomePage() {
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-5xl px-6">
-            <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
               <FounderMonogram initials={founder.initials} name={founder.name} />
               <div>
                 <HeroEyebrow>Clinically led</HeroEyebrow>

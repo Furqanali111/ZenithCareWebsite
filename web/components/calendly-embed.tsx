@@ -17,9 +17,11 @@ export function CalendlyEmbed({ heightPx = 720 }: { heightPx?: number }) {
   return (
     <div>
       <div
-        className="calendly-inline-widget rounded-xl overflow-hidden border border-border"
+        className="calendly-inline-widget w-full rounded-xl overflow-hidden border border-border"
         data-url={url}
-        style={{ minWidth: "320px", height: `${heightPx}px` }}
+        // No fixed min-width: the widget is fluid and fills its container.
+        // A hard 320px min overflowed the padded column on a 320px viewport.
+        style={{ height: `${heightPx}px` }}
       />
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"

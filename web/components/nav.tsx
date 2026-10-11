@@ -31,10 +31,13 @@ export function Nav() {
           </span>
         </Link>
 
-        {/* Desktop nav — single line, condensed, condenses labels at lg. */}
+        {/* Desktop nav — shows at lg+ only. The full menu + wordmark needs
+            ~782px; at the md (768) tablet width it overflowed, so tablets
+            get the hamburger and the full bar appears at lg (1024) where it
+            fits comfortably. */}
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-7 md:flex"
+          className="hidden items-center gap-7 lg:flex"
         >
           <NavGroup label="Services" items={nav.services} />
           <NavGroup label="Who We Serve" items={nav.whoWeServe} />
@@ -58,9 +61,9 @@ export function Nav() {
           </Button>
         </nav>
 
-        {/* Mobile trigger */}
+        {/* Mobile + tablet trigger (below lg) */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <ThemeToggle />
             <SheetTrigger asChild>
               <Button

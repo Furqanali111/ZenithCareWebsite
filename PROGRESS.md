@@ -14,13 +14,32 @@ This is the "what has been done / what is being done / what is next" log. It's i
 
 ## Current status
 
-- **Phase**: 6 (SEO + AI-search content optimization — code side done)
-- **In flight**: `feature/seo-content-optimization` (awaiting push + PR + merge)
+- **Phase**: 7 (Final QA — responsive / cross-device / a11y / functionality)
+- **In flight**: `feature/final-qa` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
 
 ## Done
+
+### 2026-10-11 — PR #19 (awaiting push) — `feature/final-qa`
+Final quality-assurance pass: responsive testing across 8 viewports, mobile/tablet layout fixes, accessibility verification, functionality checks. Tested live in the in-app Chromium browser at 320 / 768 / 1024 / 1920 (375 / 390 / 430 inherit the 320 mobile layout; 1366 sits between two verified-clean widths).
+
+**Responsive issues found + fixed (3)**
+- **Calendly embed overflowed by 24px at 320px** (`components/calendly-embed.tsx`): the widget hard-coded `minWidth: 320px`, which exceeded the padded column on a 320px screen. Removed the min-width and set `w-full`; the widget is fluid and fills its container. Verified no overflow at 320.
+- **ROI calculator (and 8 other grids) overflowed/were fragile at mobile** (`components/roi-calculator.tsx` + 6 page files): grids written as `grid … md:grid-cols-[…]` with no base `grid-cols-1` fall back below `md` to an implicit max-content column that can exceed the container (the ROI number input forced a 289px column in a 222px card → 18px overflow). Added `grid-cols-1` to all bracket-template grids so mobile is an explicit single full-width column; `md:` still overrides on desktop (no desktop change). Numeric `md:grid-cols-N` grids were verified to already render full-width and left alone.
+- **Desktop nav overflowed tablet width at 768px** (`components/nav.tsx`): the full nav (logo + 5 items + toggle + CTA) needs ~782px but the `md` breakpoint activated it at 768. Moved the desktop-nav / hamburger breakpoint from `md` to `lg` (1024) so tablets use the hamburger and the full bar appears only where it fits. Verified nav fits + no overflow at 1024.
+
+**Functionality bug found + fixed (pre-existing, surfaced by QA)**
+- **`/contact` returned 500 in dev and the PHI guard was broken** (`lib/validate.ts`): a load-time self-check threw because the patient-name regex `/\bpatient\s+[A-Z][a-z]+/` was case-sensitive lowercase and missed "Patient Smith" (capital P) — the realistic case a provider types. Production shipped the gap silently (self-check is NODE_ENV-guarded). Fixed the regex to match "Patient"/"patient" + a capitalized name, with a negative lookahead excluding common B2B phrases (`Care`, `Coordinator`, `Portal`, `Experience`) so legitimate messages ("Patient Care Coordinator", "Patient Portal") aren't blocked from submitting. Added self-check cases to lock both the catch and the exclusions. `/contact` now serves 200; the PHI warning actually works.
+
+**Accessibility verified**
+- Color contrast: all key text/background pairs pass WCAG AA (lowest 4.83:1); dark-mode body/heading/accent all ≥6:1. Computed, not estimated.
+- Mobile nav: opens on tap, closes on Escape, focus returns to the trigger button, both services + all nav items present.
+- `prefers-reduced-motion` rule confirmed in compiled CSS; focus-visible outline (links) + ring (buttons) rules present in CSS.
+- Touch targets: nav icon buttons are 32px (passes WCAG 2.2 AA 24px minimum; below the 44px AAA target).
+
+**Checks**: `pnpm lint` clean, `npx tsc --noEmit` clean, `pnpm build` passes (28 routes prerender static), no horizontal overflow at any tested viewport, no real console errors (remaining dev-console noise is HMR websocket + Next 16 PPR `instant`/Suspense warnings on the `◐` dynamic routes, both dev-only and expected).
 
 ### 2026-10-11 — PR #18 (awaiting push) — `feature/seo-content-optimization`
 SEO + AI-search optimization pass on top of the merged redesign (PRs #16, #17). No design changes, no fabricated claims — every new sentence derives from content already on the page.

@@ -137,7 +137,7 @@ export default async function WhoWeServePage({
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-gold-500)]/15 blur-3xl"
             />
-            <div className="relative grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
+            <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
             <div>
               <span className="text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-accent-600)]">
                 Representative panel

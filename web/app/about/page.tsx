@@ -53,7 +53,7 @@ export default function AboutPage() {
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
-        <div className="grid gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
           <FounderMonogram initials={founder.initials} name={founder.name} size="lg" />
           <div>
             <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
