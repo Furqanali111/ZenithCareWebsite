@@ -14,8 +14,8 @@ This is the "what has been done / what is being done / what is next" log. It's i
 
 ## Current status
 
-- **Phase**: 2 (Core pages)
-- **In flight**: `feature/resources-blog` (awaiting push + PR + merge)
+- **Phase**: 2 → 4 (Core pages done; polish next)
+- **In flight**: `feature/legal-pages` (awaiting push + PR + merge)
 - **Blocking anything?**: no
 
 ---
@@ -31,7 +31,12 @@ Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for futu
 ### 2026-10-11 — PR #1 (merged) — `feature/nextjs-bootstrap`
 Commit `200b590`. Bootstrapped Next.js 16 + React 19 + Tailwind 4 under `web/`. Installed project deps (MDX, lucide, clsx, tailwind-merge, cva, @tailwindcss/typography) and shadcn/ui components (button, card, accordion, input, textarea, label, sheet, navigation-menu, alert, sonner, tabs, tooltip). `pnpm build` clean on stock scaffold.
 
-### 2026-10-11 — PR #13 (awaiting push) — `feature/resources-blog`
+### 2026-10-11 — PR #14 (awaiting push) — `feature/legal-pages`
+`/privacy`, `/terms`, `/accessibility` all ship with real content. Content pastes from `WebSiteDoc/08-legal-pages-draft.md` §1 (Privacy), §2 (Terms), §4 (Accessibility) with every placeholder resolved: dates = 2026-10-11, contact = `site.email` (same role-alias shortcut as hipaa-statement), governing law + venue = Wyoming, retention period = 3 years, analytics vendor = Plausible, address = "Wyoming, USA" (full mailing available on request). All four legal routes now have real text; next time an attorney reviews it&rsquo;s a copy edit, not a rewrite from a stub.
+
+Ponytail-review fixes applied before handoff: extracted a shared `<LegalPage title lastUpdated effectiveDate?>` component in `web/components/legal-page.tsx` and refactored all four legal pages (privacy, terms, accessibility, and the previously-shipped hipaa-statement) to use it — one place to tune the eyebrow, Fraunces H1, date-line format, and the long `prose prose-neutral …` className wall; added a sixth bullet to the Privacy state-rights list ("Other U.S. states — residents of states with comprehensive consumer privacy laws, including CT, UT, TX, MT, IA, OR, DE, NJ, and others …") so the page doesn&rsquo;t read as frozen at the 2023-era CCPA/VCDPA/CPA snapshot.
+
+### 2026-10-11 — PR #13 (merged) — `feature/resources-blog`
 Resources blog ships end-to-end: three real MDX posts (`cpt-99490-2026`, `in-house-vs-outsourced-ccm`, `hipaa-checklist-outsourced-ccm`), `/resources` index listing by date, `/resources/[slug]` dynamic route rendering each post with Article + Breadcrumb JSON-LD, author-bio strip reusing the `FounderMonogram` component, related-articles section, final CTA band. Sitemap now enumerates every post URL.
 
 Technical approach that avoids the Next 16 Cache Components dynamic-route trap documented in `13-deferred-items.md` §6 (now removed since this PR solves it): a static `content/posts.ts` registry statically imports each `.mdx` file with its `export const frontmatter` ESM metadata, so `generateStaticParams` iterates known slugs at build time with no `fs.readdirSync` indirection and no empty-params moment. Added `web/types/mdx.d.ts` module declaration so TypeScript sees the named `frontmatter` export alongside the default React component (not covered by stock `@types/mdx`). All three post routes prerender as static (`○`).
@@ -101,7 +106,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/resources-blog` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge.
+`feature/legal-pages` — code done, build + lint clean. Awaiting ponytail-review pass, then commit + push + PR + merge. After this merges, every feature PR in the Up-next list is complete — remaining work is Phase 4 polish and launch.
 
 ---
 
@@ -109,9 +114,8 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **`feature/legal-pages`** — Privacy / Terms / Accessibility (HIPAA Statement already shipped in PR #10). Paste attorney-reviewed copy from [`08-legal-pages-draft.md`](WebSiteDoc/08-legal-pages-draft.md).
-2. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-3. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+1. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
+2. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 
