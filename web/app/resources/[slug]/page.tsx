@@ -10,6 +10,11 @@ import { founder, site } from "@/lib/site";
 
 type Params = { slug: string };
 
+// Fully static, SEO-prerendered page: the whole page depends on `params`, so
+// there is no partial shell to stream. Under cacheComponents this declares the
+// route blocking instead of requiring a Suspense boundary around the page.
+export const instant = false;
+
 export function generateStaticParams(): Params[] {
   return getPostSlugs().map((slug) => ({ slug }));
 }

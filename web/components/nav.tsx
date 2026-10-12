@@ -20,16 +20,21 @@ export function Nav() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-6 px-6">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-6 px-6">
         <Link
           href="/"
-          className="group flex items-center gap-2.5"
+          className="flex items-center"
           aria-label={`${site.name} — Home`}
         >
-          <WordmarkGlyph />
-          <span className="hidden font-serif text-[17px] font-semibold tracking-tight text-brand-ink sm:inline">
-            {site.name}
-          </span>
+          {/* Color logo on the light header; white variant when the header
+              turns dark (bg-background is cyan-ink in dark mode). */}
+          <img
+            src="/logo.svg"
+            alt={site.name}
+            width={240}
+            height={72}
+            className="h-18 w-60 dark:brightness-0 dark:invert"
+          />
         </Link>
 
         {/* Desktop nav — shows at lg+ only. The full menu + wordmark needs
@@ -111,34 +116,6 @@ export function Nav() {
   );
 }
 
-/**
- * Tiny inline SVG wordmark glyph — the Z monogram inside a rounded square.
- * Honest geometric mark, not an "icon" stand-in. Scales via currentColor.
- */
-function WordmarkGlyph() {
-  return (
-    <span
-      aria-hidden="true"
-      className="relative inline-flex size-9 items-center justify-center rounded-xl bg-[color:var(--color-brand-900)] text-[color:var(--color-teal-400)]"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="size-[18px]"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6 6h12L6 18h12"
-          stroke="currentColor"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </span>
-  );
-}
-
 type Item = { label: string; href: string };
 
 /**
@@ -170,12 +147,19 @@ function ServicesMegaMenu() {
           />
         </svg>
       </span>
+      {/* Wide 3-column panel. Anchored at the trigger then shifted left so its
+          left edge lands on the nav's content edge — gives roomy columns that
+          hold the full service names on one line, and keeps the panel on-screen
+          at every width down to the lg breakpoint (the shift is the fixed
+          distance from the nav's left edge to the Services trigger).
+          shortcut: 286px assumes the current wordmark width; retune if it changes. */}
       <div
         role="menu"
-        className="invisible absolute left-0 top-full z-50 w-[min(92vw,44rem)] pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        className="invisible absolute left-0 top-full z-50 w-[min(94vw,60rem)] -translate-x-[286px] pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
       >
-        <div className="grid grid-cols-1 gap-6 rounded-xl border border-border bg-card p-5 shadow-lg shadow-[color:var(--color-brand-900)]/15 sm:grid-cols-2 dark:bg-[color:var(--color-brand-800)]">
+        <div className="grid grid-cols-1 gap-x-5 gap-y-6 rounded-xl border border-border bg-card p-4 shadow-lg shadow-[color:var(--color-brand-900)]/15 sm:grid-cols-3 dark:bg-[color:var(--color-brand-800)]">
           <MegaColumn category="rpm" />
+          <MegaColumn category="rcm" />
           <MegaColumn category="staffing" />
         </div>
       </div>
