@@ -269,12 +269,15 @@
   will-change: transform;
   pointer-events: none;
 }
+/* Opacities are tuned LIGHT-first (airy "Soft Structuralism" over a pale
+   surface); the .dark overrides below push them up for the navy
+   "Ethereal Glass" canvas where they can be bolder. */
 .aurora-1 {
   width: 42rem;
   height: 42rem;
   top: -12rem;
   left: -8rem;
-  opacity: 0.45;
+  opacity: 0.22;
   background: radial-gradient(circle, var(--color-teal-500) 0%, transparent 70%);
   animation: aurora-drift-1 22s ease-in-out infinite alternate;
 }
@@ -283,7 +286,7 @@
   height: 36rem;
   top: -6rem;
   right: -7rem;
-  opacity: 0.55;
+  opacity: 0.1;
   background: radial-gradient(circle, var(--color-brand-700) 0%, transparent 70%);
   animation: aurora-drift-2 26s ease-in-out infinite alternate;
 }
@@ -292,9 +295,18 @@
   height: 30rem;
   bottom: -16rem;
   left: 34%;
-  opacity: 0.16;
-  background: radial-gradient(circle, var(--color-gold-500) 0%, transparent 70%);
+  opacity: 0.12;
+  background: radial-gradient(circle, var(--color-teal-400) 0%, transparent 70%);
   animation: aurora-drift-3 30s ease-in-out infinite alternate;
+}
+.dark .aurora-1 {
+  opacity: 0.45;
+}
+.dark .aurora-2 {
+  opacity: 0.55;
+}
+.dark .aurora-3 {
+  opacity: 0.18;
 }
 @keyframes aurora-drift-1 {
   from {

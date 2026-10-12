@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 type Cta = { label: string; href: string };
 
 /**
- * Shared inner-page hero — the same art-directed dark aurora canvas as the
- * homepage hero (teal accents, CSS `reveal-up` entrance, no client JS), so
- * every top-level page opens with one consistent, premium moment. Explicit
- * light colors throughout (always-dark band, independent of site theme).
+ * Shared inner-page hero — the same theme-reactive aurora canvas as the
+ * homepage hero (airy light / navy dark, teal accents, CSS `reveal-up`
+ * entrance, no client JS), so every top-level page opens with one consistent,
+ * premium moment that matches the active light/dark theme.
  */
 export function PageHero({
   eyebrow,
@@ -25,7 +25,7 @@ export function PageHero({
   secondaryCta?: Cta;
 }) {
   return (
-    <section className="relative overflow-hidden bg-[color:var(--color-brand-900)] text-white">
+    <section className="relative overflow-hidden bg-surface-tint dark:bg-[color:var(--color-brand-900)]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -36,30 +36,25 @@ export function PageHero({
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.1] [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
-        }}
+        className="bg-dotgrid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
       <div className="relative mx-auto max-w-5xl px-6 pt-24 pb-20 md:pt-28 md:pb-24">
         <div className="max-w-3xl">
-          <span className="reveal-up reveal-up-1 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-teal-400)]">
+          <span className="reveal-up reveal-up-1 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
             <span
               aria-hidden="true"
-              className="size-1.5 rounded-full bg-[color:var(--color-teal-400)]"
+              className="size-1.5 rounded-full bg-brand-accent"
             />
             {eyebrow}
           </span>
 
-          <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-white md:text-5xl">
+          <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             {title}
           </h1>
 
           {children ? (
-            <div className="reveal-up reveal-up-3 mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+            <div className="reveal-up reveal-up-3 mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
               {children}
             </div>
           ) : null}
@@ -67,19 +62,14 @@ export function PageHero({
           {primaryCta || secondaryCta ? (
             <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
               {primaryCta ? (
-                <Button
-                  asChild
-                  size="lg"
-                  variant="secondary"
-                  className="h-12 px-7 text-sm"
-                >
+                <Button asChild size="lg" className="h-12 px-7 text-sm">
                   <Link href={primaryCta.href}>{primaryCta.label}</Link>
                 </Button>
               ) : null}
               {secondaryCta ? (
                 <Link
                   href={secondaryCta.href}
-                  className="group inline-flex items-center gap-1.5 text-sm font-medium text-white/80 transition-colors hover:text-white"
+                  className="group inline-flex items-center gap-1.5 text-sm font-medium text-body-ink transition-colors hover:text-brand-ink"
                 >
                   {secondaryCta.label}
                   <ArrowRight
