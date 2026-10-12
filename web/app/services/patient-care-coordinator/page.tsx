@@ -66,7 +66,7 @@ export default function PatientCareCoordinatorPage() {
 
       {/* ─── Image band (art-directed cyan duotone) ──────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
             <BrandFigure
               src="/services/pcc.jpg"
@@ -80,7 +80,7 @@ export default function PatientCareCoordinatorPage() {
 
       {/* ─── What a coordinator covers ───────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
             <header className="max-w-2xl">
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -121,7 +121,7 @@ export default function PatientCareCoordinatorPage() {
       {/* ─── Division of labor ───────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
-          <div className="mx-auto max-w-5xl px-6">
+          <div className="mx-auto max-w-7xl px-6">
             <header className="max-w-2xl">
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Where the coordinator ends and your clinicians begin.
@@ -154,7 +154,7 @@ export default function PatientCareCoordinatorPage() {
 
       {/* ─── Why Zenith for this role ────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-14">
             <div>
               <HeroEyebrow>Why Zenith</HeroEyebrow>
@@ -204,7 +204,7 @@ export default function PatientCareCoordinatorPage() {
 
       {/* ─── HIPAA callout ───────────────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
               <div>

@@ -64,7 +64,7 @@ export default function ServicesCCMPage() {
 
       {/* ─── Image band (art-directed cyan duotone) ──────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
             <BrandFigure
               src="/services/ccm.jpg"
@@ -78,7 +78,7 @@ export default function ServicesCCMPage() {
 
       {/* ─── What CCM is ──────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
           <Reveal>
             <header className="max-w-2xl">
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -171,7 +171,7 @@ export default function ServicesCCMPage() {
       </section>
 
       {/* ─── CPT code table — the key SEO + buyer-conviction asset ────── */}
-      <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
+      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         <header className="max-w-2xl">
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
             Billing reference
@@ -259,7 +259,7 @@ export default function ServicesCCMPage() {
 
       {/* ─── Division of labor ───────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
           <header className="max-w-2xl">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               What Zenith handles. What your practice keeps.
@@ -294,7 +294,7 @@ export default function ServicesCCMPage() {
       </section>
 
       {/* ─── HIPAA callout ───────────────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
+      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
             <div>
@@ -328,7 +328,7 @@ export default function ServicesCCMPage() {
 
       {/* ─── Final CTA band ──────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-background">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:py-28 text-center">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28 text-center">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Fifteen minutes gets you a real number.
           </h2>

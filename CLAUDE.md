@@ -88,6 +88,7 @@ Rejected: WordPress, Wix/Squarespace, separate backend, Stripe Checkout, Resend 
 
 - Ponytail mode / lazy senior dev: smallest change that fully works. No premature abstraction.
 - Reuse installed deps and existing components before adding anything new.
+- Never use em dashes (—) in any generated text, comments, commit messages, or documentation. Use a comma, colon, or rewrite the sentence instead.
 
 ## Git workflow — HARD RULES
 

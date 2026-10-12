@@ -53,7 +53,7 @@ export default function AboutPage() {
       />
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
+      <section className="mx-auto max-w-7xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
           <FounderMonogram initials={founder.initials} name={founder.name} size="lg" />
           <div>
@@ -76,7 +76,7 @@ export default function AboutPage() {
 
       {/* ─── Credentials strip ────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Credentials
@@ -145,7 +145,7 @@ export default function AboutPage() {
 
       {/* ─── What this means for your practice ───────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               What this means for your practice
