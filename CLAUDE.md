@@ -149,7 +149,7 @@ Every page, blog post, or content addition must pass through:
 - `searchfit-seo:seo-audit` — when asked to audit the site or a section.
 - `searchfit-seo:keyword-clustering` — when planning blog content or new landing pages.
 - `searchfit-seo:ai-visibility` — ensure pages are optimized for AI search engines (Perplexity, ChatGPT, etc.) as well as Google.
-### Frontend design (taste-skill + impeccable)
+### Frontend design
  
 Any UI work — new component, page layout, or visual redesign — must invoke:
  
@@ -157,6 +157,8 @@ Any UI work — new component, page layout, or visual redesign — must invoke:
 - `taste-skill:soft-skill` for high-end visual polish (hero sections, testimonial blocks, CTA areas).
 - `impeccable:impeccable` when producing a finished, pixel-ready UI section for review or handoff.
 - `design:accessibility-review` before shipping any interactive or form-heavy page (WCAG 2.1 AA is a hard requirement for this healthcare site).
+- `21st:21st-ui` (21st.dev Magic MCP) — invoke when building or redesigning any UI component; provides production-ready shadcn/ui + Tailwind component recipes. Use BEFORE writing component markup.
+- **UI/UX Pro Max workflow**: for any full-page redesign or new hero/section, chain `taste-skill:soft-skill` → `21st:21st-ui` → `impeccable:impeccable` in that order.
 ### Engineering quality
  
 - `engineering:code-review` — invoke before merging any PR or finishing a feature branch.
@@ -191,4 +193,4 @@ Any UI work — new component, page layout, or visual redesign — must invoke:
 | Session end | `claude-mem:handoff` |
 | Tech debt / refactor | `ponytail:ponytail-audit` + `engineering:tech-debt` |
 | Pixel-ready UI handoff | `impeccable:impeccable` |
- 
+| UI component / redesign | `taste-skill:soft-skill` → `21st:21st-ui` → `impeccable:impeccable` |
