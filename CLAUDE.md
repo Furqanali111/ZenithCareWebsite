@@ -55,7 +55,7 @@ Hard rule: **never store client PHI or client production data in this repo.** Ea
 
 ## Tech stack (decided — v1 is a fully static site)
 
-- **Framework**: Next.js 14 App Router, static-friendly (SSG). Keep SSR option open for future, but v1 can `output: 'export'` if we want pure static.
+- **Framework**: Next.js 16.4.0 App Router, static-friendly (SSG). Keep SSR option open for future, but v1 can `output: 'export'` if we want pure static.
 - **Styling**: Tailwind CSS + shadcn/ui
 - **Content**: MDX for blog/resources + plain JSON for chatbot script
 - **Hosting**: Vercel (free tier)
