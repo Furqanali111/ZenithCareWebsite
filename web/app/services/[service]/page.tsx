@@ -9,6 +9,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FeatureGrid } from "@/components/feature-grid";
+import { HowItWorks } from "@/components/how-it-works";
 import { FaqSection } from "@/components/faq-section";
 import {
   getService,
@@ -86,6 +87,11 @@ export default async function ServicePage({
           subtitle={s.capabilitiesSubtitle}
           items={s.capabilities}
         />
+      </section>
+
+      {/* ─── How it works (3-step flow) ──────────────────────────────── */}
+      <section className="section-rhythm border-t border-border/60">
+        <HowItWorks steps={s.howItWorks} />
       </section>
 
       {/* ─── Who qualifies + billing (care-management programs only) ──── */}

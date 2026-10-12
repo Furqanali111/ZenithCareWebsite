@@ -131,6 +131,11 @@ const RPM_SERVICES: Service[] = [
       value: "$13,200 / mo",
       note: "Representative: a 200-patient panel billing the base code alone. Actual results vary by locality and payer.",
     },
+    howItWorks: [
+      { title: "Find & enroll eligible patients", body: "We run your panel for patients with 2+ chronic conditions, confirm Medicare Part B, and obtain documented consent." },
+      { title: "Deliver monthly coordination", body: "Our clinical team spends 20+ minutes per patient on calls, care plans, and medication reconciliation — inside your EHR." },
+      { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99490 and add-ons; we invoice for the clinical labor. Monthly and predictable." },
+    ],
     metaTitle: "Chronic Care Management (CCM) Services",
     metaDescription:
       "Remote Chronic Care Management for U.S. practices. Zenith delivers monthly CCM coordination, care plans, and CPT 99490 documentation inside your EHR. Your practice bills; we deliver.",
@@ -178,6 +183,11 @@ const RPM_SERVICES: Service[] = [
       value: "~$68–$88 / mo",
       note: "Per enrolled patient, depending on who performs the time. Figures are 2026 national averages and vary by locality.",
     },
+    howItWorks: [
+      { title: "Identify single-condition patients", body: "We find patients managed around one high-risk condition expected to last 3+ months and confirm eligibility." },
+      { title: "Deliver focused management", body: "Our team manages that condition each month — care plan, coordination, and documentation — inside your EHR." },
+      { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99424–99427; we invoice for the management time." },
+    ],
     metaTitle: "Principal Care Management (PCM) Services",
     metaDescription:
       "Remote Principal Care Management for specialty practices. Zenith manages one high-risk condition per patient (CPT 99424–99427) so your practice captures PCM reimbursement. Inside your EHR.",
@@ -225,6 +235,11 @@ const RPM_SERVICES: Service[] = [
       value: "$150–$200+ / mo",
       note: "Per enrolled patient, combining device-supply and management codes. Representative; actual results vary.",
     },
+    howItWorks: [
+      { title: "Enroll & set up devices", body: "We confirm a monitoring-worthy condition and consent, then support device setup and patient education." },
+      { title: "Monitor & check in monthly", body: "We review incoming readings, run monthly check-ins, and escalate out-of-range values to your team." },
+      { title: "You bill, Zenith invoices", body: "Your practice bills the RPM device and management codes; we invoice for the monitoring work." },
+    ],
     metaTitle: "Remote Patient Monitoring (RPM) Services",
     metaDescription:
       "Remote Patient Monitoring managed end-to-end. Zenith reviews device data, runs monthly check-ins, and documents RPM (CPT 99453–99458) so your practice bills recurring revenue. Inside your EHR.",
@@ -274,6 +289,11 @@ const RPM_SERVICES: Service[] = [
       value: "~$90–$150 / mo",
       note: "Per enrolled patient. Figures are 2026 national averages and vary by locality.",
     },
+    howItWorks: [
+      { title: "Enroll & onboard the patient", body: "We confirm a respiratory, musculoskeletal, or adherence need and consent, then onboard the patient to the app or device." },
+      { title: "Monitor adherence & check in", body: "We review therapy-adherence and functional data, run the required monthly live check-ins, and escalate concerning trends." },
+      { title: "You bill, Zenith invoices", body: "Your practice or therapist bills the RTM codes; we invoice for the monitoring work." },
+    ],
     metaTitle: "Remote Therapeutic Monitoring (RTM) Services",
     metaDescription:
       "Remote Therapeutic Monitoring managed for you. Zenith tracks therapy adherence and functional status (CPT 98975–98981) so physicians and therapists bill RTM reliably. Inside your systems.",
@@ -317,6 +337,11 @@ const RPM_SERVICES: Service[] = [
       value: "$220–$299 / episode",
       note: "One of Medicare's highest-paying care-management codes. Figures are 2026 national averages and vary by locality.",
     },
+    howItWorks: [
+      { title: "Catch the discharge", body: "We identify discharge-eligible patients and make the mandatory interactive contact within 2 business days." },
+      { title: "Coordinate the 30-day window", body: "We handle medication reconciliation, specialist and community coordination, and track the face-to-face visit window." },
+      { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99495 or 99496 for the episode; we invoice for the coordination." },
+    ],
     metaTitle: "Transitional Care Management (TCM) Services",
     metaDescription:
       "Transitional Care Management that prevents readmissions and missed billing. Zenith runs the 2-business-day outreach, med reconciliation, and visit tracking for TCM (CPT 99495/99496).",
@@ -353,6 +378,11 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "file-signature", title: "After-visit summaries", body: "Draft clear after-visit summaries for patients and records." },
       { icon: "clipboard-check", title: "Template & macro upkeep", body: "Keep your note templates and macros current and consistent." },
     ],
+    howItWorks: [
+      { title: "Scope the role", body: "We map your specialties, note templates, and provider-coverage needs." },
+      { title: "Match & train", body: "We place a trained scribe and onboard them on your EHR and templates before day one." },
+      { title: "Document in real time", body: "Your scribe charts encounters live under PharmD-led oversight; your provider reviews and signs." },
+    ],
     metaTitle: "Remote Medical Scribe Services",
     metaDescription:
       "Hire a trained remote medical scribe. Zenith scribes document encounters in real time inside your EHR under PharmD oversight — HIPAA-compliant, flat monthly rate, no PHI exported.",
@@ -382,6 +412,11 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "arrow-left-right", title: "Referral scheduling", body: "Schedule incoming referrals and coordinate outbound ones." },
       { icon: "calendar-check", title: "Calendar upkeep", body: "Keep provider calendars accurate, blocked, and conflict-free." },
     ],
+    howItWorks: [
+      { title: "Scope the role", body: "We map your appointment volume, scheduling tools, and booking rules." },
+      { title: "Match & onboard", body: "We place a scheduler with role-based access to your systems under a signed BAA." },
+      { title: "Keep the calendar full", body: "Your scheduler books, confirms, reminds, and recovers no-shows inside your system." },
+    ],
     metaTitle: "Remote Medical Scheduler Services",
     metaDescription:
       "Hire a remote medical scheduler. Zenith schedulers own booking, reminders, waitlists, and no-show recovery inside your system — HIPAA-compliant, flat monthly rate, PharmD-supervised.",
@@ -410,6 +445,11 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "clipboard-list", title: "Intake & forms", body: "Collect intake forms and new-patient information accurately." },
       { icon: "file-text", title: "Portal inbox management", body: "Keep the patient-portal inbox worked and organized." },
       { icon: "calendar-days", title: "Appointment support", body: "Book, confirm, and adjust appointments as calls come in." },
+    ],
+    howItWorks: [
+      { title: "Scope the role", body: "We map your call volume, phone and messaging systems, and front-desk workflows." },
+      { title: "Match & onboard", body: "We place a receptionist with role-based access under a signed BAA." },
+      { title: "Answer & triage", body: "Your receptionist handles calls, messages, intake, and insurance checks in your practice's voice." },
     ],
     metaTitle: "Remote Medical Receptionist Services",
     metaDescription:
@@ -442,6 +482,11 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "users", title: "Provider communication", body: "Facilitate communication between providers, specialists, and care-team members." },
       { icon: "arrow-left-right", title: "Care transitions", body: "Support smooth transitions between care settings, including post-discharge follow-up." },
     ],
+    howItWorks: [
+      { title: "Scope the bottleneck", body: "We map the clinical admin slowing your team — intake, referrals, prior auths, outreach." },
+      { title: "Match & onboard", body: "We place a coordinator trained on your clinical workflows, with role-based EHR access." },
+      { title: "Run the coordination", body: "Your coordinator handles intake, referrals, follow-ups, and records under PharmD-led oversight." },
+    ],
     metaTitle: "Remote Patient Care Coordinator Services",
     metaDescription:
       "Hire a remote patient care coordinator. Zenith coordinators handle intake, referrals, prior auths, records, and care-gap outreach inside your EHR — HIPAA-compliant, PharmD-supervised.",
@@ -470,6 +515,11 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "folder-open", title: "Document management", body: "Organize, file, and route documents and records." },
       { icon: "phone-call", title: "Patient follow-ups", body: "Handle routine, non-clinical patient follow-up tasks." },
       { icon: "clipboard-list", title: "Reporting & admin", body: "Compile routine reports and handle recurring admin tasks." },
+    ],
+    howItWorks: [
+      { title: "Scope the work", body: "We define the recurring admin tasks you want off your team's plate." },
+      { title: "Match & onboard", body: "We place a virtual assistant with role-based access to the systems they'll work in." },
+      { title: "Absorb the admin", body: "Your VA handles inbox, scheduling, data entry, and follow-ups, supervised for quality." },
     ],
     metaTitle: "Healthcare Virtual Assistant Services",
     metaDescription:
@@ -511,6 +561,8 @@ if (typeof window === "undefined") {
     if (seen.has(s.slug)) throw new Error(`services: duplicate slug "${s.slug}"`);
     if (!s.capabilities.length)
       throw new Error(`services: no capabilities on ${s.slug}`);
+    if (s.howItWorks.length !== 3)
+      throw new Error(`services: "${s.slug}" needs exactly 3 how-it-works steps`);
     if (s.category === "rpm" && !s.billing?.length)
       throw new Error(`services: RPM service "${s.slug}" has no billing codes`);
     seen.add(s.slug);
