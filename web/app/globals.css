@@ -54,6 +54,10 @@
   --color-accent-600: #8da9c4;
   --color-gold-500: #c9a227;
   --color-gold-100: #f5ebc9;
+  /* Zenith teal — the fresh healthcare accent (brief §3). */
+  --color-teal-600: #0d9488;
+  --color-teal-500: #14b8a6;
+  --color-teal-400: #2dd4bf;
   --color-success-600: #2f855a;
   --color-warn-600: #b7791f;
   --color-error-600: #c53030;
@@ -89,8 +93,8 @@
   --card-foreground: #111827;
   --popover: #ffffff;
   --popover-foreground: #111827;
-  /* Primary = brand navy */
-  --primary: #0b2545;
+  /* Primary = Zenith teal (teal-700: white text passes AA at 5.47:1) */
+  --primary: #0f766e;
   --primary-foreground: #ffffff;
   --secondary: #f7f8fa;
   --secondary-foreground: #0b2545;
@@ -129,8 +133,9 @@
   --card-foreground: #f7f8fa;
   --popover: #13315c;
   --popover-foreground: #f7f8fa;
-  --primary: #f7f8fa;
-  --primary-foreground: #0b2545;
+  /* Teal primary in dark too (white text, 5.47:1) */
+  --primary: #0f766e;
+  --primary-foreground: #ffffff;
   --secondary: #13315c;
   --secondary-foreground: #f7f8fa;
   --muted: #13315c;
@@ -197,6 +202,137 @@
   }
 }
 
+/* Hero entrance — pure CSS, paint-driven, so above-the-fold content is in
+   the SSR HTML and visible without waiting for JS/hydration (no FOIC, good
+   LCP). The global prefers-reduced-motion block above already forces the
+   duration to ~0; we also zero the stagger delays there so reduced-motion
+   users get the content instantly. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal-up {
+  animation: reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.reveal-up-1 {
+  animation-delay: 0.05s;
+}
+.reveal-up-2 {
+  animation-delay: 0.14s;
+}
+.reveal-up-3 {
+  animation-delay: 0.23s;
+}
+.reveal-up-4 {
+  animation-delay: 0.32s;
+}
+.reveal-up-5 {
+  animation-delay: 0.41s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up {
+    animation-delay: 0s !important;
+  }
+}
+
+/* Page transition — replays on every route change (Next re-mounts
+   app/template.tsx). CSS/paint-driven, neutralized under reduced motion. */
+.page-enter {
+  animation: page-enter 0.65s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero aurora — three slow-drifting gradient shapes (pattern adapted from
+   21st "LiquidAurora" by dhileepkumargm; CSS hand-written and retuned to the
+   Zenith navy + teal palette). Decorative, restrained, GPU-cheap — animates
+   transform only. The global reduced-motion block above forces a single
+   0.001ms iteration, so these settle static (no flicker) for those users. */
+.aurora-shape {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  will-change: transform;
+  pointer-events: none;
+}
+/* Opacities are tuned LIGHT-first (airy "Soft Structuralism" over a pale
+   surface); the .dark overrides below push them up for the navy
+   "Ethereal Glass" canvas where they can be bolder. */
+.aurora-1 {
+  width: 42rem;
+  height: 42rem;
+  top: -12rem;
+  left: -8rem;
+  opacity: 0.22;
+  background: radial-gradient(circle, var(--color-teal-500) 0%, transparent 70%);
+  animation: aurora-drift-1 22s ease-in-out infinite alternate;
+}
+.aurora-2 {
+  width: 36rem;
+  height: 36rem;
+  top: -6rem;
+  right: -7rem;
+  opacity: 0.1;
+  background: radial-gradient(circle, var(--color-brand-700) 0%, transparent 70%);
+  animation: aurora-drift-2 26s ease-in-out infinite alternate;
+}
+.aurora-3 {
+  width: 30rem;
+  height: 30rem;
+  bottom: -16rem;
+  left: 34%;
+  opacity: 0.12;
+  background: radial-gradient(circle, var(--color-teal-400) 0%, transparent 70%);
+  animation: aurora-drift-3 30s ease-in-out infinite alternate;
+}
+.dark .aurora-1 {
+  opacity: 0.45;
+}
+.dark .aurora-2 {
+  opacity: 0.55;
+}
+.dark .aurora-3 {
+  opacity: 0.18;
+}
+@keyframes aurora-drift-1 {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(7rem, 4rem, 0) scale(1.15);
+  }
+}
+@keyframes aurora-drift-2 {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  to {
+    transform: translate3d(-6rem, 5rem, 0) scale(0.95);
+  }
+}
+@keyframes aurora-drift-3 {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+  to {
+    transform: translate3d(5rem, -4rem, 0) scale(1.1);
+  }
+}
+
 /* Shared section container utility — avoids repeating max-width + px/py
    across every page. Opt-in via className="section" or paired with Tailwind
    max-w utilities when a page wants a wider band. */
@@ -242,14 +378,14 @@
   --text-brand-ink: #0b2545;       /* strong headings — matches --color-brand-900 */
   --text-ink-strong: #111827;      /* strong body text */
   --text-body-ink: #4b5563;        /* body copy */
-  --text-brand-accent: #13315c;    /* links / brand-tint text */
+  --text-brand-accent: #0f766e;    /* links — Zenith teal-700 (5.15:1 on tint) */
   --surface-tint: #f7f8fa;         /* soft section backgrounds */
 }
 .dark {
   --text-brand-ink: #f1f5fb;       /* warm near-white tuned for navy backdrops */
   --text-ink-strong: #f1f5fb;
   --text-body-ink: #c7d4e4;        /* warm blue-grey; passes WCAG AA on brand-900 */
-  --text-brand-accent: #8da9c4;    /* accent-600 */
+  --text-brand-accent: #2dd4bf;    /* links — Zenith teal-400 (8.27:1 on navy) */
   --surface-tint: #0e2a52;         /* one notch lighter than brand-900 page bg */
 }
 
