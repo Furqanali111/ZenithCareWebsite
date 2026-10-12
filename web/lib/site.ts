@@ -11,13 +11,28 @@ export const site = {
   url:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://zenithcaresolutions.com",
   email:
-    process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "ali@zenithcaresolutions.com",
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@thezcs.com",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "",
+  // Footer contact block. Phone stays empty until a real line exists (no
+  // placeholder number); hours is a plain business fact, override via env.
+  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "",
+  hours: process.env.NEXT_PUBLIC_BUSINESS_HOURS ?? "Mon to Fri, 9:00 AM to 6:00 PM EST",
   linkedin:
     "https://www.linkedin.com/company/zenith-care-solutions",
   locale: "en_US",
 } as const;
+
+/**
+ * Social profiles for the footer. Only entries with a URL render, so the row
+ * shows LinkedIn now and picks up the others once their env vars are set.
+ */
+export const socials = [
+  { label: "LinkedIn", href: site.linkedin },
+  { label: "Facebook", href: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "" },
+  { label: "YouTube", href: process.env.NEXT_PUBLIC_YOUTUBE_URL ?? "" },
+  { label: "Instagram", href: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "" },
+] as const;
 
 /** Founder identity, shared across home, about, and blog bylines. */
 export const founder = {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Activity, ArrowRight, Users } from "lucide-react";
+import { Activity, ArrowRight, Receipt, Users } from "lucide-react";
 import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
@@ -17,6 +17,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const rpm = servicesByCategory("rpm");
+const rcm = servicesByCategory("rcm");
 const staffing = servicesByCategory("staffing");
 
 export default function ServicesOverviewPage() {
@@ -35,10 +36,10 @@ export default function ServicesOverviewPage() {
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
       >
-        Zenith runs the care coordination, monitoring, and administrative work
-        behind Medicare care-management programs and remote medical roles — so
-        your practice earns recurring revenue and recovers staff time, without
-        adding headcount.
+        Zenith runs the care coordination, monitoring, revenue-cycle, and
+        administrative work behind Medicare care-management programs, billing
+        operations, and remote medical roles — so your practice earns recurring
+        revenue and recovers staff time, without adding headcount.
       </PageHero>
 
       {/* ─── Remote Patient Monitoring ───────────────────────────────── */}
@@ -92,6 +93,16 @@ export default function ServicesOverviewPage() {
           </Reveal>
         </div>
       </section>
+
+      {/* ─── Revenue Cycle Management ────────────────────────────────── */}
+      <ServiceCategorySection
+        id="revenue-cycle-management"
+        icon={<Receipt className="size-5" aria-hidden="true" />}
+        label={categoryMeta.rcm.label}
+        blurb="Billing, coding, credentialing, and A/R follow-up handled inside your practice-management system — so more of what you earn is coded right, billed clean, and collected."
+        services={rcm}
+        tone="background"
+      />
 
       {/* ─── Virtual Staffing & Admin Support ────────────────────────── */}
       <ServiceCategorySection
