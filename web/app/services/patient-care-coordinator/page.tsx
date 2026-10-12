@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { BrandFigure } from "@/components/brand-figure";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { PageHero } from "@/components/page-hero";
@@ -43,7 +44,12 @@ export default function PatientCareCoordinatorPage() {
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <PageHero
         eyebrow="Services"
-        title="A remote care coordinator who takes the clinical admin off your front desk."
+        title={
+          <>
+            A remote care coordinator who takes the clinical admin off your{" "}
+            <em className="italic">front desk</em>.
+          </>
+        }
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{
           label: "See CCM services",
@@ -57,6 +63,20 @@ export default function PatientCareCoordinatorPage() {
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
+
+      {/* ─── Image band (art-directed cyan duotone) ──────────────────── */}
+      <section className="section-rhythm">
+        <div className="mx-auto max-w-5xl px-6">
+          <Reveal>
+            <BrandFigure
+              src="/services/pcc.jpg"
+              alt="A care coordinator working at a laptop while on a call"
+              className="aspect-[16/7]"
+              sizes="(min-width: 768px) 960px, 100vw"
+            />
+          </Reveal>
+        </div>
+      </section>
 
       {/* ─── What a coordinator covers ───────────────────────────────── */}
       <section className="section-rhythm">
@@ -262,6 +282,10 @@ function WorkflowCard({ label, items }: { label: string; items: string[] }) {
       <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {label}
       </h3>
+      <span
+        aria-hidden="true"
+        className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+      />
       <ul className="mt-5 space-y-3 text-base leading-relaxed text-body-ink">
         {items.map((item) => (
           <BulletedListItem key={item}>{item}</BulletedListItem>
@@ -277,6 +301,10 @@ function LaborColumn({ label, items }: { label: string; items: string[] }) {
       <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {label}
       </h3>
+      <span
+        aria-hidden="true"
+        className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+      />
       <ul className="mt-5 space-y-3 text-base leading-relaxed text-body-ink">
         {items.map((item) => (
           <BulletedListItem key={item}>{item}</BulletedListItem>

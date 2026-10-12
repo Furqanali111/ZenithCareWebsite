@@ -10,9 +10,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  /* --font-serif is bound to a sans-serif display face (Plus Jakarta Sans)
-     in app/layout.tsx. Name kept for backwards-compat with existing
-     `font-serif` utility usage across pages; see redesign notes. */
+  /* --font-serif is bound to a grotesk display face (Space Grotesk) in
+     app/layout.tsx — v3 "Warm Cyan". The `font-serif` utility across pages
+     picks it up directly. */
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -45,31 +45,35 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
 
-  /* Zenith brand tokens — see WebSiteDoc/04-design-brief.md §3 */
-  --color-brand-900: #0b2545;
-  --color-brand-800: #122f55;
-  --color-brand-700: #13315c;
-  --color-brand-100: #dbe3ef;
-  --color-brand-50: #eef3f9;
-  --color-accent-600: #8da9c4;
-  --color-gold-500: #c9a227;
-  --color-gold-100: #f5ebc9;
-  /* Zenith teal — the fresh healthcare accent (brief §3). */
-  --color-teal-600: #0d9488;
-  --color-teal-500: #14b8a6;
-  --color-teal-400: #2dd4bf;
+  /* Zenith brand tokens — v3 "Warm Cyan": deep cyan-ink + warm apricot accent
+     + warm cream. Token names kept from the navy era; only values changed, so
+     every `brand-*` / `gold-*` / `teal-*` usage across the site re-skins at
+     once. "teal-*" names hold the CYAN accent ramp; "gold-*" holds the warm
+     apricot accent (names kept for stability). */
+  --color-brand-900: #0b2026;   /* deep cyan-ink — dark bg / bands / logo */
+  --color-brand-800: #123038;
+  --color-brand-700: #155e75;   /* mid cyan */
+  --color-brand-100: #cde6ec;   /* light cyan tint — badges, step rings */
+  --color-brand-50: #eaf4f6;    /* lightest cyan tint */
+  --color-accent-600: #6e9aa3;  /* muted cyan-grey — dark dot-grid, quiet labels */
+  --color-gold-500: #db7e4c;    /* warm apricot accent */
+  --color-gold-100: #f8e3d5;    /* apricot tint */
+  /* Cyan accent ramp (held under the legacy "teal" names). */
+  --color-teal-600: #0e7490;    /* deep cyan — bullets, light accents, links */
+  --color-teal-500: #1596b0;    /* cyan aurora (light) */
+  --color-teal-400: #5fc7d6;    /* bright cyan — dark-mode accents on cyan-ink */
   --color-success-600: #2f855a;
   --color-warn-600: #b7791f;
   --color-error-600: #c53030;
   --color-surface-0: #ffffff;
-  --color-surface-50: #f7f8fa;
-  --color-surface-100: #eef2f6;
-  --color-ink-900: #111827;
-  --color-ink-700: #1f2937;
-  --color-ink-600: #4b5563;
-  --color-ink-400: #9ca3af;
-  --color-border-200: #e5e7eb;
-  --color-border-100: #eef0f3;
+  --color-surface-50: #faf7f2;  /* warm cream */
+  --color-surface-100: #f1eee7;
+  --color-ink-900: #15232b;     /* warm cyan near-black */
+  --color-ink-700: #37474d;
+  --color-ink-600: #4f6168;     /* warm cyan-grey body */
+  --color-ink-400: #93a0a4;
+  --color-border-200: #e6e6de;  /* warm hairline */
+  --color-border-100: #efede4;
 
   /* Section rhythm tokens — single source for section vertical spacing. */
   --section-py: 5rem;              /* 80px — baseline mobile */
@@ -87,78 +91,79 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
-  --card: #ffffff;
-  --card-foreground: #111827;
-  --popover: #ffffff;
-  --popover-foreground: #111827;
-  /* Primary = Zenith teal (teal-700: white text passes AA at 5.47:1) */
-  --primary: #0f766e;
+  --background: #faf7f2;           /* warm cream page */
+  --foreground: #15232b;
+  --card: #fffefc;
+  --card-foreground: #15232b;
+  --popover: #fffefc;
+  --popover-foreground: #15232b;
+  /* Primary = deep cyan (white text passes AA at ~4.8:1) */
+  --primary: #0e7490;
   --primary-foreground: #ffffff;
-  --secondary: #f7f8fa;
-  --secondary-foreground: #0b2545;
-  --muted: #f7f8fa;
-  --muted-foreground: #4b5563;
-  /* Accent = restrained gold */
-  --accent: #c9a227;
-  --accent-foreground: #0b2545;
+  --secondary: #f1eee7;
+  --secondary-foreground: #0b2026;
+  --muted: #f1eee7;
+  --muted-foreground: #4f6168;
+  /* Accent = warm apricot */
+  --accent: #db7e4c;
+  --accent-foreground: #10303a;
   --destructive: #c53030;
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #13315c;
-  --chart-1: #0b2545;
-  --chart-2: #13315c;
-  --chart-3: #8da9c4;
-  --chart-4: #c9a227;
-  --chart-5: #4b5563;
+  --border: #e6e6de;
+  --input: #e6e6de;
+  --ring: #155e75;
+  --chart-1: #0b2026;
+  --chart-2: #155e75;
+  --chart-3: #6e9aa3;
+  --chart-4: #db7e4c;
+  --chart-5: #4f6168;
   /* Softer base radius for a modern-clinical feel. Buttons, cards, pills
      all scale from this via the --radius-* multipliers in @theme above. */
   --radius: 0.75rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #111827;
-  --sidebar-primary: #0b2545;
+  --sidebar: #fffefc;
+  --sidebar-foreground: #15232b;
+  --sidebar-primary: #0b2026;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f7f8fa;
-  --sidebar-accent-foreground: #0b2545;
-  --sidebar-border: #e5e7eb;
-  --sidebar-ring: #13315c;
+  --sidebar-accent: #f1eee7;
+  --sidebar-accent-foreground: #0b2026;
+  --sidebar-border: #e6e6de;
+  --sidebar-ring: #155e75;
 }
 
 /* Dark mode — applied when `html` has class `dark` (set by next-themes). */
 .dark {
-  --background: #0b2545;
-  --foreground: #f7f8fa;
-  --card: #13315c;
-  --card-foreground: #f7f8fa;
-  --popover: #13315c;
-  --popover-foreground: #f7f8fa;
-  /* Teal primary in dark too (white text, 5.47:1) */
-  --primary: #0f766e;
+  --background: #0b2026;           /* deep cyan-ink */
+  --foreground: #e9f3f4;
+  --card: #123038;
+  --card-foreground: #e9f3f4;
+  --popover: #123038;
+  --popover-foreground: #e9f3f4;
+  /* Mid cyan in dark so the button reads against the cyan-ink bg
+     (white text ~5:1). */
+  --primary: #157a90;
   --primary-foreground: #ffffff;
-  --secondary: #13315c;
-  --secondary-foreground: #f7f8fa;
-  --muted: #13315c;
-  --muted-foreground: #8da9c4;
-  --accent: #c9a227;
-  --accent-foreground: #0b2545;
+  --secondary: #123038;
+  --secondary-foreground: #e9f3f4;
+  --muted: #123038;
+  --muted-foreground: #9db8bc;
+  --accent: #e6a071;
+  --accent-foreground: #0b2026;
   --destructive: #c53030;
   --border: rgba(255, 255, 255, 0.12);
   --input: rgba(255, 255, 255, 0.15);
-  --ring: #8da9c4;
-  --chart-1: #c9a227;
-  --chart-2: #8da9c4;
-  --chart-3: #f7f8fa;
-  --chart-4: #4b5563;
-  --chart-5: #13315c;
-  --sidebar: #0b2545;
-  --sidebar-foreground: #f7f8fa;
-  --sidebar-primary: #c9a227;
-  --sidebar-primary-foreground: #0b2545;
-  --sidebar-accent: #13315c;
-  --sidebar-accent-foreground: #f7f8fa;
+  --ring: #5fc7d6;
+  --chart-1: #e6a071;
+  --chart-2: #6e9aa3;
+  --chart-3: #e9f3f4;
+  --chart-4: #4f6168;
+  --chart-5: #123038;
+  --sidebar: #0b2026;
+  --sidebar-foreground: #e9f3f4;
+  --sidebar-primary: #e6a071;
+  --sidebar-primary-foreground: #0b2026;
+  --sidebar-accent: #123038;
+  --sidebar-accent-foreground: #e9f3f4;
   --sidebar-border: rgba(255, 255, 255, 0.12);
-  --sidebar-ring: #8da9c4;
+  --sidebar-ring: #5fc7d6;
 }
 
 @layer base {
@@ -179,13 +184,12 @@
   }
   h1, h2, h3, h4 {
     @apply font-serif tracking-tight;
-    /* Display face is a sans-serif (Plus Jakarta Sans) despite the token
-       name — see @theme comment on --font-serif. */
-    font-feature-settings: "cv11", "ss01";
-    letter-spacing: -0.02em;
+    /* Grotesk display (Space Grotesk). Modest negative tracking for a clean,
+       modern headline set. */
+    letter-spacing: -0.011em;
   }
   h1 {
-    letter-spacing: -0.028em;
+    letter-spacing: -0.018em;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-[color:var(--color-brand-700)];
@@ -295,8 +299,8 @@
   height: 30rem;
   bottom: -16rem;
   left: 34%;
-  opacity: 0.12;
-  background: radial-gradient(circle, var(--color-teal-400) 0%, transparent 70%);
+  opacity: 0.14;
+  background: radial-gradient(circle, var(--color-gold-500) 0%, transparent 70%);
   animation: aurora-drift-3 30s ease-in-out infinite alternate;
 }
 .dark .aurora-1 {
@@ -375,18 +379,18 @@
 /* -------------------------------------------------------------------------- */
 
 :root {
-  --text-brand-ink: #0b2545;       /* strong headings — matches --color-brand-900 */
-  --text-ink-strong: #111827;      /* strong body text */
-  --text-body-ink: #4b5563;        /* body copy */
-  --text-brand-accent: #0f766e;    /* links — Zenith teal-700 (5.15:1 on tint) */
-  --surface-tint: #f7f8fa;         /* soft section backgrounds */
+  --text-brand-ink: #10303a;       /* strong headings — deep cyan-ink on cream */
+  --text-ink-strong: #15232b;      /* strong body text — warm near-black */
+  --text-body-ink: #4f6168;        /* body copy — warm cyan-grey (AA on cream) */
+  --text-brand-accent: #0e7490;    /* links — deep cyan (~4.8:1 on cream) */
+  --surface-tint: #f1eee7;         /* soft warm-cream section backgrounds */
 }
 .dark {
-  --text-brand-ink: #f1f5fb;       /* warm near-white tuned for navy backdrops */
-  --text-ink-strong: #f1f5fb;
-  --text-body-ink: #c7d4e4;        /* warm blue-grey; passes WCAG AA on brand-900 */
-  --text-brand-accent: #2dd4bf;    /* links — Zenith teal-400 (8.27:1 on navy) */
-  --surface-tint: #0e2a52;         /* one notch lighter than brand-900 page bg */
+  --text-brand-ink: #e9f3f4;       /* warm near-white tuned for cyan-ink backdrops */
+  --text-ink-strong: #e9f3f4;
+  --text-body-ink: #b6cbce;        /* soft cyan-grey; passes WCAG AA on cyan-ink */
+  --text-brand-accent: #5fc7d6;    /* links — bright cyan (high contrast on dark) */
+  --surface-tint: #0f2c34;         /* one notch lighter than brand-900 page bg */
 }
 
 @utility text-brand-ink {

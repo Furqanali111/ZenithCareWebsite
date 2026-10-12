@@ -46,11 +46,11 @@ export function HomeHero() {
 
           <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
             Remote clinical staff for the work you can bill, but can&rsquo;t{" "}
-            <span className="relative inline-block whitespace-nowrap">
+            <span className="relative inline-block whitespace-nowrap italic">
               staff
               <span
                 aria-hidden="true"
-                className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-brand-accent"
+                className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
               />
             </span>
             .

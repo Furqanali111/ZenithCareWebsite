@@ -281,7 +281,7 @@ function HowStep({
 }) {
   return (
     <li className="flex flex-col">
-      <span className="inline-flex size-9 items-center justify-center rounded-full border border-brand-100 bg-card font-mono text-sm font-medium text-brand-accent">
+      <span className="inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/35 bg-[color:var(--color-gold-100)]/35 font-mono text-sm font-medium text-[color:var(--color-gold-500)] dark:bg-[color:var(--color-gold-500)]/10">
         {number}
       </span>
       <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink">
