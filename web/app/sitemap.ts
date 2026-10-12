@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site, specialties } from "@/lib/site";
+import { getServiceSlugs } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
 
 /**
@@ -20,8 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${base}/`, lastModified: now, priority: 1.0, changeFrequency: "monthly" },
-    { url: `${base}/services/chronic-care-management`, lastModified: now, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${base}/services/patient-care-coordinator`, lastModified: now, priority: 0.9, changeFrequency: "monthly" },
+    { url: `${base}/services`, lastModified: now, priority: 0.9, changeFrequency: "monthly" },
     { url: `${base}/roi-calculator`, lastModified: now, priority: 0.8, changeFrequency: "monthly" },
     { url: `${base}/hipaa-compliance`, lastModified: now, priority: 0.7, changeFrequency: "yearly" },
     { url: `${base}/about`, lastModified: now, priority: 0.7, changeFrequency: "yearly" },
@@ -33,6 +33,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/hipaa-statement`, lastModified: now, priority: 0.3, changeFrequency: "yearly" },
     { url: `${base}/accessibility`, lastModified: now, priority: 0.2, changeFrequency: "yearly" },
   ];
+
+  const serviceRoutes: MetadataRoute.Sitemap = getServiceSlugs().map((slug) => ({
+    url: `${base}/services/${slug}`,
+    lastModified: now,
+    priority: 0.9,
+    changeFrequency: "monthly",
+  }));
 
   const specialtyRoutes: MetadataRoute.Sitemap = specialties.map((s) => ({
     url: `${base}/who-we-serve/${s}`,
@@ -48,5 +55,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "yearly",
   }));
 
-  return [...staticRoutes, ...specialtyRoutes, ...postRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...specialtyRoutes, ...postRoutes];
 }

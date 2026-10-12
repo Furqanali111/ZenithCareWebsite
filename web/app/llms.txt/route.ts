@@ -1,5 +1,12 @@
 import { site } from "@/lib/site";
+import { services } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
+
+// Service lines, derived from the registry so this never drifts from the
+// pages that exist.
+const SERVICES = services
+  .map((s) => `- [${s.name}](${site.url}/services/${s.slug}): ${s.shortDesc}`)
+  .join("\n");
 
 // Static chrome of the file — everything above the auto-generated article
 // list. Lives inline so a copy edit is one file to touch; promote to a
@@ -19,8 +26,8 @@ const HEADER = `# ${site.name}
 ## Core pages
 
 - [Home](${site.url}/): overview + revenue math for a typical panel
-- [Chronic Care Management services](${site.url}/services/chronic-care-management): what we deliver, CPT 99490 / 99439 / 99487 / 99489 / 99491 / 99437 reference
-- [Patient Care Coordinator services](${site.url}/services/patient-care-coordinator): remote coordinators for pre-visit prep, referrals, prior authorizations, inbox triage, and panel outreach
+- [Services overview](${site.url}/services): all Medicare care-management programs and virtual medical staffing roles
+${SERVICES}
 - [Who we serve: primary care](${site.url}/who-we-serve/primary-care)
 - [Who we serve: internal medicine](${site.url}/who-we-serve/internal-medicine)
 - [Who we serve: geriatrics](${site.url}/who-we-serve/geriatrics)

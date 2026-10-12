@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ShieldCheck, Stethoscope, Database } from "lucide-react";
-import { mailtoHref, nav, site, whatsappHref } from "@/lib/site";
+import { mailtoHref, nav, serviceNavItems, site, whatsappHref } from "@/lib/site";
 
 export function Footer() {
   const hasWhatsApp = Boolean(site.whatsappNumber);
@@ -90,7 +90,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-3">
-          <FooterGroup label="Services" items={nav.services} />
+          <FooterGroup label="Services" items={serviceNavItems} />
           <FooterGroup label="Who We Serve" items={nav.whoWeServe} />
         </div>
 

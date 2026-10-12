@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { nav, site } from "@/lib/site";
+import { nav, serviceNavItems, site } from "@/lib/site";
+import { servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -39,7 +40,7 @@ export function Nav() {
           aria-label="Primary"
           className="hidden items-center gap-7 lg:flex"
         >
-          <NavGroup label="Services" items={nav.services} />
+          <ServicesMegaMenu />
           <NavGroup label="Who We Serve" items={nav.whoWeServe} />
           {nav.main.map((item) => (
             <Link
@@ -85,7 +86,7 @@ export function Nav() {
               aria-label="Mobile"
               className="mt-6 flex flex-col gap-1 px-4"
             >
-              <MobileGroup label="Services" items={nav.services} close={() => setOpen(false)} />
+              <MobileGroup label="Services" items={serviceNavItems} close={() => setOpen(false)} />
               <MobileGroup label="Who We Serve" items={nav.whoWeServe} close={() => setOpen(false)} />
               {nav.main.map((item) => (
                 <Link
@@ -139,6 +140,88 @@ function WordmarkGlyph() {
 }
 
 type Item = { label: string; href: string };
+
+/**
+ * Services mega-menu — a two-column panel (Remote Patient Monitoring /
+ * Virtual Staffing & Admin Support), each column listing its full-name
+ * services and a "See all" link. Reads the service registry by category, so
+ * it never drifts from the pages. Hover + keyboard (:focus-within) open it.
+ */
+function ServicesMegaMenu() {
+  return (
+    <div className="group relative">
+      <span
+        tabIndex={0}
+        className="inline-flex cursor-default items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
+      >
+        Services
+        <svg
+          aria-hidden="true"
+          className="size-3.5 transition-transform group-hover:rotate-180"
+          viewBox="0 0 12 12"
+          fill="none"
+        >
+          <path
+            d="M3 4.5L6 7.5L9 4.5"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+      <div
+        role="menu"
+        className="invisible absolute left-0 top-full z-50 w-[min(92vw,44rem)] pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+      >
+        <div className="grid grid-cols-1 gap-6 rounded-xl border border-border bg-card p-5 shadow-lg shadow-[color:var(--color-brand-900)]/15 sm:grid-cols-2 dark:bg-[color:var(--color-brand-800)]">
+          <MegaColumn category="rpm" />
+          <MegaColumn category="staffing" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MegaColumn({ category }: { category: ServiceCategory }) {
+  const meta = categoryMeta[category];
+  const items = servicesByCategory(category);
+  return (
+    <div>
+      {/* Clickable category header → the matching section on the overview. */}
+      <Link
+        href={meta.href}
+        role="menuitem"
+        className="group/cat block rounded-lg px-3 py-1.5 transition-colors hover:bg-[color:var(--color-brand-50)] dark:hover:bg-white/10"
+      >
+        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-accent">
+          {meta.label}
+          <span
+            aria-hidden="true"
+            className="transition-transform group-hover/cat:translate-x-0.5"
+          >
+            &rarr;
+          </span>
+        </span>
+        <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+          {meta.blurb}
+        </span>
+      </Link>
+      <div className="mt-1">
+        {items.map((s) => (
+          <Link
+            key={s.slug}
+            href={`/services/${s.slug}`}
+            role="menuitem"
+            className="block rounded-lg px-3 py-1.5 text-sm text-ink-strong transition-colors hover:bg-[color:var(--color-brand-50)] hover:text-brand-accent dark:hover:bg-white/10"
+          >
+            {s.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 /**
  * One nav slot. One item → plain link. Multiple → hover-reveal menu.

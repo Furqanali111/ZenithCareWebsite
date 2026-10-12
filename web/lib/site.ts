@@ -2,6 +2,8 @@
  * Site-wide constants. Edit here; propagates everywhere.
  */
 
+import { services as serviceRegistry } from "./services";
+
 export const site = {
   name: "Zenith Care Solutions",
   tagline:
@@ -34,18 +36,18 @@ export function mailtoHref(subject = "CCM Inquiry") {
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
 }
 
+/**
+ * Flat services list for the mobile nav + footer, derived from the service
+ * registry so it never drifts. Desktop uses the two-column mega-menu instead
+ * (see nav.tsx), which reads the registry by category directly.
+ */
+export const serviceNavItems = [
+  { label: "All services", href: "/services" },
+  ...serviceRegistry.map((s) => ({ label: s.name, href: `/services/${s.slug}` })),
+] as const;
+
 /** Navigation groups surfaced in the top nav + footer. */
 export const nav = {
-  services: [
-    {
-      label: "Chronic Care Management",
-      href: "/services/chronic-care-management",
-    },
-    {
-      label: "Patient Care Coordinator",
-      href: "/services/patient-care-coordinator",
-    },
-  ],
   whoWeServe: [
     { label: "Primary Care", href: "/who-we-serve/primary-care" },
     { label: "Internal Medicine", href: "/who-we-serve/internal-medicine" },
