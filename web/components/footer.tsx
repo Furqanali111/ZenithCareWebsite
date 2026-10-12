@@ -16,7 +16,7 @@ export function Footer() {
           >
             <span
               aria-hidden="true"
-              className="relative inline-flex size-9 items-center justify-center rounded-xl bg-[color:var(--color-brand-900)] text-[color:var(--color-gold-500)]"
+              className="relative inline-flex size-9 items-center justify-center rounded-xl bg-[color:var(--color-brand-900)] text-[color:var(--color-teal-400)]"
             >
               <svg
                 viewBox="0 0 24 24"

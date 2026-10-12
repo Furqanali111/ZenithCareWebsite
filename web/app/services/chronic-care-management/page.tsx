@@ -4,7 +4,8 @@ import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
-import { HeroEyebrow } from "@/components/hero-eyebrow";
+import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FaqSection, type FaqEntry } from "@/components/faq-section";
 import { CPT_RATES, type CptCode } from "@/lib/roi";
@@ -40,39 +41,17 @@ export default function ServicesCCMPage() {
       />
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-dotgrid opacity-70 [mask-image:linear-gradient(to_bottom,black,transparent)]"
-        />
-        <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
-          <div className="max-w-3xl">
-            <HeroEyebrow>Services</HeroEyebrow>
-            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-              Chronic Care Management, delivered end to end by a clinically-led team.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
-              We find eligible patients, obtain documented consent, deliver the
-              20+ minutes of monthly non-face-to-face care coordination that
-              CCM requires, and keep the care plan up to date inside your EHR.
-              Your practice remains the billing provider for every CPT code.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-11 px-6 text-sm">
-                <Link href="/contact">Book a 15-minute call</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-11 px-6 text-sm"
-              >
-                <Link href="/roi-calculator">Estimate your ROI</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Services"
+        title="Chronic Care Management, delivered end to end by a clinically-led team."
+        primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
+        secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
+      >
+        We find eligible patients, obtain documented consent, deliver the 20+
+        minutes of monthly non-face-to-face care coordination that CCM requires,
+        and keep the care plan up to date inside your EHR. Your practice remains
+        the billing provider for every CPT code.
+      </PageHero>
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
@@ -80,13 +59,15 @@ export default function ServicesCCMPage() {
       {/* ─── What CCM is ──────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
-          <header className="max-w-2xl">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-              What Chronic Care Management is, in one page.
-            </h2>
-          </header>
+          <Reveal>
+            <header className="max-w-2xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+                What Chronic Care Management is, in one page.
+              </h2>
+            </header>
+          </Reveal>
 
-          <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
+          <Reveal delay={0.1} className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
             <div className="space-y-5 text-base leading-relaxed text-body-ink">
               <p>
                 <strong className="font-medium text-ink-strong">
@@ -165,7 +146,7 @@ export default function ServicesCCMPage() {
                 </BulletedListItem>
               </ul>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
