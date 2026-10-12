@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { BrandFigure } from "@/components/brand-figure";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -43,7 +44,12 @@ export default function ServicesCCMPage() {
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <PageHero
         eyebrow="Services"
-        title="Chronic Care Management, delivered end to end by a clinically-led team."
+        title={
+          <>
+            Chronic Care Management, delivered{" "}
+            <em className="italic">end to end</em> by a clinically-led team.
+          </>
+        }
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
       >
@@ -55,6 +61,20 @@ export default function ServicesCCMPage() {
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
+
+      {/* ─── Image band (art-directed cyan duotone) ──────────────────── */}
+      <section className="section-rhythm">
+        <div className="mx-auto max-w-5xl px-6">
+          <Reveal>
+            <BrandFigure
+              src="/services/ccm.jpg"
+              alt="A clinician documenting Chronic Care Management on a laptop"
+              className="aspect-[16/7]"
+              sizes="(min-width: 768px) 960px, 100vw"
+            />
+          </Reveal>
+        </div>
+      </section>
 
       {/* ─── What CCM is ──────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
@@ -391,6 +411,10 @@ function LaborColumn({ label, items }: { label: string; items: string[] }) {
       <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {label}
       </h3>
+      <span
+        aria-hidden="true"
+        className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+      />
       <ul className="mt-5 space-y-3 text-base leading-relaxed text-body-ink">
         {items.map((item) => (
           <BulletedListItem key={item}>{item}</BulletedListItem>

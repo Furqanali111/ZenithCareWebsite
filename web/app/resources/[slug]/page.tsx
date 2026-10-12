@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { pageMetadata, JsonLd, articleLd, breadcrumbLd } from "@/lib/seo";
+import { BrandFigure } from "@/components/brand-figure";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
@@ -85,6 +86,16 @@ export default async function PostPage({
             {post.description}
           </p>
         </header>
+
+        {post.coverImage ? (
+          <BrandFigure
+            src={post.coverImage}
+            alt=""
+            className="mt-10 aspect-[16/8]"
+            sizes="(min-width: 768px) 720px, 100vw"
+            priority
+          />
+        ) : null}
 
         <div
           className="prose prose-neutral mt-12 max-w-none

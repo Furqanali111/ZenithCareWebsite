@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Nav } from "@/components/nav";
@@ -33,17 +33,19 @@ const plausibleEnabled =
   (VERCEL_ENV === undefined || VERCEL_ENV === "production") &&
   Boolean(PLAUSIBLE_DOMAIN);
 
-const inter = Inter({
+// Body face: Inter — neutral, highly legible, pairs with the grotesk display.
+const bodyFont = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Display face: Plus Jakarta Sans. Mapped to `--font-serif` so existing
-// `font-serif` className usages across pages pick it up without a repo-wide
-// rename. The token name is a misnomer kept for API stability; the face is
-// sans-serif (see redesign notes in globals.css).
-const displayFont = Plus_Jakarta_Sans({
+// Display face: Space Grotesk — a modern grotesk (v3 "Warm Cyan"). Mapped to
+// `--font-serif`, which the existing `font-serif` headings consume, so the
+// whole site picks up the new display face without a repo-wide rename. (Space
+// Grotesk has no italic axis; the hero's emphasis word renders as a synthesized
+// oblique, which is acceptable for a single accent word.)
+const displayFont = Space_Grotesk({
   variable: "--font-serif",
   subsets: ["latin"],
   display: "swap",
@@ -79,7 +81,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${displayFont.variable} ${jetbrainsMono.variable}`}
+      className={`${bodyFont.variable} ${displayFont.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-background text-foreground">
         <JsonLd data={[organizationLd(), websiteLd()]} />

@@ -4,6 +4,7 @@ import { pageMetadata, JsonLd, personLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { BulletedListItem } from "@/components/bulleted-list";
+import { Reveal } from "@/components/reveal";
 import { founder } from "@/lib/site";
 
 const PATH = "/about";
@@ -60,7 +61,8 @@ export default function AboutPage() {
               About the founder
             </span>
             <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-              Zenith is run by a trained pharmacist, not a call centre.
+              Zenith is run by a trained{" "}
+              <em className="italic">pharmacist</em>, not a call centre.
             </h1>
             <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
               {founder.name} founded Zenith to bring clinical staff — people
@@ -85,7 +87,7 @@ export default function AboutPage() {
             </h2>
           </header>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <Reveal className="mt-10 grid gap-6 md:grid-cols-3">
             <CredentialCard
               label="Education"
               value="Doctor of Pharmacy (PharmD)"
@@ -101,7 +103,7 @@ export default function AboutPage() {
               value="Medication Therapy Management"
               detail="Prior MTM operations experience — the same workflow discipline CCM programs run on."
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -152,6 +154,7 @@ export default function AboutPage() {
               Four things you can expect, from day one.
             </h2>
           </header>
+          <Reveal>
           <ul className="mt-10 grid gap-3 md:grid-cols-2 md:gap-x-10">
             <BulletedListItem>
               Care-coordination calls run by someone who understands drug
@@ -170,6 +173,7 @@ export default function AboutPage() {
               answers the three questions you&rsquo;ll ask on the call.
             </BulletedListItem>
           </ul>
+          </Reveal>
         </div>
       </section>
 
@@ -223,6 +227,10 @@ function CredentialCard({
       <p className="mt-3 font-serif text-xl font-semibold text-brand-ink">
         {value}
       </p>
+      <span
+        aria-hidden="true"
+        className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+      />
       <p className="mt-3 text-sm leading-relaxed text-body-ink">
         {detail}
       </p>

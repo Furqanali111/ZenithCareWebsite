@@ -3,8 +3,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { BrandFigure } from "@/components/brand-figure";
 import { BulletedListItem } from "@/components/bulleted-list";
-import { HeroEyebrow } from "@/components/hero-eyebrow";
+import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FaqSection, type FaqEntry } from "@/components/faq-section";
 import { specialties, specialtyLabel, type Specialty } from "@/lib/site";
@@ -65,66 +67,66 @@ export default async function WhoWeServePage({
         ]}
       />
 
-      {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-dotgrid opacity-70 [mask-image:linear-gradient(to_bottom,black,transparent)]"
-        />
-        <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
-          <div className="max-w-3xl">
-            <HeroEyebrow>Who we serve · {label}</HeroEyebrow>
-            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-              {c.heroHeadline}
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
-              {c.heroLead}
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-11 px-6 text-sm">
-                <Link href="/contact">Book a 15-minute call</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-11 px-6 text-sm"
-              >
-                <Link href="/roi-calculator">Estimate your ROI</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ─── Hero (shared premium aurora hero — consistent with home/services) ─ */}
+      <PageHero
+        eyebrow={`Who we serve · ${label}`}
+        title={c.heroHeadline}
+        primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
+        secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
+      >
+        {c.heroLead}
+      </PageHero>
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
+
+      {/* ─── Specialty image band (art-directed cyan duotone) ────────── */}
+      <section className="section-rhythm">
+        <div className="mx-auto max-w-5xl px-6">
+          <Reveal>
+            <BrandFigure
+              src={`/specialties/${specialty}.jpg`}
+              alt={`Care setting typical of ${label.toLowerCase()} practices`}
+              className="aspect-[16/7]"
+              sizes="(min-width: 768px) 960px, 100vw"
+            />
+          </Reveal>
+        </div>
+      </section>
 
       {/* ─── Why CCM for this specialty ──────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
           <div className="grid gap-10 md:grid-cols-2 md:gap-12">
-            <div>
+            <Reveal>
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 {c.whyHeadline}
               </h2>
+              <span
+                aria-hidden="true"
+                className="mt-4 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+              />
               <div className="mt-6 space-y-4 text-base leading-relaxed text-body-ink">
                 {c.whyParagraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
-            <div>
+            <Reveal delay={0.1}>
               <h3 className="font-serif text-xl font-semibold text-brand-ink">
                 Conditions you&rsquo;ll already be seeing
               </h3>
+              <span
+                aria-hidden="true"
+                className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+              />
               <ul className="mt-5 space-y-3 text-base text-body-ink">
                 {c.patientMix.map((cond) => (
                   <BulletedListItem key={cond}>{cond}</BulletedListItem>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -132,6 +134,7 @@ export default async function WhoWeServePage({
       {/* ─── Representative revenue ──────────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
+          <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
             <div
               aria-hidden="true"
@@ -178,6 +181,7 @@ export default async function WhoWeServePage({
             </div>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
 

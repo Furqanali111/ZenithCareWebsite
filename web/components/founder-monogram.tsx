@@ -21,7 +21,7 @@ export function FounderMonogram({
     <div
       role="img"
       aria-label={name}
-      className={`flex shrink-0 items-center justify-center rounded-full bg-[color:var(--color-brand-900)] text-[color:var(--color-surface-0)] ${sizeClasses}`}
+      className={`flex shrink-0 items-center justify-center rounded-full bg-[color:var(--color-brand-900)] text-[color:var(--color-surface-0)] ring-1 ring-[color:var(--color-gold-500)]/45 ring-offset-4 ring-offset-background ${sizeClasses}`}
     >
       <span className="font-serif font-semibold tracking-wide">{initials}</span>
     </div>
