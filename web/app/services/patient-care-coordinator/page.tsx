@@ -5,6 +5,8 @@ import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
+import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FaqSection, type FaqEntry } from "@/components/faq-section";
 
@@ -39,40 +41,19 @@ export default function PatientCareCoordinatorPage() {
       />
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-dotgrid opacity-70 [mask-image:linear-gradient(to_bottom,black,transparent)]"
-        />
-        <div className="relative mx-auto max-w-5xl px-6 pt-20 pb-16 md:pt-24 md:pb-20">
-          <div className="max-w-3xl">
-            <HeroEyebrow>Services</HeroEyebrow>
-            <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-              A remote care coordinator who takes the clinical admin off your front desk.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
-              Dedicated staff who prep charts before visits, chase referrals and
-              authorizations, triage the patient inbox, and keep your schedule
-              full — so your MAs and physicians stay focused on the room.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-11 px-6 text-sm">
-                <Link href="/contact">Book a 15-minute call</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-11 px-6 text-sm"
-              >
-                <Link href="/services/chronic-care-management">
-                  See CCM services
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Services"
+        title="A remote care coordinator who takes the clinical admin off your front desk."
+        primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
+        secondaryCta={{
+          label: "See CCM services",
+          href: "/services/chronic-care-management",
+        }}
+      >
+        Dedicated staff who prep charts before visits, chase referrals and
+        authorizations, triage the patient inbox, and keep your schedule full —
+        so your MAs and physicians stay focused on the room.
+      </PageHero>
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
@@ -80,19 +61,21 @@ export default function PatientCareCoordinatorPage() {
       {/* ─── What a coordinator covers ───────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
-          <header className="max-w-2xl">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-              What a Zenith coordinator does, in a typical week.
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-body-ink">
-              Scope is sized to your practice — most clients start with one
-              coordinator for a provider or small pod and scale from there.
-              Every workflow lives inside your EHR, with clinical escalation
-              paths back to your team.
-            </p>
-          </header>
+          <Reveal>
+            <header className="max-w-2xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+                What a Zenith coordinator does, in a typical week.
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-body-ink">
+                Scope is sized to your practice — most clients start with one
+                coordinator for a provider or small pod and scale from there.
+                Every workflow lives inside your EHR, with clinical escalation
+                paths back to your team.
+              </p>
+            </header>
+          </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <Reveal delay={0.1} className="mt-12 grid gap-6 md:grid-cols-2">
             <WorkflowCard
               label="Before the visit"
               items={[
@@ -111,7 +94,7 @@ export default function PatientCareCoordinatorPage() {
                 "Care-gap and screening outreach by panel",
               ]}
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 

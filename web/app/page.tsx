@@ -5,6 +5,9 @@ import { pageMetadata, JsonLd, serviceLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
+import { HomeHero } from "@/components/home-hero";
+import { Reveal } from "@/components/reveal";
+import { ServiceCard } from "@/components/service-card";
 import { TrustStrip } from "@/components/trust-strip";
 import { founder } from "@/lib/site";
 import {
@@ -48,100 +51,8 @@ export default function HomePage() {
         })}
       />
 
-      {/* ─── Hero: asymmetric split ───────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-dotgrid opacity-70 [mask-image:linear-gradient(to_bottom,black,transparent)]"
-        />
-        <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 pt-20 pb-20 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-center md:gap-16 md:pt-24 md:pb-24">
-          {/* Left — copy */}
-          <div className="max-w-xl">
-            <HeroEyebrow>For U.S. physician practices</HeroEyebrow>
-
-            <h1 className="mt-6 font-serif text-[2.25rem] font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-[3.25rem]">
-              Remote clinical staff for the work you can bill, but can&rsquo;t{" "}
-              <span className="relative inline-block">
-                staff
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
-                />
-              </span>
-              .
-            </h1>
-
-            <p className="mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
-              Zenith delivers remote Chronic Care Management and Patient Care
-              Coordinator staffing to U.S. primary care, internal medicine, and
-              geriatric practices. Clinically led. HIPAA Business Associate.
-              Inside your EHR.
-            </p>
-
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-11 px-6 text-sm shadow-sm">
-                <Link href="/contact">Book a 15-minute call</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-11 px-6 text-sm"
-              >
-                <Link href="/roi-calculator">Estimate your ROI</Link>
-              </Button>
-            </div>
-
-            <p className="mt-6 max-w-md text-xs leading-relaxed text-muted-foreground">
-              Representative example: a {ANCHOR_PATIENTS}-patient CCM panel at
-              the base code ≈ {formatUsd(ANCHOR_MONTHLY)}/month in Medicare
-              reimbursement. Actual results vary.
-            </p>
-          </div>
-
-          {/* Right — glanceable revenue card (real data, not a fake screenshot) */}
-          <aside aria-label="Representative CCM revenue" className="relative">
-            <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-[color:var(--color-brand-50)]/70 blur-2xl dark:bg-[color:var(--color-accent-600)]/15" />
-            <div className="rounded-2xl border border-border/70 bg-card p-7 shadow-xl shadow-[color:var(--color-brand-900)]/10 dark:border-white/10 dark:shadow-black/40 md:p-8">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
-                  Monthly revenue, typical panel
-                </span>
-                <span className="rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]">
-                  CPT 99490
-                </span>
-              </div>
-
-              <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight text-brand-ink">
-                <span className="text-5xl md:text-6xl">
-                  {formatUsd(ANCHOR_MONTHLY)}
-                </span>
-                <span className="text-base font-medium text-body-ink">
-                  / month
-                </span>
-              </div>
-              <p className="mt-2 text-sm text-body-ink">
-                {ANCHOR_PATIENTS} enrolled patients × ${CPT_RATES["99490"]}{" "}
-                base-code reimbursement
-              </p>
-
-              <div className="mt-7 grid grid-cols-3 gap-3">
-                <StatPill label="Base" value={`$${CPT_RATES["99490"]}`} note="99490" />
-                <StatPill label="Add-on" value={`$${CPT_RATES["99439"]}`} note="99439" />
-                <StatPill label="Complex" value={`$${CPT_RATES["99487"]}`} note="99487" />
-              </div>
-
-              <Link
-                href="/roi-calculator"
-                className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent hover:text-brand-ink"
-              >
-                Run the full math
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-            </div>
-          </aside>
-        </div>
-      </section>
+      {/* ─── Hero: dark editorial ledger-split ────────────────────────── */}
+      <HomeHero />
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
@@ -149,41 +60,53 @@ export default function HomePage() {
       {/* ─── Services preview ────────────────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-6xl px-6">
-          <header className="max-w-2xl">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-              Two remote-staffing programs for one clinical operation.
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-body-ink">
-              Run them separately or together under one BAA. Both are
-              PharmD-supervised and work inside your EHR.
-            </p>
-          </header>
+          <Reveal>
+            <header className="max-w-2xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+                Two remote-staffing programs for one clinical operation.
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-body-ink">
+                Run them separately or together under one BAA. Both are
+                PharmD-supervised and work inside your EHR.
+              </p>
+            </header>
+          </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            <ServiceCard
-              icon={<HeartPulse className="size-5" aria-hidden="true" />}
-              label="Reimbursed by Medicare"
-              title="Chronic Care Management"
-              body="End-to-end CCM for patients with two or more chronic conditions. Your practice bills the CPT codes; Zenith delivers the clinical labor."
-              href="/services/chronic-care-management"
-              bullets={[
-                "20+ min / month of non-face-to-face care coordination per patient",
-                "CPT 99490 / 99439 / 99487 / 99489 / 99491 / 99437",
-                "Audit-ready documentation and time logs in your EHR",
-              ]}
-            />
-            <ServiceCard
-              icon={<UserCog className="size-5" aria-hidden="true" />}
-              label="Flat monthly rate"
-              title="Patient Care Coordinator"
-              body="Remote coordinators for pre-visit prep, referral tracking, prior auths, inbox triage, and care-gap outreach — so your in-house team stays on clinical work."
-              href="/services/patient-care-coordinator"
-              bullets={[
-                "Pre-visit chart review and no-show follow-up",
-                "Referrals, prior authorizations, insurance verification",
-                "Portal inbox triage and panel-level outreach",
-              ]}
-            />
+          <div className="mt-12 grid items-stretch gap-6 md:grid-cols-2">
+            <Reveal delay={0.05} className="h-full">
+              <ServiceCard
+                image="/services/ccm.jpg"
+                imageAlt="Clinician documenting care on a laptop beside a stethoscope"
+                icon={<HeartPulse className="size-4" aria-hidden="true" />}
+                label="Reimbursed by Medicare"
+                title="Chronic Care Management"
+                teaser="End-to-end CCM for patients with two or more chronic conditions — your practice bills, Zenith delivers the clinical labor."
+                body="End-to-end CCM for patients with two or more chronic conditions. Your practice bills the CPT codes; Zenith delivers the clinical labor."
+                href="/services/chronic-care-management"
+                bullets={[
+                  "20+ min / month of non-face-to-face care coordination per patient",
+                  "CPT 99490 / 99439 / 99487 / 99489 / 99491 / 99437",
+                  "Audit-ready documentation and time logs in your EHR",
+                ]}
+              />
+            </Reveal>
+            <Reveal delay={0.17} className="h-full">
+              <ServiceCard
+                image="/services/pcc.jpg"
+                imageAlt="Care coordinator on a call while working at a laptop"
+                icon={<UserCog className="size-4" aria-hidden="true" />}
+                label="Flat monthly rate"
+                title="Patient Care Coordinator"
+                teaser="Remote coordinators for the admin that clogs your clinical team — pre-visit prep, referrals, prior auths, inbox triage."
+                body="Remote coordinators for pre-visit prep, referral tracking, prior auths, inbox triage, and care-gap outreach — so your in-house team stays on clinical work."
+                href="/services/patient-care-coordinator"
+                bullets={[
+                  "Pre-visit chart review and no-show follow-up",
+                  "Referrals, prior authorizations, insurance verification",
+                  "Portal inbox triage and panel-level outreach",
+                ]}
+              />
+            </Reveal>
           </div>
         </div>
       </section>
@@ -192,13 +115,16 @@ export default function HomePage() {
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-6xl px-6">
-            <header className="max-w-2xl">
-              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                Three steps. Your practice stays the billing provider.
-              </h2>
-            </header>
+            <Reveal>
+              <header className="max-w-2xl">
+                <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+                  Three steps. Your practice stays the billing provider.
+                </h2>
+              </header>
+            </Reveal>
 
-            <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            <Reveal delay={0.1}>
+              <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
               <HowStep
                 number="01"
                 title="Identify & enroll"
@@ -214,7 +140,8 @@ export default function HomePage() {
                 title="You bill, we invoice"
                 body="Your practice bills Medicare for CPT 99490 and relevant add-ons (99439 / 99487 / 99489). Zenith invoices you for the clinical labor. Monthly, predictable."
               />
-            </ol>
+              </ol>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -222,10 +149,11 @@ export default function HomePage() {
       {/* ─── Revenue math navy band — complex-mix ceiling vs the hero's base floor ─ */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-6xl px-6">
+          <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-gold-500)]/15 blur-3xl"
+              className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-teal-500)]/18 blur-3xl"
             />
             <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
               <div>
@@ -266,6 +194,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
 
@@ -273,7 +202,7 @@ export default function HomePage() {
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-5xl px-6">
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
+            <Reveal className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
               <FounderMonogram initials={founder.initials} name={founder.name} />
               <div>
                 <HeroEyebrow>Clinically led</HeroEyebrow>
@@ -300,7 +229,7 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -308,6 +237,7 @@ export default function HomePage() {
       {/* ─── Final CTA band ──────────────────────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-5xl px-6">
+          <Reveal>
           <div className="rounded-3xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Ready to see the math for your practice?
@@ -331,6 +261,7 @@ export default function HomePage() {
               </Button>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
     </>
@@ -338,86 +269,6 @@ export default function HomePage() {
 }
 
 /* -------------------------------------------------------------------------- */
-
-function StatPill({
-  label,
-  value,
-  note,
-}: {
-  label: string;
-  value: string;
-  note: string;
-}) {
-  return (
-    <div className="rounded-xl border border-border/70 bg-surface-tint p-3 text-center">
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-accent">
-        {label}
-      </p>
-      <p className="mt-1 font-serif text-lg font-semibold text-brand-ink">
-        {value}
-      </p>
-      <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">
-        {note}
-      </p>
-    </div>
-  );
-}
-
-function ServiceCard({
-  icon,
-  label,
-  title,
-  body,
-  href,
-  bullets,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  title: string;
-  body: string;
-  href: string;
-  bullets: string[];
-}) {
-  return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-7 transition-colors hover:border-[color:var(--color-brand-700)]/40 md:p-9">
-      <div className="flex items-center gap-3">
-        <span className="inline-flex size-10 items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]">
-          {icon}
-        </span>
-        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-accent dark:text-[color:var(--color-accent-600)]">
-          {label}
-        </span>
-      </div>
-      <h3 className="mt-6 font-serif text-2xl font-semibold tracking-tight text-brand-ink">
-        {title}
-      </h3>
-      <p className="mt-3 text-base leading-relaxed text-body-ink">
-        {body}
-      </p>
-      <ul className="mt-6 space-y-2.5 text-sm leading-relaxed text-body-ink">
-        {bullets.map((b) => (
-          <li key={b} className="flex gap-2.5">
-            <span
-              aria-hidden="true"
-              className="mt-2 size-1.5 flex-none rounded-full bg-[color:var(--color-gold-500)]"
-            />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
-      <Link
-        href={href}
-        className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent hover:text-brand-ink"
-      >
-        Explore {title}
-        <ArrowRight
-          className="size-4 transition-transform group-hover:translate-x-0.5"
-          aria-hidden="true"
-        />
-      </Link>
-    </article>
-  );
-}
 
 function HowStep({
   number,

@@ -10,7 +10,7 @@ export function BulletedListItem({ children }: { children: ReactNode }) {
     <li className="flex gap-3">
       <span
         aria-hidden="true"
-        className="mt-2 size-1.5 shrink-0 rounded-full bg-[color:var(--color-brand-700)]"
+        className="mt-2 size-1.5 shrink-0 rounded-full bg-[color:var(--color-teal-600)]"
       />
       <span>{children}</span>
     </li>

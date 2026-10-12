@@ -1,0 +1,169 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES, formatUsd } from "@/lib/roi";
+
+/**
+ * Homepage hero — an always-dark, art-directed ink-navy canvas (independent
+ * of the site light/dark theme, so it reads the same in both). Explicit
+ * colors throughout, never the theme-reactive `text-brand-ink` tokens that
+ * would go navy-on-navy here.
+ *
+ * Server component, zero client JS. The entrance is a CSS `reveal-up`
+ * animation (see globals.css): it is in the SSR HTML and visible without
+ * waiting for hydration, so the LCP headline is never gated behind JS, and
+ * reduced-motion users get it instantly.
+ */
+export function HomeHero() {
+  return (
+    <section className="relative overflow-hidden bg-[color:var(--color-brand-900)] text-white">
+      {/* living aurora — teal + navy drifting glows (see globals.css) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div className="aurora-shape aurora-1" />
+        <div className="aurora-shape aurora-2" />
+        <div className="aurora-shape aurora-3" />
+      </div>
+      {/* faint white dot grid texture over the aurora */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.12] [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+        }}
+      />
+
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
+        {/* Left — copy */}
+        <div className="max-w-xl">
+          <span className="reveal-up reveal-up-1 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-teal-400)]">
+            <span
+              aria-hidden="true"
+              className="size-1.5 rounded-full bg-[color:var(--color-teal-400)]"
+            />
+            For U.S. physician practices
+          </span>
+
+          <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-white md:text-[3.25rem] lg:text-[3.75rem]">
+            Remote clinical staff for the work you can bill, but can&rsquo;t{" "}
+            <span className="relative inline-block whitespace-nowrap">
+              staff
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-teal-400)]"
+              />
+            </span>
+            .
+          </h1>
+
+          <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-white/70 md:text-lg">
+            Zenith delivers remote Chronic Care Management and Patient Care
+            Coordinator staffing to U.S. primary care, internal medicine, and
+            geriatric practices. Clinically led. HIPAA Business Associate.
+            Inside your EHR.
+          </p>
+
+          <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <Button asChild size="lg" variant="secondary" className="h-12 px-7 text-sm">
+              <Link href="/contact">Book a 15-minute call</Link>
+            </Button>
+            <Link
+              href="/roi-calculator"
+              className="group inline-flex items-center gap-1.5 text-sm font-medium text-white/80 transition-colors hover:text-white"
+            >
+              Estimate your ROI
+              <ArrowRight
+                className="size-4 transition-transform group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+
+          {/* hairline trust row — text with dividers, not pill-chips */}
+          <ul className="reveal-up reveal-up-5 mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-white/55">
+            <li>PharmD-led</li>
+            <li aria-hidden="true" className="h-3 w-px bg-white/15" />
+            <li>HIPAA Business Associate</li>
+            <li aria-hidden="true" className="h-3 w-px bg-white/15" />
+            <li>Inside your EHR</li>
+          </ul>
+        </div>
+
+        {/* Right — light reimbursement ledger on navy (real data, not a fake dashboard) */}
+        <aside
+          aria-label="Representative CCM reimbursement"
+          className="reveal-up reveal-up-3 relative"
+        >
+          <div className="rounded-2xl border border-white/10 bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-2xl shadow-black/40 md:p-8">
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+                Monthly reimbursement, typical panel
+              </span>
+              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
+                CPT 99490
+              </span>
+            </div>
+
+            <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight">
+              <span className="text-5xl tabular-nums md:text-6xl">
+                {formatUsd(ANCHOR_MONTHLY)}
+              </span>
+              <span className="text-base font-medium text-[color:var(--color-ink-700)]">
+                / month
+              </span>
+            </div>
+            <p className="mt-2 text-sm text-[color:var(--color-ink-700)]">
+              {ANCHOR_PATIENTS} enrolled patients × ${CPT_RATES["99490"]}{" "}
+              base-code reimbursement
+            </p>
+
+            <div className="mt-7 grid grid-cols-3 gap-3">
+              <StatPill label="Base" value={`$${CPT_RATES["99490"]}`} note="99490" />
+              <StatPill label="Add-on" value={`$${CPT_RATES["99439"]}`} note="99439" />
+              <StatPill label="Complex" value={`$${CPT_RATES["99487"]}`} note="99487" />
+            </div>
+
+            <Link
+              href="/roi-calculator"
+              className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
+            >
+              Run the full math
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </div>
+          <p className="mt-4 text-center text-[11px] leading-relaxed text-white/60">
+            Representative example at the base code. Actual results vary.
+          </p>
+        </aside>
+      </div>
+    </section>
+  );
+}
+
+function StatPill({
+  label,
+  value,
+  note,
+}: {
+  label: string;
+  value: string;
+  note: string;
+}) {
+  return (
+    <div className="rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center">
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)]">
+        {label}
+      </p>
+      <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">
+        {value}
+      </p>
+      <p className="mt-0.5 font-mono text-[10px] text-[color:var(--color-ink-700)]/60">
+        {note}
+      </p>
+    </div>
+  );
+}
