@@ -25,6 +25,7 @@ export type PostFrontmatter = {
   category: string;
   tags: string[];
   readingMinutes: number;
+  coverImage?: string; // local /public path, e.g. "/resources/<slug>.jpg"
 };
 
 export type Post = PostFrontmatter & {
