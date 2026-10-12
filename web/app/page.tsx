@@ -59,7 +59,7 @@ export default function HomePage() {
 
       {/* ─── Services preview ────────────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
             <header className="max-w-2xl">
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -114,7 +114,7 @@ export default function HomePage() {
       {/* ─── How it works ─────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
-          <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto max-w-7xl px-6">
             <Reveal>
               <header className="max-w-2xl">
                 <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -148,7 +148,7 @@ export default function HomePage() {
 
       {/* ─── Revenue math navy band — complex-mix ceiling vs the hero's base floor ─ */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
             <div
@@ -201,7 +201,7 @@ export default function HomePage() {
       {/* ─── Founder credibility strip ───────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
-          <div className="mx-auto max-w-5xl px-6">
+          <div className="mx-auto max-w-7xl px-6">
             <Reveal className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
               <FounderMonogram initials={founder.initials} name={founder.name} />
               <div>
@@ -236,7 +236,7 @@ export default function HomePage() {
 
       {/* ─── Final CTA band ──────────────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
           <div className="rounded-3xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">

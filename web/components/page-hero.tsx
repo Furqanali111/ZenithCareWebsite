@@ -39,7 +39,7 @@ export function PageHero({
         className="bg-dotgrid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative mx-auto max-w-5xl px-6 pt-24 pb-20 md:pt-28 md:pb-24">
+      <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-20 md:pt-28 md:pb-24">
         <div className="max-w-3xl">
           <span className="reveal-up reveal-up-1 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
             <span

@@ -82,7 +82,7 @@ export default async function WhoWeServePage({
 
       {/* ─── Specialty image band (art-directed cyan duotone) ────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
             <BrandFigure
               src={`/specialties/${specialty}.jpg`}
@@ -96,7 +96,7 @@ export default async function WhoWeServePage({
 
       {/* ─── Why CCM for this specialty ──────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-10 md:grid-cols-2 md:gap-12">
             <Reveal>
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -133,7 +133,7 @@ export default async function WhoWeServePage({
 
       {/* ─── Representative revenue ──────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
             <div

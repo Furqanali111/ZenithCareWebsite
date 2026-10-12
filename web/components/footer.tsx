@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ShieldCheck, Stethoscope, Database } from "lucide-react";
-import { mailtoHref, nav, site, whatsappHref } from "@/lib/site";
+import { mailtoHref, nav, serviceNavItems, site, whatsappHref } from "@/lib/site";
 
 export function Footer() {
   const hasWhatsApp = Boolean(site.whatsappNumber);
   return (
     <footer className="border-t border-border bg-surface-tint">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-12 md:gap-10 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-12 md:gap-10 md:py-20">
         {/* Brand + direct lines + micro trust marks */}
         <div className="md:col-span-5">
           <Link
@@ -90,7 +90,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-3">
-          <FooterGroup label="Services" items={nav.services} />
+          <FooterGroup label="Services" items={serviceNavItems} />
           <FooterGroup label="Who We Serve" items={nav.whoWeServe} />
         </div>
 
@@ -103,7 +103,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>
             {/* shortcut: hardcoded year, bump each January. Next 16 Cache
                  Components mode refuses `new Date()` during prerender. */}
