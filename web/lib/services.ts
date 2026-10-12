@@ -12,7 +12,7 @@
  * project's claims-hygiene rules. No PHI, no fabricated stats.
  */
 
-export type ServiceCategory = "rpm" | "staffing";
+export type ServiceCategory = "rpm" | "staffing" | "rcm";
 
 export const categoryMeta: Record<
   ServiceCategory,
@@ -27,6 +27,11 @@ export const categoryMeta: Record<
     label: "Virtual Staffing & Admin Support",
     blurb: "Scribes, schedulers, receptionists, coordinators & assistants",
     href: "/services#virtual-staffing",
+  },
+  rcm: {
+    label: "Revenue Cycle Management",
+    blurb: "Medical billing, coding, credentialing & A/R follow-up",
+    href: "/services#revenue-cycle-management",
   },
 };
 
@@ -535,8 +540,154 @@ const STAFFING_SERVICES: Service[] = [
 
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/* Revenue Cycle Management — billing, coding, credentialing, A/R             */
+/* -------------------------------------------------------------------------- */
+
+const RCM_SERVICES: Service[] = [
+  {
+    slug: "medical-billing",
+    category: "rcm",
+    name: "Medical Billing",
+    shortDesc: "Clean claims out the door and paid, with fewer days in A/R.",
+    title: "Remote Medical Billing that gets your claims paid, faster.",
+    lead:
+      "A Zenith medical biller prepares, scrubs, and submits your claims, posts payments, and works denials inside your practice-management system — so more of what you earn actually lands, with fewer days in accounts receivable. Your practice stays the billing provider; Zenith does the billing labor.",
+    capabilitiesHeading: "What a Zenith biller handles",
+    capabilitiesSubtitle:
+      "Role-specific revenue-cycle professionals, inside your systems.",
+    capabilities: [
+      { icon: "file-text", title: "Claim preparation & submission", body: "Prepare, scrub, and submit clean claims to payers from your PM system." },
+      { icon: "keyboard", title: "Charge entry", body: "Accurate charge entry so claims go out complete the first time." },
+      { icon: "clipboard-check", title: "Payment posting", body: "Post ERAs and EOBs and reconcile against expected reimbursement." },
+      { icon: "bell", title: "Denial management", body: "Work, correct, and resubmit denied claims before they age out." },
+      { icon: "shield-check", title: "Eligibility & benefits", body: "Verify eligibility and benefits to prevent front-end denials." },
+      { icon: "file-signature", title: "Patient statements", body: "Generate and manage patient statements and balance follow-up." },
+    ],
+    howItWorks: [
+      { title: "Scope the work", body: "We map your specialties, payers, and practice-management system." },
+      { title: "Match & onboard", body: "We place a biller with role-based access under a signed BAA." },
+      { title: "Bill & reconcile", body: "Your biller submits clean claims, posts payments, and works denials inside your system." },
+    ],
+    metaTitle: "Remote Medical Billing Services",
+    metaDescription:
+      "Remote medical billing for U.S. practices. Zenith billers submit clean claims, post payments, and work denials inside your PM system — HIPAA-compliant, PharmD-supervised, flat monthly rate.",
+    serviceType: "Medical Billing",
+    faqs: [
+      { question: "Does Zenith bill Medicare directly?", answer: "No. Your practice remains the billing provider and submits claims under its own credentials; Zenith performs the billing labor on your behalf inside your practice-management system. Zenith does not bill Medicare or patients in its own name." },
+      { question: "What systems do billers work in?", answer: "Zenith billers work inside the practice-management and clearinghouse tools you already use, with role-based access under a Business Associate Agreement. No data is exported off your systems." },
+      { question: "How is medical billing priced?", answer: "A flat monthly rate per biller, scaled to your claim volume. This is a staffing engagement, not a percentage-of-collections arrangement." },
+    ],
+  },
+  {
+    slug: "medical-coding",
+    category: "rcm",
+    name: "Medical Coding",
+    shortDesc: "Accurate CPT/ICD-10 coding that protects revenue and compliance.",
+    title: "Remote Medical Coding that protects your revenue and your audit trail.",
+    lead:
+      "A Zenith coder assigns accurate CPT, ICD-10, and HCPCS codes from your documentation, flags gaps before claims go out, and keeps your coding audit-ready — so you capture the revenue you earned without taking on compliance risk.",
+    capabilitiesHeading: "What a Zenith coder handles",
+    capabilitiesSubtitle:
+      "Role-specific revenue-cycle professionals, inside your systems.",
+    capabilities: [
+      { icon: "clipboard-list", title: "CPT / ICD-10 coding", body: "Assign accurate CPT, ICD-10, and HCPCS codes from your documentation." },
+      { icon: "file-text", title: "Documentation review", body: "Review notes for the specificity each code requires." },
+      { icon: "clipboard-check", title: "Code auditing", body: "Audit coding for accuracy and consistency before claims go out." },
+      { icon: "shield-check", title: "Compliance checks", body: "Keep coding aligned with current guidelines and audit-ready." },
+      { icon: "keyboard", title: "Modifier accuracy", body: "Apply modifiers correctly to prevent avoidable denials." },
+      { icon: "messages-square", title: "Query management", body: "Query providers to resolve documentation gaps." },
+    ],
+    howItWorks: [
+      { title: "Scope the work", body: "We map your specialties, documentation style, and coding systems." },
+      { title: "Match & onboard", body: "We place a coder with role-based access to your EHR under a signed BAA." },
+      { title: "Code & audit", body: "Your coder assigns and audits codes from your documentation, flagging gaps before submission." },
+    ],
+    metaTitle: "Remote Medical Coding Services",
+    metaDescription:
+      "Remote medical coding for U.S. practices. Zenith coders assign accurate CPT/ICD-10/HCPCS codes and keep coding audit-ready inside your EHR — HIPAA-compliant, PharmD-supervised, flat monthly rate.",
+    serviceType: "Medical Coding",
+    faqs: [
+      { question: "Which specialties can you code for?", answer: "Zenith codes across the primary-care, internal-medicine, and specialty workflows common to our clients, matching coders to your specialty mix during onboarding." },
+      { question: "How does accurate coding reduce denials?", answer: "Correct codes, modifiers, and documentation-backed specificity prevent the front-end errors that cause the majority of avoidable denials, so more claims pay on first submission." },
+      { question: "How is medical coding priced?", answer: "A flat monthly rate per coder, scaled to your volume. This is a staffing engagement inside your systems." },
+    ],
+  },
+  {
+    slug: "provider-credentialing",
+    category: "rcm",
+    name: "Provider Credentialing",
+    shortDesc: "Get and stay enrolled with payers, without the paperwork drag.",
+    title: "Remote Provider Credentialing that gets you enrolled and keeps you current.",
+    lead:
+      "A Zenith credentialing specialist handles payer enrollment, CAQH, re-credentialing, and tracking — so your providers get in-network faster and never lapse, without your staff chasing applications and deadlines.",
+    capabilitiesHeading: "What a Zenith credentialing specialist handles",
+    capabilitiesSubtitle:
+      "Role-specific revenue-cycle professionals, inside your systems.",
+    capabilities: [
+      { icon: "file-signature", title: "Payer enrollment", body: "Prepare and submit commercial and government payer enrollment applications." },
+      { icon: "folder-open", title: "CAQH management", body: "Build and maintain CAQH profiles and attestations." },
+      { icon: "calendar-check", title: "Re-credentialing tracking", body: "Track expirables and re-credentialing dates so nothing lapses." },
+      { icon: "shield-check", title: "Primary source verification", body: "Coordinate license, DEA, and primary-source verification." },
+      { icon: "phone-call", title: "Application follow-up", body: "Follow up with payers to move applications to approval." },
+      { icon: "clipboard-list", title: "Roster maintenance", body: "Keep provider rosters and payer records accurate and current." },
+    ],
+    howItWorks: [
+      { title: "Scope the work", body: "We map your providers, payers, and current enrollment status." },
+      { title: "Match & onboard", body: "We place a credentialing specialist with access to your records under a signed BAA." },
+      { title: "Enroll & maintain", body: "Your specialist submits applications, follows up to approval, and tracks re-credentialing so nothing lapses." },
+    ],
+    metaTitle: "Remote Provider Credentialing Services",
+    metaDescription:
+      "Remote provider credentialing for U.S. practices. Zenith handles payer enrollment, CAQH, and re-credentialing so your providers get in-network faster and stay current — HIPAA-compliant, flat monthly rate.",
+    serviceType: "Provider Credentialing",
+    faqs: [
+      { question: "How long does payer enrollment take?", answer: "Enrollment timelines are set by each payer and typically run 60 to 120 days. Zenith prepares complete applications and follows up persistently to avoid the delays caused by errors or missing information." },
+      { question: "Do you manage CAQH and re-credentialing?", answer: "Yes. We build and maintain CAQH profiles, keep attestations current, and track re-credentialing and expirable dates so enrollments never lapse." },
+      { question: "How is credentialing priced?", answer: "A flat monthly rate scaled to your provider count and payer mix. This is a staffing engagement, not a per-application fee." },
+    ],
+  },
+  {
+    slug: "accounts-receivable",
+    category: "rcm",
+    name: "Accounts Receivable (AR)",
+    shortDesc: "Work down aging A/R and recover what's owed.",
+    title: "Remote A/R Follow-Up that recovers the revenue stuck in aging claims.",
+    lead:
+      "A Zenith A/R specialist works your aging report — following up on unpaid and underpaid claims, appealing denials, and resolving patient balances — so money that's already owed to your practice actually comes in instead of aging out.",
+    capabilitiesHeading: "What a Zenith A/R specialist handles",
+    capabilitiesSubtitle:
+      "Role-specific revenue-cycle professionals, inside your systems.",
+    capabilities: [
+      { icon: "line-chart", title: "Aging report follow-up", body: "Work the aging report by bucket to resolve claims before they age out." },
+      { icon: "bell", title: "Denial appeals", body: "Appeal denials with the documentation payers require." },
+      { icon: "clipboard-check", title: "Underpayment recovery", body: "Identify and recover underpaid claims against contracted rates." },
+      { icon: "phone-call", title: "Insurance follow-up", body: "Call and follow up with payers on outstanding claims." },
+      { icon: "messages-square", title: "Patient balance resolution", body: "Resolve patient balances with clear, timely outreach." },
+      { icon: "clipboard-list", title: "A/R reporting", body: "Report on A/R status and trends so you always know where you stand." },
+    ],
+    howItWorks: [
+      { title: "Scope the backlog", body: "We review your aging report and practice-management system." },
+      { title: "Match & onboard", body: "We place an A/R specialist with role-based access under a signed BAA." },
+      { title: "Work & recover", body: "Your specialist follows up on claims, appeals denials, and resolves balances to bring the money in." },
+    ],
+    metaTitle: "Remote A/R Follow-Up Services",
+    metaDescription:
+      "Remote accounts-receivable follow-up for U.S. practices. Zenith A/R specialists work aging claims, appeal denials, and recover underpayments inside your PM system — HIPAA-compliant, flat monthly rate.",
+    serviceType: "Accounts Receivable Management",
+    faqs: [
+      { question: "Which claims does A/R follow-up cover?", answer: "We work your full aging report — unpaid, denied, and underpaid claims across payers — prioritizing by bucket and dollar value so the most recoverable revenue is worked first." },
+      { question: "How far back can you work aged claims?", answer: "We work claims within each payer's timely-filing and appeal windows; during onboarding we review your aging report to target what is still recoverable." },
+      { question: "How is A/R follow-up priced?", answer: "A flat monthly rate per specialist, scaled to your A/R volume. This is a staffing engagement, not a percentage-of-recovery fee." },
+    ],
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+
 export const services: readonly Service[] = [
   ...RPM_SERVICES,
+  ...RCM_SERVICES,
   ...STAFFING_SERVICES,
 ];
 
