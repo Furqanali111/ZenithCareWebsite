@@ -24,7 +24,7 @@ export function TrustStrip({
       aria-label="Why practices trust Zenith"
       className={`border-y border-border/60 ${base} ${className}`}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 py-10 sm:grid-cols-2 md:py-12 lg:grid-cols-4 lg:gap-10">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 py-10 sm:grid-cols-2 md:py-12 lg:grid-cols-4 lg:gap-10">
         <TrustItem
           icon={<ShieldCheck className="size-5" aria-hidden="true" />}
           label="HIPAA Business Associate"

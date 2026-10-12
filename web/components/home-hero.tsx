@@ -33,7 +33,7 @@ export function HomeHero() {
         className="bg-dotgrid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left — copy */}
         <div className="max-w-xl">
           <span className="reveal-up reveal-up-1 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
