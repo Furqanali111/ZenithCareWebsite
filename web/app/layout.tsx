@@ -65,6 +65,15 @@ export const metadata: Metadata = {
     default: `${site.name}, Care Management, RCM & Virtual Staffing for U.S. Practices`,
     template: `%s | ${site.name}`,
   },
+  icons: {
+    // Next.js App Router automatically serves app/favicon.ico at /favicon.ico
+    // and app/apple-icon.png at /apple-icon.png as special metadata files.
+    // Do NOT override them with explicit paths here — that re-routes the
+    // requests through the page pipeline and can cause 405 errors on HEAD
+    // requests (e.g. from Googlebot) under Next.js 16 strictRouteMatching.
+    icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   description: site.tagline,
   openGraph: {
     type: "website",

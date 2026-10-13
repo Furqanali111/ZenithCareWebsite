@@ -88,7 +88,56 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      {
+        // Apply full security headers to all application routes.
+        // Exclude static assets (favicon, icons, manifests, well-known) so
+        // that HEAD requests from Googlebot / curl don't get routed through
+        // the App Router page pipeline (which rejects HEAD with 405 under
+        // Next.js 16 strictRouteMatching).
+        source:
+          "/((?!favicon\\.ico|apple-icon\\.png|icon\\.svg|site\\.webmanifest|\\.well-known).*)",
+        headers: securityHeaders,
+      },
+      {
+        // Static / meta assets still need a minimal set of headers:
+        // no sniffing, strict transport, and referrer policy.
+        // X-Frame-Options and CSP frame-ancestors are intentionally omitted
+        // here because they don't apply to binary assets.
+        source: "/favicon.ico",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
+        source: "/apple-icon.png",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
+        source: "/site.webmanifest",
+        headers: [
+          { key: "Content-Type", value: "application/manifest+json" },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+    ];
   },
 };
 
