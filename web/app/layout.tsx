@@ -59,6 +59,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  manifest: "/site.webmanifest",
   metadataBase: new URL(site.url),
   title: {
     default: `${site.name}, Care Management, RCM & Virtual Staffing for U.S. Practices`,
