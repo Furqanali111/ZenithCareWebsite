@@ -1,14 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, HeartPulse, UserCog } from "lucide-react";
+import { Activity, ArrowRight, Receipt, Users } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { HomeHero } from "@/components/home-hero";
 import { Reveal } from "@/components/reveal";
-import { ServiceCard } from "@/components/service-card";
 import { TrustStrip } from "@/components/trust-strip";
+import { categoryMeta } from "@/lib/services";
 import { founder } from "@/lib/site";
 import {
   ANCHOR_MONTHLY,
@@ -30,11 +30,9 @@ const COMPLEX_MIX_MONTHLY =
   Math.round(ANCHOR_PATIENTS * COMPLEX_MIX_FRACTION) * CPT_RATES["99487"];
 
 export const metadata: Metadata = pageMetadata({
-  // Keyword-first, brand appended once by pageMetadata (avoids the prior
-  // double-brand 78-char title).
-  title: "Chronic Care Management & Care Coordination",
+  title: "Care Management, Revenue Cycle & Virtual Staffing",
   description:
-    "Remote Chronic Care Management and Patient Care Coordinator staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
+    "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
   path: "/",
 });
 
@@ -43,11 +41,11 @@ export default function HomePage() {
     <>
       <JsonLd
         data={serviceLd({
-          name: "Chronic Care Management, delivered",
+          name: "Remote care management, revenue cycle, and virtual staffing",
           description:
-            "End-to-end Chronic Care Management services for U.S. physician practices.",
+            "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices.",
           path: "/",
-          serviceType: "Chronic Care Management",
+          serviceType: "Healthcare Practice Support",
         })}
       />
 

@@ -42,7 +42,11 @@ export function PageHero({
       <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-20 md:pt-28 md:pb-24">
         <div className="max-w-3xl">
           <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
-            {eyebrow}
+            {/* 0.5px down: optically centers all-caps, which leaves the font's
+                descender space empty and otherwise reads slightly high. */}
+            <span className="inline-block [transform:translateY(0.5px)]">
+              {eyebrow}
+            </span>
           </span>
 
           <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
