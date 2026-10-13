@@ -24,7 +24,7 @@ export function Nav() {
         <Link
           href="/"
           className="flex items-center"
-          aria-label={`${site.name} — Home`}
+          aria-label={`${site.name}, Home`}
         >
           {/* Color logo on the light header; white variant when the header
               turns dark (bg-background is cyan-ink in dark mode). */}
@@ -37,7 +37,7 @@ export function Nav() {
           />
         </Link>
 
-        {/* Desktop nav — shows at lg+ only. The full menu + wordmark needs
+        {/* Desktop nav, shows at lg+ only. The full menu + wordmark needs
             ~782px; at the md (768) tablet width it overflowed, so tablets
             get the hamburger and the full bar appears at lg (1024) where it
             fits comfortably. */}
@@ -119,7 +119,7 @@ export function Nav() {
 type Item = { label: string; href: string };
 
 /**
- * Services mega-menu — a two-column panel (Remote Patient Monitoring /
+ * Services mega-menu, a two-column panel (Remote Patient Monitoring /
  * Virtual Staffing & Admin Support), each column listing its full-name
  * services and a "See all" link. Reads the service registry by category, so
  * it never drifts from the pages. Hover + keyboard (:focus-within) open it.
@@ -148,7 +148,7 @@ function ServicesMegaMenu() {
         </svg>
       </span>
       {/* Wide 3-column panel. Anchored at the trigger then shifted left so its
-          left edge lands on the nav's content edge — gives roomy columns that
+          left edge lands on the nav's content edge, gives roomy columns that
           hold the full service names on one line, and keeps the panel on-screen
           at every width down to the lg breakpoint (the shift is the fixed
           distance from the nav's left edge to the Services trigger).
@@ -246,7 +246,7 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
         </svg>
       </span>
       {/* Dropdown panel. `pt-3` on the OUTER wrapper (not margin on the card)
-          keeps the cursor-hit area continuous between trigger and card —
+          keeps the cursor-hit area continuous between trigger and card , 
           `mt-3` previously left a 12px dead-zone that closed the menu. */}
       <div
         role="menu"

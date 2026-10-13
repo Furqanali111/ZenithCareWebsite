@@ -19,10 +19,10 @@ import { site } from "@/lib/site";
  *     `next build` outputs)
  *   - Domain env must be set
  *
- * If Vercel isn't the host, VERCEL_ENV is undefined — fall back to
+ * If Vercel isn't the host, VERCEL_ENV is undefined, fall back to
  * NODE_ENV only. If the user also keeps `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`
  * unset outside the Production environment on Vercel, either gate alone
- * is sufficient — this is defence in depth.
+ * is sufficient, this is defence in depth.
  */
 const PLAUSIBLE_DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 // VERCEL_ENV is set automatically on Vercel builds: "production" |
@@ -33,14 +33,14 @@ const plausibleEnabled =
   (VERCEL_ENV === undefined || VERCEL_ENV === "production") &&
   Boolean(PLAUSIBLE_DOMAIN);
 
-// Body face: Inter — neutral, highly legible, pairs with the grotesk display.
+// Body face: Inter, neutral, highly legible, pairs with the grotesk display.
 const bodyFont = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Display face: Space Grotesk — a modern grotesk (v3 "Warm Cyan"). Mapped to
+// Display face: Space Grotesk, a modern grotesk (v3 "Warm Cyan"). Mapped to
 // `--font-serif`, which the existing `font-serif` headings consume, so the
 // whole site picks up the new display face without a repo-wide rename. (Space
 // Grotesk has no italic axis; the hero's emphasis word renders as a synthesized
@@ -61,7 +61,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Remote Chronic Care Management for U.S. Practices`,
+    default: `${site.name}, Remote Chronic Care Management for U.S. Practices`,
     template: `%s | ${site.name}`,
   },
   description: site.tagline,

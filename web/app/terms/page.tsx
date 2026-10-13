@@ -14,7 +14,7 @@ const LEGAL_EMAIL = site.email;
 export const metadata: Metadata = pageMetadata({
   title: "Terms of Service",
   description:
-    "Terms governing use of the Zenith Care Solutions website — your access, permitted use, intellectual property, disclaimers, and limitation of liability.",
+    "Terms governing use of the Zenith Care Solutions website, your access, permitted use, intellectual property, disclaimers, and limitation of liability.",
   path: PATH,
 });
 

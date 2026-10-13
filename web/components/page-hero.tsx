@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 type Cta = { label: string; href: string };
 
 /**
- * Shared inner-page hero — the same theme-reactive aurora canvas as the
+ * Shared inner-page hero, the same theme-reactive aurora canvas as the
  * homepage hero (airy light / navy dark, teal accents, CSS `reveal-up`
  * entrance, no client JS), so every top-level page opens with one consistent,
  * premium moment that matches the active light/dark theme.

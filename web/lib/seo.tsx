@@ -16,7 +16,7 @@ type PageMetadataInput = {
 
 /**
  * Build a per-page Metadata object with sensible defaults for SEO.
- * Keep title ≤ 60 chars, description 140–160 chars.
+ * Keep title ≤ 60 chars, description 140-160 chars.
  */
 export function pageMetadata({
   title,
@@ -93,7 +93,7 @@ export function organizationLd(): JsonLd {
 
 /**
  * Site-level WebSite node. Gives search + AI engines a single canonical
- * identity for the domain (name, publisher, language). No SearchAction —
+ * identity for the domain (name, publisher, language). No SearchAction , 
  * the site has no on-site search endpoint, and claiming one Google can't
  * use would be a structured-data error.
  */
@@ -145,7 +145,7 @@ type PersonLdInput = {
   name: string;
   jobTitle: string;
   path: string;
-  /** 1–2 sentence bio for `description`. */
+  /** 1-2 sentence bio for `description`. */
   bio: string;
   /** LinkedIn / Doximity / other canonical profile URLs. */
   sameAs?: string[];
@@ -153,7 +153,7 @@ type PersonLdInput = {
   knowsAbout?: string[];
   /** Formal credentials (e.g. "PharmD"). */
   hasCredential?: string[];
-  /** Portrait image URL — absolute, served from our origin. */
+  /** Portrait image URL, absolute, served from our origin. */
   image?: string;
 };
 
@@ -253,7 +253,7 @@ export function breadcrumbLd(
 }
 
 /* --------------------------------------------------------------------------
- * <JsonLd> — tiny server-component renderer. Use once per page per schema.
+ * <JsonLd>, tiny server-component renderer. Use once per page per schema.
  * ------------------------------------------------------------------------ */
 
 export function JsonLd({ data }: { data: JsonLd | JsonLd[] }) {
@@ -267,7 +267,7 @@ export function JsonLd({ data }: { data: JsonLd | JsonLd[] }) {
 }
 
 /* --------------------------------------------------------------------------
- * Dev-only self-check — catches shape drift without a test runner.
+ * Dev-only self-check, catches shape drift without a test runner.
  * Server-only so HMR / client bundles don't duplicate the console output.
  * ------------------------------------------------------------------------ */
 

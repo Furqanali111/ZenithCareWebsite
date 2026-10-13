@@ -20,7 +20,7 @@ import {
 /**
  * Homepage-only derived figure. Represents a typical panel where ~20% of
  * enrolled patients bill Complex CCM (CPT 99487) instead of the base code
- * — a realistic mix for internal-medicine and geriatric practices. Keeps
+ *, a realistic mix for internal-medicine and geriatric practices. Keeps
  * the single-source-of-truth rule by deriving from CPT_RATES; the dev
  * self-check in lib/roi.ts guards the base rate drift.
  */
@@ -80,7 +80,7 @@ export default function HomePage() {
                 icon={<HeartPulse className="size-4" aria-hidden="true" />}
                 label="Reimbursed by Medicare"
                 title="Chronic Care Management"
-                teaser="End-to-end CCM for patients with two or more chronic conditions — your practice bills, Zenith delivers the clinical labor."
+                teaser="End-to-end CCM for patients with two or more chronic conditions, your practice bills, Zenith delivers the clinical labor."
                 body="End-to-end CCM for patients with two or more chronic conditions. Your practice bills the CPT codes; Zenith delivers the clinical labor."
                 href="/services/chronic-care-management"
                 bullets={[
@@ -97,8 +97,8 @@ export default function HomePage() {
                 icon={<UserCog className="size-4" aria-hidden="true" />}
                 label="Flat monthly rate"
                 title="Patient Care Coordinator"
-                teaser="Remote coordinators for the admin that clogs your clinical team — pre-visit prep, referrals, prior auths, inbox triage."
-                body="Remote coordinators for pre-visit prep, referral tracking, prior auths, inbox triage, and care-gap outreach — so your in-house team stays on clinical work."
+                teaser="Remote coordinators for the admin that clogs your clinical team, pre-visit prep, referrals, prior auths, inbox triage."
+                body="Remote coordinators for pre-visit prep, referral tracking, prior auths, inbox triage, and care-gap outreach, so your in-house team stays on clinical work."
                 href="/services/patient-care-coordinator"
                 bullets={[
                   "Pre-visit chart review and no-show follow-up",
@@ -133,7 +133,7 @@ export default function HomePage() {
               <HowStep
                 number="02"
                 title="Deliver monthly care coordination"
-                body="Each month our clinical team spends 20+ minutes per patient on calls, medication reconciliation, specialist follow-up, and care-plan documentation — inside your EHR."
+                body="Each month our clinical team spends 20+ minutes per patient on calls, medication reconciliation, specialist follow-up, and care-plan documentation, inside your EHR."
               />
               <HowStep
                 number="03"
@@ -146,7 +146,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── Revenue math navy band — complex-mix ceiling vs the hero's base floor ─ */}
+      {/* ─── Revenue math navy band, complex-mix ceiling vs the hero's base floor ─ */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
@@ -177,7 +177,7 @@ export default function HomePage() {
 
               <div className="flex flex-col gap-4 md:items-end">
                 <p className="max-w-sm text-sm leading-relaxed text-[color:var(--color-surface-0)]/70 md:text-right">
-                  Plug in your panel size and expected enrollment rate — the
+                  Plug in your panel size and expected enrollment rate, the
                   calculator does the math client-side and shows a typical range.
                 </p>
                 <Button

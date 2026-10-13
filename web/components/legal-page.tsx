@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 /**
  * Shared chrome for every legal page (privacy, terms, hipaa-statement,
- * accessibility). The shell is identical across all four — this component
+ * accessibility). The shell is identical across all four, this component
  * is where to edit when the eyebrow styling, header padding, prose
  * overrides, or date-line format need to change.
  *

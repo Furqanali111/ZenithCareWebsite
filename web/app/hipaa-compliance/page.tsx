@@ -93,8 +93,8 @@ export default function HipaaCompliancePage() {
             Our safeguards framework mirrors the HIPAA Security Rule&rsquo;s
             Administrative, Physical, and Technical categories. The
             controls below describe the posture we operate under; the
-            implementation specifics — written policies, device inventory,
-            audit-log samples, workforce training records — are shared
+            implementation specifics, written policies, device inventory,
+            audit-log samples, workforce training records, are shared
             during BAA review on request.
           </p>
         </header>

@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 /**
  * Calendly's inline widget. Renders nothing when the Calendly URL env is
- * unset — same pattern as the other channel buttons on /contact — so we
+ * unset, same pattern as the other channel buttons on /contact, so we
  * don't ship a dead script tag before the event is published.
  *
  * The widget script scans the DOM for `.calendly-inline-widget` on load,
