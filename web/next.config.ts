@@ -87,16 +87,41 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  /**
+   * www → non-www canonical redirect (308 Permanent Redirect).
+   *
+   * Google treats `www.thezcs.com` and `thezcs.com` as separate origins.
+   * Without this redirect, any URL inspected as `www.thezcs.com/*` will be
+   * "unknown to Google" because:
+   *   - The sitemap lists only `thezcs.com` URLs.
+   *   - Canonical tags point to `thezcs.com`.
+   *   - Google sees zero signal tying the www variant to the non-www property.
+   *
+   * A 308 (permanent, method-preserving) consolidates all crawl budget, link
+   * equity, and indexing signals onto the single canonical origin.
+   *
+   * On Vercel this redirect runs at the Edge before any page is rendered, so
+   * it costs essentially zero compute.
+   */
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.thezcs.com" }],
+        destination: "https://thezcs.com/:path*",
+        permanent: true, // 308 — preserves POST method; same effect as 301 for GET/HEAD
+      },
+    ];
+  },
   async headers() {
     return [
       {
-        // Apply full security headers to all application routes.
-        // Exclude static assets (favicon, icons, manifests, well-known) so
-        // that HEAD requests from Googlebot / curl don't get routed through
-        // the App Router page pipeline (which rejects HEAD with 405 under
-        // Next.js 16 strictRouteMatching).
+        // Apply security headers to all page/API routes. Exclude static and
+        // crawler-critical assets (favicon, manifests, sitemap, robots) so
+        // HEAD requests from Googlebot never hit the App Router page pipeline,
+        // which rejects HEAD with 405 under Next.js 16 strictRouteMatching.
         source:
-          "/((?!favicon\\.ico|apple-icon\\.png|icon\\.svg|site\\.webmanifest|\\.well-known).*)",
+          "/((?!favicon\\.ico|apple-icon\\.png|icon\\.svg|site\\.webmanifest|sitemap\\.xml|robots\\.txt|\\.well-known).*)",
         headers: securityHeaders,
       },
       {
