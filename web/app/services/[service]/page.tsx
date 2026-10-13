@@ -68,6 +68,7 @@ export default async function ServicePage({
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "Services", path: "/services" },
+            { name: cat.label, path: cat.href },
             { name: s.name, path },
           ]),
         ]}
@@ -258,7 +259,7 @@ export default async function ServicePage({
                 <Link href="/contact">Book a 15-minute call</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-11 px-6 text-sm">
-                <Link href="/services">Explore all services</Link>
+                <Link href={cat.href}>Explore all {cat.label}</Link>
               </Button>
             </div>
           </div>

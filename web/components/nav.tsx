@@ -127,9 +127,11 @@ type Item = { label: string; href: string };
 function ServicesMegaMenu() {
   return (
     <div className="group relative">
-      <span
-        tabIndex={0}
-        className="inline-flex cursor-default items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
+      {/* Clickable → the /services overview; hover/focus still opens the
+          mega-menu (the panel is a group-hover sibling). */}
+      <Link
+        href="/services"
+        className="inline-flex items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
       >
         Services
         <svg
@@ -146,7 +148,7 @@ function ServicesMegaMenu() {
             strokeLinejoin="round"
           />
         </svg>
-      </span>
+      </Link>
       {/* Wide 3-column panel. Anchored at the trigger then shifted left so its
           left edge lands on the nav's content edge, gives roomy columns that
           hold the full service names on one line, and keeps the panel on-screen

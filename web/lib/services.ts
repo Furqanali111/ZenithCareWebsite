@@ -23,17 +23,17 @@ export const categoryMeta: Record<
   rpm: {
     label: "Care Management",
     blurb: "Medicare care-management programs: CCM, PCM, RPM, RTM & TCM",
-    href: "/services#remote-patient-monitoring",
+    href: "/services/care-management",
   },
   staffing: {
     label: "Virtual Staffing & Admin Support",
     blurb: "Scribes, schedulers, receptionists, coordinators & assistants",
-    href: "/services#virtual-staffing",
+    href: "/services/virtual-staffing",
   },
   rcm: {
     label: "Revenue Cycle Management",
     blurb: "Medical billing, coding, credentialing & A/R follow-up",
-    href: "/services#revenue-cycle-management",
+    href: "/services/revenue-cycle-management",
   },
 };
 
