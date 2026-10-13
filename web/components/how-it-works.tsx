@@ -3,7 +3,7 @@ import { Reveal } from "@/components/reveal";
 import type { HowStep } from "@/lib/services";
 
 /**
- * "How it works" — a factual 3-step flow. Numbered cyan step tiles joined by
+ * "How it works", a factual 3-step flow. Numbered cyan step tiles joined by
  * apricot connector arrows (→ on desktop, ↓ on mobile), with ink title/body.
  * Theme-aware via brand tokens; order is carried by the visible number + text,
  * never by color alone. Decorative connectors are aria-hidden.

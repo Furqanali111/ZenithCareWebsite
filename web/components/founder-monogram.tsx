@@ -1,7 +1,7 @@
 /**
  * Placeholder for the founder portrait until the real photo exists
  * (see WebSiteDoc/13-deferred-items.md §1). When the image lands, swap
- * this component for a <next/image> at the same slot — same ring, same
+ * this component for a <next/image> at the same slot, same ring, same
  * aria label, no layout shift.
  */
 export function FounderMonogram({

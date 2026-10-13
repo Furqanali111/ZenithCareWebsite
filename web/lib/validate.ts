@@ -1,6 +1,6 @@
 /**
  * Client-side best-effort scan for strings that resemble protected health
- * information (PHI). This is NOT a security control — it's a usability guard
+ * information (PHI). This is NOT a security control, it's a usability guard
  * that catches a provider pasting patient details into our contact form and
  * blocks the submit before anything reaches Formspree.
  *
@@ -48,7 +48,7 @@ export function findPhi(text: string): PhiHit | null {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Dev-only self-check — server-only so HMR doesn't double-log.               */
+/* Dev-only self-check, server-only so HMR doesn't double-log.               */
 /* -------------------------------------------------------------------------- */
 if (process.env.NODE_ENV !== "production" && typeof window === "undefined") {
   const must = (text: string, kind: PhiHit["pattern"]) => {

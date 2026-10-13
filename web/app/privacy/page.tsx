@@ -14,7 +14,7 @@ const PRIVACY_EMAIL = site.email;
 export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description:
-    "How Zenith Care Solutions handles information collected through this website — what we collect, what we don't, and your rights.",
+    "How Zenith Care Solutions handles information collected through this website, what we collect, what we don't, and your rights.",
   path: PATH,
 });
 
@@ -48,7 +48,7 @@ export default function PrivacyPage() {
           <p>
             This policy covers only the Site. It does <strong>not</strong>{" "}
             cover the protected health information (PHI) we handle under
-            separate Business Associate Agreements with client practices —
+            separate Business Associate Agreements with client practices , 
             that information is governed by HIPAA, HITECH, our BAA with
             each client, and our internal privacy and security safeguards.{" "}
             <strong>No PHI is collected or stored through this Site.</strong>
@@ -123,23 +123,23 @@ export default function PrivacyPage() {
           </p>
           <ul>
             <li>
-              <strong>Vercel, Inc.</strong> — website hosting. Standard web
+              <strong>Vercel, Inc.</strong>, website hosting. Standard web
               request logs.
             </li>
             <li>
-              <strong>Formspree, Inc.</strong> — contact form processing.
+              <strong>Formspree, Inc.</strong>, contact form processing.
               Form submission contents.
             </li>
             <li>
-              <strong>Calendly LLC</strong> — discovery call scheduling.
+              <strong>Calendly LLC</strong>, discovery call scheduling.
               Booking details you enter in Calendly.
             </li>
             <li>
-              <strong>Plausible</strong> — website analytics. Aggregate
+              <strong>Plausible</strong>, website analytics. Aggregate
               pageview data; no personal identifiers.
             </li>
             <li>
-              <strong>Google Workspace</strong> — email we send and
+              <strong>Google Workspace</strong>, email we send and
               receive.
             </li>
           </ul>
@@ -191,23 +191,23 @@ export default function PrivacyPage() {
           </p>
           <ul>
             <li>
-              <strong>California residents (CCPA/CPRA)</strong> — right to
+              <strong>California residents (CCPA/CPRA)</strong>, right to
               know, delete, correct, and opt out of the sale or sharing of
               personal information. We do not sell or share personal
               information as those terms are defined by the CCPA.
             </li>
             <li>
-              <strong>Virginia residents (VCDPA)</strong> — right to
+              <strong>Virginia residents (VCDPA)</strong>, right to
               access, correct, delete, and port your personal information,
               and to opt out of targeted advertising, sale, or certain
               profiling.
             </li>
             <li>
-              <strong>Colorado residents (CPA)</strong> — similar rights
+              <strong>Colorado residents (CPA)</strong>, similar rights
               to the VCDPA.
             </li>
             <li>
-              <strong>Other U.S. states</strong> — residents of states
+              <strong>Other U.S. states</strong>, residents of states
               with comprehensive consumer privacy laws (including CT, UT,
               TX, MT, IA, OR, DE, NJ, and others) may have similar rights
               under their jurisdiction&rsquo;s law; contact us using the

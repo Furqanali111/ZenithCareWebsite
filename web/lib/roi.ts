@@ -1,5 +1,5 @@
 /**
- * CCM revenue math — representative, not a guarantee.
+ * CCM revenue math, representative, not a guarantee.
  *
  * Base assumption: CPT 99490 reimburses ~ $66 per enrolled patient per month
  * at the 2026 Medicare rate (base code only, no complex-CCM add-ons). Source:
@@ -7,12 +7,12 @@
  * fully-enrolled panel therefore nets ~ $13,200/month, which matches the
  * roadmap's revenue framing.
  *
- * We render the result as a ±10% range so the UI never pretends to be exact —
+ * We render the result as a ±10% range so the UI never pretends to be exact , 
  * actual mix of CPT 99439 / 99487 / 99489 add-ons swings the number both ways.
  *
  * SINGLE SOURCE OF TRUTH for every page that mentions a CCM rate: the services
  * page CPT table and the homepage revenue card both read from here. CMS
- * republishes the Physician Fee Schedule every January — update ONLY this file
+ * republishes the Physician Fee Schedule every January, update ONLY this file
  * when the 2027 rates land and all callers follow.
  */
 export const CPT_RATES = {
@@ -81,19 +81,19 @@ export function formatUsd(n: number): string {
 }
 
 /**
- * Display helper: "$X,XXX – $Y,YYY" with an en-dash.
+ * Display helper: "$X,XXX - $Y,YYY" with an en-dash.
  * Collapses to a single value when the two bounds round to the same hundred,
- * so a zero-input doesn't render as "$0 – $0".
+ * so a zero-input doesn't render as "$0 - $0".
  */
 export function formatRange(low: number, high: number): string {
   const lo = formatUsd(low);
   const hi = formatUsd(high);
-  return lo === hi ? lo : `${lo} – ${hi}`;
+  return lo === hi ? lo : `${lo} - ${hi}`;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Dev-only self-check. Server-only so HMR doesn't duplicate the log noise.   */
-/* Fails loud in dev — console.assert is intentionally not enough.            */
+/* Fails loud in dev, console.assert is intentionally not enough.            */
 /* -------------------------------------------------------------------------- */
 if (process.env.NODE_ENV !== "production" && typeof window === "undefined") {
   if (ANCHOR_MONTHLY !== 13200) {

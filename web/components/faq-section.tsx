@@ -19,11 +19,11 @@ export type FaqEntry = { question: string; answer: string };
  *
  * Note on rich results: since 2023 Google shows FAQ rich snippets only for
  * authoritative gov/health domains. The markup is still valid, is not
- * penalised, and is consumed by AI engines — which is the point here.
+ * penalised, and is consumed by AI engines, which is the point here.
  *
  * Reuses the house Accordion (keyboard-accessible Radix) and the shared
  * faqPageLd factory. Questions should be real user questions; answers must
- * be drawn from content already on the page — never fabricate claims.
+ * be drawn from content already on the page, never fabricate claims.
  */
 export function FaqSection({
   heading = "Frequently asked questions",

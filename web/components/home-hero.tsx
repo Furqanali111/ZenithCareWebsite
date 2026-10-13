@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES, formatUsd } from "@/lib/roi";
 
 /**
- * Homepage hero — theme-reactive. Light mode is an airy "Soft Structuralism"
+ * Homepage hero, theme-reactive. Light mode is an airy "Soft Structuralism"
  * canvas (pale surface, soft teal aurora, floating ledger card); dark mode is
  * the "Ethereal Glass" navy canvas. It uses the same theme tokens as the rest
  * of the site (`text-brand-ink`, `bg-surface-tint`, …) so day mode is no
@@ -18,7 +18,7 @@ import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES, formatUsd } from "@/lib/roi
 export function HomeHero() {
   return (
     <section className="relative overflow-hidden bg-surface-tint dark:bg-[color:var(--color-brand-900)]">
-      {/* living aurora — teal + navy drifting glows (see globals.css) */}
+      {/* living aurora, teal + navy drifting glows (see globals.css) */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -27,14 +27,14 @@ export function HomeHero() {
         <div className="aurora-shape aurora-2" />
         <div className="aurora-shape aurora-3" />
       </div>
-      {/* dot-grid texture — theme-aware (dark dots on light, light dots on navy) */}
+      {/* dot-grid texture, theme-aware (dark dots on light, light dots on navy) */}
       <div
         aria-hidden="true"
         className="bg-dotgrid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
-        {/* Left — copy */}
+        {/* Left, copy */}
         <div className="max-w-xl">
           <span className="reveal-up reveal-up-1 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
             <span
@@ -79,7 +79,7 @@ export function HomeHero() {
             </Link>
           </div>
 
-          {/* hairline trust row — text with dividers, not pill-chips */}
+          {/* hairline trust row, text with dividers, not pill-chips */}
           <ul className="reveal-up reveal-up-5 mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-muted-foreground">
             <li>PharmD-led</li>
             <li aria-hidden="true" className="h-3 w-px bg-border" />
@@ -89,7 +89,7 @@ export function HomeHero() {
           </ul>
         </div>
 
-        {/* Right — light reimbursement ledger on navy (real data, not a fake dashboard) */}
+        {/* Right, light reimbursement ledger on navy (real data, not a fake dashboard) */}
         <aside
           aria-label="Representative CCM reimbursement"
           className="reveal-up reveal-up-3 relative"

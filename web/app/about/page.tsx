@@ -9,7 +9,7 @@ import { founder } from "@/lib/site";
 
 const PATH = "/about";
 
-// Personal LinkedIn URL — distinct from the Zenith company page.
+// Personal LinkedIn URL, distinct from the Zenith company page.
 // Deliberately empty until the real slug is confirmed; the Person JSON-LD
 // `sameAs` and the LinkedIn CTA both suppress themselves when blank, same
 // pattern as the WhatsApp / Calendly guards. Dangling-reference per
@@ -17,9 +17,9 @@ const PATH = "/about";
 const FOUNDER_LINKEDIN = "";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About — Clinically led by a PharmD",
+  title: "About, Clinically led by a PharmD",
   description:
-    "Zenith Care Solutions was founded by Ali Hassan Kaleem, PharmD — a clinical pharmacist with an oncology and bone-marrow-transplant background — to bring real clinical staff to U.S. Chronic Care Management.",
+    "Zenith Care Solutions was founded by Ali Hassan Kaleem, PharmD, a clinical pharmacist with an oncology and bone-marrow-transplant background, to bring real clinical staff to U.S. Chronic Care Management.",
   path: PATH,
 });
 
@@ -65,8 +65,8 @@ export default function AboutPage() {
               <em className="italic">pharmacist</em>, not a call centre.
             </h1>
             <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
-              {founder.name} founded Zenith to bring clinical staff — people
-              who understand medications, comorbidities, and compliance — to
+              {founder.name} founded Zenith to bring clinical staff, people
+              who understand medications, comorbidities, and compliance, to
               Chronic Care Management programs that most practices either
               don&rsquo;t run or hand to a call-centre vendor.
             </p>
@@ -96,12 +96,12 @@ export default function AboutPage() {
             <CredentialCard
               label="Specialty"
               value="Oncology & BMT"
-              detail="Clinical pharmacy experience in oncology and bone-marrow-transplant care — among the highest-complexity medication regimens in medicine."
+              detail="Clinical pharmacy experience in oncology and bone-marrow-transplant care, among the highest-complexity medication regimens in medicine."
             />
             <CredentialCard
               label="Industry"
               value="Medication Therapy Management"
-              detail="Prior MTM operations experience — the same workflow discipline CCM programs run on."
+              detail="Prior MTM operations experience, the same workflow discipline CCM programs run on."
             />
           </Reveal>
         </div>
@@ -128,7 +128,7 @@ export default function AboutPage() {
           <p>
             Most CCM vendors staff this with general call-centre agents. That
             works for the volume math, but it leaves clinical judgment on the
-            table — the thing providers trust us to bring. Zenith builds the
+            table, the thing providers trust us to bring. Zenith builds the
             program the way a pharmacist would: real clinical oversight,
             documentation that would survive an audit, workflows designed
             around medication and comorbidity patterns.
@@ -136,7 +136,7 @@ export default function AboutPage() {
           <p>
             Operating remotely from Pakistan with U.S. clients is a feature,
             not a workaround. It lets Zenith keep the economics competitive
-            while hiring clinically trained staff — the kind of trade only
+            while hiring clinically trained staff, the kind of trade only
             a founder with both the clinical and operational background
             can run honestly.
           </p>
@@ -158,7 +158,7 @@ export default function AboutPage() {
           <ul className="mt-10 grid gap-3 md:grid-cols-2 md:gap-x-10">
             <BulletedListItem>
               Care-coordination calls run by someone who understands drug
-              interactions and specialist handoffs — not a script reader.
+              interactions and specialist handoffs, not a script reader.
             </BulletedListItem>
             <BulletedListItem>
               Documentation written for your EHR with the clinical specificity

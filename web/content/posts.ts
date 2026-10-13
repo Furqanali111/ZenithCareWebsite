@@ -32,7 +32,7 @@ export type Post = PostFrontmatter & {
   Component: ComponentType;
 };
 
-// Order here doesn't matter — getAllPosts() sorts by date desc.
+// Order here doesn't matter, getAllPosts() sorts by date desc.
 const POSTS: Post[] = [
   { ...(cpt99490Fm as PostFrontmatter), Component: Cpt99490_2026 },
   { ...(inHouseFm as PostFrontmatter), Component: InHouseVsOutsourced },
@@ -55,7 +55,7 @@ export function getPostSlugs(): readonly string[] {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Server-side load-time validation — throws loudly in BOTH dev AND prod.     */
+/* Server-side load-time validation, throws loudly in BOTH dev AND prod.     */
 /* The whole point is to fail the build on bad frontmatter; a dev-only guard  */
 /* would silently pass broken content to production (same bug the FAQ loader  */
 /* had before PR #4).                                                         */

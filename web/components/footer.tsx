@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Phone, Mail, Clock, CalendarCheck } from "lucide-react";
-import { mailtoHref, site, socials } from "@/lib/site";
+import { site, socials } from "@/lib/site";
 import { servicesByCategory, categoryMeta } from "@/lib/services";
+import { ContactEmailLink } from "@/components/contact-email-link";
 
 type Item = { label: string; href: string };
 
-// Footer-only curated lists. Only real, shipped pages — no 404s.
+// Footer-only curated lists. Only real, shipped pages, no 404s.
 // (Pricing, Guides & Downloads, Case Studies, Webinars from the mock have no
 // page yet, so they are intentionally omitted until those pages exist.)
 const QUICK_LINKS: Item[] = [
@@ -76,7 +77,7 @@ export function Footer() {
             <Link
               href="/"
               className="inline-flex items-center"
-              aria-label={`${site.name} — Home`}
+              aria-label={`${site.name}, Home`}
             >
               {/* Color logo on the light footer; white when the footer is dark. */}
               <img
@@ -206,12 +207,7 @@ function ContactColumn() {
             className="mt-0.5 size-4 shrink-0 text-[color:var(--color-gold-500)]"
             aria-hidden="true"
           />
-          <a
-            href={mailtoHref()}
-            className="min-w-0 break-words transition-colors hover:text-brand-accent"
-          >
-            {site.email}
-          </a>
+          <ContactEmailLink className="min-w-0 break-words transition-colors hover:text-brand-accent" />
         </li>
         {site.hours ? (
           <li className="flex items-start gap-2.5">

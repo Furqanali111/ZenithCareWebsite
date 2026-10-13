@@ -46,7 +46,7 @@ export function RoiCalculator() {
           </Field>
 
           <Field
-            label={`Expected enrollment rate — ${enrollmentPct}%`}
+            label={`Expected enrollment rate, ${enrollmentPct}%`}
             htmlFor="roi-enrollment"
           >
             <Slider
@@ -58,7 +58,7 @@ export function RoiCalculator() {
               onValueChange={(v) => setEnrollmentPct(v[0])}
             />
             <p className="mt-2 text-sm text-muted-foreground">
-              Realistic range for a cold-start CCM program is 40–60%.
+              Realistic range for a cold-start CCM program is 40-60%.
             </p>
           </Field>
         </div>

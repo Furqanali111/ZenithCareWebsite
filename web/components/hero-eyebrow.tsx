@@ -1,6 +1,6 @@
 /**
  * Small uppercase label used sparingly above a page's H1. Taste-skill caps
- * eyebrows at ceil(sections / 3) per page — see WebSiteDoc design review.
+ * eyebrows at ceil(sections / 3) per page, see WebSiteDoc design review.
  * Prefer this component over inline `<span>` so count audits grep one place.
  */
 export function HeroEyebrow({ children }: { children: React.ReactNode }) {

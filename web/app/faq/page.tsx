@@ -51,7 +51,7 @@ export default function FaqPage() {
         <p className="mt-6 text-base leading-relaxed text-body-ink md:text-lg">
           The things practice managers, physicians, and compliance leads ask on
           every discovery call. If yours isn&rsquo;t here, book a 15-min
-          call — we&rsquo;ll answer on the spot.
+          call, we&rsquo;ll answer on the spot.
         </p>
       </section>
 

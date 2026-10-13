@@ -13,7 +13,7 @@ const COMPLIANCE_EMAIL = site.email;
 export const metadata: Metadata = pageMetadata({
   title: "HIPAA Statement",
   description:
-    "Zenith Care Solutions' formal HIPAA Business Associate posture — BAAs, safeguards, Minimum Necessary, breach notification.",
+    "Zenith Care Solutions' formal HIPAA Business Associate posture, BAAs, safeguards, Minimum Necessary, breach notification.",
   path: PATH,
 });
 

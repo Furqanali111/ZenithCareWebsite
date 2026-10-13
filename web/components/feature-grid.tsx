@@ -52,7 +52,7 @@ const ICONS: Record<IconKey, LucideIcon> = {
 };
 
 /**
- * Capability card grid — the "What does X do?" pattern: centered heading +
+ * Capability card grid, the "What does X do?" pattern: centered heading +
  * subtitle, then a responsive grid of cards (cyan icon tile, title, one-line
  * body). Digestible, one idea per card. Cards reveal on scroll with a gentle
  * per-row stagger.

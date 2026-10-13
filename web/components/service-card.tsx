@@ -53,7 +53,7 @@ export function ServiceCard({
           type="button"
           onClick={() => setFlipped(true)}
           aria-expanded={flipped}
-          aria-label={`${title} — show what's included`}
+          aria-label={`${title}, show what's included`}
           tabIndex={flipped ? -1 : 0}
           className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card text-left [backface-visibility:hidden] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-teal-600)]"
         >
@@ -101,7 +101,7 @@ export function ServiceCard({
               type="button"
               onClick={() => setFlipped(false)}
               tabIndex={flipped ? 0 : -1}
-              aria-label={`${title} — back to card`}
+              aria-label={`${title}, back to card`}
               className="inline-flex size-8 flex-none items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-teal-600)]"
             >
               <RotateCcw className="size-4" aria-hidden="true" />

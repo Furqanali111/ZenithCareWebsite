@@ -26,7 +26,7 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   if (!formspreeId) {
-    // No endpoint configured — don't render a form that would submit to "".
+    // No endpoint configured, don't render a form that would submit to "".
     // Three-door CTAs above the form stay as the primary path meanwhile.
     return (
       <p className="rounded-lg border border-dashed border-border/80 bg-surface-tint p-6 text-sm text-muted-foreground">
@@ -81,7 +81,7 @@ export function ContactForm() {
         className="rounded-xl border border-border bg-surface-tint p-8 text-center"
       >
         <h3 className="font-serif text-xl font-semibold text-brand-ink">
-          Thanks — your message is in.
+          Thanks, your message is in.
         </h3>
         <p className="mt-3 text-base text-body-ink">
           We&rsquo;ll reply within one business day. If it&rsquo;s urgent,
@@ -114,7 +114,7 @@ export function ContactForm() {
         <strong className="font-medium text-ink-strong">
           Please do not submit patient information
         </strong>{" "}
-        — this form is for provider contact details only. Patient data
+       , this form is for provider contact details only. Patient data
         belongs inside your EHR under a signed BAA.
       </p>
 
@@ -176,7 +176,7 @@ export function ContactForm() {
             defaultValue=""
             className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <option value="">—</option>
+            <option value="">, </option>
             <option value="Physician">Physician</option>
             <option value="Practice Manager">Practice Manager</option>
             <option value="Office Manager">Office Manager</option>
@@ -204,7 +204,7 @@ export function ContactForm() {
           minLength={10}
           maxLength={2000}
           rows={5}
-          placeholder="Panel size, EHR, timeline — anything useful before our call. No patient details, please."
+          placeholder="Panel size, EHR, timeline, anything useful before our call. No patient details, please."
           aria-describedby="contact-no-phi"
         />
       </Field>
@@ -215,7 +215,7 @@ export function ContactForm() {
           className="rounded-md border border-[color:var(--color-error-600)]/40 bg-[color:var(--color-error-600)]/5 px-4 py-3 text-sm text-[color:var(--color-error-600)]"
         >
           Your message looks like it contains patient information
-          ({humanisePhi(status.pattern)}). Please edit it out and resubmit —
+          ({humanisePhi(status.pattern)}). Please edit it out and resubmit , 
           this form is for provider contact only.
         </div>
       ) : null}
