@@ -132,7 +132,7 @@ export default async function PostPage({
                   href="/about"
                   className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
                 >
-                  More about Ali →
+                  More about Furqan →
                 </Link>
               </p>
             </div>

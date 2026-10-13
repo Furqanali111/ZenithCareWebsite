@@ -99,7 +99,7 @@ export function ContactForm() {
       className="space-y-6"
       aria-describedby="contact-no-phi"
     >
-      {/* Hidden metadata so Ali can route by source + see a readable subject */}
+      {/* Hidden metadata so Furqan can route by source + see a readable subject */}
       <input type="hidden" name="source" value="zenith-website-v1" />
       <input
         type="hidden"

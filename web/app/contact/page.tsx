@@ -38,7 +38,7 @@ export default function ContactPage() {
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
             WhatsApp, email, a fifteen-minute call on Calendly, or the form
-            below, all land with Ali directly. Please don&rsquo;t include
+            below, all land with Furqan directly. Please don&rsquo;t include
             patient-identifying information in any channel; patient data
             belongs in your EHR under a signed BAA.
           </p>

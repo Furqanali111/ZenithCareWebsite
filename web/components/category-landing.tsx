@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
+import { FeatureRows } from "@/components/feature-rows";
 import { FaqSection } from "@/components/faq-section";
 import { ServiceGrid } from "@/components/service-grid";
 import { servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
@@ -48,18 +49,8 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
 
       <TrustStrip tone="surface" />
 
-      {/* ─── What it is ──────────────────────────────────────────────── */}
-      <section className="section-rhythm">
-        <div className="mx-auto max-w-3xl px-6">
-          <Reveal>
-            <div className="space-y-5 text-base leading-relaxed text-body-ink">
-              {c.intro.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* ─── Alternating image + text feature rows ───────────────────── */}
+      <FeatureRows items={c.features} />
 
       {/* ─── Services in this category ───────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">

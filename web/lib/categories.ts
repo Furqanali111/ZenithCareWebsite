@@ -1,5 +1,6 @@
 import type { ServiceCategory } from "./services";
 import type { ServiceFaq } from "./services";
+import type { FeatureRow } from "@/components/feature-rows";
 
 /**
  * Copy + SEO for the three category landing pages (hubs above the individual
@@ -15,8 +16,8 @@ export type CategoryContent = {
   eyebrow: string;
   title: string;
   lead: string;
-  /** "What it is" body, one paragraph per entry. */
-  intro: string[];
+  /** Alternating image + text feature rows. */
+  features: FeatureRow[];
   faqs: ServiceFaq[];
 };
 
@@ -31,9 +32,31 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
     title: "Medicare care-management programs, delivered by clinical staff.",
     lead:
       "Five Medicare programs reimburse your practice for coordinating, monitoring, and transitioning patient care: CCM, PCM, RPM, RTM, and TCM. Zenith runs the monthly coordination labor inside your EHR, and your practice bills the CPT codes.",
-    intro: [
-      "Care management is recurring, between-visit work: monthly outreach, care plans, device and data review, medication reconciliation, and post-discharge follow-up for patients who need steady attention. Medicare reimburses physician practices for it under a set of CPT codes, but most practices run little of it because the labor is hard to staff in-house.",
-      "Zenith provides that labor. Our clinical team does the enrollment, monthly contact, documentation, and time tracking inside your system. Your practice remains the billing provider and bills Medicare under its own credentials; Zenith invoices your practice for the care-coordination work. Eligibility is confirmed per patient and per payer at the time of service.",
+    features: [
+      {
+        heading: "Care that happens between the visits",
+        body: [
+          "Most of what keeps a chronic patient stable happens outside the exam room: the monthly check-in, the medication reconciliation, the care plan kept current. Zenith's clinical team does that work inside your EHR so it actually gets done, and documented to the standard the codes require.",
+        ],
+        image: "/categories/care-ccm.jpg",
+        alt: "Clinician on a monthly chronic-care check-in call at a workstation",
+      },
+      {
+        heading: "Device data, reviewed, not ignored",
+        body: [
+          "Remote monitoring only pays off when someone actually watches the readings. Our team reviews the blood-pressure, glucose, and weight data coming off connected devices, flags what your clinicians need to see, and logs the time the codes require.",
+        ],
+        image: "/categories/care-rpm.jpg",
+        alt: "Clinician reviewing remote patient monitoring device data on screen",
+      },
+      {
+        heading: "The 30 days after a discharge, handled",
+        body: [
+          "Transitional care is a short, high-value window with strict documentation rules. Zenith runs the post-discharge outreach, medication review, and follow-up scheduling so the hand-off is clean and the visit is billable.",
+        ],
+        image: "/categories/care-tcm.jpg",
+        alt: "Clinician coordinating a post-discharge transition of care",
+      },
     ],
     faqs: [
       {
@@ -64,9 +87,31 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
     title: "Revenue cycle support that gets more of what you earn collected.",
     lead:
       "Medical billing, coding, provider credentialing, and accounts-receivable follow-up, handled inside your practice-management system, so more of what you earn is coded right, billed clean, and collected.",
-    intro: [
-      "Revenue cycle management is the end-to-end claims and collections workflow: coding encounters accurately, submitting clean claims, enrolling providers with payers, and following up on unpaid or denied claims. Gaps anywhere in that chain quietly cost a practice money.",
-      "Zenith works that chain inside your existing billing or practice-management system, across Medicare, Medicaid, and commercial payers. RCM support is not tied to a condition or patient population; it applies to your practice's overall claims and revenue workflow, for any specialty.",
+    features: [
+      {
+        heading: "Clean claims, out the door faster",
+        body: [
+          "A claim that goes out right the first time tends to get paid the first time. Zenith prepares and submits claims inside your practice-management system and reviews every remittance, so fewer claims stall and fewer dollars slip through.",
+        ],
+        image: "/categories/rcm-billing.jpg",
+        alt: "Billing specialist preparing medical claims at a desk",
+      },
+      {
+        heading: "Coding that holds up to an audit",
+        body: [
+          "Under-coding leaves money on the table; over-coding invites a clawback. Our coders work ICD-10, CPT, and E/M with a compliance review built in, so the codes match the documentation in the chart.",
+        ],
+        image: "/categories/rcm-coding.jpg",
+        alt: "Medical coder reviewing documentation and code sets",
+      },
+      {
+        heading: "Chase the money you are already owed",
+        body: [
+          "Unpaid, denied, and underpaid claims do not resolve themselves. Zenith works your accounts-receivable queue, appeals denials, and follows up with payers until aging claims are collected or properly accounted for.",
+        ],
+        image: "/categories/rcm-ar.jpg",
+        alt: "Accounts-receivable specialist following up on outstanding claims",
+      },
     ],
     faqs: [
       {
@@ -97,9 +142,31 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
     title: "Remote medical staff who absorb the admin that slows your team down.",
     lead:
       "Trained remote medical professionals, scribes, schedulers, receptionists, patient care coordinators, and virtual assistants, who take the clinical admin off your in-house team, inside your systems, under a signed BAA, at a flat monthly rate.",
-    intro: [
-      "Virtual staffing is remote people, not software: trained medical professionals who handle the day-to-day operational work every outpatient practice carries, documentation, scheduling, phones, referrals, prior authorizations, and inbox management, so your on-site team stays focused on patients.",
-      "Zenith staff work inside your systems under a signed Business Associate Agreement at a flat monthly rate. These roles support any practice, any specialty, because the work is operational rather than tied to a clinical program or patient population.",
+    features: [
+      {
+        heading: "Delegate the admin, keep the focus on patients",
+        body: [
+          "Every outpatient practice carries hours of daily operational work that does not need to sit with your on-site team. Hand scheduling, phones, referrals, prior authorizations, and inbox management to trained remote staff, and let your clinicians stay with patients.",
+        ],
+        image: "/categories/staffing-assistant.jpg",
+        alt: "Remote medical assistant handling practice administrative work",
+      },
+      {
+        heading: "Documentation handled while you stay present",
+        body: [
+          "A remote scribe captures the encounter as it happens, so you are not typing through the visit or finishing notes late at night. You keep your attention on the patient; the chart still gets written.",
+        ],
+        image: "/categories/staffing-scribe.jpg",
+        alt: "Remote medical scribe documenting a patient encounter",
+      },
+      {
+        heading: "A front desk that never goes to voicemail",
+        body: [
+          "Missed calls are missed appointments and missed revenue. Zenith's remote receptionists and schedulers answer, book, confirm, and triage inside your systems, so patients reach a person and your calendar stays full.",
+        ],
+        image: "/categories/staffing-reception.jpg",
+        alt: "Remote medical receptionist answering practice calls",
+      },
     ],
     faqs: [
       {

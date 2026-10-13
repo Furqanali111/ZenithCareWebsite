@@ -18,7 +18,7 @@ const HEADER = `# ${site.name}
 ## About
 
 - **Legal entity**: Zenith Care Solutions LLC (Wyoming)
-- **Founder**: Ali Hassan Kaleem, clinical pharmacist with oncology / BMT background
+- **Founder**: Furqan Ali, clinical pharmacist with oncology / BMT background
 - **Service area**: United States
 - **Target customers**: physician practices with Medicare patient panels (two or more chronic conditions)
 - **We do not**: bill Medicare directly, operate a clinic, see patients ourselves, or hold PHI outside a signed BAA
