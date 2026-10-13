@@ -83,7 +83,7 @@ export default async function ServicePage({
         {s.lead}
       </PageHero>
 
-      <TrustStrip tone="surface" />
+      <TrustStrip tone="surface" items={s.trust} />
 
       {/* ─── Capability cards ────────────────────────────────────────── */}
       <section className="section-rhythm">
