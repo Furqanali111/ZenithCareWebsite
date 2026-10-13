@@ -19,7 +19,7 @@ const FOUNDER_LINKEDIN = "";
 export const metadata: Metadata = pageMetadata({
   title: "About Zenith Care Solutions",
   description:
-    "Zenith Care Solutions was founded by Ali Hassan Kaleem, a clinical pharmacist with an oncology and bone-marrow-transplant background, to bring real clinical staff to U.S. Chronic Care Management.",
+    "Zenith Care Solutions was founded by Furqan Ali, a clinical pharmacist with an oncology and bone-marrow-transplant background, to bring real clinical staff to U.S. Chronic Care Management.",
   path: PATH,
 });
 
@@ -174,7 +174,7 @@ export default function AboutPage() {
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
       <section className="mx-auto max-w-3xl px-6 py-20 md:py-24 text-center">
         <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-          Fifteen minutes with Ali.
+          Fifteen minutes with Furqan.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
           No sales script. We confirm your eligible patient count, walk
@@ -192,7 +192,7 @@ export default function AboutPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Ali on LinkedIn
+                Furqan on LinkedIn
               </a>
             </Button>
           ) : null}
