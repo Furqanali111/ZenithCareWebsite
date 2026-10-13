@@ -119,7 +119,7 @@ export function Nav() {
 type Item = { label: string; href: string };
 
 /**
- * Services mega-menu, a two-column panel (Remote Patient Monitoring /
+ * Services mega-menu, a two-column panel (Care Management /
  * Virtual Staffing & Admin Support), each column listing its full-name
  * services and a "See all" link. Reads the service registry by category, so
  * it never drifts from the pages. Hover + keyboard (:focus-within) open it.
@@ -246,7 +246,7 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
         </svg>
       </span>
       {/* Dropdown panel. `pt-3` on the OUTER wrapper (not margin on the card)
-          keeps the cursor-hit area continuous between trigger and card , 
+          keeps the cursor-hit area continuous between trigger and card, 
           `mt-3` previously left a 12px dead-zone that closed the menu. */}
       <div
         role="menu"

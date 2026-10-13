@@ -3,7 +3,7 @@
  * pages, the services overview, the nav mega-menu, and the sitemap.
  *
  * Three categories:
- *   - "rpm"      → Remote Patient Monitoring (Medicare care-management programs)
+ *   - "rpm"      → Care Management (Medicare care-management programs: CCM, PCM, RPM, RTM, TCM)
  *   - "rcm"      → Revenue Cycle Management (billing, coding, credentialing, A/R)
  *   - "staffing" → Virtual Staffing & Admin Support (remote medical roles)
  *
@@ -21,7 +21,7 @@ export const categoryMeta: Record<
   { label: string; blurb: string; href: string }
 > = {
   rpm: {
-    label: "Remote Patient Monitoring",
+    label: "Care Management",
     blurb: "Medicare care-management programs: CCM, PCM, RPM, RTM & TCM",
     href: "/services#remote-patient-monitoring",
   },
@@ -105,7 +105,7 @@ export type Service = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* Remote Patient Monitoring, Medicare care-management programs              */
+/* Care Management, Medicare care-management programs (CCM/PCM/RPM/RTM/TCM)    */
 /* -------------------------------------------------------------------------- */
 
 // Shared Who-We-Serve eligibility for the RCM and staffing categories: every

@@ -93,7 +93,7 @@ export function organizationLd(): JsonLd {
 
 /**
  * Site-level WebSite node. Gives search + AI engines a single canonical
- * identity for the domain (name, publisher, language). No SearchAction , 
+ * identity for the domain (name, publisher, language). No SearchAction, 
  * the site has no on-site search endpoint, and claiming one Google can't
  * use would be a structured-data error.
  */

@@ -140,23 +140,23 @@ export default async function WhoWeServePage({
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-          <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
+          <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-teal-500)]/18 blur-3xl"
             />
             <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
             <div>
-              <span className="text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-accent-600)]">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
                 Representative panel
               </span>
               <p className="mt-5 font-serif text-6xl font-semibold tracking-tight leading-none md:text-7xl">
                 {formatUsd(monthlyRevenue)}
               </p>
-              <p className="mt-3 text-base text-[color:var(--color-surface-0)]/80">
+              <p className="mt-3 text-base text-body-ink dark:text-[color:var(--color-surface-0)]/80">
                 per month, for the panel below.
               </p>
-              <p className="mt-6 text-sm text-[color:var(--color-accent-600)]">
+              <p className="mt-6 text-sm text-muted-foreground dark:text-[color:var(--color-accent-600)]">
                 {c.example.panel}-patient {label.toLowerCase()} panel with
                 roughly {Math.round(c.example.enrollmentRate * 100)}% of
                 eligible patients enrolled, at the{" "}
@@ -171,15 +171,14 @@ export default async function WhoWeServePage({
             </div>
 
             <div className="flex flex-col gap-4 md:items-end">
-              <p className="max-w-sm text-sm text-[color:var(--color-surface-0)]/70 md:text-right">
-                Plug in your real numbers to see the figure for your panel , 
+              <p className="max-w-sm text-sm text-muted-foreground md:text-right dark:text-[color:var(--color-surface-0)]/70">
+                Plug in your real numbers to see the figure for your panel,
                 the calculator runs entirely in your browser.
               </p>
               <Button
                 asChild
                 size="lg"
-                variant="secondary"
-                className="h-11 px-6 text-sm"
+                className="h-11 bg-[color:var(--color-gold-500)] px-6 text-sm text-[color:var(--color-brand-900)] hover:brightness-105"
               >
                 <Link href="/roi-calculator">Estimate your panel</Link>
               </Button>

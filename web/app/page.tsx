@@ -150,22 +150,24 @@ export default function HomePage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-          <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
+          <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-teal-500)]/18 blur-3xl"
             />
             <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
               <div>
-                <HeroEyebrow>With Complex-CCM mix</HeroEyebrow>
+                <span className="text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
+                  With Complex-CCM mix
+                </span>
                 <p className="mt-5 font-serif text-6xl font-semibold tracking-tight leading-none md:text-7xl">
                   {formatUsd(COMPLEX_MIX_MONTHLY)}
                 </p>
-                <p className="mt-3 text-base text-[color:var(--color-surface-0)]/80">
+                <p className="mt-3 text-base text-body-ink dark:text-[color:var(--color-surface-0)]/80">
                   per month, same {ANCHOR_PATIENTS}-patient panel with a 1-in-5
                   Complex-CCM share.
                 </p>
-                <p className="mt-6 max-w-md text-sm leading-relaxed text-[color:var(--color-accent-600)]">
+                <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground dark:text-[color:var(--color-accent-600)]">
                   Base-only revenue is{" "}
                   <span className="font-mono">{formatUsd(ANCHOR_MONTHLY)}</span>{" "}
                   (shown above). Shifting ~20% of patients to{" "}
@@ -176,15 +178,14 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col gap-4 md:items-end">
-                <p className="max-w-sm text-sm leading-relaxed text-[color:var(--color-surface-0)]/70 md:text-right">
+                <p className="max-w-sm text-sm leading-relaxed text-muted-foreground md:text-right dark:text-[color:var(--color-surface-0)]/70">
                   Plug in your panel size and expected enrollment rate, the
                   calculator does the math client-side and shows a typical range.
                 </p>
                 <Button
                   asChild
                   size="lg"
-                  variant="secondary"
-                  className="h-11 px-6 text-sm"
+                  className="h-11 bg-[color:var(--color-gold-500)] px-6 text-sm text-[color:var(--color-brand-900)] hover:brightness-105"
                 >
                   <Link href="/roi-calculator">
                     Estimate your panel&rsquo;s number

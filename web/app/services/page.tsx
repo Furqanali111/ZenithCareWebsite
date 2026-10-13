@@ -42,7 +42,7 @@ export default function ServicesOverviewPage() {
         revenue and recovers staff time, without adding headcount.
       </PageHero>
 
-      {/* ─── Remote Patient Monitoring ───────────────────────────────── */}
+      {/* ─── Care Management ─────────────────────────────────────────── */}
       <ServiceCategorySection
         id="remote-patient-monitoring"
         icon={<Activity className="size-5" aria-hidden="true" />}
