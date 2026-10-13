@@ -5,7 +5,7 @@ import { ShieldCheck, Stethoscope, Database, FileCheck } from "lucide-react";
  * frame consistent across home, service, and specialty pages. Icons are
  * illustrative, not decorative dots (every icon pairs with a specific claim).
  *
- * No "quietly trusted by" / logo-wall framing — Zenith is pre-launch, so the
+ * No "quietly trusted by" / logo-wall framing, Zenith is pre-launch, so the
  * trust marks are credentials and compliance posture, not customer logos.
  */
 const DEFAULT_ITEMS: { label: string; detail: string }[] = [

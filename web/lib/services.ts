@@ -1,5 +1,5 @@
 /**
- * Service-line registry — single source of truth for the /services/[service]
+ * Service-line registry, single source of truth for the /services/[service]
  * pages, the services overview, the nav mega-menu, and the sitemap.
  *
  * Three categories:
@@ -10,7 +10,7 @@
  * Narrative copy is Zenith's own, from the approved Service Page Copy document.
  * Each service carries its own four-item trust strip (so billing/coding/
  * credentialing pages no longer show CCM's CPT codes). Reimbursement figures
- * are 2026 Medicare national averages and vary by locality — kept qualified per
+ * are 2026 Medicare national averages and vary by locality, kept qualified per
  * the project's claims-hygiene rules. No PHI, no fabricated stats.
  */
 
@@ -88,7 +88,6 @@ export type Service = {
   /** 3-step "how it works" flow. */
   howItWorks: HowStep[];
   /** Care-management extras. */
-  qualifies?: string[];
   billing?: BillingCode[];
   billingNote?: string;
   revenue?: { value: string; note: string };
@@ -96,11 +95,17 @@ export type Service = {
   metaTitle: string;
   metaDescription: string;
   serviceType: string;
+  /** Per-service contact prefills: footer email subject + WhatsApp message. */
+  emailSubject: string;
+  whatsappMessage: string;
+  /** Who We Serve: which practices can offer this, and who can be billed. */
+  eligiblePractices: string;
+  billablePatients: string;
   faqs: ServiceFaq[];
 };
 
 /* -------------------------------------------------------------------------- */
-/* Remote Patient Monitoring — Medicare care-management programs              */
+/* Remote Patient Monitoring, Medicare care-management programs              */
 /* -------------------------------------------------------------------------- */
 
 const RPM_SERVICES: Service[] = [
@@ -113,7 +118,7 @@ const RPM_SERVICES: Service[] = [
     title:
       "Chronic Care Management that turns your highest-need patients into recurring revenue.",
     lead:
-      "CCM is a Medicare program for patients living with two or more chronic conditions expected to last twelve months or longer. Zenith delivers the monthly coordination calls, care plans, and documentation these patients need — so your practice earns recurring reimbursement without adding staff workload.",
+      "CCM is a Medicare program for patients living with two or more chronic conditions expected to last twelve months or longer. Zenith delivers the monthly coordination calls, care plans, and documentation these patients need, so your practice earns recurring reimbursement without adding staff workload.",
     trust: [
       "PharmD-led clinical oversight",
       "HIPAA Business Associate",
@@ -131,11 +136,6 @@ const RPM_SERVICES: Service[] = [
       { icon: "file-signature", title: "Audit-ready documentation", body: "Time logs and notes that meet CMS requirements, inside your system." },
       { icon: "clipboard-check", title: "Eligibility review", body: "We run your panel against documented diagnoses to find who already qualifies." },
     ],
-    qualifies: [
-      "Two or more chronic conditions expected to last 12+ months",
-      "Enrolled in Medicare Part B",
-      "Documented patient consent on file",
-    ],
     billing: [
       { code: "99490", covers: "First 20 min/month of clinical staff time", rate: "~$62" },
       { code: "99439", covers: "Each additional 20 minutes", rate: "~$47" },
@@ -148,13 +148,19 @@ const RPM_SERVICES: Service[] = [
     },
     howItWorks: [
       { title: "Find & enroll eligible patients", body: "We run your panel for patients with 2+ chronic conditions, confirm Medicare Part B, and obtain documented consent." },
-      { title: "Deliver monthly coordination", body: "Our clinical team spends 20+ minutes per patient on calls, care plans, and medication reconciliation — inside your EHR." },
+      { title: "Deliver monthly coordination", body: "Our clinical team spends 20+ minutes per patient on calls, care plans, and medication reconciliation, inside your EHR." },
       { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99490 and add-ons; we invoice for the clinical labor. Monthly and predictable." },
     ],
     metaTitle: "Chronic Care Management (CCM) Services",
     metaDescription:
       "Remote Chronic Care Management for U.S. practices. Zenith delivers monthly CCM coordination, care plans, and CPT 99490 documentation inside your EHR. Your practice bills; we deliver.",
     serviceType: "Chronic Care Management",
+    emailSubject: "CCM Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about CCM.",
+    eligiblePractices:
+      "Family Medicine, Internal Medicine, Geriatric Medicine, and General Practice.",
+    billablePatients:
+      "Medicare Part B patients with two or more chronic conditions expected to last 12 months or longer (for example hypertension, diabetes, COPD, chronic kidney disease, depression, or arthritis). The patient must provide documented consent.",
     faqs: [
       { question: "Who bills Medicare for CCM, my practice or Zenith?", answer: "Your practice remains the billing provider and bills Medicare for every CPT code. Zenith works as subcontracted clinical staff under your supervision and invoices your practice for the care-coordination labor. Zenith does not bill Medicare or patients." },
       { question: "Which patients qualify for Chronic Care Management?", answer: "Patients with two or more chronic conditions expected to last at least twelve months, enrolled in Medicare Part B, with documented consent and a care plan on file. A large share of most primary-care, internal-medicine, and geriatric panels qualifies." },
@@ -188,11 +194,6 @@ const RPM_SERVICES: Service[] = [
       { icon: "pill", title: "Medication support", body: "Reconciliation and adherence follow-up for the drugs tied to that condition." },
       { icon: "file-signature", title: "Time logs and notes", body: "Audit-ready documentation in your EHR every month." },
     ],
-    qualifies: [
-      "One complex, high-risk chronic condition (not two or more — that's CCM)",
-      "Condition expected to last at least 3 months",
-      "Enrolled in Medicare Part B",
-    ],
     billing: [
       { code: "99424", covers: "First 30 min/month, physician or QHP time", rate: "~$88" },
       { code: "99425", covers: "Each additional 30 minutes, physician/QHP", rate: "~$61" },
@@ -200,9 +201,9 @@ const RPM_SERVICES: Service[] = [
       { code: "99427", covers: "Each additional 30 minutes, clinical staff", rate: "~$54" },
     ],
     billingNote:
-      "PCM and CCM can't be billed for the same patient in the same month by the same provider — but a specialist can bill PCM for one condition while the patient's PCP separately bills CCM for others.",
+      "PCM and CCM can't be billed for the same patient in the same month by the same provider, but a specialist can bill PCM for one condition while the patient's PCP separately bills CCM for others.",
     revenue: {
-      value: "~$68–$88 / mo",
+      value: "~$68-$88 / mo",
       note: "Per enrolled patient, depending on who performs the time. Figures are 2026 national averages and vary by locality.",
     },
     howItWorks: [
@@ -214,6 +215,12 @@ const RPM_SERVICES: Service[] = [
     metaDescription:
       "Remote Principal Care Management for U.S. practices. Monthly care management for patients with one serious, high-risk condition. PharmD-led, HIPAA Business Associate, inside your EHR.",
     serviceType: "Principal Care Management",
+    emailSubject: "PCM Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about Principal Care Management.",
+    eligiblePractices:
+      "Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, and other specialty practices managing one dominant condition; also usable by Primary Care and Internal Medicine for a single high-risk condition.",
+    billablePatients:
+      "Medicare Part B patients with one complex, high-risk chronic condition expected to last at least 3 months. It cannot be billed for the same patient, in the same month, alongside CCM by the same provider.",
     faqs: [
       { question: "How is PCM different from CCM?", answer: "CCM is built for patients with two or more chronic conditions. PCM is built for patients with one complex, high-risk condition." },
       { question: "Can a patient be in PCM and another program in the same month?", answer: "It depends on the codes and the billing provider. Your billing lead checks combinations against current CMS rules before any claim goes out." },
@@ -247,21 +254,16 @@ const RPM_SERVICES: Service[] = [
       { icon: "phone", title: "Monthly interactive time", body: "Documented live contact with patients about their readings." },
       { icon: "file-signature", title: "Billing-ready records", body: "Reading counts and time logs organized for the month." },
     ],
-    qualifies: [
-      "At least one acute or chronic condition warranting monitoring (hypertension, diabetes, heart failure, COPD, obesity, post-surgical recovery)",
-      "Established relationship with the ordering provider",
-      "Written patient consent on file",
-    ],
     billing: [
       { code: "99453", covers: "Initial device setup & patient education (once per device)", rate: "~$20" },
       { code: "99454", covers: "Device supply, 16+ days of data in 30 days", rate: "~$52/mo" },
-      { code: "99445", covers: "New for 2026 — device supply, 2–15 days of data", rate: "~$52/mo" },
+      { code: "99445", covers: "New for 2026: device supply, 2-15 days of data", rate: "~$52/mo" },
       { code: "99457", covers: "First 20 min/month of monitoring & management", rate: "~$52" },
-      { code: "99458", covers: "Each additional 20 minutes", rate: "—" },
-      { code: "99470", covers: "New for 2026 — 10–19 minutes of management time", rate: "lower" },
+      { code: "99458", covers: "Each additional 20 minutes", rate: "varies" },
+      { code: "99470", covers: "New for 2026: 10-19 minutes of management time", rate: "lower" },
     ],
     revenue: {
-      value: "$150–$200+ / mo",
+      value: "$150-$200+ / mo",
       note: "Per enrolled patient, combining device-supply and management codes. Representative; actual results vary.",
     },
     howItWorks: [
@@ -273,6 +275,12 @@ const RPM_SERVICES: Service[] = [
     metaDescription:
       "Remote Patient Monitoring for U.S. practices. Device setup, daily data review and patient outreach handled by clinical staff inside your EHR. PharmD-led and HIPAA-compliant.",
     serviceType: "Remote Patient Monitoring",
+    emailSubject: "RPM Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about Remote Patient Monitoring.",
+    eligiblePractices:
+      "Cardiology, Endocrinology, Pulmonology, Nephrology, Primary Care, and Internal Medicine, any practice using connected devices such as blood-pressure cuffs, glucometers, pulse oximeters, and weight scales.",
+    billablePatients:
+      "Medicare Part B patients with at least one acute or chronic condition warranting monitoring, an established provider relationship, and written consent on file.",
     faqs: [
       { question: "Does Zenith supply the devices?", answer: "Device arrangements vary by practice. We confirm whether you use your own vendor or an existing platform during scoping." },
       { question: "What readings are required to bill?", answer: "RPM billing depends on a minimum number of days with transmitted readings in the month, plus documented interactive time. Your billing lead confirms the current rules." },
@@ -306,23 +314,18 @@ const RPM_SERVICES: Service[] = [
       { icon: "bell", title: "Provider alerts", body: "Flag stalled progress or worsening symptoms to your clinician." },
       { icon: "file-signature", title: "Monthly documentation", body: "Clear logs of data days and management time." },
     ],
-    qualifies: [
-      "Patients needing respiratory or musculoskeletal monitoring, pain management, or therapy-adherence tracking",
-      "Use of an FDA-defined medical device or software as a medical device (SaMD)",
-      "Documented consent on file",
-    ],
     billing: [
       { code: "98975", covers: "Initial setup & patient education", rate: "~$22" },
-      { code: "98976", covers: "Respiratory monitoring device supply, 16–30 days", rate: "~$47/mo" },
-      { code: "98977", covers: "Musculoskeletal device supply, 16–30 days", rate: "~$40/mo" },
-      { code: "98984 / 98985", covers: "New for 2026 — short-window supply, 2–15 days", rate: "—" },
-      { code: "98980", covers: "First 20 min/month of treatment management", rate: "—" },
-      { code: "98981 / 98979", covers: "Additional / lower-threshold (10–19 min) management", rate: "—" },
+      { code: "98976", covers: "Respiratory monitoring device supply, 16-30 days", rate: "~$47/mo" },
+      { code: "98977", covers: "Musculoskeletal device supply, 16-30 days", rate: "~$40/mo" },
+      { code: "98984 / 98985", covers: "New for 2026: short-window supply, 2-15 days", rate: "varies" },
+      { code: "98980", covers: "First 20 min/month of treatment management", rate: "varies" },
+      { code: "98981 / 98979", covers: "Additional / lower-threshold (10-19 min) management", rate: "varies" },
     ],
     billingNote:
-      "RPM tracks physiological vitals (blood pressure, glucose); RTM tracks therapeutic and functional data (pain, range of motion, adherence) — and can be billed by therapists, not just physicians and mid-levels.",
+      "RPM tracks physiological vitals (blood pressure, glucose); RTM tracks therapeutic and functional data (pain, range of motion, adherence), and can be billed by therapists, not just physicians and mid-levels.",
     revenue: {
-      value: "~$90–$150 / mo",
+      value: "~$90-$150 / mo",
       note: "Per enrolled patient. Figures are 2026 national averages and vary by locality.",
     },
     howItWorks: [
@@ -334,6 +337,12 @@ const RPM_SERVICES: Service[] = [
     metaDescription:
       "Remote Therapeutic Monitoring for U.S. practices. Track therapy adherence, pain and function between visits with clinical staff working inside your EHR.",
     serviceType: "Remote Therapeutic Monitoring",
+    emailSubject: "RTM Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about Remote Therapeutic Monitoring.",
+    eligiblePractices:
+      "Orthopedics, Physical Therapy / PM&R, Pain Management, and Pulmonology. Also billable by physical, occupational, and speech therapists, not just physicians.",
+    billablePatients:
+      "Patients needing respiratory or musculoskeletal monitoring, pain management, or therapy-adherence tracking, using an FDA-defined device or software as a medical device, with documented consent.",
     faqs: [
       { question: "How is RTM different from RPM?", answer: "RPM tracks physiologic readings like blood pressure. RTM tracks non-physiologic data such as therapy adherence, pain and function." },
       { question: "Which patients are a fit?", answer: "Typically musculoskeletal, respiratory and pain patients on a defined treatment plan. Your clinician decides who is appropriate." },
@@ -366,18 +375,14 @@ const RPM_SERVICES: Service[] = [
       { icon: "calendar-check", title: "Follow-up visit scheduling", body: "Book the face-to-face visit within the required timeframe." },
       { icon: "users", title: "Community referrals", body: "Arrange home health, equipment and support services." },
     ],
-    qualifies: [
-      "Recently discharged from an acute hospital, inpatient psychiatric unit, skilled nursing facility, or long-term care hospital",
-      "Returning to the community (home, assisted living, etc.)",
-    ],
     billing: [
       { code: "99495", covers: "Moderate complexity, face-to-face visit within 14 days", rate: "~$220" },
       { code: "99496", covers: "High complexity, face-to-face visit within 7 days", rate: "~$299" },
     ],
     billingNote:
-      "Only one TCM code is billed per patient per 30-day period. The interactive contact within two business days of discharge is mandatory — miss that window and the episode isn't billable at all.",
+      "Only one TCM code is billed per patient per 30-day period. The interactive contact within two business days of discharge is mandatory: miss that window and the episode isn't billable at all.",
     revenue: {
-      value: "$220–$299 / episode",
+      value: "$220-$299 / episode",
       note: "One of Medicare's highest-paying care-management codes. Figures are 2026 national averages and vary by locality.",
     },
     howItWorks: [
@@ -389,6 +394,12 @@ const RPM_SERVICES: Service[] = [
     metaDescription:
       "Remote Transitional Care Management for U.S. practices. Timely post-discharge outreach, medication reconciliation and visit scheduling handled by clinical staff inside your EHR.",
     serviceType: "Transitional Care Management",
+    emailSubject: "TCM Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about Transitional Care Management.",
+    eligiblePractices:
+      "Hospitalist and Hospital Medicine groups, Cardiology, Primary Care, and Internal Medicine, any practice managing patients immediately after hospital discharge.",
+    billablePatients:
+      "Patients recently discharged from an acute care hospital, inpatient psychiatric unit, skilled nursing facility, or long-term care hospital, returning to the community. Requires contact within 2 business days of discharge and a face-to-face visit within 7 to 14 days depending on complexity.",
     faqs: [
       { question: "What are the TCM deadlines?", answer: "Interactive contact is due within two business days of discharge. The face-to-face visit is due within 7 or 14 days depending on complexity." },
       { question: "Does TCM replace CCM?", answer: "They can serve the same patient at different times, but billing overlap rules apply. Your billing lead confirms combinations before claims." },
@@ -398,7 +409,7 @@ const RPM_SERVICES: Service[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/* Revenue Cycle Management — billing, coding, credentialing, A/R             */
+/* Revenue Cycle Management, billing, coding, credentialing, A/R             */
 /* -------------------------------------------------------------------------- */
 
 const RCM_SERVICES: Service[] = [
@@ -436,6 +447,12 @@ const RCM_SERVICES: Service[] = [
     metaDescription:
       "Remote medical billing for U.S. practices. Zenith billers submit clean claims, post payments and work denials inside your practice-management system. HIPAA-compliant, flat monthly rate.",
     serviceType: "Medical Billing",
+    emailSubject: "Medical Billing Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Billing service.",
+    eligiblePractices:
+      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
     faqs: [
       { question: "Does Zenith bill Medicare directly?", answer: "No. Your practice stays the billing provider. Zenith staff prepare and submit claims from your system under your accounts." },
       { question: "What systems do billers work in?", answer: "Your existing practice-management and EHR platform. We confirm compatibility when scoping." },
@@ -476,6 +493,12 @@ const RCM_SERVICES: Service[] = [
     metaDescription:
       "Remote medical coding for U.S. practices. Accurate ICD-10, CPT and E/M coding from charts inside your EHR, with compliance review. HIPAA-compliant and PharmD-supervised.",
     serviceType: "Medical Coding",
+    emailSubject: "Medical Coding Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Coding service.",
+    eligiblePractices:
+      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
     faqs: [
       { question: "Will coders change my documentation?", answer: "No. Coders assign codes from what is documented and send queries when something is unclear. Providers make any chart changes." },
       { question: "Do you code for specific specialties?", answer: "We scope by specialty, with focus on primary care, internal medicine and geriatrics." },
@@ -516,6 +539,12 @@ const RCM_SERVICES: Service[] = [
     metaDescription:
       "Remote provider credentialing and payer enrollment for U.S. practices. Applications, CAQH upkeep and revalidation tracked from start to approval. HIPAA-compliant.",
     serviceType: "Provider Credentialing",
+    emailSubject: "Credentialing Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about Provider Credentialing.",
+    eligiblePractices:
+      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
     faqs: [
       { question: "How long does credentialing take?", answer: "Timelines vary widely by payer and application quality. We give a realistic range per payer during scoping and do not promise a fixed date." },
       { question: "Do you need our login credentials?", answer: "We work through delegated access where payers allow it, so your providers keep ownership of their accounts." },
@@ -556,6 +585,12 @@ const RCM_SERVICES: Service[] = [
     metaDescription:
       "Remote accounts receivable follow-up for U.S. practices. Work aged claims, appeals and unpaid balances to recover revenue. HIPAA-compliant and flat monthly rate.",
     serviceType: "Accounts Receivable Management",
+    emailSubject: "AR Follow-Up Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Accounts Receivable follow-up service.",
+    eligiblePractices:
+      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
     faqs: [
       { question: "Is this the same as medical billing?", answer: "Billing covers submitting claims and posting payments. AR follow-up focuses on collecting claims that are already late or denied. Many practices use both." },
       { question: "Do you work old claims?", answer: "Yes, within each payer's timely-filing and appeal limits. We tell you early which claims are still recoverable." },
@@ -565,7 +600,7 @@ const RCM_SERVICES: Service[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/* Virtual Staffing & Admin Support — remote medical roles                    */
+/* Virtual Staffing & Admin Support, remote medical roles                    */
 /* -------------------------------------------------------------------------- */
 
 const STAFFING_SERVICES: Service[] = [
@@ -603,6 +638,12 @@ const STAFFING_SERVICES: Service[] = [
     metaDescription:
       "Remote medical scribes for U.S. practices. Real-time or same-day note drafting inside your EHR so providers finish charts sooner. HIPAA-compliant.",
     serviceType: "Medical Scribe Staffing",
+    emailSubject: "Medical Scribe Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Scribe service.",
+    eligiblePractices:
+      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
     faqs: [
       { question: "Does the scribe make clinical decisions?", answer: "No. Scribes document what the provider says and does. All clinical judgment and the final note stay with the provider." },
       { question: "Can scribes work live in the room?", answer: "Remote scribes can join by approved audio or video where your policy and patient consent allow it." },
@@ -643,6 +684,12 @@ const STAFFING_SERVICES: Service[] = [
     metaDescription:
       "Remote medical schedulers for U.S. practices. Fill the calendar, reduce no-shows and manage cancellations inside your system. HIPAA-compliant.",
     serviceType: "Medical Scheduler Staffing",
+    emailSubject: "Medical Scheduler Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Scheduler service.",
+    eligiblePractices:
+      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
     faqs: [
       { question: "Will the scheduler take calls?", answer: "Scheduling calls can be included. Full front-desk call handling is covered by our Medical Receptionist service." },
       { question: "Can the scheduler triage symptoms?", answer: "No. Clinical questions go to your clinical staff by the process you define." },
@@ -683,6 +730,12 @@ const STAFFING_SERVICES: Service[] = [
     metaDescription:
       "Remote medical receptionists for U.S. practices. Answer calls, route messages and handle patient intake with a professional front-desk voice. HIPAA-compliant.",
     serviceType: "Medical Receptionist Staffing",
+    emailSubject: "Medical Receptionist Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Receptionist service.",
+    eligiblePractices:
+      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
     faqs: [
       { question: "What happens with an urgent clinical call?", answer: "The receptionist follows your escalation script, tells emergency callers to contact emergency services and notifies your clinician." },
       { question: "Can the receptionist book appointments?", answer: "Yes, where you grant scheduling access. Heavy scheduling workloads are better served by our Medical Scheduler." },
@@ -723,6 +776,12 @@ const STAFFING_SERVICES: Service[] = [
     metaDescription:
       "Remote patient care coordinators for U.S. practices. Pre-visit prep, referrals, prior authorizations and inbox triage at a flat monthly rate, inside your EHR.",
     serviceType: "Patient Care Coordination",
+    emailSubject: "Patient Care Coordinator Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Patient Care Coordinator service.",
+    eligiblePractices:
+      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
     faqs: [
       { question: "How is this different from CCM?", answer: "CCM is a billable monthly clinical program for chronic patients. A care coordinator handles daily administrative and outreach work for the whole practice." },
       { question: "Can the coordinator give clinical advice?", answer: "No. Clinical questions go to your licensed staff by the process you set." },
@@ -763,6 +822,12 @@ const STAFFING_SERVICES: Service[] = [
     metaDescription:
       "Remote virtual assistants for U.S. medical practices. Inbox management, data entry, records requests and office tasks at a flat monthly rate. HIPAA-compliant.",
     serviceType: "Virtual Assistant Staffing",
+    emailSubject: "Virtual Assistant Inquiry",
+    whatsappMessage: "Hi Zenith, I'd like to learn about your Virtual Assistant service.",
+    eligiblePractices:
+      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
+    billablePatients:
+      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
     faqs: [
       { question: "Can the virtual assistant see patient information?", answer: "Only if you grant it for a task, and only under a signed BAA. Many tasks need no patient data at all." },
       { question: "How is this different from a care coordinator?", answer: "A coordinator focuses on patient-facing workflows like referrals and authorizations. A virtual assistant covers general office and administrative work." },
@@ -791,7 +856,7 @@ export function servicesByCategory(category: ServiceCategory): Service[] {
   return services.filter((s) => s.category === category);
 }
 
-/* Load-time validation — fails the build on a bad registry (matches the
+/* Load-time validation, fails the build on a bad registry (matches the
    posts.ts pattern). */
 if (typeof window === "undefined") {
   const seen = new Set<string>();

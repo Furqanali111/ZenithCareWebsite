@@ -40,7 +40,7 @@ export default function RoiCalculatorPage() {
           </h1>
           <p className="mt-5 text-base leading-relaxed text-body-ink">
             Two inputs. A representative monthly and annual figure. No data
-            leaves your browser — the calculator is entirely client-side.
+            leaves your browser, the calculator is entirely client-side.
           </p>
         </header>
         <div className="mt-10">

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Zenith Care Solutions — Remote Chronic Care Management";
+export const alt = "Zenith Care Solutions, Remote Chronic Care Management";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

@@ -2,7 +2,7 @@ import faqJson from "@/content/faq.json";
 
 /**
  * Shape of a single FAQ entry, mirrored from WebSiteDoc/05-data-schema.md §3
- * and content/faq.json. Kept narrow on purpose — add fields only when a
+ * and content/faq.json. Kept narrow on purpose, add fields only when a
  * component actually needs them.
  */
 export type FaqCategory =
@@ -25,7 +25,7 @@ type FaqFile = { items: FaqItem[] };
 const file = faqJson as FaqFile;
 
 /* -------------------------------------------------------------------------- */
-/* Load-time validation. Read-only (duplicate id / empty field detection) —   */
+/* Load-time validation. Read-only (duplicate id / empty field detection),   */
 /* throws loudly in BOTH dev and prod. Failing a build is better than         */
 /* shipping a bad FAQPage JSON-LD that Google rejects wholesale.              */
 /* -------------------------------------------------------------------------- */

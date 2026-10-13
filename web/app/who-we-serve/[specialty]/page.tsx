@@ -72,7 +72,7 @@ export default async function WhoWeServePage({
         ]}
       />
 
-      {/* ─── Hero (shared premium aurora hero — consistent with home/services) ─ */}
+      {/* ─── Hero (shared premium aurora hero, consistent with home/services) ─ */}
       <PageHero
         eyebrow={`Who we serve · ${label}`}
         title={c.heroHeadline}
@@ -172,7 +172,7 @@ export default async function WhoWeServePage({
 
             <div className="flex flex-col gap-4 md:items-end">
               <p className="max-w-sm text-sm text-[color:var(--color-surface-0)]/70 md:text-right">
-                Plug in your real numbers to see the figure for your panel —
+                Plug in your real numbers to see the figure for your panel , 
                 the calculator runs entirely in your browser.
               </p>
               <Button
@@ -259,10 +259,10 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
     heroHeadline:
       "Primary care panels have the biggest unbilled CCM revenue in medicine.",
     heroLead:
-      "Family medicine and primary care practices see the broadest chronic-condition mix of any specialty — hypertension, Type 2 diabetes, hyperlipidemia, COPD, depression, obesity, arthritis. A big share of that panel qualifies for CCM today; most practices bill little or none of it.",
+      "Family medicine and primary care practices see the broadest chronic-condition mix of any specialty, hypertension, Type 2 diabetes, hyperlipidemia, COPD, depression, obesity, arthritis. A big share of that panel qualifies for CCM today; most practices bill little or none of it.",
     whyHeadline: "Why CCM pays for itself in a primary care practice.",
     whyParagraphs: [
-      "The eligibility bar — two or more chronic conditions expected to last twelve months — is cleared by a large fraction of any established primary-care panel. We routinely see 25–40% of a panel qualify once we actually run the list against the diagnoses.",
+      "The eligibility bar, two or more chronic conditions expected to last twelve months, is cleared by a large fraction of any established primary-care panel. We routinely see 25-40% of a panel qualify once we actually run the list against the diagnoses.",
       "Zenith’s clinical team does the monthly outreach, documentation, and time tracking inside your EHR so your MAs and front-desk team stay focused on visits. Your practice bills the CPT codes; we invoice for the clinical work.",
     ],
     patientMix: [
@@ -300,14 +300,14 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
 
   "internal-medicine": {
     metaDescription:
-      "Chronic Care Management for U.S. internal medicine practices — polychronic patients, higher complex-CCM share, and the per-patient revenue to match.",
+      "Chronic Care Management for U.S. internal medicine practices, polychronic patients, higher complex-CCM share, and the per-patient revenue to match.",
     heroHeadline:
-      "Internal medicine panels skew polychronic — which is exactly what CCM reimburses for.",
+      "Internal medicine panels skew polychronic, which is exactly what CCM reimburses for.",
     heroLead:
-      "Internal medicine patients are older on average, more medically complex, and more likely to be managing three or four conditions at once. That profile maps directly to the Medicare codes that pay for Chronic Care Management — and often qualifies a bigger share for the complex-CCM codes that reimburse at a higher rate.",
+      "Internal medicine patients are older on average, more medically complex, and more likely to be managing three or four conditions at once. That profile maps directly to the Medicare codes that pay for Chronic Care Management, and often qualifies a bigger share for the complex-CCM codes that reimburse at a higher rate.",
     whyHeadline: "Where internal medicine really outperforms on CCM.",
     whyParagraphs: [
-      "Internal medicine panels frequently qualify 40–50% of patients for base CCM (CPT 99490), and a meaningful subset — those with moderate-to-high medical decision-making needs — for Complex CCM (CPT 99487 / 99489), which reimburses roughly 2× the base rate per patient per month.",
+      "Internal medicine panels frequently qualify 40-50% of patients for base CCM (CPT 99490), and a meaningful subset, those with moderate-to-high medical decision-making needs, for Complex CCM (CPT 99487 / 99489), which reimburses roughly 2× the base rate per patient per month.",
       "Zenith’s clinical team is set up for polychronic patient workflows: medication reconciliation across multiple specialists, closed-loop follow-up on hospital discharges, and documentation that reads correctly to a Medicare auditor.",
     ],
     patientMix: [
@@ -347,11 +347,11 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
 
   geriatrics: {
     metaDescription:
-      "Chronic Care Management for U.S. geriatric practices — nearly every patient is Medicare-eligible and chronic-condition-dense, which is where CCM pays the most.",
+      "Chronic Care Management for U.S. geriatric practices, nearly every patient is Medicare-eligible and chronic-condition-dense, which is where CCM pays the most.",
     heroHeadline:
-      "Geriatric panels are built for CCM — Medicare-dense, chronic-dense, and often cognitively complex.",
+      "Geriatric panels are built for CCM, Medicare-dense, chronic-dense, and often cognitively complex.",
     heroLead:
-      "Geriatrics practices sit at the intersection of nearly 100% Medicare coverage and nearly universal multi-condition eligibility. The share of a geriatric panel that qualifies for Chronic Care Management is higher than any other specialty — frequently 60–80% — and a large portion qualify for the higher-reimbursing complex-CCM codes.",
+      "Geriatrics practices sit at the intersection of nearly 100% Medicare coverage and nearly universal multi-condition eligibility. The share of a geriatric panel that qualifies for Chronic Care Management is higher than any other specialty, frequently 60-80%, and a large portion qualify for the higher-reimbursing complex-CCM codes.",
     whyHeadline: "Geriatrics gets the highest per-panel CCM revenue in medicine.",
     whyParagraphs: [
       "Cognitive decline, polypharmacy, frailty, and cardiovascular comorbidities almost always coexist in geriatric patients. That combination pushes a substantial share of the panel into Complex CCM (99487 / 99489), which reimburses roughly double the base code.",
@@ -370,7 +370,7 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
     example: {
       panel: 500,
       enrollmentRate: 0.7,
-      note: "With a substantial Complex CCM mix typical of geriatric panels, actual reimbursement often runs 30–50% higher than the base-code figure shown.",
+      note: "With a substantial Complex CCM mix typical of geriatric panels, actual reimbursement often runs 30-50% higher than the base-code figure shown.",
     },
     faqs: [
       {

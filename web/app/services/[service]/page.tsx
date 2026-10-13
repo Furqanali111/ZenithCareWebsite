@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
-import { BulletedListItem } from "@/components/bulleted-list";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
@@ -99,49 +98,68 @@ export default async function ServicePage({
         <HowItWorks steps={s.howItWorks} />
       </section>
 
-      {/* ─── Who qualifies + billing (care-management programs only) ──── */}
-      {s.qualifies || s.billing ? (
-        <section className="border-t border-border/60 bg-surface-tint">
-          <div className="section-rhythm">
-            <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2 lg:gap-14">
-              {s.qualifies ? (
-                <Reveal>
-                  <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-                    Who qualifies
-                  </h2>
-                  <span
-                    aria-hidden="true"
-                    className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
-                  />
-                  <ul className="mt-6 space-y-3 text-base leading-relaxed text-body-ink">
-                    {s.qualifies.map((q) => (
-                      <BulletedListItem key={q}>{q}</BulletedListItem>
-                    ))}
-                  </ul>
-                </Reveal>
-              ) : null}
+      {/* ─── Who we serve: eligibility & billing (every service) ──────── */}
+      <section className="border-t border-border/60 bg-surface-tint">
+        <div className="section-rhythm">
+          <div className="mx-auto max-w-7xl px-6">
+            <Reveal className="max-w-2xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+                Who we serve
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-body-ink">
+                Eligibility is confirmed per patient and per payer at the time of
+                service. The guidance below shows who this service is built for.
+              </p>
+            </Reveal>
 
-              {s.billing ? (
-                <Reveal delay={0.1}>
-                  <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-                    What&rsquo;s billed
-                  </h2>
-                  <span
-                    aria-hidden="true"
-                    className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
-                  />
-                  <BillingTable service={s} />
-                  {s.billingNote ? (
-                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                      {s.billingNote}
-                    </p>
-                  ) : null}
-                </Reveal>
-              ) : null}
+            <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-14">
+              <Reveal>
+                <h3 className="font-serif text-lg font-semibold text-brand-ink">
+                  Eligible practices
+                </h3>
+                <span
+                  aria-hidden="true"
+                  className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+                />
+                <p className="mt-5 text-base leading-relaxed text-body-ink">
+                  {s.eligiblePractices}
+                </p>
+              </Reveal>
+
+              <Reveal delay={0.1}>
+                <h3 className="font-serif text-lg font-semibold text-brand-ink">
+                  Patients who can be billed
+                </h3>
+                <span
+                  aria-hidden="true"
+                  className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+                />
+                <p className="mt-5 text-base leading-relaxed text-body-ink">
+                  {s.billablePatients}
+                </p>
+              </Reveal>
             </div>
+
+            {s.billing ? (
+              <Reveal delay={0.15} className="mt-14">
+                <h3 className="font-serif text-lg font-semibold text-brand-ink">
+                  What&rsquo;s billed
+                </h3>
+                <span
+                  aria-hidden="true"
+                  className="mt-3 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+                />
+                <BillingTable service={s} />
+                {s.billingNote ? (
+                  <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                    {s.billingNote}
+                  </p>
+                ) : null}
+              </Reveal>
+            ) : null}
           </div>
-        </section>
-      ) : null}
+        </div>
+      </section>
 
       {/* ─── Revenue band (care-management programs only) ─────────────── */}
       {s.revenue ? (
@@ -167,7 +185,7 @@ export default async function ServicePage({
                   </div>
                   <div className="flex flex-col gap-4 md:items-end">
                     <p className="max-w-sm text-sm leading-relaxed text-[color:var(--color-surface-0)]/70 md:text-right">
-                      Plug in your real numbers to see the figure for your panel —
+                      Plug in your real numbers to see the figure for your panel , 
                       the calculator runs entirely in your browser.
                     </p>
                     <Button asChild size="lg" variant="secondary" className="h-11 px-6 text-sm">

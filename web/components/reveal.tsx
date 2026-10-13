@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
  * Scroll-reveal wrapper for below-the-fold content. Fades + lifts its
  * children once, when they scroll into view. Used only below the fold, so
  * there is no LCP/FOIC concern (the hero's entrance is CSS, not this).
- * Under prefers-reduced-motion it renders a plain wrapper — no motion.
+ * Under prefers-reduced-motion it renders a plain wrapper, no motion.
  */
 export function Reveal({
   children,

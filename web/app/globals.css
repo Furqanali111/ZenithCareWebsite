@@ -11,7 +11,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   /* --font-serif is bound to a grotesk display face (Space Grotesk) in
-     app/layout.tsx — v3 "Warm Cyan". The `font-serif` utility across pages
+     app/layout.tsx, v3 "Warm Cyan". The `font-serif` utility across pages
      picks it up directly. */
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
@@ -45,23 +45,23 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
 
-  /* Zenith brand tokens — v3 "Warm Cyan": deep cyan-ink + warm apricot accent
+  /* Zenith brand tokens, v3 "Warm Cyan": deep cyan-ink + warm apricot accent
      + warm cream. Token names kept from the navy era; only values changed, so
      every `brand-*` / `gold-*` / `teal-*` usage across the site re-skins at
      once. "teal-*" names hold the CYAN accent ramp; "gold-*" holds the warm
      apricot accent (names kept for stability). */
-  --color-brand-900: #0b2026;   /* deep cyan-ink — dark bg / bands / logo */
+  --color-brand-900: #0b2026;   /* deep cyan-ink, dark bg / bands / logo */
   --color-brand-800: #123038;
   --color-brand-700: #155e75;   /* mid cyan */
-  --color-brand-100: #cde6ec;   /* light cyan tint — badges, step rings */
+  --color-brand-100: #cde6ec;   /* light cyan tint, badges, step rings */
   --color-brand-50: #eaf4f6;    /* lightest cyan tint */
-  --color-accent-600: #6e9aa3;  /* muted cyan-grey — dark dot-grid, quiet labels */
+  --color-accent-600: #6e9aa3;  /* muted cyan-grey, dark dot-grid, quiet labels */
   --color-gold-500: #db7e4c;    /* warm apricot accent */
   --color-gold-100: #f8e3d5;    /* apricot tint */
   /* Cyan accent ramp (held under the legacy "teal" names). */
-  --color-teal-600: #0e7490;    /* deep cyan — bullets, light accents, links */
+  --color-teal-600: #0e7490;    /* deep cyan, bullets, light accents, links */
   --color-teal-500: #1596b0;    /* cyan aurora (light) */
-  --color-teal-400: #5fc7d6;    /* bright cyan — dark-mode accents on cyan-ink */
+  --color-teal-400: #5fc7d6;    /* bright cyan, dark-mode accents on cyan-ink */
   --color-success-600: #2f855a;
   --color-warn-600: #b7791f;
   --color-error-600: #c53030;
@@ -75,11 +75,11 @@
   --color-border-200: #e6e6de;  /* warm hairline */
   --color-border-100: #efede4;
 
-  /* Section rhythm tokens — single source for section vertical spacing. */
-  --section-py: 5rem;              /* 80px — baseline mobile */
-  --section-py-lg: 7rem;           /* 112px — desktop baseline */
-  --section-py-hero: 6rem;         /* 96px — hero top room */
-  --section-py-hero-lg: 8rem;      /* 128px — hero top room desktop */
+  /* Section rhythm tokens, single source for section vertical spacing. */
+  --section-py: 5rem;              /* 80px, baseline mobile */
+  --section-py-lg: 7rem;           /* 112px, desktop baseline */
+  --section-py-hero: 6rem;         /* 96px, hero top room */
+  --section-py-hero-lg: 8rem;      /* 128px, hero top room desktop */
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -129,7 +129,7 @@
   --sidebar-ring: #155e75;
 }
 
-/* Dark mode — applied when `html` has class `dark` (set by next-themes). */
+/* Dark mode, applied when `html` has class `dark` (set by next-themes). */
 .dark {
   --background: #0b2026;           /* deep cyan-ink */
   --foreground: #e9f3f4;
@@ -206,7 +206,7 @@
   }
 }
 
-/* Hero entrance — pure CSS, paint-driven, so above-the-fold content is in
+/* Hero entrance, pure CSS, paint-driven, so above-the-fold content is in
    the SSR HTML and visible without waiting for JS/hydration (no FOIC, good
    LCP). The global prefers-reduced-motion block above already forces the
    duration to ~0; we also zero the stagger delays there so reduced-motion
@@ -245,7 +245,7 @@
   }
 }
 
-/* Page transition — replays on every route change (Next re-mounts
+/* Page transition, replays on every route change (Next re-mounts
    app/template.tsx). CSS/paint-driven, neutralized under reduced motion. */
 .page-enter {
   animation: page-enter 0.65s cubic-bezier(0.32, 0.72, 0, 1) both;
@@ -261,9 +261,9 @@
   }
 }
 
-/* Hero aurora — three slow-drifting gradient shapes (pattern adapted from
+/* Hero aurora, three slow-drifting gradient shapes (pattern adapted from
    21st "LiquidAurora" by dhileepkumargm; CSS hand-written and retuned to the
-   Zenith navy + teal palette). Decorative, restrained, GPU-cheap — animates
+   Zenith navy + teal palette). Decorative, restrained, GPU-cheap, animates
    transform only. The global reduced-motion block above forces a single
    0.001ms iteration, so these settle static (no flicker) for those users. */
 .aurora-shape {
@@ -337,7 +337,7 @@
   }
 }
 
-/* Shared section container utility — avoids repeating max-width + px/py
+/* Shared section container utility, avoids repeating max-width + px/py
    across every page. Opt-in via className="section" or paired with Tailwind
    max-w utilities when a page wants a wider band. */
 @layer components {
@@ -351,7 +351,7 @@
       padding-bottom: var(--section-py-lg);
     }
   }
-  /* Subtle dot-grid for hero backgrounds — more honest than a mesh gradient,
+  /* Subtle dot-grid for hero backgrounds, more honest than a mesh gradient,
      reads as "clinical / precise" without any gradient-slop vibe. */
   .bg-dotgrid {
     background-image:
@@ -370,7 +370,7 @@
 /* These replaced ~170 hardcoded `text-[color:var(--color-brand-900)]`-style  */
 /* burns that were invisible in dark mode (navy on navy). Declared via        */
 /* @utility (NOT @layer components) so Tailwind v4 generates `hover:`,        */
-/* `focus:`, `dark:` and other variants for them — a `hover:text-brand-ink`   */
+/* `focus:`, `dark:` and other variants for them, a `hover:text-brand-ink`   */
 /* on a link now actually flips on hover.                                     */
 /*                                                                            */
 /* Color flipping is handled by CSS variables that re-declare under .dark,    */
@@ -379,17 +379,17 @@
 /* -------------------------------------------------------------------------- */
 
 :root {
-  --text-brand-ink: #10303a;       /* strong headings — deep cyan-ink on cream */
-  --text-ink-strong: #15232b;      /* strong body text — warm near-black */
-  --text-body-ink: #4f6168;        /* body copy — warm cyan-grey (AA on cream) */
-  --text-brand-accent: #0e7490;    /* links — deep cyan (~4.8:1 on cream) */
+  --text-brand-ink: #10303a;       /* strong headings, deep cyan-ink on cream */
+  --text-ink-strong: #15232b;      /* strong body text, warm near-black */
+  --text-body-ink: #4f6168;        /* body copy, warm cyan-grey (AA on cream) */
+  --text-brand-accent: #0e7490;    /* links, deep cyan (~4.8:1 on cream) */
   --surface-tint: #f1eee7;         /* soft warm-cream section backgrounds */
 }
 .dark {
   --text-brand-ink: #e9f3f4;       /* warm near-white tuned for cyan-ink backdrops */
   --text-ink-strong: #e9f3f4;
   --text-body-ink: #b6cbce;        /* soft cyan-grey; passes WCAG AA on cyan-ink */
-  --text-brand-accent: #5fc7d6;    /* links — bright cyan (high contrast on dark) */
+  --text-brand-accent: #5fc7d6;    /* links, bright cyan (high contrast on dark) */
   --surface-tint: #0f2c34;         /* one notch lighter than brand-900 page bg */
 }
 

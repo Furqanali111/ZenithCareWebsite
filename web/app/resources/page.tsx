@@ -34,7 +34,7 @@ export default function ResourcesPage() {
             Articles for practices evaluating CCM.
           </h1>
           <p className="mt-6 text-base leading-relaxed text-body-ink md:text-lg">
-            Honest, practical writing on Chronic Care Management — billing,
+            Honest, practical writing on Chronic Care Management, billing,
             operations, compliance. Written by Ali Hassan Kaleem, PharmD.
           </p>
         </div>

@@ -8,7 +8,7 @@ const SERVICES = services
   .map((s) => `- [${s.name}](${site.url}/services/${s.slug}): ${s.shortDesc}`)
   .join("\n");
 
-// Static chrome of the file — everything above the auto-generated article
+// Static chrome of the file, everything above the auto-generated article
 // list. Lives inline so a copy edit is one file to touch; promote to a
 // Markdown template if this ever grows past ~2× its current size.
 const HEADER = `# ${site.name}
@@ -18,7 +18,7 @@ const HEADER = `# ${site.name}
 ## About
 
 - **Legal entity**: Zenith Care Solutions LLC (Wyoming)
-- **Founder**: Ali Hassan Kaleem, PharmD — clinical pharmacist with oncology / BMT background
+- **Founder**: Ali Hassan Kaleem, PharmD, clinical pharmacist with oncology / BMT background
 - **Service area**: United States
 - **Target customers**: physician practices with Medicare patient panels (two or more chronic conditions)
 - **We do not**: bill Medicare directly, operate a clinic, see patients ourselves, or hold PHI outside a signed BAA
@@ -70,7 +70,7 @@ export function GET() {
   return new Response(body, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      // Cache aggressively — llms.txt only changes when posts.ts changes,
+      // Cache aggressively, llms.txt only changes when posts.ts changes,
       // and a redeploy will issue a fresh response. 1-hour browser +
       // 1-day CDN with stale-while-revalidate for crawler politeness.
       "Cache-Control":
