@@ -7,7 +7,7 @@
  * fully-enrolled panel therefore nets ~ $13,200/month, which matches the
  * roadmap's revenue framing.
  *
- * We render the result as a ±10% range so the UI never pretends to be exact , 
+ * We render the result as a ±10% range so the UI never pretends to be exact, 
  * actual mix of CPT 99439 / 99487 / 99489 add-ons swings the number both ways.
  *
  * SINGLE SOURCE OF TRUTH for every page that mentions a CCM rate: the services

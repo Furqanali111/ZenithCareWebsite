@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BrandFigure } from "@/components/brand-figure";
@@ -10,6 +11,7 @@ import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FaqSection, type FaqEntry } from "@/components/faq-section";
 import { specialties, specialtyLabel, type Specialty } from "@/lib/site";
+import { getService, categoryMeta } from "@/lib/services";
 import { CPT_RATES, formatUsd } from "@/lib/roi";
 
 type Params = { specialty: string };
@@ -34,7 +36,7 @@ export async function generateMetadata({
 
   const content = CONTENT[specialty];
   return pageMetadata({
-    title: `Chronic Care Management for ${specialtyLabel[specialty]}`,
+    title: content.metaTitle,
     description: content.metaDescription,
     path: `/who-we-serve/${specialty}`,
   });
@@ -53,13 +55,14 @@ export default async function WhoWeServePage({
   const c = CONTENT[specialty];
   const enrolledPatients = Math.round(c.example.panel * c.example.enrollmentRate);
   const monthlyRevenue = enrolledPatients * CPT_RATES["99490"];
+  const programs = specialtyPrograms[specialty].map(resolveProgram);
 
   return (
     <>
       <JsonLd
         data={[
           serviceLd({
-            name: `Chronic Care Management for ${label}`,
+            name: `Remote care management and virtual staffing for ${label.toLowerCase()} practices`,
             description: c.metaDescription,
             path,
             serviceType: "Chronic Care Management",
@@ -99,7 +102,56 @@ export default async function WhoWeServePage({
         </div>
       </section>
 
-      {/* ─── Why CCM for this specialty ──────────────────────────────── */}
+      {/* ─── Programs this practice can offer (full service line) ─────── */}
+      <section className="section-rhythm border-t border-border/60 bg-surface-tint">
+        <div className="mx-auto max-w-7xl px-6">
+          <Reveal className="max-w-2xl">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+              Programs your {label.toLowerCase()} practice can offer
+            </h2>
+            <span
+              aria-hidden="true"
+              className="mt-4 block h-px w-10 bg-[color:var(--color-gold-500)]/60"
+            />
+            <p className="mt-6 text-base leading-relaxed text-body-ink">
+              The services a {label.toLowerCase()} practice is typically eligible
+              to offer. CCM is usually the single biggest revenue lever; the rest
+              compound it. Eligibility is confirmed per patient and per payer at
+              the time of service.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {programs.map((p, i) => (
+              <Reveal key={p.href} delay={(i % 3) * 0.08} className="h-full">
+                <Link
+                  href={p.href}
+                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                >
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-accent">
+                    {p.eyebrow}
+                  </span>
+                  <h3 className="mt-2 font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
+                    {p.body}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
+                    {p.cta}
+                    <ArrowRight
+                      className="size-4 transition-transform group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Why CCM is the flagship lever for this specialty ────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-10 md:grid-cols-2 md:gap-12">
@@ -140,23 +192,23 @@ export default async function WhoWeServePage({
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-          <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-20">
+          <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-teal-500)]/18 blur-3xl"
             />
             <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
             <div>
-              <span className="text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-accent-600)]">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
                 Representative panel
               </span>
               <p className="mt-5 font-serif text-6xl font-semibold tracking-tight leading-none md:text-7xl">
                 {formatUsd(monthlyRevenue)}
               </p>
-              <p className="mt-3 text-base text-[color:var(--color-surface-0)]/80">
+              <p className="mt-3 text-base text-body-ink dark:text-[color:var(--color-surface-0)]/80">
                 per month, for the panel below.
               </p>
-              <p className="mt-6 text-sm text-[color:var(--color-accent-600)]">
+              <p className="mt-6 text-sm text-muted-foreground dark:text-[color:var(--color-accent-600)]">
                 {c.example.panel}-patient {label.toLowerCase()} panel with
                 roughly {Math.round(c.example.enrollmentRate * 100)}% of
                 eligible patients enrolled, at the{" "}
@@ -171,15 +223,14 @@ export default async function WhoWeServePage({
             </div>
 
             <div className="flex flex-col gap-4 md:items-end">
-              <p className="max-w-sm text-sm text-[color:var(--color-surface-0)]/70 md:text-right">
-                Plug in your real numbers to see the figure for your panel , 
+              <p className="max-w-sm text-sm text-muted-foreground md:text-right dark:text-[color:var(--color-surface-0)]/70">
+                Plug in your real numbers to see the figure for your panel,
                 the calculator runs entirely in your browser.
               </p>
               <Button
                 asChild
                 size="lg"
-                variant="secondary"
-                className="h-11 px-6 text-sm"
+                className="h-11 bg-[color:var(--color-gold-500)] px-6 text-sm text-[color:var(--color-brand-900)] hover:brightness-105"
               >
                 <Link href="/roi-calculator">Estimate your panel</Link>
               </Button>
@@ -192,7 +243,7 @@ export default async function WhoWeServePage({
 
       {/* ─── FAQ (specialty-specific; emits FAQPage JSON-LD) ─────────── */}
       <FaqSection
-        heading={`CCM for ${label.toLowerCase()}: common questions`}
+        heading={`Zenith for ${label.toLowerCase()} practices: common questions`}
         idPrefix={`${specialty}-faq`}
         items={c.faqs}
       />
@@ -202,12 +253,12 @@ export default async function WhoWeServePage({
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            Fifteen minutes with a PharmD.
+            Fifteen minutes to see the fit.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
             We&rsquo;ll confirm how many of your {label.toLowerCase()}{" "}
-            patients qualify, walk through the per-code math, and tell you
-            honestly whether Zenith is a fit.
+            patients qualify, map the programs that fit your practice, and tell
+            you honestly whether Zenith is a fit.
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 px-6 text-sm">
@@ -219,9 +270,7 @@ export default async function WhoWeServePage({
               variant="outline"
               className="h-11 px-6 text-sm"
             >
-              <Link href="/services/chronic-care-management">
-                CCM services overview
-              </Link>
+              <Link href="/services">Explore all services</Link>
             </Button>
           </div>
           </div>
@@ -237,7 +286,74 @@ function isSpecialty(value: string): value is Specialty {
   return (specialties as readonly string[]).includes(value);
 }
 
+/**
+ * Which programs each specialty is typically eligible to offer. A `slug` points
+ * at a specific care-management service; a `category` points at a whole
+ * category (RCM / staffing) that applies to any practice. Derived strictly from
+ * the Who-We-Serve eligibility doc: geriatrics inherits RPM + TCM as a
+ * primary-care discipline, and omits PCM (single-condition) and RTM (ortho/PT).
+ */
+type ProgramRef = { slug: string } | { category: "rcm" | "staffing" };
+
+const CARE_MGMT_PROGRAMS: ProgramRef[] = [
+  { slug: "chronic-care-management" },
+  { slug: "principal-care-management" },
+  { slug: "remote-patient-monitoring" },
+  { slug: "transitional-care-management" },
+];
+
+const specialtyPrograms: Record<Specialty, ProgramRef[]> = {
+  "primary-care": [...CARE_MGMT_PROGRAMS, { category: "rcm" }, { category: "staffing" }],
+  "internal-medicine": [...CARE_MGMT_PROGRAMS, { category: "rcm" }, { category: "staffing" }],
+  geriatrics: [
+    { slug: "chronic-care-management" },
+    { slug: "remote-patient-monitoring" },
+    { slug: "transitional-care-management" },
+    { category: "rcm" },
+    { category: "staffing" },
+  ],
+};
+
+// Fail the build if a mapping points at a slug that no longer exists.
+for (const refs of Object.values(specialtyPrograms)) {
+  for (const ref of refs) {
+    if ("slug" in ref && !getService(ref.slug)) {
+      throw new Error(`specialtyPrograms: unknown service slug "${ref.slug}"`);
+    }
+  }
+}
+
+type ProgramCard = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  href: string;
+  cta: string;
+};
+
+function resolveProgram(ref: ProgramRef): ProgramCard {
+  if ("slug" in ref) {
+    const s = getService(ref.slug)!; // validated at module load
+    return {
+      eyebrow: "Care Management",
+      title: s.name,
+      body: s.shortDesc,
+      href: `/services/${s.slug}#who-we-serve`,
+      cta: "See who qualifies",
+    };
+  }
+  const m = categoryMeta[ref.category];
+  return {
+    eyebrow: "For any practice",
+    title: m.label,
+    body: m.blurb,
+    href: m.href,
+    cta: "Explore",
+  };
+}
+
 type SpecialtyContent = {
+  metaTitle: string;
   metaDescription: string;
   heroHeadline: string;
   heroLead: string;
@@ -254,12 +370,14 @@ type SpecialtyContent = {
 
 const CONTENT: Record<Specialty, SpecialtyContent> = {
   "primary-care": {
+    metaTitle:
+      "Remote Care Management, Monitoring & Staffing for Primary Care Practices",
     metaDescription:
-      "Chronic Care Management for U.S. primary care practices. The broadest chronic-condition mix in medicine, often with 25 to 40 percent of your panel eligible.",
+      "Remote care management (CCM, PCM, RPM, TCM), revenue-cycle support, and virtual staffing for U.S. primary care practices. HIPAA Business Associate. The broadest program fit in medicine.",
     heroHeadline:
-      "Primary care panels have the biggest unbilled CCM revenue in medicine.",
+      "Primary care practices have the broadest fit across Zenith's programs.",
     heroLead:
-      "Family medicine and primary care practices see the broadest chronic-condition mix of any specialty, hypertension, Type 2 diabetes, hyperlipidemia, COPD, depression, obesity, arthritis. A big share of that panel qualifies for CCM today; most practices bill little or none of it.",
+      "From Chronic Care Management to remote monitoring, transitional care, revenue-cycle support, and virtual staffing, a primary care practice is eligible for more of Zenith's service line than almost any other specialty. CCM is usually the biggest single revenue lever; the rest compound it.",
     whyHeadline: "Why CCM pays for itself in a primary care practice.",
     whyParagraphs: [
       "The eligibility bar, two or more chronic conditions expected to last twelve months, is cleared by a large fraction of any established primary-care panel. We routinely see 25-40% of a panel qualify once we actually run the list against the diagnoses.",
@@ -281,6 +399,11 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
     },
     faqs: [
       {
+        question: "Which Zenith programs can a primary care practice run?",
+        answer:
+          "Primary care practices are typically eligible for Chronic Care Management, Principal Care Management, Remote Patient Monitoring, and Transitional Care Management, plus Revenue Cycle Management and virtual staffing, which apply to any practice. Final eligibility is confirmed per patient and per payer at the time of service.",
+      },
+      {
         question: "How much of a primary care panel typically qualifies for CCM?",
         answer:
           "We routinely see 25 to 40 percent of an established primary-care panel qualify once the list is run against documented diagnoses. The bar is two or more chronic conditions expected to last at least twelve months, with the patient enrolled in Medicare Part B.",
@@ -299,12 +422,14 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   },
 
   "internal-medicine": {
+    metaTitle:
+      "Remote Care Management, Monitoring & Staffing for Internal Medicine",
     metaDescription:
-      "Chronic Care Management for U.S. internal medicine practices, polychronic patients, higher complex-CCM share, and the per-patient revenue to match.",
+      "Remote care management (CCM, PCM, RPM, TCM), revenue-cycle support, and virtual staffing for U.S. internal medicine practices. HIPAA Business Associate. Built for polychronic panels.",
     heroHeadline:
-      "Internal medicine panels skew polychronic, which is exactly what CCM reimburses for.",
+      "Internal medicine panels fit the full care-management stack, and the staffing to run it.",
     heroLead:
-      "Internal medicine patients are older on average, more medically complex, and more likely to be managing three or four conditions at once. That profile maps directly to the Medicare codes that pay for Chronic Care Management, and often qualifies a bigger share for the complex-CCM codes that reimburse at a higher rate.",
+      "Polychronic, older, more complex patients map to every Medicare care-management program Zenith runs, from CCM and PCM to remote monitoring and transitional care, plus the revenue-cycle and virtual-staffing support that keeps it all moving. CCM and complex CCM are usually the largest levers.",
     whyHeadline: "Where internal medicine really outperforms on CCM.",
     whyParagraphs: [
       "Internal medicine panels frequently qualify 40-50% of patients for base CCM (CPT 99490), and a meaningful subset, those with moderate-to-high medical decision-making needs, for Complex CCM (CPT 99487 / 99489), which reimburses roughly 2× the base rate per patient per month.",
@@ -326,6 +451,11 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
     },
     faqs: [
       {
+        question: "Which Zenith programs can an internal medicine practice run?",
+        answer:
+          "Internal medicine practices are typically eligible for Chronic Care Management, Principal Care Management, Remote Patient Monitoring, and Transitional Care Management, alongside Revenue Cycle Management and virtual staffing, which apply to any practice. Eligibility is confirmed per patient and per payer at the time of service.",
+      },
+      {
         question:
           "How much of an internal medicine panel qualifies for CCM?",
         answer:
@@ -346,12 +476,14 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   },
 
   geriatrics: {
+    metaTitle:
+      "Remote Care Management, Monitoring & Staffing for Geriatric Practices",
     metaDescription:
-      "Chronic Care Management for U.S. geriatric practices, nearly every patient is Medicare-eligible and chronic-condition-dense, which is where CCM pays the most.",
+      "Remote care management (CCM, RPM, TCM), revenue-cycle support, and virtual staffing for U.S. geriatric practices. HIPAA Business Associate. The highest CCM yield in medicine.",
     heroHeadline:
-      "Geriatric panels are built for CCM, Medicare-dense, chronic-dense, and often cognitively complex.",
+      "Geriatric panels are built for care management, and the admin support to sustain it.",
     heroLead:
-      "Geriatrics practices sit at the intersection of nearly 100% Medicare coverage and nearly universal multi-condition eligibility. The share of a geriatric panel that qualifies for Chronic Care Management is higher than any other specialty, frequently 60-80%, and a large portion qualify for the higher-reimbursing complex-CCM codes.",
+      "Near-universal Medicare coverage and dense, multi-condition panels make geriatrics the highest-yield fit for Chronic Care Management, with remote monitoring and transitional care close behind, plus revenue-cycle and virtual-staffing support for a small team carrying a heavy load. CCM is the flagship.",
     whyHeadline: "Geriatrics gets the highest per-panel CCM revenue in medicine.",
     whyParagraphs: [
       "Cognitive decline, polypharmacy, frailty, and cardiovascular comorbidities almost always coexist in geriatric patients. That combination pushes a substantial share of the panel into Complex CCM (99487 / 99489), which reimburses roughly double the base code.",
@@ -373,6 +505,11 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
       note: "With a substantial Complex CCM mix typical of geriatric panels, actual reimbursement often runs 30-50% higher than the base-code figure shown.",
     },
     faqs: [
+      {
+        question: "Which Zenith programs can a geriatric practice run?",
+        answer:
+          "Geriatric practices are typically eligible for Chronic Care Management, Remote Patient Monitoring, and Transitional Care Management, plus Revenue Cycle Management and virtual staffing, which apply to any practice. Eligibility is confirmed per patient and per payer at the time of service.",
+      },
       {
         question: "What share of a geriatric panel qualifies for CCM?",
         answer:

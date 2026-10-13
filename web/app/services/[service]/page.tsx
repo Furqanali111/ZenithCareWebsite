@@ -68,6 +68,7 @@ export default async function ServicePage({
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "Services", path: "/services" },
+            { name: cat.label, path: cat.href },
             { name: s.name, path },
           ]),
         ]}
@@ -99,7 +100,10 @@ export default async function ServicePage({
       </section>
 
       {/* ─── Who we serve: eligibility & billing (every service) ──────── */}
-      <section className="border-t border-border/60 bg-surface-tint">
+      <section
+        id="who-we-serve"
+        className="scroll-mt-24 border-t border-border/60 bg-surface-tint"
+      >
         <div className="section-rhythm">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal className="max-w-2xl">
@@ -140,6 +144,35 @@ export default async function ServicePage({
               </Reveal>
             </div>
 
+            {s.slug === "chronic-care-management" ? (
+              <Reveal delay={0.12} className="mt-10">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  Serving{" "}
+                  <Link
+                    href="/who-we-serve/primary-care"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    primary care
+                  </Link>
+                  ,{" "}
+                  <Link
+                    href="/who-we-serve/internal-medicine"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    internal medicine
+                  </Link>
+                  , and{" "}
+                  <Link
+                    href="/who-we-serve/geriatrics"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    geriatric
+                  </Link>{" "}
+                  practices.
+                </p>
+              </Reveal>
+            ) : null}
+
             {s.billing ? (
               <Reveal delay={0.15} className="mt-14">
                 <h3 className="font-serif text-lg font-semibold text-brand-ink">
@@ -166,29 +199,29 @@ export default async function ServicePage({
         <section className="section-rhythm">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal>
-              <div className="relative overflow-hidden rounded-3xl bg-[color:var(--color-brand-900)] px-8 py-14 text-[color:var(--color-surface-0)] md:px-14 md:py-16">
+              <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-16 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-teal-500)]/18 blur-3xl"
                 />
                 <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
                   <div>
-                    <span className="text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--color-accent-600)]">
+                    <span className="text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
                       Representative revenue
                     </span>
                     <p className="mt-5 font-serif text-5xl font-semibold leading-none tracking-tight md:text-6xl">
                       {s.revenue.value}
                     </p>
-                    <p className="mt-5 max-w-md text-sm leading-relaxed text-[color:var(--color-surface-0)]/75">
+                    <p className="mt-5 max-w-md text-sm leading-relaxed text-body-ink dark:text-[color:var(--color-surface-0)]/75">
                       {s.revenue.note}
                     </p>
                   </div>
                   <div className="flex flex-col gap-4 md:items-end">
-                    <p className="max-w-sm text-sm leading-relaxed text-[color:var(--color-surface-0)]/70 md:text-right">
-                      Plug in your real numbers to see the figure for your panel , 
+                    <p className="max-w-sm text-sm leading-relaxed text-muted-foreground md:text-right dark:text-[color:var(--color-surface-0)]/70">
+                      Plug in your real numbers to see the figure for your panel,
                       the calculator runs entirely in your browser.
                     </p>
-                    <Button asChild size="lg" variant="secondary" className="h-11 px-6 text-sm">
+                    <Button asChild size="lg" className="h-11 bg-[color:var(--color-gold-500)] px-6 text-sm text-[color:var(--color-brand-900)] hover:brightness-105">
                       <Link href="/roi-calculator">
                         Estimate your panel
                         <ArrowRight className="ml-2 size-4" aria-hidden="true" />
@@ -226,7 +259,7 @@ export default async function ServicePage({
                 <Link href="/contact">Book a 15-minute call</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-11 px-6 text-sm">
-                <Link href="/services">Explore all services</Link>
+                <Link href={cat.href}>Explore all {cat.label}</Link>
               </Button>
             </div>
           </div>

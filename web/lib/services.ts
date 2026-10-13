@@ -3,7 +3,7 @@
  * pages, the services overview, the nav mega-menu, and the sitemap.
  *
  * Three categories:
- *   - "rpm"      → Remote Patient Monitoring (Medicare care-management programs)
+ *   - "rpm"      → Care Management (Medicare care-management programs: CCM, PCM, RPM, RTM, TCM)
  *   - "rcm"      → Revenue Cycle Management (billing, coding, credentialing, A/R)
  *   - "staffing" → Virtual Staffing & Admin Support (remote medical roles)
  *
@@ -21,19 +21,19 @@ export const categoryMeta: Record<
   { label: string; blurb: string; href: string }
 > = {
   rpm: {
-    label: "Remote Patient Monitoring",
+    label: "Care Management",
     blurb: "Medicare care-management programs: CCM, PCM, RPM, RTM & TCM",
-    href: "/services#remote-patient-monitoring",
+    href: "/services/care-management",
   },
   staffing: {
     label: "Virtual Staffing & Admin Support",
     blurb: "Scribes, schedulers, receptionists, coordinators & assistants",
-    href: "/services#virtual-staffing",
+    href: "/services/virtual-staffing",
   },
   rcm: {
     label: "Revenue Cycle Management",
     blurb: "Medical billing, coding, credentialing & A/R follow-up",
-    href: "/services#revenue-cycle-management",
+    href: "/services/revenue-cycle-management",
   },
 };
 
@@ -105,7 +105,7 @@ export type Service = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* Remote Patient Monitoring, Medicare care-management programs              */
+/* Care Management, Medicare care-management programs (CCM/PCM/RPM/RTM/TCM)    */
 /* -------------------------------------------------------------------------- */
 
 // Shared Who-We-Serve eligibility for the RCM and staffing categories: every
@@ -131,14 +131,14 @@ const RPM_SERVICES: Service[] = [
     lead:
       "CCM is a Medicare program for patients living with two or more chronic conditions expected to last twelve months or longer. Zenith delivers the monthly coordination calls, care plans, and documentation these patients need, so your practice earns recurring reimbursement without adding staff workload.",
     trust: [
-      "PharmD-led clinical oversight",
+      "Clinical oversight on every account",
       "HIPAA Business Associate",
       "Documentation inside your EHR",
       "CPT 99490 / 99439 / 99487 / 99491",
     ],
     capabilitiesHeading: "What Zenith handles every month",
     capabilitiesSubtitle:
-      "PharmD-supervised clinical staff, working inside your EHR.",
+      "Trained clinical staff, working inside your EHR.",
     capabilities: [
       { icon: "phone", title: "Monthly care calls", body: "Structured check-ins with each enrolled patient on medications, symptoms, and follow-up." },
       { icon: "clipboard-list", title: "Care plan management", body: "Comprehensive, patient-specific care plans created and kept current in your EHR." },
@@ -189,14 +189,14 @@ const RPM_SERVICES: Service[] = [
     lead:
       "Some of your highest-risk patients do not have a long problem list. They have one serious condition, often managed with a specialist, that can send them to the hospital if it slips. Zenith clinical staff deliver monthly PCM outreach inside your EHR, so that one condition gets steady attention between visits. Your practice stays the billing provider.",
     trust: [
-      "PharmD-led clinical oversight",
+      "Clinical oversight on every account",
       "HIPAA Business Associate",
       "Documentation inside your EHR",
       "CPT 99424 / 99425 / 99426 / 99427",
     ],
     capabilitiesHeading: "What Zenith handles every month",
     capabilitiesSubtitle:
-      "Focused, single-condition management under PharmD oversight.",
+      "Focused, single-condition management with clinical oversight.",
     capabilities: [
       { icon: "clipboard-check", title: "Eligibility screening", body: "We find patients with one qualifying high-risk condition and confirm coverage." },
       { icon: "clipboard-list", title: "Condition-focused care plan", body: "A plan built around the single condition, with goals your provider signs." },
@@ -224,7 +224,7 @@ const RPM_SERVICES: Service[] = [
     ],
     metaTitle: "Remote Principal Care Management (PCM)",
     metaDescription:
-      "Remote Principal Care Management for U.S. practices. Monthly care management for patients with one serious, high-risk condition. PharmD-led, HIPAA Business Associate, inside your EHR.",
+      "Remote Principal Care Management for U.S. practices. Monthly care management for patients with one serious, high-risk condition. HIPAA Business Associate, inside your EHR.",
     serviceType: "Principal Care Management",
     emailSubject: "PCM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Principal Care Management.",
@@ -249,7 +249,7 @@ const RPM_SERVICES: Service[] = [
     lead:
       "Blood pressure cuffs and glucose meters only help if someone watches the numbers. Zenith staff onboard patients to their devices, review readings, and call when something drifts, so your provider hears about problems days before the next visit. Your practice stays the billing provider.",
     trust: [
-      "PharmD-supervised data review",
+      "Clinician-reviewed device data",
       "HIPAA Business Associate",
       "Readings flow into your EHR",
       "CPT 99453 / 99454 / 99457 / 99458",
@@ -284,7 +284,7 @@ const RPM_SERVICES: Service[] = [
     ],
     metaTitle: "Remote Patient Monitoring (RPM) Services",
     metaDescription:
-      "Remote Patient Monitoring for U.S. practices. Device setup, daily data review and patient outreach handled by clinical staff inside your EHR. PharmD-led and HIPAA-compliant.",
+      "Remote Patient Monitoring for U.S. practices. Device setup, daily data review and patient outreach handled by clinical staff inside your EHR. HIPAA-compliant.",
     serviceType: "Remote Patient Monitoring",
     emailSubject: "RPM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Remote Patient Monitoring.",
@@ -309,7 +309,7 @@ const RPM_SERVICES: Service[] = [
     lead:
       "Therapy plans, respiratory care and pain programs succeed or fail between appointments. RTM tracks whether patients are doing the work and how they are responding, such as therapy adherence, pain levels and function. Zenith staff collect and review that data, then reach out when progress stalls. Your practice stays the billing provider.",
     trust: [
-      "PharmD-supervised workflows",
+      "Clinician-reviewed workflows",
       "HIPAA Business Associate",
       "Data reviewed inside your EHR",
       "CPT 98975 / 98977 / 98980 / 98981",
@@ -370,7 +370,7 @@ const RPM_SERVICES: Service[] = [
     lead:
       "The days after a hospital stay are when patients are most likely to be readmitted. TCM has strict deadlines, and missing them means missing both the care and the claim. Zenith staff make the post-discharge contact on time, reconcile medications and get the follow-up visit booked. Your practice stays the billing provider.",
     trust: [
-      "PharmD-led medication reconciliation",
+      "Clinical medication reconciliation",
       "HIPAA Business Associate",
       "Documentation inside your EHR",
       "CPT 99495 / 99496",
@@ -500,7 +500,7 @@ const RCM_SERVICES: Service[] = [
     ],
     metaTitle: "Remote Medical Coding Services",
     metaDescription:
-      "Remote medical coding for U.S. practices. Accurate ICD-10, CPT and E/M coding from charts inside your EHR, with compliance review. HIPAA-compliant and PharmD-supervised.",
+      "Remote medical coding for U.S. practices. Accurate ICD-10, CPT and E/M coding from charts inside your EHR, with compliance review. HIPAA-compliant.",
     serviceType: "Medical Coding",
     emailSubject: "Medical Coding Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Coding service.",
@@ -748,7 +748,7 @@ const STAFFING_SERVICES: Service[] = [
     lead:
       "Nurses and medical assistants lose hours every day to referrals, prior authorizations and inbox messages. A Zenith care coordinator takes that work remotely, inside your EHR, so your in-house team stays focused on patients. Staffing is a flat monthly rate.",
     trust: [
-      "PharmD-supervised",
+      "Trained clinical staff",
       "HIPAA Business Associate",
       "Works inside your EHR",
       "Flat monthly rate",

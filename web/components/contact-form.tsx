@@ -113,9 +113,8 @@ export function ContactForm() {
       >
         <strong className="font-medium text-ink-strong">
           Please do not submit patient information
-        </strong>{" "}
-       , this form is for provider contact details only. Patient data
-        belongs inside your EHR under a signed BAA.
+        </strong>. This form is for provider contact details only. Patient
+        data belongs inside your EHR under a signed BAA.
       </p>
 
       <div className="grid gap-5 md:grid-cols-2">
@@ -215,7 +214,7 @@ export function ContactForm() {
           className="rounded-md border border-[color:var(--color-error-600)]/40 bg-[color:var(--color-error-600)]/5 px-4 py-3 text-sm text-[color:var(--color-error-600)]"
         >
           Your message looks like it contains patient information
-          ({humanisePhi(status.pattern)}). Please edit it out and resubmit , 
+          ({humanisePhi(status.pattern)}). Please edit it out and resubmit, 
           this form is for provider contact only.
         </div>
       ) : null}

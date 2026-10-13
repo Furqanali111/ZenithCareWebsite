@@ -28,7 +28,9 @@ export function pageMetadata({
   const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
 
   return {
-    title: fullTitle,
+    // `absolute` stops the root layout's `%s | <brand>` template from
+    // re-appending the brand, which doubled it (fullTitle already has it).
+    title: { absolute: fullTitle },
     description,
     alternates: { canonical: url },
     openGraph: {
@@ -73,12 +75,20 @@ export function organizationLd(): JsonLd {
     description: site.tagline,
     sameAs: [site.linkedin],
     // Services Zenith offers, surfaced so search + AI engines can map the
-    // brand to its offering catalogue. Mirrors the two /services/* pages.
+    // brand to its full offering catalogue across the three service
+    // categories (care management, revenue cycle, virtual staffing). Mirrors
+    // the /services/* registry.
     knowsAbout: [
       "Chronic Care Management",
-      "Patient Care Coordination",
-      "Medicare CCM billing",
-      "Care coordination staffing",
+      "Principal Care Management",
+      "Remote Patient Monitoring",
+      "Transitional Care Management",
+      "Medical Billing",
+      "Medical Coding",
+      "Provider Credentialing",
+      "Accounts Receivable Management",
+      "Virtual Medical Staffing",
+      "Medicare care-management billing",
       "HIPAA Business Associate services",
     ],
     contactPoint: {
@@ -93,7 +103,7 @@ export function organizationLd(): JsonLd {
 
 /**
  * Site-level WebSite node. Gives search + AI engines a single canonical
- * identity for the domain (name, publisher, language). No SearchAction , 
+ * identity for the domain (name, publisher, language). No SearchAction, 
  * the site has no on-site search endpoint, and claiming one Google can't
  * use would be a structured-data error.
  */
@@ -151,7 +161,7 @@ type PersonLdInput = {
   sameAs?: string[];
   /** Expertise topics as plain strings. */
   knowsAbout?: string[];
-  /** Formal credentials (e.g. "PharmD"). */
+  /** Formal credentials (e.g. "MD", "RN"). */
   hasCredential?: string[];
   /** Portrait image URL, absolute, served from our origin. */
   image?: string;

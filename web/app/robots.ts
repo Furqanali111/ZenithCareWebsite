@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 /**
  * Allow all crawlers, including AI crawlers (GPTBot, ClaudeBot, PerplexityBot,
- * Google-Extended, CCBot). Blocking them is a top-of-funnel business mistake , 
+ * Google-Extended, CCBot). Blocking them is a top-of-funnel business mistake, 
  * see WebSiteDoc/07-seo-and-aiseo-plan.md §5.
  */
 export default function robots(): MetadataRoute.Robots {
