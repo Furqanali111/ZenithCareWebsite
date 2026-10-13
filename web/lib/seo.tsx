@@ -28,7 +28,9 @@ export function pageMetadata({
   const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
 
   return {
-    title: fullTitle,
+    // `absolute` stops the root layout's `%s | <brand>` template from
+    // re-appending the brand, which doubled it (fullTitle already has it).
+    title: { absolute: fullTitle },
     description,
     alternates: { canonical: url },
     openGraph: {
