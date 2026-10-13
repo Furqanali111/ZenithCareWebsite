@@ -108,6 +108,17 @@ export type Service = {
 /* Remote Patient Monitoring, Medicare care-management programs              */
 /* -------------------------------------------------------------------------- */
 
+// Shared Who-We-Serve eligibility for the RCM and staffing categories: every
+// service in each category uses the same practice list and billing note.
+const RCM_ELIGIBLE_PRACTICES =
+  "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.";
+const RCM_BILLABLE =
+  "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.";
+const STAFFING_ELIGIBLE_PRACTICES =
+  "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.";
+const STAFFING_BILLABLE =
+  "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.";
+
 const RPM_SERVICES: Service[] = [
   {
     slug: "chronic-care-management",
@@ -449,10 +460,8 @@ const RCM_SERVICES: Service[] = [
     serviceType: "Medical Billing",
     emailSubject: "Medical Billing Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Billing service.",
-    eligiblePractices:
-      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
+    eligiblePractices: RCM_ELIGIBLE_PRACTICES,
+    billablePatients: RCM_BILLABLE,
     faqs: [
       { question: "Does Zenith bill Medicare directly?", answer: "No. Your practice stays the billing provider. Zenith staff prepare and submit claims from your system under your accounts." },
       { question: "What systems do billers work in?", answer: "Your existing practice-management and EHR platform. We confirm compatibility when scoping." },
@@ -495,10 +504,8 @@ const RCM_SERVICES: Service[] = [
     serviceType: "Medical Coding",
     emailSubject: "Medical Coding Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Coding service.",
-    eligiblePractices:
-      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
+    eligiblePractices: RCM_ELIGIBLE_PRACTICES,
+    billablePatients: RCM_BILLABLE,
     faqs: [
       { question: "Will coders change my documentation?", answer: "No. Coders assign codes from what is documented and send queries when something is unclear. Providers make any chart changes." },
       { question: "Do you code for specific specialties?", answer: "We scope by specialty, with focus on primary care, internal medicine and geriatrics." },
@@ -541,10 +548,8 @@ const RCM_SERVICES: Service[] = [
     serviceType: "Provider Credentialing",
     emailSubject: "Credentialing Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Provider Credentialing.",
-    eligiblePractices:
-      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
+    eligiblePractices: RCM_ELIGIBLE_PRACTICES,
+    billablePatients: RCM_BILLABLE,
     faqs: [
       { question: "How long does credentialing take?", answer: "Timelines vary widely by payer and application quality. We give a realistic range per payer during scoping and do not promise a fixed date." },
       { question: "Do you need our login credentials?", answer: "We work through delegated access where payers allow it, so your providers keep ownership of their accounts." },
@@ -587,10 +592,8 @@ const RCM_SERVICES: Service[] = [
     serviceType: "Accounts Receivable Management",
     emailSubject: "AR Follow-Up Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Accounts Receivable follow-up service.",
-    eligiblePractices:
-      "Any practice, any specialty. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not a patient-enrolled program. Revenue-cycle work applies to your existing claims across all payers (Medicare, Medicaid, and commercial insurance), not to specific enrolled patients.",
+    eligiblePractices: RCM_ELIGIBLE_PRACTICES,
+    billablePatients: RCM_BILLABLE,
     faqs: [
       { question: "Is this the same as medical billing?", answer: "Billing covers submitting claims and posting payments. AR follow-up focuses on collecting claims that are already late or denied. Many practices use both." },
       { question: "Do you work old claims?", answer: "Yes, within each payer's timely-filing and appeal limits. We tell you early which claims are still recoverable." },
@@ -640,10 +643,8 @@ const STAFFING_SERVICES: Service[] = [
     serviceType: "Medical Scribe Staffing",
     emailSubject: "Medical Scribe Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Scribe service.",
-    eligiblePractices:
-      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
+    eligiblePractices: STAFFING_ELIGIBLE_PRACTICES,
+    billablePatients: STAFFING_BILLABLE,
     faqs: [
       { question: "Does the scribe make clinical decisions?", answer: "No. Scribes document what the provider says and does. All clinical judgment and the final note stay with the provider." },
       { question: "Can scribes work live in the room?", answer: "Remote scribes can join by approved audio or video where your policy and patient consent allow it." },
@@ -686,10 +687,8 @@ const STAFFING_SERVICES: Service[] = [
     serviceType: "Medical Scheduler Staffing",
     emailSubject: "Medical Scheduler Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Scheduler service.",
-    eligiblePractices:
-      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
+    eligiblePractices: STAFFING_ELIGIBLE_PRACTICES,
+    billablePatients: STAFFING_BILLABLE,
     faqs: [
       { question: "Will the scheduler take calls?", answer: "Scheduling calls can be included. Full front-desk call handling is covered by our Medical Receptionist service." },
       { question: "Can the scheduler triage symptoms?", answer: "No. Clinical questions go to your clinical staff by the process you define." },
@@ -732,10 +731,8 @@ const STAFFING_SERVICES: Service[] = [
     serviceType: "Medical Receptionist Staffing",
     emailSubject: "Medical Receptionist Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Receptionist service.",
-    eligiblePractices:
-      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
+    eligiblePractices: STAFFING_ELIGIBLE_PRACTICES,
+    billablePatients: STAFFING_BILLABLE,
     faqs: [
       { question: "What happens with an urgent clinical call?", answer: "The receptionist follows your escalation script, tells emergency callers to contact emergency services and notifies your clinician." },
       { question: "Can the receptionist book appointments?", answer: "Yes, where you grant scheduling access. Heavy scheduling workloads are better served by our Medical Scheduler." },
@@ -778,10 +775,8 @@ const STAFFING_SERVICES: Service[] = [
     serviceType: "Patient Care Coordination",
     emailSubject: "Patient Care Coordinator Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Patient Care Coordinator service.",
-    eligiblePractices:
-      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
+    eligiblePractices: STAFFING_ELIGIBLE_PRACTICES,
+    billablePatients: STAFFING_BILLABLE,
     faqs: [
       { question: "How is this different from CCM?", answer: "CCM is a billable monthly clinical program for chronic patients. A care coordinator handles daily administrative and outreach work for the whole practice." },
       { question: "Can the coordinator give clinical advice?", answer: "No. Clinical questions go to your licensed staff by the process you set." },
@@ -824,10 +819,8 @@ const STAFFING_SERVICES: Service[] = [
     serviceType: "Virtual Assistant Staffing",
     emailSubject: "Virtual Assistant Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Virtual Assistant service.",
-    eligiblePractices:
-      "Any practice, any specialty. These roles support the day-to-day operations every outpatient practice has, regardless of the conditions it treats. Includes, without limitation, Family Medicine, Internal Medicine, Geriatrics, Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Orthopedics, Physical Therapy, Pain Management, OB-GYN, Dermatology, Behavioral Health and Psychiatry, Urgent Care, Pediatrics, multi-specialty groups, and FQHCs.",
-    billablePatients:
-      "Not applicable. Virtual staffing is operational and administrative support for the practice itself, not a billable patient-care program.",
+    eligiblePractices: STAFFING_ELIGIBLE_PRACTICES,
+    billablePatients: STAFFING_BILLABLE,
     faqs: [
       { question: "Can the virtual assistant see patient information?", answer: "Only if you grant it for a task, and only under a signed BAA. Many tasks need no patient data at all." },
       { question: "How is this different from a care coordinator?", answer: "A coordinator focuses on patient-facing workflows like referrals and authorizations. A virtual assistant covers general office and administrative work." },
