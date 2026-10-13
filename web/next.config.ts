@@ -77,6 +77,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // Hide the Next.js dev-tools indicator (dev-only; never rendered in prod).
+  devIndicators: false,
   // Treat .md and .mdx files alongside .tsx as pages/components.
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   turbopack: {

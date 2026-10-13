@@ -43,7 +43,7 @@ export function FaqSection({
   return (
     <section
       aria-labelledby={`${id}-heading`}
-      className="border-t border-border/60 bg-surface-tint"
+      className="border-t border-border/60 bg-background"
     >
       <div className="section-rhythm">
         <div className="mx-auto max-w-3xl px-6">

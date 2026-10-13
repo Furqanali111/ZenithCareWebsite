@@ -44,9 +44,9 @@ export function HomeHero() {
           </span>
 
           <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
-            Remote clinical staff for the work you can bill, but can&rsquo;t{" "}
+            Remote clinical support for the work your practice needs to{" "}
             <span className="relative inline-block whitespace-nowrap italic">
-              staff
+              deliver
               <span
                 aria-hidden="true"
                 className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
@@ -56,10 +56,11 @@ export function HomeHero() {
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
-            Zenith runs remote care management, revenue cycle management, and
-            virtual medical staffing for U.S. physician practices. Your practice
-            stays the billing provider; we deliver the labor. HIPAA Business
-            Associate. Inside your EHR.
+            Zenith provides remote care management, revenue cycle management,
+            and virtual medical staffing for U.S. physician practices. Your
+            practice retains billing responsibility while our team provides
+            dedicated operational and clinical support, integrated into your EHR
+            and delivered in accordance with HIPAA requirements.
           </p>
 
           <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
