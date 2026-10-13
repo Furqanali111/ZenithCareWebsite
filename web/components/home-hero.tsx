@@ -59,8 +59,7 @@ export function HomeHero() {
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
             Zenith delivers remote Chronic Care Management and Patient Care
             Coordinator staffing to U.S. primary care, internal medicine, and
-            geriatric practices. Clinically led. HIPAA Business Associate.
-            Inside your EHR.
+            geriatric practices. HIPAA Business Associate. Inside your EHR.
           </p>
 
           <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
@@ -81,8 +80,6 @@ export function HomeHero() {
 
           {/* hairline trust row, text with dividers, not pill-chips */}
           <ul className="reveal-up reveal-up-5 mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-muted-foreground">
-            <li>PharmD-led</li>
-            <li aria-hidden="true" className="h-3 w-px bg-border" />
             <li>HIPAA Business Associate</li>
             <li aria-hidden="true" className="h-3 w-px bg-border" />
             <li>Inside your EHR</li>

@@ -17,9 +17,9 @@ const PATH = "/about";
 const FOUNDER_LINKEDIN = "";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About, Clinically led by a PharmD",
+  title: "About Zenith Care Solutions",
   description:
-    "Zenith Care Solutions was founded by Ali Hassan Kaleem, PharmD, a clinical pharmacist with an oncology and bone-marrow-transplant background, to bring real clinical staff to U.S. Chronic Care Management.",
+    "Zenith Care Solutions was founded by Ali Hassan Kaleem, a clinical pharmacist with an oncology and bone-marrow-transplant background, to bring real clinical staff to U.S. Chronic Care Management.",
   path: PATH,
 });
 
@@ -43,7 +43,6 @@ export default function AboutPage() {
               "Medication Therapy Management",
               "Medicare Billing",
             ],
-            hasCredential: ["PharmD, Doctor of Pharmacy"],
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },
@@ -79,7 +78,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Credentials
+              Background
             </span>
             <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Clinical background that matters when the patient is on five
@@ -87,12 +86,7 @@ export default function AboutPage() {
             </h2>
           </header>
 
-          <Reveal className="mt-10 grid gap-6 md:grid-cols-3">
-            <CredentialCard
-              label="Education"
-              value="Doctor of Pharmacy (PharmD)"
-              detail="Five-year clinical pharmacy degree with hospital rotations."
-            />
+          <Reveal className="mt-10 grid gap-6 md:grid-cols-2">
             <CredentialCard
               label="Specialty"
               value="Oncology & BMT"

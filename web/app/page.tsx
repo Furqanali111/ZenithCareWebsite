@@ -34,7 +34,7 @@ export const metadata: Metadata = pageMetadata({
   // double-brand 78-char title).
   title: "Chronic Care Management & Care Coordination",
   description:
-    "Remote Chronic Care Management and Patient Care Coordinator staffing for U.S. physician practices. PharmD-led, HIPAA Business Associate, inside your EHR.",
+    "Remote Chronic Care Management and Patient Care Coordinator staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
   path: "/",
 });
 
@@ -66,8 +66,8 @@ export default function HomePage() {
                 Two remote-staffing programs for one clinical operation.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-body-ink">
-                Run them separately or together under one BAA. Both are
-                PharmD-supervised and work inside your EHR.
+                Run them separately or together under one BAA. Both work
+                inside your EHR.
               </p>
             </header>
           </Reveal>
@@ -206,7 +206,7 @@ export default function HomePage() {
             <Reveal className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
               <FounderMonogram initials={founder.initials} name={founder.name} />
               <div>
-                <HeroEyebrow>Clinically led</HeroEyebrow>
+                <HeroEyebrow>The founder</HeroEyebrow>
                 <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                   Zenith is run by a trained pharmacist, not a call centre.
                 </h2>
@@ -218,7 +218,7 @@ export default function HomePage() {
                   comorbidities, and the compliance posture.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
-                  <span>PharmD, Clinical Pharmacist</span>
+                  <span>Clinical Pharmacist</span>
                   <span aria-hidden="true">·</span>
                   <span>Oncology / BMT</span>
                   <span aria-hidden="true">·</span>

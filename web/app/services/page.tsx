@@ -12,7 +12,7 @@ const PATH = "/services";
 export const metadata: Metadata = pageMetadata({
   title: "Services, Care Management & Virtual Staffing",
   description:
-    "Remote Medicare care management (CCM, PCM, RPM, RTM, TCM) and virtual medical staffing (scribes, schedulers, receptionists, coordinators, assistants) for U.S. practices. PharmD-led, HIPAA.",
+    "Remote Medicare care management (CCM, PCM, RPM, RTM, TCM) and virtual medical staffing (scribes, schedulers, receptionists, coordinators, assistants) for U.S. practices. HIPAA Business Associate.",
   path: PATH,
 });
 
@@ -139,8 +139,13 @@ export default function ServicesOverviewPage() {
               <tbody className="divide-y divide-border/70 bg-card text-ink-strong">
                 {ELIGIBILITY.map((row) => (
                   <tr key={row.service}>
-                    <td className="whitespace-nowrap px-4 py-3 font-medium text-brand-accent">
-                      {row.service}
+                    <td className="whitespace-nowrap px-4 py-3 font-medium">
+                      <Link
+                        href={row.href}
+                        className="text-brand-accent hover:underline"
+                      >
+                        {row.service}
+                      </Link>
                     </td>
                     <td className="px-4 py-3 leading-snug">{row.practices}</td>
                     <td className="px-4 py-3 leading-snug">{row.billing}</td>
@@ -252,36 +257,43 @@ function ServiceCategorySection({
 const ELIGIBILITY = [
   {
     service: "CCM",
+    href: "/services/chronic-care-management#who-we-serve",
     practices: "Family Medicine, Internal Medicine, Geriatrics, General Practice",
     billing: "Medicare Part B, 2+ chronic conditions, 12+ months, documented consent",
   },
   {
     service: "PCM",
+    href: "/services/principal-care-management#who-we-serve",
     practices: "Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Primary Care",
     billing: "Medicare Part B, 1 high-risk condition, 3+ months",
   },
   {
     service: "RPM",
+    href: "/services/remote-patient-monitoring#who-we-serve",
     practices: "Cardiology, Endocrinology, Pulmonology, Nephrology, Primary Care",
     billing: "Medicare Part B, acute/chronic condition, device data, consent",
   },
   {
     service: "RTM",
+    href: "/services/remote-therapeutic-monitoring#who-we-serve",
     practices: "Orthopedics, PT/PM&R, Pain Management, Pulmonology",
     billing: "Respiratory/MSK monitoring, FDA-defined device or app, consent",
   },
   {
     service: "TCM",
+    href: "/services/transitional-care-management#who-we-serve",
     practices: "Hospitalist, Cardiology, Primary Care, Internal Medicine",
     billing: "Recently discharged patients, contact within 2 business days, visit within 7 to 14 days",
   },
   {
     service: "Revenue Cycle Management",
+    href: "#revenue-cycle-management",
     practices: "Any practice, any specialty",
     billing: "Works on existing claims across all payers, not patient-enrolled",
   },
   {
     service: "Virtual Staffing",
+    href: "#virtual-staffing",
     practices: "Any practice, any specialty",
     billing: "Administrative and operational support, not a billable program",
   },

@@ -151,7 +151,7 @@ type PersonLdInput = {
   sameAs?: string[];
   /** Expertise topics as plain strings. */
   knowsAbout?: string[];
-  /** Formal credentials (e.g. "PharmD"). */
+  /** Formal credentials (e.g. "MD", "RN"). */
   hasCredential?: string[];
   /** Portrait image URL, absolute, served from our origin. */
   image?: string;

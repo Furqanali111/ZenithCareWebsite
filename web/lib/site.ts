@@ -36,7 +36,7 @@ export const socials = [
 
 /** Founder identity, shared across home, about, and blog bylines. */
 export const founder = {
-  name: "Ali Hassan Kaleem, PharmD",
+  name: "Ali Hassan Kaleem",
   initials: "AHK",
   aboutUrl: "/about",
 } as const;

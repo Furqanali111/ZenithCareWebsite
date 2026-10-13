@@ -13,12 +13,12 @@ const SERVICES = services
 // Markdown template if this ever grows past ~2× its current size.
 const HEADER = `# ${site.name}
 
-> Remote Chronic Care Management (CCM) for U.S. primary care, internal medicine, and geriatric practices. Clinically led by a PharmD. HIPAA Business Associate. We provide the care-coordination staff work; the physician practice remains the billing provider under CMS CCM CPT codes.
+> Remote Chronic Care Management (CCM) for U.S. primary care, internal medicine, and geriatric practices. HIPAA Business Associate. We provide the care-coordination staff work; the physician practice remains the billing provider under CMS CCM CPT codes.
 
 ## About
 
 - **Legal entity**: Zenith Care Solutions LLC (Wyoming)
-- **Founder**: Ali Hassan Kaleem, PharmD, clinical pharmacist with oncology / BMT background
+- **Founder**: Ali Hassan Kaleem, clinical pharmacist with oncology / BMT background
 - **Service area**: United States
 - **Target customers**: physician practices with Medicare patient panels (two or more chronic conditions)
 - **We do not**: bill Medicare directly, operate a clinic, see patients ourselves, or hold PHI outside a signed BAA

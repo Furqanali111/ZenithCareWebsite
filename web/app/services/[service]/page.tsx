@@ -99,7 +99,10 @@ export default async function ServicePage({
       </section>
 
       {/* ─── Who we serve: eligibility & billing (every service) ──────── */}
-      <section className="border-t border-border/60 bg-surface-tint">
+      <section
+        id="who-we-serve"
+        className="scroll-mt-24 border-t border-border/60 bg-surface-tint"
+      >
         <div className="section-rhythm">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal className="max-w-2xl">
@@ -139,6 +142,35 @@ export default async function ServicePage({
                 </p>
               </Reveal>
             </div>
+
+            {s.slug === "chronic-care-management" ? (
+              <Reveal delay={0.12} className="mt-10">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  Serving{" "}
+                  <Link
+                    href="/who-we-serve/primary-care"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    primary care
+                  </Link>
+                  ,{" "}
+                  <Link
+                    href="/who-we-serve/internal-medicine"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    internal medicine
+                  </Link>
+                  , and{" "}
+                  <Link
+                    href="/who-we-serve/geriatrics"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    geriatric
+                  </Link>{" "}
+                  practices.
+                </p>
+              </Reveal>
+            ) : null}
 
             {s.billing ? (
               <Reveal delay={0.15} className="mt-14">

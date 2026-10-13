@@ -63,8 +63,7 @@ export default function OpenGraphImage() {
               lineHeight: 1.4,
             }}
           >
-            Clinically led by a PharmD. HIPAA Business Associate. Built for
-            Medicare patient panels.
+            HIPAA Business Associate. Built for Medicare patient panels.
           </div>
         </div>
 
