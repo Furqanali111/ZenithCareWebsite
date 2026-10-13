@@ -73,12 +73,20 @@ export function organizationLd(): JsonLd {
     description: site.tagline,
     sameAs: [site.linkedin],
     // Services Zenith offers, surfaced so search + AI engines can map the
-    // brand to its offering catalogue. Mirrors the two /services/* pages.
+    // brand to its full offering catalogue across the three service
+    // categories (care management, revenue cycle, virtual staffing). Mirrors
+    // the /services/* registry.
     knowsAbout: [
       "Chronic Care Management",
-      "Patient Care Coordination",
-      "Medicare CCM billing",
-      "Care coordination staffing",
+      "Principal Care Management",
+      "Remote Patient Monitoring",
+      "Transitional Care Management",
+      "Medical Billing",
+      "Medical Coding",
+      "Provider Credentialing",
+      "Accounts Receivable Management",
+      "Virtual Medical Staffing",
+      "Medicare care-management billing",
       "HIPAA Business Associate services",
     ],
     contactPoint: {
