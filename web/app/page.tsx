@@ -29,6 +29,13 @@ const COMPLEX_MIX_MONTHLY =
   Math.round(ANCHOR_PATIENTS * (1 - COMPLEX_MIX_FRACTION)) * CPT_RATES["99490"] +
   Math.round(ANCHOR_PATIENTS * COMPLEX_MIX_FRACTION) * CPT_RATES["99487"];
 
+// The three service lines for the home preview, linking to each category hub.
+const HOME_CATEGORIES = [
+  { meta: categoryMeta.rpm, icon: <Activity className="size-5" aria-hidden="true" /> },
+  { meta: categoryMeta.rcm, icon: <Receipt className="size-5" aria-hidden="true" /> },
+  { meta: categoryMeta.staffing, icon: <Users className="size-5" aria-hidden="true" /> },
+];
+
 export const metadata: Metadata = pageMetadata({
   title: "Care Management, Revenue Cycle & Virtual Staffing",
   description:
@@ -55,56 +62,47 @@ export default function HomePage() {
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
 
-      {/* ─── Services preview ────────────────────────────────────────── */}
+      {/* ─── Service lines (three categories) ────────────────────────── */}
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
             <header className="max-w-2xl">
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                Two remote-staffing programs for one clinical operation.
+                Three service lines. One operational partner.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-body-ink">
-                Run them separately or together under one BAA. Both work
-                inside your EHR.
+                Care management, revenue cycle, and virtual staffing, run inside
+                your systems under one BAA. Take one line or all three.
               </p>
             </header>
           </Reveal>
 
-          <div className="mt-12 grid items-stretch gap-6 md:grid-cols-2">
-            <Reveal delay={0.05} className="h-full">
-              <ServiceCard
-                image="/services/ccm.jpg"
-                imageAlt="Clinician documenting care on a laptop beside a stethoscope"
-                icon={<HeartPulse className="size-4" aria-hidden="true" />}
-                label="Reimbursed by Medicare"
-                title="Chronic Care Management"
-                teaser="End-to-end CCM for patients with two or more chronic conditions, your practice bills, Zenith delivers the clinical labor."
-                body="End-to-end CCM for patients with two or more chronic conditions. Your practice bills the CPT codes; Zenith delivers the clinical labor."
-                href="/services/chronic-care-management"
-                bullets={[
-                  "20+ min / month of non-face-to-face care coordination per patient",
-                  "CPT 99490 / 99439 / 99487 / 99489 / 99491 / 99437",
-                  "Audit-ready documentation and time logs in your EHR",
-                ]}
-              />
-            </Reveal>
-            <Reveal delay={0.17} className="h-full">
-              <ServiceCard
-                image="/services/pcc.jpg"
-                imageAlt="Care coordinator on a call while working at a laptop"
-                icon={<UserCog className="size-4" aria-hidden="true" />}
-                label="Flat monthly rate"
-                title="Patient Care Coordinator"
-                teaser="Remote coordinators for the admin that clogs your clinical team, pre-visit prep, referrals, prior auths, inbox triage."
-                body="Remote coordinators for pre-visit prep, referral tracking, prior auths, inbox triage, and care-gap outreach, so your in-house team stays on clinical work."
-                href="/services/patient-care-coordinator"
-                bullets={[
-                  "Pre-visit chart review and no-show follow-up",
-                  "Referrals, prior authorizations, insurance verification",
-                  "Portal inbox triage and panel-level outreach",
-                ]}
-              />
-            </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {HOME_CATEGORIES.map(({ meta, icon }, i) => (
+              <Reveal key={meta.href} delay={(i % 3) * 0.08} className="h-full">
+                <Link
+                  href={meta.href}
+                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                >
+                  <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                    {icon}
+                  </span>
+                  <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink group-hover:text-brand-accent">
+                    {meta.label}
+                  </h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
+                    {meta.blurb}
+                  </p>
+                  <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
+                    Explore
+                    <ArrowRight
+                      className="size-4 transition-transform group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

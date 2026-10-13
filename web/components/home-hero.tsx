@@ -56,9 +56,10 @@ export function HomeHero() {
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
-            Zenith delivers remote Chronic Care Management and Patient Care
-            Coordinator staffing to U.S. primary care, internal medicine, and
-            geriatric practices. HIPAA Business Associate. Inside your EHR.
+            Zenith runs remote care management, revenue cycle management, and
+            virtual medical staffing for U.S. physician practices. Your practice
+            stays the billing provider; we deliver the labor. HIPAA Business
+            Associate. Inside your EHR.
           </p>
 
           <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
