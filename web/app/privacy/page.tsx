@@ -48,7 +48,7 @@ export default function PrivacyPage() {
           <p>
             This policy covers only the Site. It does <strong>not</strong>{" "}
             cover the protected health information (PHI) we handle under
-            separate Business Associate Agreements with client practices , 
+            separate Business Associate Agreements with client practices, 
             that information is governed by HIPAA, HITECH, our BAA with
             each client, and our internal privacy and security safeguards.{" "}
             <strong>No PHI is collected or stored through this Site.</strong>

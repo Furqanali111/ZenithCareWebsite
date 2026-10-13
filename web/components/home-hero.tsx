@@ -36,12 +36,11 @@ export function HomeHero() {
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
-          <span className="reveal-up reveal-up-1 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
-            <span
-              aria-hidden="true"
-              className="size-1.5 rounded-full bg-brand-accent"
-            />
-            For U.S. physician practices
+          <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
+            {/* 0.5px down: optically centers all-caps (empty descender space). */}
+            <span className="inline-block [transform:translateY(0.5px)]">
+              For U.S. physician practices
+            </span>
           </span>
 
           <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
@@ -57,10 +56,10 @@ export function HomeHero() {
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
-            Zenith delivers remote Chronic Care Management and Patient Care
-            Coordinator staffing to U.S. primary care, internal medicine, and
-            geriatric practices. Clinically led. HIPAA Business Associate.
-            Inside your EHR.
+            Zenith runs remote care management, revenue cycle management, and
+            virtual medical staffing for U.S. physician practices. Your practice
+            stays the billing provider; we deliver the labor. HIPAA Business
+            Associate. Inside your EHR.
           </p>
 
           <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
@@ -81,8 +80,6 @@ export function HomeHero() {
 
           {/* hairline trust row, text with dividers, not pill-chips */}
           <ul className="reveal-up reveal-up-5 mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-muted-foreground">
-            <li>PharmD-led</li>
-            <li aria-hidden="true" className="h-3 w-px bg-border" />
             <li>HIPAA Business Associate</li>
             <li aria-hidden="true" className="h-3 w-px bg-border" />
             <li>Inside your EHR</li>

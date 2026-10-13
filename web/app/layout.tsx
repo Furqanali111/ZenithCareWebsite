@@ -61,7 +61,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name}, Remote Chronic Care Management for U.S. Practices`,
+    default: `${site.name}, Care Management, RCM & Virtual Staffing for U.S. Practices`,
     template: `%s | ${site.name}`,
   },
   description: site.tagline,

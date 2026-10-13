@@ -7,9 +7,9 @@ import { services as serviceRegistry } from "./services";
 export const site = {
   name: "Zenith Care Solutions",
   tagline:
-    "Remote Chronic Care Management for U.S. primary care and internal medicine practices.",
+    "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
   url:
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://zenithcaresolutions.com",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://thezcs.com",
   email:
     process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@thezcs.com",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
@@ -36,7 +36,7 @@ export const socials = [
 
 /** Founder identity, shared across home, about, and blog bylines. */
 export const founder = {
-  name: "Ali Hassan Kaleem, PharmD",
+  name: "Ali Hassan Kaleem",
   initials: "AHK",
   aboutUrl: "/about",
 } as const;

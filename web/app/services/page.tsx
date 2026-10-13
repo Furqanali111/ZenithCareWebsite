@@ -1,10 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Activity, ArrowRight, Receipt, Users } from "lucide-react";
+import { Activity, Receipt, Users } from "lucide-react";
 import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
+import { ServiceGrid } from "@/components/service-grid";
 import { servicesByCategory, categoryMeta, type Service } from "@/lib/services";
 
 const PATH = "/services";
@@ -12,7 +13,7 @@ const PATH = "/services";
 export const metadata: Metadata = pageMetadata({
   title: "Services, Care Management & Virtual Staffing",
   description:
-    "Remote Medicare care management (CCM, PCM, RPM, RTM, TCM) and virtual medical staffing (scribes, schedulers, receptionists, coordinators, assistants) for U.S. practices. PharmD-led, HIPAA.",
+    "Remote Medicare care management (CCM, PCM, RPM, RTM, TCM) and virtual medical staffing (scribes, schedulers, receptionists, coordinators, assistants) for U.S. practices. HIPAA Business Associate.",
   path: PATH,
 });
 
@@ -42,7 +43,7 @@ export default function ServicesOverviewPage() {
         revenue and recovers staff time, without adding headcount.
       </PageHero>
 
-      {/* ─── Remote Patient Monitoring ───────────────────────────────── */}
+      {/* ─── Care Management ─────────────────────────────────────────── */}
       <ServiceCategorySection
         id="remote-patient-monitoring"
         icon={<Activity className="size-5" aria-hidden="true" />}
@@ -139,8 +140,13 @@ export default function ServicesOverviewPage() {
               <tbody className="divide-y divide-border/70 bg-card text-ink-strong">
                 {ELIGIBILITY.map((row) => (
                   <tr key={row.service}>
-                    <td className="whitespace-nowrap px-4 py-3 font-medium text-brand-accent">
-                      {row.service}
+                    <td className="whitespace-nowrap px-4 py-3 font-medium">
+                      <Link
+                        href={row.href}
+                        className="text-brand-accent hover:underline"
+                      >
+                        {row.service}
+                      </Link>
                     </td>
                     <td className="px-4 py-3 leading-snug">{row.practices}</td>
                     <td className="px-4 py-3 leading-snug">{row.billing}</td>
@@ -216,30 +222,7 @@ function ServiceCategorySection({
           <p className="mt-4 text-base leading-relaxed text-body-ink">{blurb}</p>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => (
-            <Reveal key={s.slug} delay={(i % 3) * 0.08} className="h-full">
-              <Link
-                href={`/services/${s.slug}`}
-                className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
-              >
-                <h3 className="font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">
-                  {s.name}
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
-                  {s.shortDesc}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
-                  Learn more
-                  <ArrowRight
-                    className="size-4 transition-transform group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <ServiceGrid services={services} />
       </div>
     </section>
   );
@@ -252,36 +235,43 @@ function ServiceCategorySection({
 const ELIGIBILITY = [
   {
     service: "CCM",
+    href: "/services/chronic-care-management#who-we-serve",
     practices: "Family Medicine, Internal Medicine, Geriatrics, General Practice",
     billing: "Medicare Part B, 2+ chronic conditions, 12+ months, documented consent",
   },
   {
     service: "PCM",
+    href: "/services/principal-care-management#who-we-serve",
     practices: "Cardiology, Endocrinology, Pulmonology, Nephrology, Neurology, Primary Care",
     billing: "Medicare Part B, 1 high-risk condition, 3+ months",
   },
   {
     service: "RPM",
+    href: "/services/remote-patient-monitoring#who-we-serve",
     practices: "Cardiology, Endocrinology, Pulmonology, Nephrology, Primary Care",
     billing: "Medicare Part B, acute/chronic condition, device data, consent",
   },
   {
     service: "RTM",
+    href: "/services/remote-therapeutic-monitoring#who-we-serve",
     practices: "Orthopedics, PT/PM&R, Pain Management, Pulmonology",
     billing: "Respiratory/MSK monitoring, FDA-defined device or app, consent",
   },
   {
     service: "TCM",
+    href: "/services/transitional-care-management#who-we-serve",
     practices: "Hospitalist, Cardiology, Primary Care, Internal Medicine",
     billing: "Recently discharged patients, contact within 2 business days, visit within 7 to 14 days",
   },
   {
     service: "Revenue Cycle Management",
+    href: "#revenue-cycle-management",
     practices: "Any practice, any specialty",
     billing: "Works on existing claims across all payers, not patient-enrolled",
   },
   {
     service: "Virtual Staffing",
+    href: "#virtual-staffing",
     practices: "Any practice, any specialty",
     billing: "Administrative and operational support, not a billable program",
   },

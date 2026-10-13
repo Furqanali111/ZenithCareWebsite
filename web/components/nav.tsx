@@ -119,7 +119,7 @@ export function Nav() {
 type Item = { label: string; href: string };
 
 /**
- * Services mega-menu, a two-column panel (Remote Patient Monitoring /
+ * Services mega-menu, a two-column panel (Care Management /
  * Virtual Staffing & Admin Support), each column listing its full-name
  * services and a "See all" link. Reads the service registry by category, so
  * it never drifts from the pages. Hover + keyboard (:focus-within) open it.
@@ -127,9 +127,11 @@ type Item = { label: string; href: string };
 function ServicesMegaMenu() {
   return (
     <div className="group relative">
-      <span
-        tabIndex={0}
-        className="inline-flex cursor-default items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
+      {/* Clickable → the /services overview; hover/focus still opens the
+          mega-menu (the panel is a group-hover sibling). */}
+      <Link
+        href="/services"
+        className="inline-flex items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
       >
         Services
         <svg
@@ -146,7 +148,7 @@ function ServicesMegaMenu() {
             strokeLinejoin="round"
           />
         </svg>
-      </span>
+      </Link>
       {/* Wide 3-column panel. Anchored at the trigger then shifted left so its
           left edge lands on the nav's content edge, gives roomy columns that
           hold the full service names on one line, and keeps the panel on-screen
@@ -246,7 +248,7 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
         </svg>
       </span>
       {/* Dropdown panel. `pt-3` on the OUTER wrapper (not margin on the card)
-          keeps the cursor-hit area continuous between trigger and card , 
+          keeps the cursor-hit area continuous between trigger and card, 
           `mt-3` previously left a 12px dead-zone that closed the menu. */}
       <div
         role="menu"
