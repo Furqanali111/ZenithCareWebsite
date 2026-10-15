@@ -159,7 +159,7 @@ export default function ServicesOverviewPage() {
       </section>
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-surface-tint">
+      <section className="border-t border-border/60 bg-background">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">

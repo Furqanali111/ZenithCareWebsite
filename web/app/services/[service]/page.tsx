@@ -196,8 +196,7 @@ export default async function ServicePage({
 
       {/* ─── Revenue band (care-management programs only) ─────────────── */}
       {s.revenue ? (
-        <section className="border-t border-border/60 bg-surface-tint">
-          <div className="section-rhythm">
+        <section className="section-rhythm">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal>
               <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-16 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
@@ -233,7 +232,6 @@ export default async function ServicePage({
               </div>
             </Reveal>
           </div>
-          </div>
         </section>
       ) : null}
 
@@ -242,11 +240,11 @@ export default async function ServicePage({
         heading={`${s.name}: common questions`}
         idPrefix={`${s.slug}-faq`}
         items={s.faqs}
-        tone={s.revenue ? "default" : "surface"}
+        tone="surface"
       />
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className={`border-t border-border/60 ${s.revenue ? "bg-surface-tint" : "bg-background"}`}>
+      <section className="border-t border-border/60 bg-background">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
