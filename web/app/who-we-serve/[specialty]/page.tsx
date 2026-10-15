@@ -189,7 +189,8 @@ export default async function WhoWeServePage({
       </section>
 
       {/* ─── Representative revenue ──────────────────────────────────── */}
-      <section className="section-rhythm">
+      <section className="border-t border-border/60 bg-surface-tint">
+        <div className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
@@ -239,6 +240,7 @@ export default async function WhoWeServePage({
           </div>
           </Reveal>
         </div>
+        </div>
       </section>
 
       {/* ─── FAQ (specialty-specific; emits FAQPage JSON-LD) ─────────── */}
@@ -249,7 +251,7 @@ export default async function WhoWeServePage({
       />
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-background">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">

@@ -244,9 +244,8 @@ export default function HomePage() {
       </section>
 
       {/* ─── How it works ─────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-surface-tint">
-        <div className="section-rhythm">
-          <div className="mx-auto max-w-7xl px-6">
+      <section className="section-rhythm">
+        <div className="mx-auto max-w-7xl px-6">
             <Reveal>
               <header className="max-w-2xl">
                 <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -275,12 +274,12 @@ export default function HomePage() {
               </ol>
             </Reveal>
           </div>
-        </div>
       </section>
 
       {/* ─── Revenue math navy band, complex-mix ceiling vs the hero's base floor ─ */}
-      <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+      <section className="border-t border-border/60 bg-surface-tint">
+        <div className="section-rhythm">
+          <div className="mx-auto max-w-7xl px-6">
           <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
             <div
@@ -331,6 +330,7 @@ export default function HomePage() {
             </div>
           </div>
           </Reveal>
+          </div>
         </div>
       </section>
 
