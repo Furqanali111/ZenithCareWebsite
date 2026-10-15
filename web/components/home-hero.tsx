@@ -44,9 +44,9 @@ export function HomeHero() {
           </span>
 
           <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
-            Remote clinical support for the work your practice needs to{" "}
+            Care management, billing, and staffing for your{" "}
             <span className="relative inline-block whitespace-nowrap italic">
-              deliver
+              practice
               <span
                 aria-hidden="true"
                 className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
@@ -56,11 +56,9 @@ export function HomeHero() {
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
-            Zenith provides remote care management, revenue cycle management,
-            and virtual medical staffing for U.S. physician practices. Your
-            practice retains billing responsibility while our team provides
-            dedicated operational and clinical support, integrated into your EHR
-            and delivered in accordance with HIPAA requirements.
+            Zenith Care Solutions provides trained clinical and administrative
+            staff who work inside your EHR, under one BAA. Your practice stays
+            the billing provider. You keep the revenue.
           </p>
 
           <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
@@ -68,10 +66,10 @@ export function HomeHero() {
               <Link href="/contact">Book a 15-minute call</Link>
             </Button>
             <Link
-              href="/roi-calculator"
+              href="/services"
               className="group inline-flex items-center gap-1.5 text-sm font-medium text-body-ink transition-colors hover:text-brand-ink"
             >
-              Estimate your ROI
+              See our services
               <ArrowRight
                 className="size-4 transition-transform group-hover:translate-x-0.5"
                 aria-hidden="true"

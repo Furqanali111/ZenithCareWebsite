@@ -71,8 +71,8 @@ export default function HomePage() {
                 Three service lines. One operational partner.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-body-ink">
-                Care management, revenue cycle, and virtual staffing, run inside
-                your systems under one BAA. Take one line or all three.
+                Everything a practice needs to capture unbilled revenue and
+                recover staff hours, under one BAA. Take one line or all three.
               </p>
             </header>
           </Reveal>
@@ -153,7 +153,10 @@ export default function HomePage() {
             />
             <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
               <div>
-                <span className="text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
+                <p className="text-sm text-body-ink dark:text-[color:var(--color-surface-0)]/70">
+                  For practices running care management programs:
+                </p>
+                <span className="mt-3 inline-block text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
                   With Complex-CCM mix
                 </span>
                 <p className="mt-5 font-serif text-6xl font-semibold tracking-tight leading-none md:text-7xl">
@@ -237,12 +240,12 @@ export default function HomePage() {
           <Reveal>
           <div className="rounded-3xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-              Ready to see the math for your practice?
+              Ready to find out if we are a fit?
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
               Fifteen minutes. We confirm your eligible patient count or scope
-              the coordinator role, walk through the numbers, and tell you
-              honestly whether we&rsquo;re a fit.
+              the role, walk through the numbers, and tell you honestly whether
+              Zenith is the right partner.
             </p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="h-11 px-6 text-sm">
