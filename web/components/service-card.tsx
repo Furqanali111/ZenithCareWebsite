@@ -60,7 +60,7 @@ export function ServiceCard({
           <div className="relative h-44 w-full overflow-hidden">
             <Image
               src={image}
-              alt=""
+              alt={imageAlt}
               fill
               sizes="(max-width: 768px) 100vw, 45vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"

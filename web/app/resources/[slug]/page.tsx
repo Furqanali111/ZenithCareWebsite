@@ -95,7 +95,7 @@ export default async function PostPage({
         {post.coverImage ? (
           <BrandFigure
             src={post.coverImage}
-            alt=""
+            alt={post.title}
             className="mt-10 aspect-[16/8]"
             sizes="(min-width: 768px) 720px, 100vw"
             priority

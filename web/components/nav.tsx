@@ -29,7 +29,7 @@ export function Nav() {
           {/* Color logo on the light header; white variant when the header
               turns dark (bg-background is cyan-ink in dark mode). */}
           <img
-            src="/logo.svg"
+            src="/logo.webp"
             alt={site.name}
             width={240}
             height={72}

@@ -81,7 +81,7 @@ export function Footer() {
             >
               {/* Color logo on the light footer; white when the footer is dark. */}
               <img
-                src="/logo.svg"
+                src="/logo.webp"
                 alt={site.name}
                 width={272}
                 height={88}

@@ -93,7 +93,7 @@ export default async function WhoWeServePage({
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
             <BrandFigure
-              src={`/specialties/${specialty}.jpg`}
+              src={`/specialties/${specialty}.webp`}
               alt={`Care setting typical of ${label.toLowerCase()} practices`}
               className="aspect-[16/7]"
               sizes="(min-width: 768px) 960px, 100vw"
