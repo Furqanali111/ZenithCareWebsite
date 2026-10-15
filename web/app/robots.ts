@@ -6,10 +6,12 @@ import { site } from "@/lib/site";
  * Google-Extended, CCBot). Blocking them is a top-of-funnel business mistake,
  * see WebSiteDoc/07-seo-and-aiseo-plan.md §5.
  *
- * The `host` directive declares the canonical non-www origin.
  * The sitemap URL is hardcoded to the non-www origin so that even if this
  * file is served from www (before the redirect fires), crawlers still follow
- * the canonical sitemap.
+ * the canonical sitemap. The `host` directive was removed because it is a
+ * Yandex-only extension that Google and Bing flag as a warning/syntax error.
+ * The canonical origin is already declared via sitemap URL, canonical tags,
+ * and the www-to-non-www 308 redirect.
  */
 export default function robots(): MetadataRoute.Robots {
   // Strip trailing slash; always use the non-www canonical.
@@ -18,6 +20,5 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [{ userAgent: "*", allow: "/" }],
     sitemap: `${base}/sitemap.xml`,
-    host: base,
   };
 }
