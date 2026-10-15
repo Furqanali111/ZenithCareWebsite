@@ -11,9 +11,9 @@ import { servicesByCategory, categoryMeta, type Service } from "@/lib/services";
 const PATH = "/services";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Services, Care Management & Virtual Staffing",
+  title: "Our Services",
   description:
-    "Remote Medicare care management (CCM, PCM, RPM, RTM, TCM) and virtual medical staffing (scribes, schedulers, receptionists, coordinators, assistants) for U.S. practices. HIPAA Business Associate.",
+    "Care management, revenue cycle and virtual staffing for U.S. practices. CCM, RPM, billing, coding, scribes, schedulers and more.",
   path: PATH,
 });
 
@@ -33,7 +33,7 @@ export default function ServicesOverviewPage() {
 
       <PageHero
         eyebrow="Services"
-        title="Capture unbilled Medicare revenue, and the admin hours you can't hire for."
+        title="Capture unbilled revenue and the admin hours you can't hire for."
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
       >
