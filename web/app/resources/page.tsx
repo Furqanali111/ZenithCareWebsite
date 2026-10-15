@@ -51,7 +51,7 @@ export default function ResourcesPage() {
                 {post.coverImage ? (
                   <BrandFigure
                     src={post.coverImage}
-                    alt=""
+                    alt={post.title}
                     className="aspect-[16/9] rounded-none border-0"
                     sizes="(min-width: 1024px) 24rem, (min-width: 640px) 50vw, 100vw"
                   />
