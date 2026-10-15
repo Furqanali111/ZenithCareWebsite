@@ -42,6 +42,11 @@ export default function ContactPage() {
             patient-identifying information in any channel; patient data
             belongs in your EHR under a signed BAA.
           </p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Most discovery calls cover eligible panel size, EHR compatibility,
+            and a ballpark timeline to first billing. No commitment, no pitch
+            deck, just the numbers for your practice.
+          </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
             {hasWhatsApp ? (

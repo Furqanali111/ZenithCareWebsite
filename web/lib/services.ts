@@ -127,7 +127,7 @@ const RPM_SERVICES: Service[] = [
     name: "Chronic Care Management (CCM)",
     shortDesc: "Recurring monthly coordination for patients with 2+ chronic conditions.",
     title:
-      "Chronic Care Management that turns your highest-need patients into recurring revenue.",
+      "Chronic Care Management that turns chronic patients into revenue.",
     lead:
       "CCM is a Medicare program for patients living with two or more chronic conditions expected to last twelve months or longer. Zenith delivers the monthly coordination calls, care plans, and documentation these patients need, so your practice earns recurring reimbursement without adding staff workload.",
     trust: [
@@ -162,9 +162,9 @@ const RPM_SERVICES: Service[] = [
       { title: "Deliver monthly coordination", body: "Our clinical team spends 20+ minutes per patient on calls, care plans, and medication reconciliation, inside your EHR." },
       { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99490 and add-ons; we invoice for the clinical labor. Monthly and predictable." },
     ],
-    metaTitle: "Chronic Care Management (CCM) Services",
+    metaTitle: "Chronic Care Management (CCM)",
     metaDescription:
-      "Remote Chronic Care Management for U.S. practices. Zenith delivers monthly CCM coordination, care plans, and CPT 99490 documentation inside your EHR. Your practice bills; we deliver.",
+      "Remote CCM for U.S. practices. Monthly coordination, care plans and CPT 99490 documentation inside your EHR.",
     serviceType: "Chronic Care Management",
     emailSubject: "CCM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about CCM.",
@@ -185,7 +185,7 @@ const RPM_SERVICES: Service[] = [
     name: "Principal Care Management (PCM)",
     shortDesc: "Focused monthly management for one serious, high-risk condition.",
     title:
-      "Principal Care Management for the patient whose one condition needs close watching.",
+      "Principal Care Management for one serious condition.",
     lead:
       "Some of your highest-risk patients do not have a long problem list. They have one serious condition, often managed with a specialist, that can send them to the hospital if it slips. Zenith clinical staff deliver monthly PCM outreach inside your EHR, so that one condition gets steady attention between visits. Your practice stays the billing provider.",
     trust: [
@@ -222,9 +222,9 @@ const RPM_SERVICES: Service[] = [
       { title: "Deliver monthly management", body: "Clinical staff spend the required time each month on that condition and document it." },
       { title: "You bill, Zenith invoices", body: "Your practice bills the PCM codes. Zenith invoices you for the clinical labor." },
     ],
-    metaTitle: "Remote Principal Care Management (PCM)",
+    metaTitle: "Principal Care Management (PCM)",
     metaDescription:
-      "Remote Principal Care Management for U.S. practices. Monthly care management for patients with one serious, high-risk condition. HIPAA Business Associate, inside your EHR.",
+      "Remote PCM for U.S. practices. Monthly management for patients with one serious, high-risk condition, inside your EHR.",
     serviceType: "Principal Care Management",
     emailSubject: "PCM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Principal Care Management.",
@@ -282,9 +282,9 @@ const RPM_SERVICES: Service[] = [
       { title: "Onboard and monitor", body: "We set up the patient, confirm readings arrive, and review them on a regular schedule." },
       { title: "Escalate and document", body: "Concerning readings go to your clinician fast, and every contact is logged for billing." },
     ],
-    metaTitle: "Remote Patient Monitoring (RPM) Services",
+    metaTitle: "Remote Patient Monitoring (RPM)",
     metaDescription:
-      "Remote Patient Monitoring for U.S. practices. Device setup, daily data review and patient outreach handled by clinical staff inside your EHR. HIPAA-compliant.",
+      "RPM for U.S. practices. Device setup, daily data review and patient outreach by clinical staff inside your EHR.",
     serviceType: "Remote Patient Monitoring",
     emailSubject: "RPM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Remote Patient Monitoring.",
@@ -305,7 +305,7 @@ const RPM_SERVICES: Service[] = [
     name: "Remote Therapeutic Monitoring (RTM)",
     shortDesc: "Monitor therapy adherence and functional status remotely.",
     title:
-      "Remote Therapeutic Monitoring for patients whose recovery happens at home.",
+      "Therapeutic Monitoring for recovery that happens at home.",
     lead:
       "Therapy plans, respiratory care and pain programs succeed or fail between appointments. RTM tracks whether patients are doing the work and how they are responding, such as therapy adherence, pain levels and function. Zenith staff collect and review that data, then reach out when progress stalls. Your practice stays the billing provider.",
     trust: [
@@ -344,9 +344,9 @@ const RPM_SERVICES: Service[] = [
       { title: "Monitor and engage", body: "Staff review data and contact patients who fall behind." },
       { title: "Report and bill", body: "You receive organized monthly records, bill the codes, and Zenith invoices for the labor." },
     ],
-    metaTitle: "Remote Therapeutic Monitoring (RTM) Services",
+    metaTitle: "Therapeutic Monitoring (RTM)",
     metaDescription:
-      "Remote Therapeutic Monitoring for U.S. practices. Track therapy adherence, pain and function between visits with clinical staff working inside your EHR.",
+      "RTM for U.S. practices. Track therapy adherence, pain and function between visits, inside your EHR.",
     serviceType: "Remote Therapeutic Monitoring",
     emailSubject: "RTM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Remote Therapeutic Monitoring.",
@@ -401,9 +401,9 @@ const RPM_SERVICES: Service[] = [
       { title: "Contact, reconcile, schedule", body: "Required outreach and medication work happen inside the deadline." },
       { title: "Document and bill", body: "Your practice bills TCM after the visit. Zenith invoices for the labor." },
     ],
-    metaTitle: "Transitional Care Management (TCM) Services",
+    metaTitle: "Transitional Care Management (TCM)",
     metaDescription:
-      "Remote Transitional Care Management for U.S. practices. Timely post-discharge outreach, medication reconciliation and visit scheduling handled by clinical staff inside your EHR.",
+      "Remote TCM for U.S. practices. Post-discharge outreach, medication reconciliation and visit scheduling inside your EHR.",
     serviceType: "Transitional Care Management",
     emailSubject: "TCM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Transitional Care Management.",
@@ -454,9 +454,9 @@ const RCM_SERVICES: Service[] = [
       { title: "Match and onboard", body: "We place a biller with role-based access under a signed BAA." },
       { title: "Bill and reconcile", body: "Your biller submits claims, posts payments and works denials in your system." },
     ],
-    metaTitle: "Remote Medical Billing Services",
+    metaTitle: "Remote Medical Billing",
     metaDescription:
-      "Remote medical billing for U.S. practices. Zenith billers submit clean claims, post payments and work denials inside your practice-management system. HIPAA-compliant, flat monthly rate.",
+      "Remote medical billing for U.S. practices. Clean claims, payment posting and denial management inside your PM system.",
     serviceType: "Medical Billing",
     emailSubject: "Medical Billing Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Billing service.",
@@ -473,7 +473,7 @@ const RCM_SERVICES: Service[] = [
     category: "rcm",
     name: "Medical Coding",
     shortDesc: "Accurate CPT/ICD-10 coding that protects revenue and compliance.",
-    title: "Medical coding that matches what you documented and what you can defend.",
+    title: "Medical coding that matches what you documented.",
     lead:
       "Under-coding leaves money behind, and over-coding invites audits. Zenith coders read the chart, assign the codes the documentation supports and flag gaps back to your provider before the claim goes out. The result is cleaner claims and fewer coding denials. Your practice stays the billing provider.",
     trust: [
@@ -498,9 +498,9 @@ const RCM_SERVICES: Service[] = [
       { title: "Code from the chart", body: "Coders work in your EHR and send queries through your agreed channel." },
       { title: "Review and improve", body: "You receive accuracy feedback and common documentation gaps." },
     ],
-    metaTitle: "Remote Medical Coding Services",
+    metaTitle: "Remote Medical Coding",
     metaDescription:
-      "Remote medical coding for U.S. practices. Accurate ICD-10, CPT and E/M coding from charts inside your EHR, with compliance review. HIPAA-compliant.",
+      "Remote medical coding for U.S. practices. ICD-10, CPT and E/M coding from charts inside your EHR with compliance review.",
     serviceType: "Medical Coding",
     emailSubject: "Medical Coding Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Coding service.",
@@ -517,7 +517,7 @@ const RCM_SERVICES: Service[] = [
     category: "rcm",
     name: "Provider Credentialing",
     shortDesc: "Get and stay enrolled with payers, without the paperwork drag.",
-    title: "Credentialing that gets your providers enrolled and keeps them that way.",
+    title: "Credentialing that gets your providers enrolled, and keeps them.",
     lead:
       "A provider who is not enrolled cannot bill, and every week of delay is revenue you cannot recover. Zenith handles the paperwork, the follow-up calls and the deadlines for new providers, new locations and renewals, so approvals do not stall in someone's inbox. Your practice stays in control of every application.",
     trust: [
@@ -542,9 +542,9 @@ const RCM_SERVICES: Service[] = [
       { title: "Submit and follow up", body: "Applications go out and each file is followed until approved." },
       { title: "Maintain", body: "We track renewals and updates so your enrollment stays active." },
     ],
-    metaTitle: "Provider Credentialing and Payer Enrollment",
+    metaTitle: "Credentialing & Enrollment",
     metaDescription:
-      "Remote provider credentialing and payer enrollment for U.S. practices. Applications, CAQH upkeep and revalidation tracked from start to approval. HIPAA-compliant.",
+      "Remote provider credentialing and payer enrollment for U.S. practices. CAQH upkeep and revalidation from start to approval.",
     serviceType: "Provider Credentialing",
     emailSubject: "Credentialing Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Provider Credentialing.",
@@ -561,7 +561,7 @@ const RCM_SERVICES: Service[] = [
     category: "rcm",
     name: "Accounts Receivable (AR)",
     shortDesc: "Work down aging A/R and recover what's owed.",
-    title: "Accounts receivable follow-up that recovers the money still owed to you.",
+    title: "AR follow-up that recovers the money still owed to you.",
     lead:
       "Claims that sit unpaid for 60, 90 or 120 days rarely resolve themselves. Zenith staff work your aging report from oldest to newest, call payers, correct and appeal denials, and tell you why money is stuck. You see fewer old claims and a clearer picture of where revenue leaks.",
     trust: [
@@ -586,9 +586,9 @@ const RCM_SERVICES: Service[] = [
       { title: "Work the claims", body: "Staff follow up, correct and appeal on a steady schedule." },
       { title: "Report and prevent", body: "You receive progress reports and fixes for repeat denial causes." },
     ],
-    metaTitle: "Accounts Receivable (AR) Follow-Up Services",
+    metaTitle: "AR Follow-Up Services",
     metaDescription:
-      "Remote accounts receivable follow-up for U.S. practices. Work aged claims, appeals and unpaid balances to recover revenue. HIPAA-compliant and flat monthly rate.",
+      "Remote AR follow-up for U.S. practices. Work aged claims, appeals and unpaid balances to recover revenue.",
     serviceType: "Accounts Receivable Management",
     emailSubject: "AR Follow-Up Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Accounts Receivable follow-up service.",
@@ -637,9 +637,9 @@ const STAFFING_SERVICES: Service[] = [
       { title: "Scribe the encounter", body: "The scribe documents in real time or from recorded workflow, as your policy allows." },
       { title: "Review and sign", body: "The provider edits, approves and signs. The record is the provider's." },
     ],
-    metaTitle: "Remote Medical Scribe Services",
+    metaTitle: "Remote Medical Scribes",
     metaDescription:
-      "Remote medical scribes for U.S. practices. Real-time or same-day note drafting inside your EHR so providers finish charts sooner. HIPAA-compliant.",
+      "Remote medical scribes for U.S. practices. Real-time or same-day note drafting inside your EHR so providers finish charts sooner.",
     serviceType: "Medical Scribe Staffing",
     emailSubject: "Medical Scribe Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Scribe service.",
@@ -681,9 +681,9 @@ const STAFFING_SERVICES: Service[] = [
       { title: "Schedule and confirm", body: "The scheduler books, reminds and manages changes daily." },
       { title: "Review the calendar", body: "You receive utilization and no-show reports to refine the template." },
     ],
-    metaTitle: "Remote Medical Scheduler Services",
+    metaTitle: "Remote Medical Schedulers",
     metaDescription:
-      "Remote medical schedulers for U.S. practices. Fill the calendar, reduce no-shows and manage cancellations inside your system. HIPAA-compliant.",
+      "Remote schedulers for U.S. practices. Fill the calendar, reduce no-shows and manage cancellations inside your system.",
     serviceType: "Medical Scheduler Staffing",
     emailSubject: "Medical Scheduler Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Scheduler service.",
@@ -725,9 +725,9 @@ const STAFFING_SERVICES: Service[] = [
       { title: "Answer and route", body: "The receptionist handles calls during your agreed hours." },
       { title: "Report", body: "You receive call logs and summaries of common patient questions." },
     ],
-    metaTitle: "Remote Medical Receptionist Services",
+    metaTitle: "Remote Medical Receptionists",
     metaDescription:
-      "Remote medical receptionists for U.S. practices. Answer calls, route messages and handle patient intake with a professional front-desk voice. HIPAA-compliant.",
+      "Remote receptionists for U.S. practices. Answer calls, route messages and handle patient intake professionally.",
     serviceType: "Medical Receptionist Staffing",
     emailSubject: "Medical Receptionist Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Receptionist service.",
@@ -744,7 +744,7 @@ const STAFFING_SERVICES: Service[] = [
     category: "staffing",
     name: "Patient Care Coordinator",
     shortDesc: "Owns the clinical admin that clogs your care team.",
-    title: "A patient care coordinator who clears the admin that clogs your clinical team.",
+    title: "A care coordinator who clears the admin clogging your team.",
     lead:
       "Nurses and medical assistants lose hours every day to referrals, prior authorizations and inbox messages. A Zenith care coordinator takes that work remotely, inside your EHR, so your in-house team stays focused on patients. Staffing is a flat monthly rate.",
     trust: [
@@ -769,9 +769,9 @@ const STAFFING_SERVICES: Service[] = [
       { title: "Place your coordinator", body: "A coordinator joins your EHR with role-based access under a BAA." },
       { title: "Track and adjust", body: "You review task completion and widen or narrow the scope." },
     ],
-    metaTitle: "Remote Patient Care Coordinator Staffing",
+    metaTitle: "Patient Care Coordinators",
     metaDescription:
-      "Remote patient care coordinators for U.S. practices. Pre-visit prep, referrals, prior authorizations and inbox triage at a flat monthly rate, inside your EHR.",
+      "Remote care coordinators for U.S. practices. Pre-visit prep, referrals, prior auths and inbox triage inside your EHR.",
     serviceType: "Patient Care Coordination",
     emailSubject: "Patient Care Coordinator Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Patient Care Coordinator service.",
@@ -813,9 +813,9 @@ const STAFFING_SERVICES: Service[] = [
       { title: "Grant limited access", body: "Your assistant gets only the system access the tasks need." },
       { title: "Review weekly", body: "You check completed work and adjust the task list." },
     ],
-    metaTitle: "Medical Virtual Assistant Services",
+    metaTitle: "Medical Virtual Assistants",
     metaDescription:
-      "Remote virtual assistants for U.S. medical practices. Inbox management, data entry, records requests and office tasks at a flat monthly rate. HIPAA-compliant.",
+      "Remote virtual assistants for U.S. medical practices. Inbox management, data entry, records requests and office tasks.",
     serviceType: "Virtual Assistant Staffing",
     emailSubject: "Virtual Assistant Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Virtual Assistant service.",

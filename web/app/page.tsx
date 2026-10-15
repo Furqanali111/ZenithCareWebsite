@@ -37,9 +37,9 @@ const HOME_CATEGORIES = [
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "Care Management, Revenue Cycle & Virtual Staffing",
+  title: "Remote Clinical Services",
   description:
-    "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
+    "Care management, revenue cycle and virtual staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
   path: "/",
 });
 

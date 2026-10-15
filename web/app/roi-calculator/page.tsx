@@ -5,7 +5,7 @@ import { RoiCalculator } from "@/components/roi-calculator";
 const PATH = "/roi-calculator";
 const NAME = "CCM ROI Calculator";
 const DESCRIPTION =
-  "Estimate your practice's monthly and annual Medicare Chronic Care Management reimbursement based on eligible patient panel size and expected enrollment. Client-side; nothing is stored.";
+  "Estimate monthly CCM Medicare reimbursement for your practice based on panel size and enrollment rate. Runs client-side.";
 
 export const metadata: Metadata = pageMetadata({
   title: NAME,
@@ -41,6 +41,13 @@ export default function RoiCalculatorPage() {
           <p className="mt-5 text-base leading-relaxed text-body-ink">
             Two inputs. A representative monthly and annual figure. No data
             leaves your browser, the calculator is entirely client-side.
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            The estimate uses 2026 national-average Medicare rates for CPT 99490
+            (base CCM) and typical add-on utilization. Actual reimbursement
+            varies by locality, payer mix, and documentation completeness. Enter
+            your eligible patient count and expected enrollment rate to see the
+            range for your practice.
           </p>
         </header>
         <div className="mt-10">
