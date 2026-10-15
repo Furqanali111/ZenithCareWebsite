@@ -43,7 +43,7 @@ export function HomeHero() {
             </span>
           </span>
 
-          <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
+          <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
             Remote clinical support for the work your practice needs to{" "}
             <span className="relative inline-block whitespace-nowrap italic">
               deliver

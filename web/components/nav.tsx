@@ -70,11 +70,12 @@ export function Nav() {
         {/* Mobile + tablet trigger (below lg) */}
         <Sheet open={open} onOpenChange={setOpen}>
           <div className="flex items-center gap-1 lg:hidden">
-            <ThemeToggle />
+            <ThemeToggle className="size-11 min-h-[44px] min-w-[44px]" />
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
+                className="size-11 min-h-[44px] min-w-[44px]"
                 aria-label="Open navigation menu"
               >
                 <Menu className="size-5" />
