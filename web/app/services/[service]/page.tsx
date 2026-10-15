@@ -95,14 +95,14 @@ export default async function ServicePage({
       </section>
 
       {/* ─── How it works (3-step flow) ──────────────────────────────── */}
-      <section className="section-rhythm border-t border-border/60">
+      <section className="section-rhythm border-t border-border/60 bg-surface-tint">
         <HowItWorks steps={s.howItWorks} />
       </section>
 
       {/* ─── Who we serve: eligibility & billing (every service) ──────── */}
       <section
         id="who-we-serve"
-        className="scroll-mt-24 border-t border-border/60 bg-surface-tint"
+        className="scroll-mt-24 border-t border-border/60"
       >
         <div className="section-rhythm">
           <div className="mx-auto max-w-7xl px-6">
@@ -240,6 +240,7 @@ export default async function ServicePage({
         heading={`${s.name}: common questions`}
         idPrefix={`${s.slug}-faq`}
         items={s.faqs}
+        tone="surface"
       />
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}

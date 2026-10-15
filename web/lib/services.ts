@@ -22,17 +22,20 @@ export const categoryMeta: Record<
 > = {
   rpm: {
     label: "Care Management",
-    blurb: "Medicare care-management programs: CCM, PCM, RPM, RTM & TCM",
+    blurb:
+      "Monthly patient coordination that generates recurring Medicare revenue for your practice. CCM, PCM, RPM, RTM & TCM.",
     href: "/services/care-management",
   },
   staffing: {
     label: "Virtual Staffing & Admin Support",
-    blurb: "Scribes, schedulers, receptionists, coordinators & assistants",
+    blurb:
+      "Remote medical staff who handle the admin slowing your team down. Scribes, schedulers, receptionists & coordinators.",
     href: "/services/virtual-staffing",
   },
   rcm: {
     label: "Revenue Cycle Management",
-    blurb: "Medical billing, coding, credentialing & A/R follow-up",
+    blurb:
+      "Billing, coding, credentialing, and AR follow-up that gets more of what you earn collected.",
     href: "/services/revenue-cycle-management",
   },
 };

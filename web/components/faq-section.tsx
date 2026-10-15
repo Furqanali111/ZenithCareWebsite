@@ -30,12 +30,15 @@ export function FaqSection({
   id = "faq",
   items,
   idPrefix,
+  tone = "default",
 }: {
   heading?: string;
   id?: string;
   items: FaqEntry[];
   /** Stable prefix for AccordionItem values; defaults to the section id. */
   idPrefix?: string;
+  /** Background tone: "default" for bg-background, "surface" for bg-surface-tint. */
+  tone?: "default" | "surface";
 }) {
   if (items.length === 0) return null;
   const prefix = idPrefix ?? id;
@@ -43,7 +46,7 @@ export function FaqSection({
   return (
     <section
       aria-labelledby={`${id}-heading`}
-      className="border-t border-border/60 bg-background"
+      className={`border-t border-border/60 ${tone === "surface" ? "bg-surface-tint" : "bg-background"}`}
     >
       <div className="section-rhythm">
         <div className="mx-auto max-w-3xl px-6">

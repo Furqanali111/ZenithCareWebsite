@@ -190,7 +190,7 @@ function MegaColumn({ category }: { category: ServiceCategory }) {
             &rarr;
           </span>
         </span>
-        <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+        <span className="mt-1 block text-xs leading-relaxed text-muted-foreground line-clamp-2">
           {meta.blurb}
         </span>
       </Link>
