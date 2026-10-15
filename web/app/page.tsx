@@ -47,6 +47,7 @@ const COMPLEX_MIX_MONTHLY =
   Math.round(ANCHOR_PATIENTS * COMPLEX_MIX_FRACTION) * CPT_RATES["99487"];
 
 // Who We Serve audience cards, linking to the specialty hub pages.
+// Labels and hrefs mirror nav.whoWeServe in lib/site.ts; keep in sync.
 const WHO_WE_SERVE = [
   {
     label: "Primary Care",
