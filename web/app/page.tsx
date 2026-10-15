@@ -1,8 +1,24 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Activity, ArrowRight, Receipt, Users } from "lucide-react";
-import { pageMetadata, JsonLd, serviceLd } from "@/lib/seo";
+import {
+  Activity,
+  ArrowRight,
+  Database,
+  HeartPulse,
+  Receipt,
+  ShieldCheck,
+  Stethoscope,
+  Users,
+  UserCog,
+} from "lucide-react";
+import { pageMetadata, JsonLd, serviceLd, faqPageLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { HomeHero } from "@/components/home-hero";
@@ -10,6 +26,7 @@ import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { categoryMeta } from "@/lib/services";
 import { founder } from "@/lib/site";
+import { getAllPosts } from "@/content/posts";
 import {
   ANCHOR_MONTHLY,
   ANCHOR_PATIENTS,
@@ -28,6 +45,76 @@ const COMPLEX_MIX_FRACTION = 0.2;
 const COMPLEX_MIX_MONTHLY =
   Math.round(ANCHOR_PATIENTS * (1 - COMPLEX_MIX_FRACTION)) * CPT_RATES["99490"] +
   Math.round(ANCHOR_PATIENTS * COMPLEX_MIX_FRACTION) * CPT_RATES["99487"];
+
+// Who We Serve audience cards, linking to the specialty hub pages.
+const WHO_WE_SERVE = [
+  {
+    label: "Primary Care",
+    href: "/who-we-serve/primary-care",
+    icon: <Stethoscope className="size-5" aria-hidden="true" />,
+    pain: "High patient volumes, limited staff, and Medicare programs your panel qualifies for but no one has time to run.",
+  },
+  {
+    label: "Internal Medicine",
+    href: "/who-we-serve/internal-medicine",
+    icon: <HeartPulse className="size-5" aria-hidden="true" />,
+    pain: "Complex chronic patients who need monthly coordination to stay out of the ER.",
+  },
+  {
+    label: "Geriatrics",
+    href: "/who-we-serve/geriatrics",
+    icon: <UserCog className="size-5" aria-hidden="true" />,
+    pain: "Patients with five or more conditions, polypharmacy, and post-discharge risk.",
+  },
+];
+
+// Why Zenith differentiators.
+const WHY_ZENITH = [
+  {
+    icon: <Users className="size-5" aria-hidden="true" />,
+    title: "Staff, not software",
+    body: "We provide trained clinical and administrative professionals, not a platform. No new system to learn.",
+  },
+  {
+    icon: <Database className="size-5" aria-hidden="true" />,
+    title: "Inside your EHR",
+    body: "All documentation lives in your system. No PHI exported, no data migration.",
+  },
+  {
+    icon: <Receipt className="size-5" aria-hidden="true" />,
+    title: "You bill, we invoice",
+    body: "Your practice bills Medicare and payers. Zenith invoices you monthly for the labor.",
+  },
+  {
+    icon: <ShieldCheck className="size-5" aria-hidden="true" />,
+    title: "One BAA, one partner",
+    body: "A single Business Associate Agreement covers every service line. One vendor, one relationship.",
+  },
+];
+
+// Homepage FAQ items, also fed to FAQPage JSON-LD.
+const HOME_FAQ = [
+  {
+    question: "What services does Zenith provide?",
+    answer:
+      "Zenith Care Solutions provides three service lines: care management (CCM, PCM, RPM, RTM, TCM), revenue cycle management (billing, coding, credentialing, AR follow-up), and virtual staffing (scribes, schedulers, receptionists, coordinators). All work is done inside your EHR under a signed BAA.",
+  },
+  {
+    question: "Does Zenith bill Medicare or my patients?",
+    answer:
+      "No. Your practice remains the billing provider and bills Medicare or commercial payers under its own credentials. Zenith invoices your practice for the clinical and administrative labor at a flat monthly rate.",
+  },
+  {
+    question: "How long does onboarding take?",
+    answer:
+      "Typically two to four weeks, depending on the scope. We set up inside your EHR and practice management system, sign a BAA, and confirm workflows before going live.",
+  },
+  {
+    question: "What EHR systems do you work with?",
+    answer:
+      "We work inside most major EHR and practice management systems. Specific compatibility is confirmed during the discovery call.",
+  },
+];
 
 // The three service lines for the home preview, linking to each category hub.
 const HOME_CATEGORIES = [
@@ -55,6 +142,7 @@ export default function HomePage() {
           serviceType: "Healthcare Practice Support",
         })}
       />
+      <JsonLd data={faqPageLd(HOME_FAQ)} />
 
       {/* ─── Hero: dark editorial ledger-split ────────────────────────── */}
       <HomeHero />
@@ -103,6 +191,53 @@ export default function HomePage() {
                 </Link>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Who We Serve ──────────────────────────────────────────────── */}
+      <section className="border-t border-border/60 bg-surface-tint">
+        <div className="section-rhythm">
+          <div className="mx-auto max-w-7xl px-6">
+            <Reveal>
+              <header className="max-w-2xl">
+                <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+                  Support for the practices we serve.
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-body-ink">
+                  Every specialty has its own patient mix and operational
+                  bottleneck. We tailor scope accordingly.
+                </p>
+              </header>
+            </Reveal>
+
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {WHO_WE_SERVE.map((item, i) => (
+                <Reveal key={item.href} delay={(i % 3) * 0.08} className="h-full">
+                  <Link
+                    href={item.href}
+                    className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                  >
+                    <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                      {item.icon}
+                    </span>
+                    <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink group-hover:text-brand-accent">
+                      {item.label}
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
+                      {item.pain}
+                    </p>
+                    <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
+                      Learn more
+                      <ArrowRight
+                        className="size-4 transition-transform group-hover:translate-x-0.5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -198,6 +333,39 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─── Why Zenith ────────────────────────────────────────────────── */}
+      <section className="section-rhythm">
+        <div className="mx-auto max-w-7xl px-6">
+          <Reveal>
+            <header className="max-w-2xl">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+                Why Zenith.
+              </h2>
+            </header>
+          </Reveal>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-2">
+            {WHY_ZENITH.map((item, i) => (
+              <Reveal key={item.title} delay={(i % 2) * 0.08}>
+                <div className="flex gap-4">
+                  <span className="mt-0.5 inline-flex size-10 flex-none items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]">
+                    {item.icon}
+                  </span>
+                  <div>
+                    <h3 className="font-serif text-lg font-semibold text-brand-ink">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-body-ink">
+                      {item.body}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── Founder credibility strip ───────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
@@ -229,6 +397,48 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Resources preview ──────────────────────────────────────── */}
+      <ResourcesPreview />
+
+      {/* ─── FAQ ─────────────────────────────────────────────────────── */}
+      <section className="border-t border-border/60 bg-surface-tint">
+        <div className="section-rhythm">
+          <div className="mx-auto max-w-3xl px-6">
+            <Reveal>
+              <header className="text-center">
+                <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+                  Frequently asked questions.
+                </h2>
+              </header>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <Accordion type="single" collapsible className="mt-10">
+                {HOME_FAQ.map((item, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`}>
+                    <AccordionTrigger className="text-left font-serif text-base font-semibold text-brand-ink">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-sm leading-relaxed text-body-ink">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <p className="mt-8 text-center text-sm text-muted-foreground">
+                More questions?{" "}
+                <Link href="/faq" className="text-brand-accent hover:underline">
+                  See the full FAQ
+                </Link>
+              </p>
             </Reveal>
           </div>
         </div>
@@ -291,5 +501,70 @@ function HowStep({
         {body}
       </p>
     </li>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Resources preview, shows latest 3 blog posts.                             */
+/* -------------------------------------------------------------------------- */
+
+function ResourcesPreview() {
+  const posts = getAllPosts().slice(0, 3);
+  if (posts.length === 0) return null;
+  return (
+    <section className="section-rhythm">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal>
+          <header className="flex items-end justify-between gap-4">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+              From the blog.
+            </h2>
+            <Link
+              href="/resources"
+              className="hidden items-center gap-1.5 text-sm font-medium text-brand-accent hover:underline sm:inline-flex"
+            >
+              All articles
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </header>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {posts.map((post, i) => (
+            <Reveal key={post.slug} delay={(i % 3) * 0.08} className="h-full">
+              <Link
+                href={`/resources/${post.slug}`}
+                className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+              >
+                <span className="text-xs font-medium uppercase tracking-wider text-brand-accent">
+                  {post.category}
+                </span>
+                <h3 className="mt-3 font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
+                  {post.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-body-ink line-clamp-3">
+                  {post.description}
+                </p>
+                <span className="mt-4 text-xs text-muted-foreground">
+                  {post.readingMinutes} min read
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.1}>
+          <p className="mt-8 text-center sm:hidden">
+            <Link
+              href="/resources"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent hover:underline"
+            >
+              All articles
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </p>
+        </Reveal>
+      </div>
+    </section>
   );
 }
