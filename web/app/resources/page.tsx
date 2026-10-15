@@ -37,6 +37,12 @@ export default function ResourcesPage() {
             Honest, practical writing on Chronic Care Management, billing,
             operations, compliance. Written by Furqan Ali.
           </p>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            Every article is written for practice managers and physicians who
+            want numbers, not sales copy. Topics include CPT code rates,
+            documentation requirements, vendor vetting, and the real cost math
+            behind outsourcing clinical staff.
+          </p>
         </div>
       </section>
 

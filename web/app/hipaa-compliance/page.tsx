@@ -10,7 +10,7 @@ const PATH = "/hipaa-compliance";
 export const metadata: Metadata = pageMetadata({
   title: "HIPAA Compliance",
   description:
-    "How Zenith Care Solutions operates as a HIPAA Business Associate: no PHI collected on this site, a signed BAA with every client practice, work performed inside your EHR, encrypted communications only.",
+    "How Zenith operates as a HIPAA Business Associate: signed BAA with every client, work inside your EHR, encrypted communications only.",
   path: PATH,
 });
 

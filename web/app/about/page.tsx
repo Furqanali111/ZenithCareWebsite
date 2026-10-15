@@ -19,7 +19,7 @@ const FOUNDER_LINKEDIN = "";
 export const metadata: Metadata = pageMetadata({
   title: "About Zenith Care Solutions",
   description:
-    "Zenith Care Solutions was founded by Furqan Ali, a clinical pharmacist with an oncology and bone-marrow-transplant background, to bring real clinical staff to U.S. Chronic Care Management.",
+    "Founded by Furqan Ali, PharmD, to bring trained clinical staff to U.S. care management, billing and virtual staffing.",
   path: PATH,
 });
 

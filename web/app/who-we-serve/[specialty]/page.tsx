@@ -370,10 +370,9 @@ type SpecialtyContent = {
 
 const CONTENT: Record<Specialty, SpecialtyContent> = {
   "primary-care": {
-    metaTitle:
-      "Remote Care Management, Monitoring & Staffing for Primary Care Practices",
+    metaTitle: "Services for Primary Care",
     metaDescription:
-      "Remote care management (CCM, PCM, RPM, TCM), revenue-cycle support, and virtual staffing for U.S. primary care practices. HIPAA Business Associate. The broadest program fit in medicine.",
+      "CCM, RPM, TCM, billing and virtual staffing for U.S. primary care practices. The broadest program fit in medicine.",
     heroHeadline:
       "Primary care practices have the broadest fit across Zenith's programs.",
     heroLead:
@@ -422,12 +421,11 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   },
 
   "internal-medicine": {
-    metaTitle:
-      "Remote Care Management, Monitoring & Staffing for Internal Medicine",
+    metaTitle: "Services for Internal Medicine",
     metaDescription:
-      "Remote care management (CCM, PCM, RPM, TCM), revenue-cycle support, and virtual staffing for U.S. internal medicine practices. HIPAA Business Associate. Built for polychronic panels.",
+      "CCM, RPM, TCM, billing and virtual staffing for U.S. internal medicine practices. Built for polychronic panels.",
     heroHeadline:
-      "Internal medicine panels fit the full care-management stack, and the staffing to run it.",
+      "Internal medicine fits the full care-management stack.",
     heroLead:
       "Polychronic, older, more complex patients map to every Medicare care-management program Zenith runs, from CCM and PCM to remote monitoring and transitional care, plus the revenue-cycle and virtual-staffing support that keeps it all moving. CCM and complex CCM are usually the largest levers.",
     whyHeadline: "Where internal medicine really outperforms on CCM.",
@@ -476,12 +474,11 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   },
 
   geriatrics: {
-    metaTitle:
-      "Remote Care Management, Monitoring & Staffing for Geriatric Practices",
+    metaTitle: "Services for Geriatric Practices",
     metaDescription:
-      "Remote care management (CCM, RPM, TCM), revenue-cycle support, and virtual staffing for U.S. geriatric practices. HIPAA Business Associate. The highest CCM yield in medicine.",
+      "CCM, RPM, TCM, billing and virtual staffing for U.S. geriatric practices. The highest CCM yield in medicine.",
     heroHeadline:
-      "Geriatric panels are built for care management, and the admin support to sustain it.",
+      "Geriatric panels are built for care management.",
     heroLead:
       "Near-universal Medicare coverage and dense, multi-condition panels make geriatrics the highest-yield fit for Chronic Care Management, with remote monitoring and transitional care close behind, plus revenue-cycle and virtual-staffing support for a small team carrying a heavy load. CCM is the flagship.",
     whyHeadline: "Geriatrics gets the highest per-panel CCM revenue in medicine.",
