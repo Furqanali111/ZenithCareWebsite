@@ -152,6 +152,18 @@ Each entry has the same shape: **what / why / how / env var / where in Vercel**.
 - **Env var**: none.
 - **Where in Vercel**: n/a.
 
+### 2.9.1 IndexNow
+
+- **What**: ping Bing, Yandex, Seznam, Naver, and Yep when sitemap URLs change. Google does not use IndexNow; keep Search Console + sitemap as they are.
+- **Why**: faster recrawl of new or updated pages on engines that support the protocol. Ownership is proven by a public key file at `https://thezcs.com/{key}.txt`.
+- **How**:
+  1. Ship `web/public/cdd29e58c720c0425061517e14e13024.txt` so it is live at `https://thezcs.com/cdd29e58c720c0425061517e14e13024.txt` (body must equal the filename, no wrapping quotes).
+  2. Confirm Bing Webmaster Tools is verified (section 2.9). Receipts show up there.
+  3. After the production deploy finishes: `cd web && pnpm indexnow`. Use `pnpm indexnow -- --dry-run` to list URLs without submitting.
+  4. Rerun `pnpm indexnow` after a content-significant production deploy (new service page, blog post, or copy change you want recrawled). Do not hook this into `pnpm build`; the key file is not live until Vercel finishes.
+- **Env var**: none. The key is public by protocol and is committed as the `.txt` file.
+- **Where in Vercel**: n/a. No API route. Submission is a local/CI Node script against `https://api.indexnow.org/indexnow`.
+
 ### 2.10 LinkedIn Company Page
 
 - **What**: company presence on LinkedIn + the `sameAs` link in our `Organization` JSON-LD.
