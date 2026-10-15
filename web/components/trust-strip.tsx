@@ -1,4 +1,4 @@
-import { ShieldCheck, Stethoscope, Database, FileCheck } from "lucide-react";
+import { ShieldCheck, Stethoscope, Database, Wallet } from "lucide-react";
 
 /**
  * Four-column trust strip surfaced under hero sections. Keeps the credibility
@@ -12,10 +12,10 @@ const DEFAULT_ITEMS: { label: string; detail: string }[] = [
   { label: "HIPAA Business Associate", detail: "BAA signed before any PHI changes hands." },
   { label: "Trained clinical staff", detail: "Professional clinical coordination, delivered by trained healthcare professionals." },
   { label: "Inside your EHR", detail: "No PHI exported. Documentation lives where you work." },
-  { label: "CMS-aligned billing", detail: "CPT 99490 / 99439 / 99487 / 99489 / 99491 / 99437." },
+  { label: "Flat monthly pricing", detail: "Predictable cost per service line. No per-claim or per-patient fees." },
 ];
 
-const ICONS = [ShieldCheck, Stethoscope, Database, FileCheck];
+const ICONS = [ShieldCheck, Stethoscope, Database, Wallet];
 
 export function TrustStrip({
   className = "",
