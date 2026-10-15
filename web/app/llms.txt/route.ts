@@ -13,14 +13,15 @@ const SERVICES = services
 // Markdown template if this ever grows past ~2× its current size.
 const HEADER = `# ${site.name}
 
-> Remote Chronic Care Management (CCM) for U.S. primary care, internal medicine, and geriatric practices. HIPAA Business Associate. We provide the care-coordination staff work; the physician practice remains the billing provider under CMS CCM CPT codes.
+> Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate. We provide trained clinical and administrative staff; the physician practice remains the billing provider.
 
 ## About
 
 - **Legal entity**: Zenith Care Solutions LLC (Wyoming)
 - **Founder**: Furqan Ali, clinical pharmacist with oncology / BMT background
 - **Service area**: United States
-- **Target customers**: physician practices with Medicare patient panels (two or more chronic conditions)
+- **Target customers**: physician practices (primary care, internal medicine, geriatrics)
+- **Service lines**: care management (CCM, PCM, RPM, RTM, TCM), revenue cycle management (billing, coding, credentialing, AR), virtual staffing (scribes, schedulers, receptionists, coordinators)
 - **We do not**: bill Medicare directly, operate a clinic, see patients ourselves, or hold PHI outside a signed BAA
 
 ## Core pages

@@ -37,9 +37,9 @@ const HOME_CATEGORIES = [
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "Remote Clinical Services",
+  title: "Care Management, Billing & Virtual Staffing",
   description:
-    "Care management, revenue cycle and virtual staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
+    "Remote care management, medical billing, and virtual staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR, flat monthly rate.",
   path: "/",
 });
 
@@ -48,9 +48,9 @@ export default function HomePage() {
     <>
       <JsonLd
         data={serviceLd({
-          name: "Remote care management, revenue cycle, and virtual staffing",
+          name: "Zenith Care Solutions: care management, billing, and virtual staffing",
           description:
-            "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices.",
+            "Zenith Care Solutions provides remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices.",
           path: "/",
           serviceType: "Healthcare Practice Support",
         })}
