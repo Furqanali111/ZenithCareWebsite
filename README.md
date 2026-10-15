@@ -74,3 +74,8 @@ Full bootstrap instructions in [`web/README.md`](web/README.md).
 - HTTPS via Let's Encrypt (auto-provisioned, auto-renewed — nothing to buy).
 
 Launch procedure: [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+
+### Index now
+- To run it 
+-  cd web/scripts
+-   pnpm indexnow 

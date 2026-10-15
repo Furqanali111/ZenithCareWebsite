@@ -38,7 +38,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "Most of what keeps a chronic patient stable happens outside the exam room: the monthly check-in, the medication reconciliation, the care plan kept current. Zenith's clinical team does that work inside your EHR so it actually gets done, and documented to the standard the codes require.",
         ],
-        image: "/categories/care-ccm.jpg",
+        image: "/categories/care-ccm.webp",
         alt: "Clinician on a monthly chronic-care check-in call at a workstation",
       },
       {
@@ -46,7 +46,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "Remote monitoring only pays off when someone actually watches the readings. Our team reviews the blood-pressure, glucose, and weight data coming off connected devices, flags what your clinicians need to see, and logs the time the codes require.",
         ],
-        image: "/categories/care-rpm.jpg",
+        image: "/categories/care-rpm.webp",
         alt: "Clinician reviewing remote patient monitoring device data on screen",
       },
       {
@@ -54,7 +54,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "Transitional care is a short, high-value window with strict documentation rules. Zenith runs the post-discharge outreach, medication review, and follow-up scheduling so the hand-off is clean and the visit is billable.",
         ],
-        image: "/categories/care-tcm.jpg",
+        image: "/categories/care-tcm.webp",
         alt: "Clinician coordinating a post-discharge transition of care",
       },
     ],
@@ -93,7 +93,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "A claim that goes out right the first time tends to get paid the first time. Zenith prepares and submits claims inside your practice-management system and reviews every remittance, so fewer claims stall and fewer dollars slip through.",
         ],
-        image: "/categories/rcm-billing.jpg",
+        image: "/categories/rcm-billing.webp",
         alt: "Billing specialist preparing medical claims at a desk",
       },
       {
@@ -101,7 +101,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "Under-coding leaves money on the table; over-coding invites a clawback. Our coders work ICD-10, CPT, and E/M with a compliance review built in, so the codes match the documentation in the chart.",
         ],
-        image: "/categories/rcm-coding.jpg",
+        image: "/categories/rcm-coding.webp",
         alt: "Medical coder reviewing documentation and code sets",
       },
       {
@@ -109,7 +109,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "Unpaid, denied, and underpaid claims do not resolve themselves. Zenith works your accounts-receivable queue, appeals denials, and follows up with payers until aging claims are collected or properly accounted for.",
         ],
-        image: "/categories/rcm-ar.jpg",
+        image: "/categories/rcm-ar.webp",
         alt: "Accounts-receivable specialist following up on outstanding claims",
       },
     ],
@@ -148,7 +148,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "Every outpatient practice carries hours of daily operational work that does not need to sit with your on-site team. Hand scheduling, phones, referrals, prior authorizations, and inbox management to trained remote staff, and let your clinicians stay with patients.",
         ],
-        image: "/categories/staffing-assistant.jpg",
+        image: "/categories/staffing-assistant.webp",
         alt: "Remote medical assistant handling practice administrative work",
       },
       {
@@ -156,7 +156,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "A remote scribe captures the encounter as it happens, so you are not typing through the visit or finishing notes late at night. You keep your attention on the patient; the chart still gets written.",
         ],
-        image: "/categories/staffing-scribe.jpg",
+        image: "/categories/staffing-scribe.webp",
         alt: "Remote medical scribe documenting a patient encounter",
       },
       {
@@ -164,7 +164,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
         body: [
           "Missed calls are missed appointments and missed revenue. Zenith's remote receptionists and schedulers answer, book, confirm, and triage inside your systems, so patients reach a person and your calendar stays full.",
         ],
-        image: "/categories/staffing-reception.jpg",
+        image: "/categories/staffing-reception.webp",
         alt: "Remote medical receptionist answering practice calls",
       },
     ],

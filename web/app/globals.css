@@ -244,19 +244,24 @@
     animation-delay: 0s !important;
   }
 }
+/* On mobile, skip the stagger entirely so above-the-fold content (especially
+   the LCP heading in page-hero) is never gated behind opacity: 0. Desktop
+   keeps the entrance animation. */
+@media (max-width: 767px) {
+  .reveal-up {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
 
-/* Page transition, replays on every route change (Next re-mounts
-   app/template.tsx). CSS/paint-driven, neutralized under reduced motion. */
 .page-enter {
-  animation: page-enter 0.65s cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation: page-enter 0.4s cubic-bezier(0.32, 0.72, 0, 1) both;
 }
 @keyframes page-enter {
   from {
-    opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }
@@ -334,6 +339,13 @@
   }
   to {
     transform: translate3d(5rem, -4rem, 0) scale(1.1);
+  }
+}
+@media (max-width: 767px) {
+  .aurora-shape {
+    animation: none !important;
+    filter: blur(36px);
+    will-change: auto;
   }
 }
 
