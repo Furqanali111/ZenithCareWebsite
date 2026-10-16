@@ -150,7 +150,7 @@ Every PR body must have exactly these five sections, in this order:
 2. **Why** — the problem it solves or the goal it serves.
 3. **How** — approach, key decisions, trade-offs. Omit only if the diff is self-explanatory.
 4. **Scope** — ticked checklist of what the PR touches (pages, components, content, SEO, legal, theming, CI, deps, docs).
-5. **Checklist** — ticked verification boxes (rebased, lint, build, no console errors, env docs, no PHI/secrets, docs updated, `PROGRESS.md` updated).
+5. **Checklist** — ticked verification boxes (rebased, lint, build, no console errors, env docs, no PHI/secrets, docs updated, `WebSiteDoc/PROGRESS.md` updated).
 
 Not allowed in PR bodies:
 - Phases, days, or sprint numbers (e.g. "Phase 1 Day 2") — PRs stand on their own, not on a plan the future reader doesn't have.
