@@ -17,7 +17,12 @@ Marketing website and (future) client-facing services for Zenith Care Solutions 
 ├── .gitignore
 ├── .editorconfig
 ├── Doc/                   ← business reference PDFs (do not edit)
-├── WebSiteDoc/            ← product + technical planning docs
+├── WebSiteDoc/            ← all project docs (planning, progress, audits)
+│   ├── 01..14-*.md        ← numbered planning/requirements docs
+│   ├── 15-technical-seo-audit.md
+│   ├── PROGRESS.md        ← progress journal (update per PR)
+│   ├── PROJECT_HANDOFF.md ← full project handoff
+│   └── Content/           ← source content PDFs + XLSX
 └── web/                   ← Next.js marketing website
 ```
 

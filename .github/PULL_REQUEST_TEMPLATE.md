@@ -17,7 +17,7 @@
 - [ ] Theming / design tokens
 - [ ] CI / build config
 - [ ] Dependencies
-- [ ] Docs (`WebSiteDoc/`, `README`, `PROGRESS.md`)
+- [ ] Docs (`WebSiteDoc/`, `README`)
 
 ### Checklist
 - [ ] Rebased onto latest `develop`
@@ -27,4 +27,4 @@
 - [ ] No new environment variables added without updating `web/.env.example`
 - [ ] No PHI, secrets, or real client data in diff
 - [ ] Relevant doc under `WebSiteDoc/` updated if behavior changed
-- [ ] `PROGRESS.md` updated with a one-liner under **Done**
+- [ ] `WebSiteDoc/PROGRESS.md` updated with a one-liner under **Done**

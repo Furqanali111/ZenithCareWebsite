@@ -85,6 +85,17 @@ export default async function PostPage({
             <time dateTime={post.publishedAt}>
               {formatDate(post.publishedAt)}
             </time>
+            {post.updatedAt !== post.publishedAt ? (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>
+                  Updated{" "}
+                  <time dateTime={post.updatedAt}>
+                    {formatDate(post.updatedAt)}
+                  </time>
+                </span>
+              </>
+            ) : null}
             <span aria-hidden="true">·</span>
             <span>{post.readingMinutes} min read</span>
           </div>

@@ -432,7 +432,7 @@ _(None identified)_
 
 ### Checklist for the Next AI
 
-1. **Read** `PROJECT_HANDOFF.md` (this file) and `CLAUDE.md` at the project root
+1. **Read** `WebSiteDoc/PROJECT_HANDOFF.md` (this file) and `CLAUDE.md` at the project root
 2. **Read** `WebSiteDoc/12-claude-requirements.md` for task-specific planning doc references
 3. **Check git state**: `git status`, `git branch --show-current`, `git log --oneline -5`
 4. **Do NOT** commit, push, or create PRs (standing instruction: output text only)
