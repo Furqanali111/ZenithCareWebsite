@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { pageMetadata, JsonLd, articleLd, breadcrumbLd } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { BrandFigure } from "@/components/brand-figure";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
@@ -66,13 +67,16 @@ export default async function PostPage({
         ]}
       />
 
-      <article className="mx-auto max-w-3xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Resources", path: "/resources" },
+          { name: post.title, path: `/resources/${post.slug}` },
+        ]}
+      />
+
+      <article className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-20">
         <header>
-          <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-            <Link href="/resources" className="hover:text-brand-accent">
-              ← All articles
-            </Link>
-          </nav>
           <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.18em] text-muted-foreground">
             <span className="text-brand-accent">
               {post.category}
