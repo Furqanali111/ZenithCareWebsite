@@ -10,6 +10,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FaqSection, type FaqEntry } from "@/components/faq-section";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { specialties, specialtyLabel, type Specialty } from "@/lib/site";
 import { getService, categoryMeta } from "@/lib/services";
 import { CPT_RATES, formatUsd } from "@/lib/roi";
@@ -72,6 +73,14 @@ export default async function WhoWeServePage({
             { name: "Who We Serve", path },
             { name: label, path },
           ]),
+        ]}
+      />
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Who We Serve", path },
+          { name: label, path },
         ]}
       />
 

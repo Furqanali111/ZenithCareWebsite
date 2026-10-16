@@ -10,9 +10,11 @@ import { TrustStrip } from "@/components/trust-strip";
 import { FeatureGrid } from "@/components/feature-grid";
 import { HowItWorks } from "@/components/how-it-works";
 import { FaqSection } from "@/components/faq-section";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   getService,
   getServiceSlugs,
+  servicesByCategory,
   categoryMeta,
   type Service,
 } from "@/lib/services";
@@ -71,6 +73,15 @@ export default async function ServicePage({
             { name: cat.label, path: cat.href },
             { name: s.name, path },
           ]),
+        ]}
+      />
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: cat.label, path: cat.href },
+          { name: s.name, path },
         ]}
       />
 
@@ -243,6 +254,9 @@ export default async function ServicePage({
         tone="surface"
       />
 
+      {/* ─── Related services (same category, excluding current) ─────── */}
+      <RelatedServices current={s} />
+
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-background">
         <div className="section-rhythm">
@@ -308,5 +322,51 @@ function BillingTable({ service }: { service: Service }) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+/**
+ * Shows up to 4 sibling services from the same category, helping Googlebot
+ * discover related pages and users explore adjacent services.
+ */
+function RelatedServices({ current }: { current: Service }) {
+  const siblings = servicesByCategory(current.category).filter(
+    (s) => s.slug !== current.slug,
+  );
+  if (siblings.length === 0) return null;
+  const show = siblings.slice(0, 4);
+  const cat = categoryMeta[current.category];
+
+  return (
+    <section className="section-rhythm border-t border-border/60 bg-surface-tint">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal className="max-w-2xl">
+          <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+            Related {cat.label.toLowerCase()} services
+          </h2>
+        </Reveal>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {show.map((sib) => (
+            <Reveal key={sib.slug} className="h-full">
+              <Link
+                href={`/services/${sib.slug}`}
+                className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+              >
+                <h3 className="font-serif text-base font-semibold text-brand-ink group-hover:text-brand-accent">
+                  {sib.name}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-body-ink line-clamp-3">
+                  {sib.metaDescription}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-accent">
+                  Learn more
+                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

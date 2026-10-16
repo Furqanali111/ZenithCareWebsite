@@ -6,6 +6,7 @@ import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FeatureRows } from "@/components/feature-rows";
 import { FaqSection } from "@/components/faq-section";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ServiceGrid } from "@/components/service-grid";
 import { servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
 import { categoryContent } from "@/lib/categories";
@@ -35,6 +36,14 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
             { name: "Services", path: "/services" },
             { name: label, path: c.path },
           ]),
+        ]}
+      />
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: label, path: c.path },
         ]}
       />
 

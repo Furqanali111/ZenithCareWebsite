@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { ServiceGrid } from "@/components/service-grid";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { servicesByCategory, categoryMeta, type Service } from "@/lib/services";
 
 const PATH = "/services";
@@ -29,6 +30,13 @@ export default function ServicesOverviewPage() {
           { name: "Home", path: "/" },
           { name: "Services", path: PATH },
         ])}
+      />
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: PATH },
+        ]}
       />
 
       <PageHero
