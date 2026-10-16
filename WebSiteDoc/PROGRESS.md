@@ -3,12 +3,12 @@
 **Project**: Zenith Care Solutions — marketing website
 **Updated**: 2026-10-11
 
-This is the "what has been done / what is being done / what is next" log. It's intentionally short and lives at the repo root so a 3–4 day break (or a new teammate) can get up to speed in 60 seconds. **Update at the end of every PR.**
+This is the "what has been done / what is being done / what is next" log. **Update at the end of every PR.**
 
 > New session? Also open:
-> - [`CLAUDE.md`](CLAUDE.md) — pinned project context
-> - [`WebSiteDoc/12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md) — session playbook
-> - [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) — the full phase plan
+> - [`../CLAUDE.md`](../CLAUDE.md) — pinned project context
+> - [`12-claude-requirements.md`](12-claude-requirements.md) — session playbook
+> - [`06-implementation-plan.md`](06-implementation-plan.md) — the full phase plan
 
 ---
 
