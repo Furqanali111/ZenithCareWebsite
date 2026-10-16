@@ -246,6 +246,38 @@ export default async function ServicePage({
         </section>
       ) : null}
 
+      {/* ─── Related resources (blog links for service-to-content SEO) ── */}
+      {s.slug === "chronic-care-management" ? (
+        <section className="section-rhythm border-t border-border/60">
+          <div className="mx-auto max-w-7xl px-6">
+            <Reveal className="max-w-2xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+                CCM resources
+              </h2>
+            </Reveal>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { href: "/resources/cpt-99490-2026", title: "CPT 99490 in 2026: rates and requirements" },
+                { href: "/resources/in-house-vs-outsourced-ccm", title: "In-house vs. outsourced CCM: cost math" },
+                { href: "/resources/hipaa-checklist-outsourced-ccm", title: "HIPAA checklist for vetting a CCM vendor" },
+              ].map((r) => (
+                <li key={r.href}>
+                  <Link
+                    href={r.href}
+                    className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                  >
+                    <ArrowRight className="mt-0.5 size-4 shrink-0 text-brand-accent transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                    <span className="text-sm font-medium leading-snug text-brand-ink group-hover:text-brand-accent">
+                      {r.title}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
       {/* ─── FAQ (emits FAQPage JSON-LD) ─────────────────────────────── */}
       <FaqSection
         heading={`${s.name}: common questions`}

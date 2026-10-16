@@ -62,7 +62,7 @@
 **Current title:** "Care Management, Billing & Virtual Staffing | Zenith Care Solutions"
 **Issue:** Does not include primary commercial keyword. No one searches for "Care Management, Billing & Virtual Staffing".
 
-**Recommended title:** "Outsourced Care Management, Billing & Staffing for Medical Practices | Zenith Care Solutions"
+**Recommended title:** "Care Management, Billing & Staffing Services | Zenith Care Solutions"
 **Recommended meta:** "Zenith Care Solutions provides CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider."
 
 **Effort:** 10 minutes
@@ -73,8 +73,8 @@
 **Current pattern:** Uses service name but may not match how buyers search.
 
 **Review and update these pages:**
-- `/services/chronic-care-management`: Ensure title includes "outsourced" or "services for practices"
-- `/services/medical-billing`: Ensure title includes "for medical practices" or "physician practices"
+- `/services/chronic-care-management`: Ensure title includes "services"
+- `/services/medical-billing`: Ensure title includes "for practices" or "physician practices"
 - All 14 service pages: Confirm each title is under 60 chars and includes the primary keyword from the keyword map
 
 **Effort:** 1-2 hours across all pages

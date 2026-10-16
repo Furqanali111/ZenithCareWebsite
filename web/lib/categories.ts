@@ -25,9 +25,9 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
   rpm: {
     path: "/services/care-management",
     serviceType: "Care Management",
-    metaTitle: "Care Management & Monitoring",
+    metaTitle: "Care Management Programs for Practices",
     metaDescription:
-      "CCM, PCM, RPM, RTM and TCM support for U.S. practices. Monthly clinical coordination inside your EHR; you stay the billing provider.",
+      "CCM, PCM, RPM, RTM and TCM services for U.S. physician practices. Monthly clinical coordination inside your EHR; you stay the billing provider.",
     eyebrow: "Care Management & Monitoring",
     title: "Medicare care-management programs, delivered by clinical staff.",
     lead:
@@ -80,9 +80,9 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
   rcm: {
     path: "/services/revenue-cycle-management",
     serviceType: "Revenue Cycle Management",
-    metaTitle: "Revenue Cycle Management",
+    metaTitle: "Revenue Cycle Management Services",
     metaDescription:
-      "Billing, coding, credentialing and AR follow-up for U.S. practices, inside your PM system. More claims coded right and collected.",
+      "Medical billing, coding, credentialing and AR follow-up services for U.S. physician practices. Inside your PM system, more claims collected.",
     eyebrow: "Revenue Cycle Management",
     title: "Revenue cycle support that gets more of what you earn collected.",
     lead:
@@ -135,9 +135,9 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
   staffing: {
     path: "/services/virtual-staffing",
     serviceType: "Virtual Staffing",
-    metaTitle: "Virtual Medical Staffing",
+    metaTitle: "Virtual Medical Staffing Services",
     metaDescription:
-      "Remote scribes, schedulers, receptionists, coordinators and virtual assistants for U.S. practices, inside your systems under a BAA.",
+      "Remote medical scribes, schedulers, receptionists, coordinators and virtual assistants for U.S. physician practices. Inside your systems under a BAA.",
     eyebrow: "Virtual Staffing & Admin Support",
     title: "Remote medical staff who absorb the admin that slows your team down.",
     lead:

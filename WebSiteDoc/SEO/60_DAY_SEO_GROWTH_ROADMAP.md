@@ -76,7 +76,7 @@ thezcs.com has 35 well-built pages with solid technical SEO (correct robots.txt,
 
 | # | Task | Owner | Effort | Deliverable |
 |---|---|---|---|---|
-| 2.1 | Update homepage title to include "Outsourced" and target keywords | Developer | 10 min | Title updated |
+| 2.1 | Update homepage title to include "Services" and target keywords | Developer | 10 min | Title updated |
 | 2.2 | Update homepage meta description to mention CCM, RPM, billing, staffing | Developer | 10 min | Meta updated |
 | 2.3 | Review and optimize titles for all 14 service pages (under 60 chars, include primary keyword) | Developer | 2 hrs | All service titles optimized |
 | 2.4 | Add internal links from CPT 99490 article to CCM service page, ROI calculator, care management hub | Developer | 30 min | 3 links added (see Internal Linking Plan, Batch 1) |
