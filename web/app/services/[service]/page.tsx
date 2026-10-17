@@ -303,7 +303,7 @@ function CcmResources() {
     .slice(0, 6);
   if (posts.length === 0) return null;
   return (
-    <section className="section-rhythm border-t border-border/60">
+    <section className="section-rhythm border-t border-border/60 bg-surface-tint">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
