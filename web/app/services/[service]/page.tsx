@@ -278,6 +278,9 @@ export default async function ServicePage({
         </section>
       ) : null}
 
+      {/* ─── Cross-category link note ────────────────────────────────── */}
+      <CrossLinkNote slug={s.slug} />
+
       {/* ─── FAQ (emits FAQPage JSON-LD) ─────────────────────────────── */}
       <FaqSection
         heading={`${s.name}: common questions`}
@@ -354,6 +357,47 @@ function BillingTable({ service }: { service: Service }) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+const CROSS_LINKS: Record<string, { before: string; href: string; label: string }> = {
+  "chronic-care-management": {
+    before: "Your practice stays the billing provider. For clean claim submission on CCM encounters, Zenith also provides",
+    href: "/services/medical-billing",
+    label: "medical billing support",
+  },
+  "medical-billing": {
+    before: "Zenith also supports practices running",
+    href: "/services/chronic-care-management",
+    label: "care management programs like CCM",
+  },
+  "medical-coding": {
+    before: "We scope coding work at the service level, including",
+    href: "/services/chronic-care-management",
+    label: "CCM coding (99490, 99439)",
+  },
+  "medical-scribe": {
+    before: "Scribes are particularly useful for practices managing",
+    href: "/services/chronic-care-management",
+    label: "CCM documentation requirements",
+  },
+};
+
+function CrossLinkNote({ slug }: { slug: string }) {
+  const cl = CROSS_LINKS[slug];
+  if (!cl) return null;
+  return (
+    <section className="border-t border-border/40">
+      <div className="mx-auto max-w-7xl px-6 py-6">
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {cl.before}{" "}
+          <Link href={cl.href} className="font-medium text-brand-accent hover:underline">
+            {cl.label}
+          </Link>
+          .
+        </p>
+      </div>
+    </section>
   );
 }
 

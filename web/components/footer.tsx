@@ -17,6 +17,12 @@ const QUICK_LINKS: Item[] = [
   { label: "Contact Us", href: "/contact" },
 ];
 
+const WHO_WE_SERVE_LINKS: Item[] = [
+  { label: "Primary Care", href: "/who-we-serve/primary-care" },
+  { label: "Internal Medicine", href: "/who-we-serve/internal-medicine" },
+  { label: "Geriatrics", href: "/who-we-serve/geriatrics" },
+];
+
 const RESOURCE_LINKS: Item[] = [
   { label: "Blog / Articles", href: "/resources" },
   { label: "ROI Calculator", href: "/roi-calculator" },
@@ -113,7 +119,7 @@ export function Footer() {
           </div>
 
           {/* Link columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-9 md:gap-6 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-9 md:gap-6 lg:grid-cols-7">
             <FooterColumn label="Quick Links" items={QUICK_LINKS} />
             <FooterColumn
               label={categoryMeta.rpm.label}
@@ -127,6 +133,7 @@ export function Footer() {
               label={categoryMeta.staffing.label}
               items={toItems(servicesByCategory("staffing"))}
             />
+            <FooterColumn label="Who We Serve" items={WHO_WE_SERVE_LINKS} />
             <FooterColumn label="Resources" items={RESOURCE_LINKS} />
             <ContactColumn />
           </div>
