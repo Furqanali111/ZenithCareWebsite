@@ -1,0 +1,183 @@
+export const frontmatter = {
+  slug: "how-ccm-billing-works",
+  title: "How CCM Billing Works: A Step-by-Step Guide for Physician Practices",
+  description:
+    "Walk through the five billing steps for Chronic Care Management, from confirming patient eligibility to reconciling Medicare payments, with common pitfalls to avoid.",
+  publishedAt: "2026-10-25",
+  updatedAt: "2026-10-25",
+  category: "Billing & Reimbursement",
+  tags: ["ccm", "billing", "cpt-99490", "medicare"],
+  readingMinutes: 9,
+  coverImage: "/resources/how-ccm-billing-works.webp",
+};
+
+[Chronic Care Management](/services/chronic-care-management) adds a monthly recurring revenue stream to any
+practice managing Medicare patients with two or more chronic conditions. The billing mechanics are
+straightforward once the workflow is set up, but the sequence matters: missing a step early leads to
+denials later.
+
+This guide walks through the five billing steps in order and flags the most common mistakes practices make
+in each one.
+
+## What is CCM billing?
+
+CCM billing refers to the process of claiming reimbursement from Medicare for non-face-to-face care
+coordination services delivered to eligible patients each calendar month. The work (phone calls,
+care-plan updates, medication reconciliation, referral coordination, patient education) is performed
+by clinical staff between office visits. The physician does not need to be present for most of it.
+
+The base code, CPT 99490, covers the first 20 minutes of qualifying clinical staff time in a month.
+Add-on code CPT 99439 covers each additional 20-minute increment, up to twice per month. Complex CCM
+codes (99487 and 99489) apply when the patient's conditions require substantial revision of the care
+plan and a physician or other qualified provider spends the time.
+
+For a breakdown of the individual CPT codes and 2026 reimbursement rates, see the
+[CPT 99490 billing guide](/resources/cpt-99490-2026).
+
+## Step 1: How do you confirm patient eligibility?
+
+A patient is eligible for CCM when all of the following are true:
+
+- **Medicare Part B enrollment:** the patient is covered by Medicare Part B, not only Part A.
+- **Two or more chronic conditions:** the conditions are expected to last at least 12 months or
+  until the patient's death, and they place the patient at significant risk of death, acute
+  exacerbation, or functional decline.
+- **Prior face-to-face visit:** the patient has been seen in person by the billing provider (or
+  the provider's group) within the past 12 months. A new patient or a patient seen by a different
+  group requires a transitional or annual wellness visit before CCM enrollment.
+- **No concurrent billing conflict:** the patient is not already enrolled in a Comprehensive
+  Primary Care Plus (CPC+) or similar program that would prohibit CCM billing by the same practice.
+
+The practical step: pull your Medicare Part B panel and filter by documented chronic diagnoses (ICD-10
+codes) in the EHR. Patients with two or more chronic condition codes active on the problem list are
+your candidate list.
+
+## Step 2: How do you obtain and document patient consent?
+
+CMS requires informed verbal or written consent before the first billable month. The consent
+conversation must cover:
+
+1. What CCM is and what the practice will do each month
+2. That only one provider may bill CCM for the patient in a given month
+3. The patient's Medicare cost-sharing obligation (20 percent coinsurance applies to CCM, unless
+   the patient has supplemental coverage)
+4. The patient's right to revoke consent at any time without affecting other care
+
+The consent must be documented in the patient's medical record. A note in the EHR with the date,
+who obtained consent, and the topics covered is sufficient for verbal consent. A signed form is
+stronger and easier to produce during an audit.
+
+**Critical rule:** Do not bill any CCM codes until consent is documented. Claims submitted without
+consent documentation are recoverable by Medicare on audit.
+
+## Step 3: How do you deliver and log the required time?
+
+The minimum for CPT 99490 is 20 minutes of qualifying clinical staff time within a single calendar
+month. The clock resets on the first day of each month.
+
+What qualifies:
+- Telephone calls with the patient or their caregiver about care coordination
+- Medication management and reconciliation
+- Care plan review and updates
+- Coordination with other providers (referrals, specialist communication, lab follow-up)
+- Patient education related to chronic condition management
+- Communication between care team members on the patient's behalf
+
+What does not qualify:
+- Face-to-face office visit time (that is billed separately under E/M codes)
+- Time spent on administrative tasks not directly related to care coordination
+- Time logged by non-clinical staff (scheduling, billing)
+
+The time must be logged in the EHR with the date, activity performed, and duration. A generic note
+("called patient, 5 minutes") is risky. A specific note ("patient called to report blood pressure
+readings above 150/90 three days in a row; reviewed current medication regimen, advised to monitor
+and return if readings remain elevated, updated care plan note") is defensible.
+
+## Step 4: How do you submit the claim?
+
+CCM claims are submitted on a CMS-1500 claim form or its electronic equivalent through your
+clearinghouse. Key fields:
+
+- **CPT code:** 99490 for the base 20-minute increment. Add 99439 for each additional 20 minutes,
+  up to twice.
+- **Date of service:** the last date of clinical staff activity in the month, or the last day of the
+  month. Many practices use the last day of the month as the date of service for consistency.
+- **Place of service:** 11 (Office), even if the staff member performed the work remotely. CCM is
+  billed under the office where the care relationship exists.
+- **Provider NPI:** the billing provider NPI. The supervising physician's NPI, not the clinical
+  staff member's NPI, unless the staff member is a qualified non-physician practitioner billing
+  independently.
+- **Diagnosis codes:** the primary chronic condition ICD-10 codes that qualify the patient. List
+  them in the order of clinical significance.
+
+One claim per patient per calendar month. Do not submit the claim before the month ends unless all
+time has been documented and no further CCM work will be performed in that month.
+
+## Step 5: How do you track reimbursement and reconcile payments?
+
+Medicare processes CCM claims under the Medicare Physician Fee Schedule. The national average for
+CPT 99490 in 2026 is approximately $66 per enrolled patient per month, but the actual payment
+varies by Medicare locality (geographic adjustment factor) and the provider's Medicare participation
+status.
+
+Reconciliation steps each month:
+
+1. **Run an aging report** on CCM claims submitted, tracking which have been paid, denied, or are
+   still pending.
+2. **Review denial codes.** Common denial reasons: missing consent documentation, patient already
+   enrolled by another provider, insufficient time documented, or the patient's Medicare coverage
+   lapsed.
+3. **Refile or appeal denials within 120 days** of the original remittance advice date. Documentation
+   denials can often be corrected by attaching the supporting EHR note.
+4. **Reconcile against expected revenue.** For a 100-patient CCM panel at the 99490 rate, the
+   expected monthly revenue is roughly $6,600 (national average). Significant shortfalls usually
+   signal under-documentation rather than coverage issues.
+
+Use your practice management system or a dedicated CCM tracking spreadsheet to monitor enrollment
+status, monthly activity logs, claims submitted, and payments received.
+
+## What billing mistakes cause the most CCM denials?
+
+In order of frequency:
+
+| Mistake | What happens | How to prevent it |
+|---|---|---|
+| No documented consent | Claim is recoverable on audit | Obtain consent before billing; document date and topics in EHR |
+| Fewer than 20 minutes documented | Code 99490 denied; 99439 add-ons have no base to attach to | Log time on every CCM activity; do not bill short months |
+| Duplicate billing by another provider | Claim denied; only one provider can bill CCM per patient per month | Check enrollment status before adding a new patient |
+| Wrong place of service code | Claim rejected or paid at wrong rate | Use POS 11 consistently for outpatient CCM |
+| Non-qualifying activities logged | Documented time does not meet the threshold on audit | Train staff on what qualifies; review documentation monthly |
+| Date of service in next calendar month | Claim assigned to wrong billing period | Submit in the same calendar month the service was delivered |
+
+## Who in the practice can perform CCM work?
+
+CCM is a "principal care" or "incident to" service. Clinical staff who can perform and document
+CCM time include:
+
+- Registered Nurses (RNs)
+- Licensed Practical Nurses (LPNs)
+- Medical Assistants (MAs), in many states
+- Care coordinators with clinical training
+
+The work must be performed under the general supervision of the billing physician or qualified
+non-physician practitioner, meaning the physician is available by phone but does not need to be
+on-site during every activity. Check your state's scope-of-practice rules and your MAC's guidance
+for any additional requirements in your region.
+
+Physicians and nurse practitioners can also perform CCM themselves, but the efficiency gain comes
+from delegating to clinical staff and freeing physician time for higher-complexity billable work.
+
+## Can you outsource CCM billing and coordination?
+
+Yes. Many practices contract with a CCM vendor to handle patient enrollment, monthly care coordination
+calls, care plan maintenance, time logging, and claim submission. The physician retains oversight
+and the patient relationship; the vendor's clinical staff performs the day-to-day coordination work
+under a business associate agreement.
+
+The key compliance requirement: the vendor must maintain documentation standards that match your
+MAC's requirements. If the vendor's time logs would not survive an audit, the practice bears the
+recoupment risk, not the vendor.
+
+Zenith handles all five steps end-to-end: enrollment screening, consent workflows, monthly
+coordination, time documentation, and claim-ready encounter summaries your billing team submits.
+[Book a 15-minute call](/contact) to see how the workflow fits your EHR and panel size.
