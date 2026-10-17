@@ -118,7 +118,7 @@ export default async function PostPage({
         ) : null}
 
         <div
-          className="prose prose-neutral mt-12 max-w-none
+          className="prose prose-neutral dark:prose-invert mt-12 max-w-none
             [&_h2]:font-serif [&_h2]:text-brand-ink [&_h2]:tracking-tight
             [&_h3]:font-serif [&_h3]:text-brand-ink [&_h3]:tracking-tight
             [&_strong]:text-ink-strong
