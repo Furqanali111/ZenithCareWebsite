@@ -248,9 +248,7 @@ export default async function ServicePage({
       ) : null}
 
       {/* ─── Related resources (blog links for service-to-content SEO) ── */}
-      {s.slug === "chronic-care-management" ? (
-        <CcmResources />
-      ) : null}
+      <ServiceResources slug={s.slug} name={s.name} />
 
       {/* ─── Cross-category link note ────────────────────────────────── */}
       <CrossLinkNote slug={s.slug} />
@@ -295,11 +293,32 @@ export default async function ServicePage({
 
 /* -------------------------------------------------------------------------- */
 
-/** Dynamic CCM resource links driven by the posts registry, newest first. */
-function CcmResources() {
-  // shortcut: caps at 6; increase when the blog has more ccm-tagged articles
+// Maps each service slug to the post tags that belong on that page.
+// Add a slug here when a new service gets blog content.
+const SERVICE_TAGS: Record<string, string[]> = {
+  "chronic-care-management":     ["ccm"],
+  "principal-care-management":   ["pcm"],
+  "remote-patient-monitoring":   ["rpm"],
+  "remote-therapeutic-monitoring": ["rtm"],
+  "transitional-care-management": ["tcm"],
+  "medical-billing":             ["medical-billing"],
+  "medical-coding":              ["medical-coding"],
+  "provider-credentialing":      ["credentialing"],
+  "accounts-receivable":         ["ar"],
+  "medical-scribe":              ["medical-scribe"],
+  "medical-scheduler":           ["medical-scheduler"],
+  "medical-receptionist":        ["medical-receptionist"],
+  "patient-care-coordinator":    ["patient-care-coordinator"],
+  "virtual-assistant":           ["virtual-assistant"],
+};
+
+/** Tag-driven resource links; renders nothing when no matching posts exist. */
+function ServiceResources({ slug, name }: { slug: string; name: string }) {
+  const tags = SERVICE_TAGS[slug];
+  if (!tags) return null;
+  // shortcut: caps at 6; raise when a service has a large content library
   const posts = getAllPosts()
-    .filter((p) => p.tags.includes("ccm"))
+    .filter((p) => tags.some((t) => p.tags.includes(t)))
     .slice(0, 6);
   if (posts.length === 0) return null;
   return (
@@ -307,7 +326,7 @@ function CcmResources() {
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-            CCM resources
+            {name} resources
           </h2>
         </Reveal>
         <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
