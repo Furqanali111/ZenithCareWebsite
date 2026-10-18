@@ -301,7 +301,7 @@ export default function HomePage() {
                   per month, same {ANCHOR_PATIENTS}-patient panel with a 1-in-5
                   Complex-CCM share.
                 </p>
-                <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground dark:text-[color:var(--color-accent-600)]">
+                <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
                   Base-only revenue is{" "}
                   <span className="font-mono">{formatUsd(ANCHOR_MONTHLY)}</span>{" "}
                   (shown above). Shifting ~20% of patients to{" "}
@@ -311,8 +311,8 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4 md:items-end">
-                <p className="max-w-sm text-sm leading-relaxed text-muted-foreground md:text-right dark:text-[color:var(--color-surface-0)]/70">
+              <div className="flex flex-col gap-4">
+                <p className="max-w-sm text-sm leading-relaxed text-muted-foreground dark:text-[color:var(--color-surface-0)]/70">
                   Plug in your panel size and expected enrollment rate, the
                   calculator does the math client-side and shows a typical range.
                 </p>
@@ -349,7 +349,7 @@ export default function HomePage() {
             {WHY_ZENITH.map((item, i) => (
               <Reveal key={item.title} delay={(i % 2) * 0.08}>
                 <div className="flex gap-4">
-                  <span className="mt-0.5 inline-flex size-10 flex-none items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]">
+                  <span className="mt-0.5 inline-flex size-10 flex-none items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10">
                     {item.icon}
                   </span>
                   <div>
@@ -434,12 +434,11 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal delay={0.15}>
-              <p className="mt-8 text-center text-sm text-muted-foreground">
-                More questions?{" "}
-                <Link href="/faq" className="text-brand-accent hover:underline">
-                  See the full FAQ
-                </Link>
-              </p>
+              <div className="mt-6 text-center">
+                <Button asChild variant="outline">
+                  <Link href="/faq">See the full FAQ</Link>
+                </Button>
+              </div>
             </Reveal>
           </div>
         </div>

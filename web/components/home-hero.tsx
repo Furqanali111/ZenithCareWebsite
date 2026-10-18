@@ -36,11 +36,8 @@ export function HomeHero() {
       <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
-          <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
-            {/* 0.5px down: optically centers all-caps (empty descender space). */}
-            <span className="inline-block [transform:translateY(0.5px)]">
-              For U.S. physician practices
-            </span>
+          <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent dark:border-white/15 dark:bg-white/5">
+            For U.S. physician practices
           </span>
 
           <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
@@ -66,11 +63,11 @@ export function HomeHero() {
             </Button>
             <Link
               href="/services"
-              className="group inline-flex items-center gap-1.5 text-sm font-medium text-body-ink transition-colors hover:text-brand-ink"
+              className="group inline-flex items-center gap-2 text-base font-semibold text-body-ink transition-colors hover:text-brand-ink"
             >
               See our services
               <ArrowRight
-                className="size-4 transition-transform group-hover:translate-x-0.5"
+                className="size-5 transition-transform group-hover:translate-x-0.5"
                 aria-hidden="true"
               />
             </Link>
@@ -120,10 +117,10 @@ export function HomeHero() {
 
             <Link
               href="/roi-calculator"
-              className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
+              className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
             >
               See the full breakdown
-              <ArrowRight className="size-4" aria-hidden="true" />
+              <ArrowRight className="size-5" aria-hidden="true" />
             </Link>
           </div>
           <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground dark:text-white/75">

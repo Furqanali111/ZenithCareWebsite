@@ -116,7 +116,7 @@ export function Footer() {
           </div>
 
           {/* Link columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-9 md:gap-6 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-9 md:gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
             <FooterColumn label="Quick Links" items={QUICK_LINKS} />
             <FooterColumn
               label={categoryMeta.rpm.label}
