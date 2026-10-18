@@ -51,7 +51,7 @@ export function Nav() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
+              className="text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
             >
               {item.label}
             </Link>
@@ -132,7 +132,7 @@ function ServicesMegaMenu() {
           mega-menu (the panel is a group-hover sibling). */}
       <Link
         href="/services"
-        className="inline-flex items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
+        className="inline-flex items-center gap-1 text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
       >
         Services
         <svg
@@ -181,7 +181,7 @@ function MegaColumn({ category }: { category: ServiceCategory }) {
         role="menuitem"
         className="group/cat block rounded-lg px-3 py-1.5 transition-colors hover:bg-[color:var(--color-brand-50)] dark:hover:bg-white/10"
       >
-        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-accent">
+        <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand-accent">
           {meta.label}
           <span
             aria-hidden="true"
@@ -220,7 +220,7 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
     return (
       <Link
         href={only.href}
-        className="text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent"
+        className="text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
       >
         {label}
       </Link>
@@ -230,7 +230,7 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
     <div className="group relative">
       <span
         tabIndex={0}
-        className="inline-flex cursor-default items-center gap-1 text-sm font-medium text-[color:var(--color-ink-700)] transition-colors hover:text-brand-accent dark:text-[color:var(--color-surface-50)]"
+        className="inline-flex cursor-default items-center gap-1 text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
       >
         {label}
         <svg

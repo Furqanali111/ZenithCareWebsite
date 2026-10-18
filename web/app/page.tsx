@@ -281,7 +281,7 @@ export default function HomePage() {
         <div className="section-rhythm">
           <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
+          <div className="relative overflow-hidden rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[color:var(--color-teal-500)]/18 blur-3xl"
@@ -319,7 +319,7 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="lg"
-                  className="h-11 bg-[color:var(--color-gold-500)] px-6 text-sm text-[color:var(--color-brand-900)] hover:brightness-105"
+                  className="h-11 px-6 text-sm"
                 >
                   <Link href="/roi-calculator">
                     Estimate your panel&rsquo;s number
@@ -449,7 +449,7 @@ export default function HomePage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-          <div className="rounded-3xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
+          <div className="rounded-2xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Ready to find out if we are a fit?
             </h2>
