@@ -97,6 +97,24 @@ export default async function ServicePage({
 
       <TrustStrip tone="surface" items={s.trust} />
 
+      {/*
+       * SECTION RHYTHM — keep this alternating or both light/dark modes look flat.
+       * Every section must differ from its neighbour. Conditional sections keep
+       * their fixed bg regardless of what renders around them; the border-t
+       * provides separation even when two defaults are adjacent.
+       *
+       *  TrustStrip      → tint  (component-managed via tone="surface")
+       *  Capabilities    → default
+       *  How it works    → tint
+       *  Who we serve    → default
+       *  Revenue band    → tint   (conditional)
+       *  ServiceResources→ default (conditional)
+       *  CrossLinkNote   → default (minor border-t element, always fine)
+       *  FAQ             → tint  (component-managed via tone="surface")
+       *  Related services→ default
+       *  Final CTA       → tint
+       */}
+
       {/* ─── Capability cards ────────────────────────────────────────── */}
       <section className="section-rhythm">
         <FeatureGrid
@@ -208,7 +226,7 @@ export default async function ServicePage({
 
       {/* ─── Revenue band (care-management programs only) ─────────────── */}
       {s.revenue ? (
-        <section className="section-rhythm">
+        <section className="section-rhythm border-t border-border/60 bg-surface-tint">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal>
               <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-16 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
@@ -265,7 +283,7 @@ export default async function ServicePage({
       <RelatedServices current={s} />
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-background">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -322,7 +340,7 @@ function ServiceResources({ slug, name }: { slug: string; name: string }) {
     .slice(0, 6);
   if (posts.length === 0) return null;
   return (
-    <section className="section-rhythm border-t border-border/60 bg-surface-tint">
+    <section className="section-rhythm border-t border-border/60">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
@@ -445,7 +463,7 @@ function RelatedServices({ current }: { current: Service }) {
   const cat = categoryMeta[current.category];
 
   return (
-    <section className="section-rhythm border-t border-border/60 bg-surface-tint">
+    <section className="section-rhythm border-t border-border/60">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
