@@ -1,0 +1,151 @@
+export const frontmatter = {
+  slug: "ccm-time-tracking-requirements",
+  title: "CCM Time Tracking Requirements: What Counts, Who Can Log It, and What Auditors Look For",
+  description:
+    "A practical guide to Medicare's CCM time tracking requirements, the 20-minute threshold, qualifying activities, documentation standards, and the most common logging mistakes.",
+  publishedAt: "2026-11-15",
+  updatedAt: "2026-11-15",
+  category: "CCM Operations",
+  tags: ["ccm", "compliance", "time-tracking", "billing"],
+  readingMinutes: 6,
+  coverImage: "/resources/ccm-time-tracking-requirements.webp",
+};
+
+Time tracking is the operational core of [Chronic Care Management](/services/chronic-care-management).
+The monthly reimbursement depends on documented clinical staff time: if the time is not in the
+record, it does not count toward the billing threshold, and the claim will not survive an audit.
+
+This guide covers what time counts toward CCM, who can log it, how auditors review the documentation,
+and the most common tracking mistakes to avoid.
+
+## Why does time tracking matter for CCM?
+
+Unlike most Medicare evaluation and management codes, CCM reimbursement is explicitly time-based.
+CPT 99490 requires at least 20 minutes of qualifying clinical staff time in a calendar month. CPT
+99439 (the add-on code) requires each additional 20-minute increment to be separately documented.
+See the full breakdown in our [CPT 99490 vs. 99439 guide](/resources/cpt-99439-vs-99490).
+
+The time log is the primary piece of evidence in a Medicare audit. If a practice submits a claim
+for 99490 and the patient's record contains 12 minutes of documented activity, the claim will be
+denied on review and the payment recouped. The documentation must exist before the claim is
+submitted, not be reconstructed afterward.
+
+## What counts toward the 20-minute threshold?
+
+CMS defines qualifying CCM time as non-face-to-face clinical staff time spent on activities that
+directly support the management of the patient's chronic conditions. Qualifying activities include:
+
+**Communication activities:**
+- Telephone calls with the patient or their designated caregiver about care coordination
+- Secure messaging or patient portal communication related to chronic condition management
+- Callbacks to follow up on symptoms, medication side effects, or missed appointments
+
+**Clinical support activities:**
+- Medication reconciliation and refill authorization
+- Reviewing and updating the patient's care plan
+- Care gap closure (ensuring overdue screenings or labs are scheduled)
+- Education related to the patient's chronic conditions and self-management goals
+
+**Coordination activities:**
+- Communication with specialist offices about referrals or shared care
+- Following up on lab or imaging results and communicating them to the patient
+- Coordination with home health agencies, social workers, or community resources
+
+**What does not count:**
+- Time spent during a face-to-face office visit (that time is captured under the E/M code)
+- Administrative tasks such as scheduling, prior authorizations unrelated to chronic conditions,
+  or billing and coding work
+- Time spent by non-clinical staff (front desk, billing coordinators)
+- Duplicate time logged for the same activity under both CCM and Remote Patient Monitoring (RPM)
+
+The calendar month resets on the first day of each month. Time cannot be carried over from one
+month to the next.
+
+## Who can perform and log CCM time?
+
+CCM work must be performed by clinical staff. The "incident to" billing rule allows clinical staff
+to provide CCM services under the general supervision of the billing physician or qualified
+non-physician practitioner. The physician does not need to be physically present during each CCM
+activity, but must be immediately available and must maintain general oversight of the care plan.
+
+Clinical staff who can perform and document CCM time:
+- Registered Nurses (RNs)
+- Licensed Practical Nurses (LPNs)
+- Certified Medical Assistants (CMAs) and Medical Assistants (MAs), depending on state scope
+  of practice
+- Licensed Clinical Social Workers (LCSWs), when their activities relate to care coordination
+- Pharmacists embedded in the practice, for medication management activities
+
+Non-clinical staff, including front-desk staff, billing coordinators, and scheduling staff, cannot
+log time toward the CCM threshold regardless of the activity they performed.
+
+Physicians, nurse practitioners, and physician assistants can also log CCM time directly. In
+practices where the provider personally performs care coordination calls, the time is documented
+in the provider's note rather than a clinical staff log.
+
+## What do auditors look for in CCM documentation?
+
+Medicare auditors reviewing CCM claims are looking for three things:
+
+**1. Time specificity.** Each entry in the time log must show the date, the duration in minutes,
+and who performed the activity. A note that says "Care coordination: 25 min" without a date or
+staff member name is not sufficient.
+
+**2. Activity specificity.** The log must show what was done, not just that time was spent. "Called
+patient" is weak. "Called patient to review blood pressure log from home monitoring device.
+Patient reported readings averaging 148/88 for past week. Reviewed current antihypertensive
+regimen, reinforced medication adherence, scheduled follow-up call for next week. Updated care
+plan note." is defensible.
+
+**3. Cumulative time matching the billed code.** If 99490 + 99439 are billed (40 minutes), the
+auditor will add up all the monthly log entries and verify the total reaches 40 minutes. If the
+total is 28 minutes, the 99439 unit will be denied.
+
+A common audit finding is a time log with entries that use identical language across patients.
+Cookie-cutter documentation, where every patient's log for the month reads identically, flags
+as potentially fabricated and triggers closer review.
+
+## What are the most common time tracking mistakes?
+
+**Logging time in aggregate at month-end.** Some practices have staff retroactively estimate how
+long they spent on CCM activities across the month and enter it as a single lump-sum entry.
+This is not compliant. Each activity should be logged at the time it occurs, with a specific date
+and duration.
+
+**Rounding up to the billing threshold.** If 17 minutes are documented, the correct action is to
+do 3 more minutes of qualifying work and document it, or to not bill that month. Inflating the
+logged time to reach 20 minutes is a compliance violation.
+
+**Counting office visit time.** If the patient comes in for a visit and the provider spends time
+on care coordination during that visit, that time is already captured under the E/M code for the
+visit and cannot be counted toward the CCM threshold.
+
+**No documentation for phone calls.** Some practices perform CCM phone calls but fail to document
+them in the EHR at the time of the call. If the call is not in the record within a reasonable
+time of occurring, it may not be defensible in an audit.
+
+**Using CCM time for RPM.** If the practice is billing both CCM and Remote Patient Monitoring for
+the same patient, the same minutes cannot count toward both. Each program must have its own
+independently documented time.
+
+## What tools and workflows support accurate CCM logging?
+
+The simplest compliant approach is a structured EHR template that prompts the staff member to
+enter the date, activity type, duration, and a brief narrative for each CCM interaction. Most
+modern EHRs (Epic, Athenahealth, eClinicalWorks, Kareo) have a built-in CCM time-tracking module
+or a configurable encounter type that supports this.
+
+For practices using a dedicated CCM platform or outsourcing to a CCM vendor, the vendor's
+platform should:
+
+- Log each activity in real time, not retroactively
+- Produce a monthly summary showing the cumulative documented time per patient
+- Export to a format that can be attached to the claim or produced during audit
+
+When reviewing a CCM vendor, ask to see a sample time log and audit report. If the vendor cannot
+produce patient-level activity logs with dates, durations, and activity descriptions, the practice
+is accepting the audit risk without the tools to defend it.
+
+Zenith provides real-time activity logging and a monthly per-patient summary that your billing team
+submits alongside the claim. [Book a 15-minute call](/contact) to review the documentation
+workflow before you commit to a CCM program launch.

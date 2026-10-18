@@ -18,6 +18,7 @@ import {
   categoryMeta,
   type Service,
 } from "@/lib/services";
+import { getAllPosts } from "@/content/posts";
 
 type Params = { service: string };
 
@@ -95,6 +96,24 @@ export default async function ServicePage({
       </PageHero>
 
       <TrustStrip tone="surface" items={s.trust} />
+
+      {/*
+       * SECTION RHYTHM — keep this alternating or both light/dark modes look flat.
+       * Every section must differ from its neighbour. Conditional sections keep
+       * their fixed bg regardless of what renders around them; the border-t
+       * provides separation even when two defaults are adjacent.
+       *
+       *  TrustStrip      → tint  (component-managed via tone="surface")
+       *  Capabilities    → default
+       *  How it works    → tint
+       *  Who we serve    → default
+       *  Revenue band    → tint   (conditional)
+       *  ServiceResources→ default (conditional)
+       *  CrossLinkNote   → default (minor border-t element, always fine)
+       *  FAQ             → tint  (component-managed via tone="surface")
+       *  Related services→ default
+       *  Final CTA       → tint
+       */}
 
       {/* ─── Capability cards ────────────────────────────────────────── */}
       <section className="section-rhythm">
@@ -207,7 +226,7 @@ export default async function ServicePage({
 
       {/* ─── Revenue band (care-management programs only) ─────────────── */}
       {s.revenue ? (
-        <section className="section-rhythm">
+        <section className="section-rhythm border-t border-border/60 bg-surface-tint">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal>
               <div className="relative overflow-hidden rounded-3xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-16 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
@@ -247,36 +266,10 @@ export default async function ServicePage({
       ) : null}
 
       {/* ─── Related resources (blog links for service-to-content SEO) ── */}
-      {s.slug === "chronic-care-management" ? (
-        <section className="section-rhythm border-t border-border/60">
-          <div className="mx-auto max-w-7xl px-6">
-            <Reveal className="max-w-2xl">
-              <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-                CCM resources
-              </h2>
-            </Reveal>
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                { href: "/resources/cpt-99490-2026", title: "CPT 99490 in 2026: rates and requirements" },
-                { href: "/resources/in-house-vs-outsourced-ccm", title: "In-house vs. outsourced CCM: cost math" },
-                { href: "/resources/hipaa-checklist-outsourced-ccm", title: "HIPAA checklist for vetting a CCM vendor" },
-              ].map((r) => (
-                <li key={r.href}>
-                  <Link
-                    href={r.href}
-                    className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
-                  >
-                    <ArrowRight className="mt-0.5 size-4 shrink-0 text-brand-accent transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-                    <span className="text-sm font-medium leading-snug text-brand-ink group-hover:text-brand-accent">
-                      {r.title}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
+      <ServiceResources slug={s.slug} name={s.name} />
+
+      {/* ─── Cross-category link note ────────────────────────────────── */}
+      <CrossLinkNote slug={s.slug} />
 
       {/* ─── FAQ (emits FAQPage JSON-LD) ─────────────────────────────── */}
       <FaqSection
@@ -290,7 +283,7 @@ export default async function ServicePage({
       <RelatedServices current={s} />
 
       {/* ─── Final CTA ───────────────────────────────────────────────── */}
-      <section className="border-t border-border/60 bg-background">
+      <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-3xl px-6 text-center">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -317,6 +310,65 @@ export default async function ServicePage({
 }
 
 /* -------------------------------------------------------------------------- */
+
+// Maps each service slug to the post tags that belong on that page.
+// Add a slug here when a new service gets blog content.
+const SERVICE_TAGS: Record<string, string[]> = {
+  "chronic-care-management":     ["ccm"],
+  "principal-care-management":   ["pcm"],
+  "remote-patient-monitoring":   ["rpm"],
+  "remote-therapeutic-monitoring": ["rtm"],
+  "transitional-care-management": ["tcm"],
+  "medical-billing":             ["medical-billing"],
+  "medical-coding":              ["medical-coding"],
+  "provider-credentialing":      ["credentialing"],
+  "accounts-receivable":         ["ar"],
+  "medical-scribe":              ["medical-scribe"],
+  "medical-scheduler":           ["medical-scheduler"],
+  "medical-receptionist":        ["medical-receptionist"],
+  "patient-care-coordinator":    ["patient-care-coordinator"],
+  "virtual-assistant":           ["virtual-assistant"],
+};
+
+/** Tag-driven resource links; renders nothing when no matching posts exist. */
+function ServiceResources({ slug, name }: { slug: string; name: string }) {
+  const tags = SERVICE_TAGS[slug];
+  if (!tags) return null;
+  // shortcut: caps at 6; raise when a service has a large content library
+  const posts = getAllPosts()
+    .filter((p) => tags.some((t) => p.tags.includes(t)))
+    .slice(0, 6);
+  if (posts.length === 0) return null;
+  return (
+    <section className="section-rhythm border-t border-border/60">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal className="max-w-2xl">
+          <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+            {name} resources
+          </h2>
+        </Reveal>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
+            <li key={p.slug}>
+              <Link
+                href={`/resources/${p.slug}`}
+                className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+              >
+                <ArrowRight
+                  className="mt-0.5 size-4 shrink-0 text-brand-accent transition-transform group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+                <span className="text-sm font-medium leading-snug text-brand-ink group-hover:text-brand-accent">
+                  {p.title}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
 function BillingTable({ service }: { service: Service }) {
   if (!service.billing) return null;
@@ -357,6 +409,47 @@ function BillingTable({ service }: { service: Service }) {
   );
 }
 
+const CROSS_LINKS: Record<string, { before: string; href: string; label: string }> = {
+  "chronic-care-management": {
+    before: "Your practice stays the billing provider. For clean claim submission on CCM encounters, Zenith also provides",
+    href: "/services/medical-billing",
+    label: "medical billing support",
+  },
+  "medical-billing": {
+    before: "Zenith also supports practices running",
+    href: "/services/chronic-care-management",
+    label: "care management programs like CCM",
+  },
+  "medical-coding": {
+    before: "We scope coding work at the service level, including",
+    href: "/services/chronic-care-management",
+    label: "CCM coding (99490, 99439)",
+  },
+  "medical-scribe": {
+    before: "Scribes are particularly useful for practices managing",
+    href: "/services/chronic-care-management",
+    label: "CCM documentation requirements",
+  },
+};
+
+function CrossLinkNote({ slug }: { slug: string }) {
+  const cl = CROSS_LINKS[slug];
+  if (!cl) return null;
+  return (
+    <section className="border-t border-border/40">
+      <div className="mx-auto max-w-7xl px-6 py-6">
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {cl.before}{" "}
+          <Link href={cl.href} className="font-medium text-brand-accent hover:underline">
+            {cl.label}
+          </Link>
+          .
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /**
  * Shows up to 4 sibling services from the same category, helping Googlebot
  * discover related pages and users explore adjacent services.
@@ -370,7 +463,7 @@ function RelatedServices({ current }: { current: Service }) {
   const cat = categoryMeta[current.category];
 
   return (
-    <section className="section-rhythm border-t border-border/60 bg-surface-tint">
+    <section className="section-rhythm border-t border-border/60">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">

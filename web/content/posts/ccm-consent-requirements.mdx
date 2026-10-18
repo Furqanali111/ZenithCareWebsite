@@ -1,0 +1,161 @@
+export const frontmatter = {
+  slug: "ccm-consent-requirements",
+  title: "CCM Consent Requirements: What CMS Requires and How to Document It",
+  description:
+    "A practical guide to the Medicare CCM consent requirements, what must be documented in the patient record, common mistakes, and how an outsourced CCM partner handles consent.",
+  publishedAt: "2026-11-01",
+  updatedAt: "2026-11-01",
+  category: "Compliance",
+  tags: ["ccm", "consent", "compliance", "medicare"],
+  readingMinutes: 6,
+  coverImage: "/resources/ccm-consent-requirements.webp",
+};
+
+Obtaining and documenting patient consent is the first billing gate in
+[Chronic Care Management](/services/chronic-care-management). A practice can have perfectly logged
+clinical staff time and a complete care plan, and still face a Medicare audit recoupment if consent
+was not obtained and documented correctly before billing began.
+
+This guide covers exactly what CMS requires, what must appear in the patient record, the most common
+documentation mistakes, and how annual re-consent and revocation work.
+
+## Why does CCM consent matter?
+
+Medicare requires consent for CCM because the program changes two things for the patient:
+
+1. **Cost-sharing:** CCM services are subject to the standard Medicare Part B coinsurance, typically
+   20 percent. Patients should know they may owe a monthly cost-sharing amount before they are
+   enrolled.
+2. **Exclusivity:** only one billing provider can bill CCM for the same patient in the same calendar
+   month. If the patient sees multiple practices, they should know that enrolling with one prevents
+   another from billing in the same period.
+
+CMS included consent as a hard requirement precisely to prevent patients from being enrolled without
+their knowledge and then receiving an unexpected bill. When consent is missing or poorly documented,
+Medicare can treat every claim in the affected period as an improper payment and recover it.
+
+## What does CMS require for verbal and written consent?
+
+CMS allows either verbal or written consent. Either form is legally sufficient. Both must be
+documented in the patient's medical record.
+
+**Required elements of the consent conversation:**
+
+1. A description of CCM: what care coordination services will be provided, the general nature of
+   the work (calls, care plan reviews, medication management, referral coordination)
+2. The cost-sharing obligation: that the patient will owe their standard Part B coinsurance for
+   CCM each month (approximately 20 percent of the allowed amount, unless supplemental coverage
+   applies)
+3. The exclusivity rule: that only one provider may bill CCM for the patient in any calendar month,
+   so enrolling with this practice means another provider cannot separately bill CCM for the same
+   period
+4. The right to revoke: that the patient may withdraw consent at any time without affecting their
+   access to other care from the practice
+
+**Verbal consent:** the clinical staff member conducts the consent conversation, documents the date,
+their name, and that each of the four elements above was covered. A specific EHR note or structured
+consent template is strongly preferred over a generic "patient consented to CCM" entry.
+
+**Written consent:** the patient signs a consent form that includes the four required elements. A
+copy is filed in the medical record or uploaded to the EHR. Written consent is easier to produce
+during an audit and is the recommended approach for new CCM programs.
+
+## What must be documented in the patient record?
+
+For audit readiness, each enrolled patient's record should contain:
+
+| Document | What it should show |
+|---|---|
+| Consent record | Date, staff member who obtained consent, elements covered (verbal) OR signed form (written) |
+| Initial care plan | Patient's chronic conditions, goals, medications, care team, emergency plan |
+| Monthly time log | Date of each CCM activity, activity type, duration, staff member |
+| Communication records | Notes on calls, messages, referrals, and care coordination contacts |
+| Care plan updates | Date and nature of any updates made during the month |
+
+The consent record is separate from the care plan and time log. Auditors look for all three types
+of documentation independently. A complete time log with no consent record is not a safe audit
+posture.
+
+CMS does not require a specific consent form template. The documentation simply needs to demonstrate
+that consent was obtained and the required elements were covered. However, using a consistent
+template across all enrolled patients makes audit responses faster and more uniform.
+
+## What are the most common consent documentation mistakes?
+
+In order of risk level:
+
+**1. Billing before consent is documented.** This is the highest-risk mistake. The claim date
+must follow the consent date. If the EHR shows a CCM claim dated before any consent documentation,
+Medicare will treat that claim, and potentially all subsequent claims for the same patient, as
+improper.
+
+**2. Missing one or more required elements.** A note that says "patient agreed to CCM enrollment"
+without addressing cost-sharing or the exclusivity rule is not sufficient. Each of the four required
+elements should be visible in the documentation.
+
+**3. No documentation at all.** Some practices obtain verbal consent over the phone without any
+EHR entry. This is legally sufficient only if the conversation is later documented. An undocumented
+verbal consent has the same audit risk as no consent.
+
+**4. Consent by non-clinical staff.** The person who conducts the consent conversation should be
+qualified clinical staff or a provider. Consent obtained by a front-desk or billing staff member
+is not appropriate for a clinical enrollment.
+
+**5. No re-consent after a significant program change.** If the practice changes its CCM vendor or
+substantially changes the services delivered, re-consenting existing patients is good practice
+even if not strictly required by CMS for every program change.
+
+## Do patients need to re-consent annually?
+
+CMS does not currently require annual re-consent for CCM. Once a patient has provided valid consent
+and is actively enrolled, the consent carries forward into subsequent months and years.
+
+Best practice is still to revisit the enrollment discussion annually, typically at the patient's
+annual wellness visit. This serves two purposes:
+
+1. It reconfirms the patient's intent to remain enrolled and their awareness of the cost-sharing
+   obligation, which may have changed.
+2. It creates a documented touchpoint that strengthens the audit record.
+
+Some practices build a brief "CCM check-in" into the annual wellness visit note: "Patient confirmed
+awareness of CCM enrollment, cost-sharing structure, and right to revoke at any time."
+
+## How does revocation work?
+
+A patient may revoke CCM consent at any time by notifying the practice verbally or in writing. The
+practice must:
+
+1. Stop billing CCM for that patient immediately upon receiving the revocation.
+2. Document the date and method of revocation in the patient record.
+3. Not bill for any CCM services delivered after the revocation date.
+
+Note on partial-month revocations: if a patient revokes mid-month after 20 or more minutes of CCM
+work have already been delivered and documented, the practice may bill for that month. If revocation
+comes before 20 minutes are documented, no claim should be submitted.
+
+The patient may re-enroll in CCM in a subsequent month if they change their mind. Re-enrollment
+requires a new consent.
+
+## How does an outsourced CCM partner handle consent?
+
+A CCM vendor handles consent differently depending on the practice's workflow and the vendor's model.
+The two most common approaches:
+
+**Practice-led consent:** the practice's clinical staff obtains consent at a scheduled office visit
+or annual wellness visit, and the vendor receives the signed or documented consent before
+beginning monthly coordination. This keeps the consent conversation in the primary patient
+relationship and is generally preferred by practices that want to maintain high enrollment rates.
+
+**Vendor-assisted consent:** the vendor sends a consent letter or makes an initial enrollment call,
+explains the program, documents consent, and routes the confirmation back to the practice's EHR.
+This approach can work well for practices with a large potential panel and limited staff time for
+consent conversations.
+
+Either way, the vendor must operate under a Business Associate Agreement (BAA) with the practice,
+and all consent documentation must be accessible in the practice's EHR or medical record system.
+For more on the compliance framework Zenith operates under, see the
+[HIPAA compliance page](/hipaa-compliance) and our [HIPAA checklist for CCM programs](/resources/hipaa-compliance-checklist).
+
+If you want to review Zenith's consent workflow before launching a CCM program,
+[book a 15-minute call](/contact) and we will walk through the documentation templates and EHR
+integration process.

@@ -177,6 +177,25 @@ export default async function WhoWeServePage({
                   <p key={i}>{p}</p>
                 ))}
               </div>
+              {specialty === "primary-care" ? (
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  Zenith handles{" "}
+                  <Link
+                    href="/services/medical-billing"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    medical billing
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/services/virtual-staffing"
+                    className="font-medium text-brand-accent hover:underline"
+                  >
+                    virtual staffing
+                  </Link>{" "}
+                  for primary care practices alongside care management programs.
+                </p>
+              ) : null}
             </Reveal>
 
             <Reveal delay={0.1}>
