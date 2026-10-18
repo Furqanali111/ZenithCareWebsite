@@ -236,7 +236,7 @@ export default async function ServicePage({
                 />
                 <div className="relative grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
                   <div>
-                    <span className="text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
+                    <span className="text-xs font-medium tracking-[0.14em] text-brand-accent">
                       Representative revenue
                     </span>
                     <p className="mt-5 font-serif text-5xl font-semibold leading-none tracking-tight md:text-6xl">
@@ -246,8 +246,8 @@ export default async function ServicePage({
                       {s.revenue.note}
                     </p>
                   </div>
-                  <div className="flex flex-col gap-4 md:items-end">
-                    <p className="max-w-sm text-sm leading-relaxed text-muted-foreground md:text-right dark:text-[color:var(--color-surface-0)]/70">
+                  <div className="flex flex-col gap-4">
+                    <p className="max-w-sm text-sm leading-relaxed text-muted-foreground dark:text-[color:var(--color-surface-0)]/70">
                       Plug in your real numbers to see the figure for your panel,
                       the calculator runs entirely in your browser.
                     </p>

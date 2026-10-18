@@ -27,7 +27,7 @@ export default function ResourcesPage() {
 
       <section className="mx-auto max-w-7xl px-6 pt-24 pb-10 md:pt-32 md:pb-14">
         <div className="max-w-2xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
+          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent">
             Resources
           </span>
           <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">

@@ -291,7 +291,7 @@ export default function HomePage() {
                 <p className="text-sm text-body-ink dark:text-[color:var(--color-surface-0)]/70">
                   For practices running care management programs:
                 </p>
-                <span className="mt-3 inline-block text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
+                <span className="mt-3 inline-block text-xs font-medium tracking-[0.14em] text-brand-accent">
                   With Complex-CCM mix
                 </span>
                 <p className="mt-5 font-serif text-6xl font-semibold tracking-tight leading-none md:text-7xl">

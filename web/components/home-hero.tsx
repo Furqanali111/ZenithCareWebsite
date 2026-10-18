@@ -88,7 +88,7 @@ export function HomeHero() {
         >
           <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[0_24px_60px_-28px_rgba(11,37,69,0.35)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--color-brand-700)]">
+              <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)]">
                 Monthly reimbursement, typical panel
               </span>
               <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
