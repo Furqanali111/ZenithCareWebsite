@@ -89,12 +89,12 @@ export function HomeHero() {
           aria-label="Representative CCM reimbursement"
           className="reveal-up reveal-up-3 relative"
         >
-          <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-brand-ink shadow-[0_24px_60px_-28px_rgba(11,37,69,0.35)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
+          <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[0_24px_60px_-28px_rgba(11,37,69,0.35)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-accent">
+              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--color-brand-700)]">
                 Monthly reimbursement, typical panel
               </span>
-              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium uppercase tracking-wider text-brand-accent">
+              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
                 CPT 99490
               </span>
             </div>
@@ -103,11 +103,11 @@ export function HomeHero() {
               <span className="text-5xl tabular-nums md:text-6xl">
                 {formatUsd(ANCHOR_MONTHLY)}
               </span>
-              <span className="text-base font-medium text-body-ink">
+              <span className="text-base font-medium text-[color:var(--color-ink-700)]">
                 / month
               </span>
             </div>
-            <p className="mt-2 text-sm text-body-ink">
+            <p className="mt-2 text-sm text-[color:var(--color-ink-700)]">
               {ANCHOR_PATIENTS} enrolled patients × ${CPT_RATES["99490"]}{" "}
               base-code reimbursement
             </p>
@@ -120,7 +120,7 @@ export function HomeHero() {
 
             <Link
               href="/roi-calculator"
-              className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent hover:text-brand-ink"
+              className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
             >
               See the full breakdown
               <ArrowRight className="size-4" aria-hidden="true" />
@@ -146,13 +146,13 @@ function StatPill({
 }) {
   return (
     <div className="rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center">
-      <p className="text-xs font-semibold uppercase tracking-wider text-brand-accent">
+      <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)]">
         {label}
       </p>
-      <p className="mt-1 font-serif text-lg font-semibold text-brand-ink">
+      <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">
         {value}
       </p>
-      <p className="mt-0.5 font-mono text-xs text-muted-foreground">
+      <p className="mt-0.5 font-mono text-xs text-[color:var(--color-ink-700)]">
         {note}
       </p>
     </div>
