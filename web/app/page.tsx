@@ -322,7 +322,7 @@ export default function HomePage() {
                   className="h-11 px-6 text-sm"
                 >
                   <Link href="/roi-calculator">
-                    Estimate your panel&rsquo;s number
+                    Estimate your panel size
                     <ArrowRight className="ml-2 size-4" aria-hidden="true" />
                   </Link>
                 </Button>
@@ -376,7 +376,7 @@ export default function HomePage() {
               <div>
                 <HeroEyebrow>The founder</HeroEyebrow>
                 <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                  Zenith is run by a trained pharmacist, not a call centre.
+                  Zenith is run by a trained pharmacist, not a call center.
                 </h2>
                 <p className="mt-5 max-w-prose text-base leading-relaxed text-body-ink">
                   Founder <strong className="font-medium text-ink-strong">{founder.name}</strong>{" "}

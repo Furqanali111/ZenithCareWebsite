@@ -253,7 +253,7 @@ export default async function ServicePage({
                     </p>
                     <Button asChild size="lg" className="h-11 px-6 text-sm">
                       <Link href="/roi-calculator">
-                        Estimate your panel
+                        Estimate your panel size
                         <ArrowRight className="ml-2 size-4" aria-hidden="true" />
                       </Link>
                     </Button>

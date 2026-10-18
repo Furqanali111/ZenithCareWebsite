@@ -260,7 +260,7 @@ export default async function WhoWeServePage({
                 size="lg"
                 className="h-11 px-6 text-sm"
               >
-                <Link href="/roi-calculator">Estimate your panel</Link>
+                <Link href="/roi-calculator">Estimate your panel size</Link>
               </Button>
             </div>
             </div>

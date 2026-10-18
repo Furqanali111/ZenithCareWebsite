@@ -61,7 +61,7 @@ export default function AboutPage() {
             </span>
             <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
               Zenith is run by a trained{" "}
-              <em className="italic">pharmacist</em>, not a call centre.
+              <em className="italic">pharmacist</em>, not a call center.
             </h1>
             <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
               {founder.name} founded Zenith to bring clinical staff, people

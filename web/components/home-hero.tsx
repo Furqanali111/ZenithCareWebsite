@@ -51,8 +51,7 @@ export function HomeHero() {
                 aria-hidden="true"
                 className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
               />
-            </span>
-            .
+            </span>.
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
@@ -123,7 +122,7 @@ export function HomeHero() {
               href="/roi-calculator"
               className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent hover:text-brand-ink"
             >
-              Run the full math
+              See the full breakdown
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </div>
