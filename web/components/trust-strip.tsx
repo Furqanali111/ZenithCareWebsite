@@ -65,9 +65,9 @@ function TrustItem({
   detail?: string;
 }) {
   return (
-    <div className="flex items-start gap-3">
+    <div className="isolate flex items-start gap-3">
       <span
-        className="mt-0.5 inline-flex size-9 flex-none items-center justify-center rounded-lg bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10 dark:text-[color:var(--color-accent-600)]"
+        className="mt-0.5 inline-flex size-9 flex-none items-center justify-center rounded-lg bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10"
         aria-hidden="true"
       >
         {icon}

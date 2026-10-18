@@ -42,7 +42,7 @@ export default function FaqPage() {
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-3xl px-6 pt-24 pb-14 md:pt-32 md:pb-16">
-        <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
+        <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent">
           FAQ
         </span>
         <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">

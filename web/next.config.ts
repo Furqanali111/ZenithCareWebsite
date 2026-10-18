@@ -15,10 +15,10 @@ const isDev = process.env.NODE_ENV !== "production";
 
 // Hosts the browser is allowed to load scripts from.
 // - vercel-scripts: Web Vitals / Speed Insights
-// - plausible: analytics (optional, loaded only when env var set — see layout)
+// - googletagmanager: GA4 loader (optional, loaded only when env var set — see layout)
 // - assets.calendly.com: Calendly inline-widget loader
 const scriptHosts =
-  "https://va.vercel-scripts.com https://plausible.io https://assets.calendly.com";
+  "https://va.vercel-scripts.com https://www.googletagmanager.com https://assets.calendly.com";
 const scriptSrc = isDev
   ? `'self' 'unsafe-inline' 'unsafe-eval' ${scriptHosts}`
   : `'self' 'unsafe-inline' ${scriptHosts}`;
@@ -26,8 +26,9 @@ const scriptSrc = isDev
 // Hosts the browser is allowed to send fetch/XHR/beacon to.
 // - formspree.io: contact form submissions
 // - calendly.com: inline widget telemetry
+// - google-analytics / googletagmanager: GA4 beacons
 const connectSrc =
-  "'self' https://vitals.vercel-insights.com https://vercel.live https://plausible.io https://formspree.io https://calendly.com";
+  "'self' https://vitals.vercel-insights.com https://vercel.live https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com";
 
 // Hosts allowed to embed as <iframe>. Calendly serves its booking widget
 // from calendly.com as an iframe inside the inline-widget container.

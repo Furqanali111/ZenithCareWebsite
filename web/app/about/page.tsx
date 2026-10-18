@@ -56,12 +56,12 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14">
           <FounderMonogram initials={founder.initials} name={founder.name} size="lg" />
           <div>
-            <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent">
+            <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent">
               About the founder
             </span>
             <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
               Zenith is run by a trained{" "}
-              <em className="italic">pharmacist</em>, not a call centre.
+              <em className="italic">pharmacist</em>, not a call center.
             </h1>
             <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
               {founder.name} founded Zenith to bring clinical staff, people
