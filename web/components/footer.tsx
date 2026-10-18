@@ -15,9 +15,6 @@ const QUICK_LINKS: Item[] = [
   { label: "All Services", href: "/services" },
   { label: "Resources", href: "/resources" },
   { label: "Contact Us", href: "/contact" },
-];
-
-const WHO_WE_SERVE_LINKS: Item[] = [
   { label: "Primary Care", href: "/who-we-serve/primary-care" },
   { label: "Internal Medicine", href: "/who-we-serve/internal-medicine" },
   { label: "Geriatrics", href: "/who-we-serve/geriatrics" },
@@ -119,7 +116,7 @@ export function Footer() {
           </div>
 
           {/* Link columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-9 md:gap-6 lg:grid-cols-7">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-9 md:gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
             <FooterColumn label="Quick Links" items={QUICK_LINKS} />
             <FooterColumn
               label={categoryMeta.rpm.label}
@@ -133,7 +130,6 @@ export function Footer() {
               label={categoryMeta.staffing.label}
               items={toItems(servicesByCategory("staffing"))}
             />
-            <FooterColumn label="Who We Serve" items={WHO_WE_SERVE_LINKS} />
             <FooterColumn label="Resources" items={RESOURCE_LINKS} />
             <ContactColumn />
           </div>
@@ -228,7 +224,7 @@ function ContactColumn() {
       </ul>
       <Link
         href="/contact"
-        className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-[color:var(--color-gold-500)] px-4 py-2.5 text-sm font-semibold text-[color:var(--color-brand-900)] transition hover:brightness-105"
+        className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
       >
         <CalendarCheck className="size-4" aria-hidden="true" />
         Book a 15-min call
@@ -239,7 +235,7 @@ function ContactColumn() {
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-[13px] font-semibold tracking-tight text-ink-strong">
+    <h2 className="text-sm font-semibold tracking-tight text-ink-strong">
       {children}
     </h2>
   );

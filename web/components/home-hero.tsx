@@ -21,7 +21,7 @@ export function HomeHero() {
       {/* living aurora, teal + navy drifting glows (see globals.css) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
         <div className="aurora-shape aurora-1" />
         <div className="aurora-shape aurora-2" />
@@ -30,17 +30,14 @@ export function HomeHero() {
       {/* dot-grid texture, theme-aware (dark dots on light, light dots on navy) */}
       <div
         aria-hidden="true"
-        className="bg-dotgrid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
+        className="bg-dotgrid pointer-events-none absolute inset-0 z-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
+      <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
-          <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
-            {/* 0.5px down: optically centers all-caps (empty descender space). */}
-            <span className="inline-block [transform:translateY(0.5px)]">
-              For U.S. physician practices
-            </span>
+          <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent dark:border-white/15 dark:bg-white/5">
+            For U.S. physician practices
           </span>
 
           <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
@@ -51,8 +48,7 @@ export function HomeHero() {
                 aria-hidden="true"
                 className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
               />
-            </span>
-            .
+            </span>.
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
@@ -67,11 +63,11 @@ export function HomeHero() {
             </Button>
             <Link
               href="/services"
-              className="group inline-flex items-center gap-1.5 text-sm font-medium text-body-ink transition-colors hover:text-brand-ink"
+              className="group inline-flex items-center gap-2 text-base font-semibold text-body-ink transition-colors hover:text-brand-ink"
             >
               See our services
               <ArrowRight
-                className="size-4 transition-transform group-hover:translate-x-0.5"
+                className="size-5 transition-transform group-hover:translate-x-0.5"
                 aria-hidden="true"
               />
             </Link>
@@ -92,10 +88,10 @@ export function HomeHero() {
         >
           <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[0_24px_60px_-28px_rgba(11,37,69,0.35)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-brand-700)]">
+              <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)]">
                 Monthly reimbursement, typical panel
               </span>
-              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
+              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
                 CPT 99490
               </span>
             </div>
@@ -121,13 +117,13 @@ export function HomeHero() {
 
             <Link
               href="/roi-calculator"
-              className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
+              className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
             >
-              Run the full math
-              <ArrowRight className="size-4" aria-hidden="true" />
+              See the full breakdown
+              <ArrowRight className="size-5" aria-hidden="true" />
             </Link>
           </div>
-          <p className="mt-4 text-center text-[11px] leading-relaxed text-muted-foreground dark:text-white/60">
+          <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground dark:text-white/75">
             Representative example at the base code. Actual results vary.
           </p>
         </aside>
@@ -147,13 +143,13 @@ function StatPill({
 }) {
   return (
     <div className="rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center">
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)]">
+      <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)]">
         {label}
       </p>
       <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">
         {value}
       </p>
-      <p className="mt-0.5 font-mono text-[10px] text-[color:var(--color-ink-700)]/60">
+      <p className="mt-0.5 font-mono text-xs text-[color:var(--color-ink-700)]">
         {note}
       </p>
     </div>

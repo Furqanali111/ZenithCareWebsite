@@ -287,7 +287,9 @@
   top: -12rem;
   left: -8rem;
   opacity: 0.22;
-  background: radial-gradient(circle, var(--color-teal-500) 0%, transparent 70%);
+  /* background-color + blur(72px) on a circle produces the same soft blob as
+     the old radial-gradient while giving axe-core a resolvable solid color. */
+  background-color: var(--color-teal-500);
   animation: aurora-drift-1 22s ease-in-out infinite alternate;
 }
 .aurora-2 {
@@ -296,7 +298,7 @@
   top: -6rem;
   right: -7rem;
   opacity: 0.1;
-  background: radial-gradient(circle, var(--color-brand-700) 0%, transparent 70%);
+  background-color: var(--color-brand-700);
   animation: aurora-drift-2 26s ease-in-out infinite alternate;
 }
 .aurora-3 {
@@ -305,7 +307,7 @@
   bottom: -16rem;
   left: 34%;
   opacity: 0.14;
-  background: radial-gradient(circle, var(--color-gold-500) 0%, transparent 70%);
+  background-color: var(--color-gold-500);
   animation: aurora-drift-3 30s ease-in-out infinite alternate;
 }
 .dark .aurora-1 {
