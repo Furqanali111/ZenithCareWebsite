@@ -21,7 +21,7 @@ export function HomeHero() {
       {/* living aurora, teal + navy drifting glows (see globals.css) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
         <div className="aurora-shape aurora-1" />
         <div className="aurora-shape aurora-2" />
@@ -30,10 +30,10 @@ export function HomeHero() {
       {/* dot-grid texture, theme-aware (dark dots on light, light dots on navy) */}
       <div
         aria-hidden="true"
-        className="bg-dotgrid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
+        className="bg-dotgrid pointer-events-none absolute inset-0 z-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
+      <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
           <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-brand-accent dark:border-white/15 dark:bg-white/5">
@@ -126,7 +126,7 @@ export function HomeHero() {
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </div>
-          <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground dark:text-white/60">
+          <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground dark:text-white/75">
             Representative example at the base code. Actual results vary.
           </p>
         </aside>
@@ -152,7 +152,7 @@ function StatPill({
       <p className="mt-1 font-serif text-lg font-semibold text-brand-ink">
         {value}
       </p>
-      <p className="mt-0.5 font-mono text-xs text-body-ink/60">
+      <p className="mt-0.5 font-mono text-xs text-muted-foreground">
         {note}
       </p>
     </div>
