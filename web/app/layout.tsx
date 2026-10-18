@@ -10,28 +10,26 @@ import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 /**
- * Plausible loads only on the production domain.
+ * Google Analytics 4 loads only on the production domain.
  *
  * Belt + braces:
  *   - NODE_ENV === "production" rules out `pnpm dev`
  *   - VERCEL_ENV === "production" rules out Vercel preview + development
  *     deploys (which also set NODE_ENV=production because they're real
  *     `next build` outputs)
- *   - Domain env must be set
+ *   - Measurement ID env must be set
  *
- * If Vercel isn't the host, VERCEL_ENV is undefined, fall back to
- * NODE_ENV only. If the user also keeps `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`
- * unset outside the Production environment on Vercel, either gate alone
- * is sufficient, this is defence in depth.
+ * Set NEXT_PUBLIC_GA_MEASUREMENT_ID in Vercel under the Production
+ * environment only. VERCEL_ENV is set automatically by Vercel.
  */
-const PLAUSIBLE_DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 // VERCEL_ENV is set automatically on Vercel builds: "production" |
 // "preview" | "development". Undefined on non-Vercel hosts.
 const VERCEL_ENV = process.env.VERCEL_ENV;
-const plausibleEnabled =
+const gaEnabled =
   process.env.NODE_ENV === "production" &&
   (VERCEL_ENV === undefined || VERCEL_ENV === "production") &&
-  Boolean(PLAUSIBLE_DOMAIN);
+  Boolean(GA_ID);
 
 // Body face: Inter, neutral, highly legible, pairs with the grotesk display.
 const bodyFont = Inter({
@@ -96,13 +94,16 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background text-foreground">
         <JsonLd data={[organizationLd(), websiteLd()]} />
-        {plausibleEnabled ? (
-          <Script
-            defer
-            data-domain={PLAUSIBLE_DOMAIN}
-            src="https://plausible.io/js/script.js"
-            strategy="afterInteractive"
-          />
+        {gaEnabled ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+            </Script>
+          </>
         ) : null}
         <ThemeProvider
           attribute="class"
