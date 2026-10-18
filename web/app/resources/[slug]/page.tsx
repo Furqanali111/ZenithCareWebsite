@@ -58,6 +58,7 @@ export default async function PostPage({
             publishedAt: post.publishedAt,
             updatedAt: post.updatedAt,
             author: { name: founder.name, url: `${site.url}${founder.aboutUrl}` },
+            ...(post.coverImage ? { image: new URL(post.coverImage, site.url).toString() } : {}),
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },
