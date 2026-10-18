@@ -8,6 +8,21 @@ import InHouseVsOutsourced, {
 import HipaaChecklist, {
   frontmatter as hipaaFm,
 } from "./posts/hipaa-checklist-outsourced-ccm.mdx";
+import CcmVsRpmVsPcm, {
+  frontmatter as ccmVsRpmVsPcmFm,
+} from "./posts/ccm-vs-rpm-vs-pcm.mdx";
+import HowCcmBillingWorks, {
+  frontmatter as howCcmBillingWorksFm,
+} from "./posts/how-ccm-billing-works.mdx";
+import CcmConsentRequirements, {
+  frontmatter as ccmConsentFm,
+} from "./posts/ccm-consent-requirements.mdx";
+import Cpt99439Vs99490, {
+  frontmatter as cpt99439Fm,
+} from "./posts/cpt-99439-vs-99490.mdx";
+import CcmTimeTracking, {
+  frontmatter as ccmTimeTrackingFm,
+} from "./posts/ccm-time-tracking-requirements.mdx";
 
 /**
  * The one-sentence rule: every blog post is listed here as a static
@@ -37,6 +52,11 @@ const POSTS: Post[] = [
   { ...(cpt99490Fm as PostFrontmatter), Component: Cpt99490_2026 },
   { ...(inHouseFm as PostFrontmatter), Component: InHouseVsOutsourced },
   { ...(hipaaFm as PostFrontmatter), Component: HipaaChecklist },
+  { ...(ccmVsRpmVsPcmFm as PostFrontmatter), Component: CcmVsRpmVsPcm },
+  { ...(howCcmBillingWorksFm as PostFrontmatter), Component: HowCcmBillingWorks },
+  { ...(ccmConsentFm as PostFrontmatter), Component: CcmConsentRequirements },
+  { ...(cpt99439Fm as PostFrontmatter), Component: Cpt99439Vs99490 },
+  { ...(ccmTimeTrackingFm as PostFrontmatter), Component: CcmTimeTracking },
 ];
 
 /** All posts, newest first by publishedAt. */

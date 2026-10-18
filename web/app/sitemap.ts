@@ -22,7 +22,7 @@ const BASE = site.url
 // thinking all pages changed on every deploy, wasting crawl budget.
 // Update this date when you make a content-significant change to the site shell
 // (nav, footer, global copy). Individual service / post dates are set below.
-const SITE_LAST_UPDATED = new Date("2026-10-16");
+const SITE_LAST_UPDATED = new Date("2026-10-18");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = BASE;
