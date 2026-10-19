@@ -347,7 +347,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Monitor and engage", body: "Staff review data and contact patients who fall behind." },
       { title: "Report and bill", body: "You receive organized monthly records, bill the codes, and Zenith invoices for the labor." },
     ],
-    metaTitle: "Therapeutic Monitoring (RTM)",
+    metaTitle: "Remote Therapeutic Monitoring (RTM) Services",
     metaDescription:
       "RTM for U.S. practices. Track therapy adherence, pain and function between visits, inside your EHR.",
     serviceType: "Remote Therapeutic Monitoring",

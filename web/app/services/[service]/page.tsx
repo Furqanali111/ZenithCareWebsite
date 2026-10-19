@@ -430,6 +430,56 @@ const CROSS_LINKS: Record<string, { before: string; href: string; label: string 
     href: "/services/chronic-care-management",
     label: "CCM documentation requirements",
   },
+  "principal-care-management": {
+    before: "Your practice stays the billing provider for every PCM claim. For clean claim submission, Zenith also provides",
+    href: "/services/medical-billing",
+    label: "medical billing support",
+  },
+  "remote-patient-monitoring": {
+    before: "RPM pairs well with a dedicated point of contact for device and adherence calls. Zenith also provides",
+    href: "/services/patient-care-coordinator",
+    label: "patient care coordinators",
+  },
+  "remote-therapeutic-monitoring": {
+    before: "RTM shares the same monthly care-coordination model as",
+    href: "/services/chronic-care-management",
+    label: "Chronic Care Management",
+  },
+  "transitional-care-management": {
+    before: "TCM's 7- and 14-day follow-up windows are easier to hit with dedicated scheduling support. Zenith also provides",
+    href: "/services/medical-scheduler",
+    label: "remote medical scheduling",
+  },
+  "provider-credentialing": {
+    before: "Once a provider is credentialed and billing, many practices start their first",
+    href: "/services/care-management",
+    label: "care management program",
+  },
+  "accounts-receivable": {
+    before: "AR follow-up often surfaces denials tied to recurring claims like",
+    href: "/services/chronic-care-management",
+    label: "Chronic Care Management",
+  },
+  "medical-scheduler": {
+    before: "Scheduling support pairs naturally with structured follow-up programs like",
+    href: "/services/transitional-care-management",
+    label: "Transitional Care Management",
+  },
+  "medical-receptionist": {
+    before: "Receptionists fielding insurance questions work closely with Zenith's",
+    href: "/services/revenue-cycle-management",
+    label: "revenue cycle management team",
+  },
+  "patient-care-coordinator": {
+    before: "Coordinators frequently support practices already running",
+    href: "/services/chronic-care-management",
+    label: "Chronic Care Management",
+  },
+  "virtual-assistant": {
+    before: "Virtual assistants often handle the admin side of",
+    href: "/services/revenue-cycle-management",
+    label: "revenue cycle management work",
+  },
 };
 
 function CrossLinkNote({ slug }: { slug: string }) {
