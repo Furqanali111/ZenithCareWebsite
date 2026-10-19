@@ -25,7 +25,7 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
   rpm: {
     path: "/services/care-management",
     serviceType: "Care Management",
-    metaTitle: "Care Management Programs for Practices",
+    metaTitle: "Care Management Programs",
     metaDescription:
       "CCM, PCM, RPM, RTM and TCM services for U.S. physician practices. Monthly clinical coordination inside your EHR; you stay the billing provider.",
     eyebrow: "Care Management & Monitoring",
