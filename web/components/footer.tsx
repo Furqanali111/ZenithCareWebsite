@@ -86,9 +86,9 @@ export function Footer() {
               <img
                 src="/logo.webp"
                 alt={site.name}
-                width={272}
+                width={258}
                 height={88}
-                className="h-22 w-68 dark:brightness-0 dark:invert"
+                className="h-22 w-auto dark:brightness-0 dark:invert"
               />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-body-ink">
@@ -234,10 +234,14 @@ function ContactColumn() {
 }
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
+  // h3 (not h2): footer column labels are navigation sub-sections of the page,
+  // not document-level sections. Using h2 made them collide with every page's
+  // real content-section h2s and tripped SEO-crawler duplicate-h2 warnings on
+  // 40%+ of pages.
   return (
-    <h2 className="text-sm font-semibold tracking-tight text-ink-strong">
+    <h3 className="text-sm font-semibold tracking-tight text-ink-strong">
       {children}
-    </h2>
+    </h3>
   );
 }
 

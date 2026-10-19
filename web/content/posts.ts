@@ -34,6 +34,10 @@ import CcmTimeTracking, {
 export type PostFrontmatter = {
   slug: string;
   title: string;
+  /** Short <title> tag; falls back to `title` when unset. Long, descriptive
+   *  H1 titles blow past the ~60-char SEO budget, so posts whose H1 is long
+   *  set this separately (see individual .mdx frontmatter). */
+  metaTitle?: string;
   description: string;
   publishedAt: string; // ISO date
   updatedAt: string; // ISO date

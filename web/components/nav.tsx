@@ -31,9 +31,9 @@ export function Nav() {
           <img
             src="/logo.webp"
             alt={site.name}
-            width={240}
+            width={211}
             height={72}
-            className="h-18 w-60 dark:brightness-0 dark:invert"
+            className="h-18 w-auto dark:brightness-0 dark:invert"
           />
         </Link>
 

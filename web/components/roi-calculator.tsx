@@ -56,6 +56,7 @@ export function RoiCalculator() {
               step={5}
               value={[enrollmentPct]}
               onValueChange={(v) => setEnrollmentPct(v[0])}
+              aria-label={`Expected enrollment rate, ${enrollmentPct} percent`}
             />
             <p className="mt-2 text-sm text-muted-foreground">
               Realistic range for a cold-start CCM program is 40-60%.

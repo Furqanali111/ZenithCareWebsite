@@ -125,9 +125,9 @@ const HOME_CATEGORIES = [
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "Care Management, Billing & Staffing Services",
+  title: "Care Management, Billing & Staffing",
   description:
-    "Zenith Care Solutions provides CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider.",
+    "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider.",
   path: "/",
 });
 
