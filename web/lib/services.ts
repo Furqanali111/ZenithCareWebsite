@@ -165,7 +165,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Deliver monthly coordination", body: "Our clinical team spends 20+ minutes per patient on calls, care plans, and medication reconciliation, inside your EHR." },
       { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99490 and add-ons; we invoice for the clinical labor. Monthly and predictable." },
     ],
-    metaTitle: "Chronic Care Management (CCM) Services",
+    metaTitle: "Chronic Care Management (CCM)",
     metaDescription:
       "CCM services for U.S. physician practices. Monthly coordination, care plans, and CPT 99490 documentation inside your EHR. You stay the billing provider.",
     serviceType: "Chronic Care Management",
@@ -285,7 +285,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Onboard and monitor", body: "We set up the patient, confirm readings arrive, and review them on a regular schedule." },
       { title: "Escalate and document", body: "Concerning readings go to your clinician fast, and every contact is logged for billing." },
     ],
-    metaTitle: "Remote Patient Monitoring (RPM) Services",
+    metaTitle: "Remote Patient Monitoring (RPM)",
     metaDescription:
       "RPM services for U.S. physician practices. Device setup, daily data review and patient outreach by clinical staff inside your EHR.",
     serviceType: "Remote Patient Monitoring",
@@ -347,7 +347,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Monitor and engage", body: "Staff review data and contact patients who fall behind." },
       { title: "Report and bill", body: "You receive organized monthly records, bill the codes, and Zenith invoices for the labor." },
     ],
-    metaTitle: "Remote Therapeutic Monitoring (RTM) Services",
+    metaTitle: "Remote Therapeutic Monitoring (RTM)",
     metaDescription:
       "RTM for U.S. practices. Track therapy adherence, pain and function between visits, inside your EHR.",
     serviceType: "Remote Therapeutic Monitoring",
@@ -457,7 +457,7 @@ const RCM_SERVICES: Service[] = [
       { title: "Match and onboard", body: "We place a biller with role-based access under a signed BAA." },
       { title: "Bill and reconcile", body: "Your biller submits claims, posts payments and works denials in your system." },
     ],
-    metaTitle: "Medical Billing Services for Practices",
+    metaTitle: "Medical Billing Services",
     metaDescription:
       "Medical billing services for U.S. physician practices. Clean claims, payment posting and denial management inside your PM system.",
     serviceType: "Medical Billing",

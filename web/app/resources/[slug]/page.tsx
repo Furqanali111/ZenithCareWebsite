@@ -29,7 +29,7 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return pageMetadata({ title: "Not found", description: "", noindex: true });
   return pageMetadata({
-    title: post.title,
+    title: post.metaTitle ?? post.title,
     description: post.description,
     path: `/resources/${post.slug}`,
   });
