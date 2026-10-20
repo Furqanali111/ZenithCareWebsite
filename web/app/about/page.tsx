@@ -163,7 +163,7 @@ export default function AboutPage() {
             </Statement>
           </Reveal>
 
-          <Reveal className="mt-16 grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:items-start md:gap-14">
+          <Reveal className="mt-16 grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-14">
             <div>
               <h3 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 The work behind care deserves care, too.
@@ -200,7 +200,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <figure className="rounded-2xl border border-border bg-card p-8 md:p-10">
+            <figure className="flex flex-col justify-center rounded-2xl border border-border bg-card p-8 md:p-10">
               <blockquote className="font-serif text-xl font-semibold leading-snug tracking-tight text-brand-ink md:text-2xl">
                 <p>
                   &ldquo;The work behind care deserves the same attention as
@@ -243,11 +243,20 @@ export default function AboutPage() {
             ))}
           </Reveal>
 
-          <Reveal className="mt-12 rounded-2xl border border-border bg-card p-8 md:p-12">
-            <h3 className="max-w-3xl font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-              We built Zenith so your team can get back to patients.
-            </h3>
-            <div className="mt-6 max-w-3xl space-y-5 text-base leading-relaxed text-body-ink md:text-lg">
+          <Reveal className="mt-12 grid gap-10 rounded-2xl border border-border bg-card p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-14 md:p-12">
+            <div>
+              <h3 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+                We built Zenith so your team can get back to patients.
+              </h3>
+              <p className="mt-8 font-serif text-base font-semibold text-brand-ink">
+                {founders.map((f) => (
+                  <span key={f.name} className="block">
+                    {f.name}, {f.title}
+                  </span>
+                ))}
+              </p>
+            </div>
+            <div className="space-y-5 text-base leading-relaxed text-body-ink md:text-lg">
               <p>
                 Practices carry more work around patient care than they have
                 people to do it. Follow-ups slip, claims wait and phones go
@@ -273,13 +282,6 @@ export default function AboutPage() {
                 right fit.
               </p>
             </div>
-            <p className="mt-8 flex flex-wrap gap-x-8 gap-y-1 font-serif text-base font-semibold text-brand-ink">
-              {founders.map((f) => (
-                <span key={f.name}>
-                  {f.name}, {f.title}
-                </span>
-              ))}
-            </p>
           </Reveal>
         </div>
       </section>
