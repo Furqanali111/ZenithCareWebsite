@@ -23,6 +23,24 @@ import Cpt99439Vs99490, {
 import CcmTimeTracking, {
   frontmatter as ccmTimeTrackingFm,
 } from "./posts/ccm-time-tracking-requirements.mdx";
+import MedicalBillingOutsourcingGuide, {
+  frontmatter as billingOutsourcingFm,
+} from "./posts/medical-billing-outsourcing-guide.mdx";
+import RpmSetupGuide, {
+  frontmatter as rpmSetupFm,
+} from "./posts/rpm-setup-guide.mdx";
+import VirtualMedicalStaffingBenefits, {
+  frontmatter as virtualStaffingFm,
+} from "./posts/virtual-medical-staffing-benefits.mdx";
+import TransitionalCareManagementGuide, {
+  frontmatter as tcmGuideFm,
+} from "./posts/transitional-care-management-guide.mdx";
+import ProviderCredentialingGuide, {
+  frontmatter as credentialingGuideFm,
+} from "./posts/provider-credentialing-guide.mdx";
+import ReduceClaimDenials, {
+  frontmatter as claimDenialsFm,
+} from "./posts/reduce-claim-denials.mdx";
 
 /**
  * The one-sentence rule: every blog post is listed here as a static
@@ -61,6 +79,12 @@ const POSTS: Post[] = [
   { ...(ccmConsentFm as PostFrontmatter), Component: CcmConsentRequirements },
   { ...(cpt99439Fm as PostFrontmatter), Component: Cpt99439Vs99490 },
   { ...(ccmTimeTrackingFm as PostFrontmatter), Component: CcmTimeTracking },
+  { ...(billingOutsourcingFm as PostFrontmatter), Component: MedicalBillingOutsourcingGuide },
+  { ...(rpmSetupFm as PostFrontmatter), Component: RpmSetupGuide },
+  { ...(virtualStaffingFm as PostFrontmatter), Component: VirtualMedicalStaffingBenefits },
+  { ...(tcmGuideFm as PostFrontmatter), Component: TransitionalCareManagementGuide },
+  { ...(credentialingGuideFm as PostFrontmatter), Component: ProviderCredentialingGuide },
+  { ...(claimDenialsFm as PostFrontmatter), Component: ReduceClaimDenials },
 ];
 
 /** All posts, newest first by publishedAt. */

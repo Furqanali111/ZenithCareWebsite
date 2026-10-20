@@ -7,6 +7,37 @@
 
 ---
 
+## Progress Log (updated 2026-10-20)
+
+Day numbering follows the publish dates already used in the posts: **Day 1 = 2026-10-01** (Day 18 = Oct 18, Day 25 = Oct 25, Day 32 = Nov 1). Today (Oct 20) is Day 20.
+
+| Week | Article | Status |
+|---|---|---|
+| 2 | 3 refreshes | Done |
+| 3 | CCM vs RPM vs PCM | Done |
+| 4 | How CCM Billing Works | Done |
+| 5 | CCM Consent Requirements | Done |
+| 6 | CPT 99439 vs 99490 | Done |
+| 7 | CCM Time Tracking | Done |
+| 8 | Medical Billing Outsourcing Guide | Done early (published 2026-10-20, ahead of its Day 53 slot) |
+| 9 | ChartSpan Alternatives | Postponed: not enough verified competitor data |
+
+**Extension beyond the original 60-day list (non-CCM services):**
+
+| Published | Article | Service |
+|---|---|---|
+| 2026-10-20 | How to Set Up a Remote Patient Monitoring Program | RPM |
+| 2026-10-20 | Virtual Medical Staffing: Benefits, Limits, and When It Fits | Virtual staffing (5 roles) |
+| 2026-10-20 | Transitional Care Management: How the 2, 7, and 14 Day Rules Work | TCM |
+| 2026-10-20 | Provider Credentialing: A Step-by-Step Guide for Medical Practices | Provider credentialing |
+| 2026-10-20 | Medical Claim Denials: Top Causes and How to Prevent Them | Medical billing and A/R |
+
+**Still uncovered by an article:** medical coding, principal care management, remote therapeutic monitoring, medical scribe, scheduler, receptionist, patient care coordinator, virtual assistant. Good next candidates.
+
+All articles still need billing/clinical review before being treated as final.
+
+**Known issue:** the CCM posts for Weeks 4 to 7 carry future `publishedAt` dates (Oct 25 to Nov 15) but are already live, so sitemap `lastmod` and Article schema show dates that have not happened. Decide whether to set them to their real publish date.
+
 ## Content Principles
 
 1. **Quality over quantity.** One well-researched, clinically reviewed article per week beats three thin ones.
