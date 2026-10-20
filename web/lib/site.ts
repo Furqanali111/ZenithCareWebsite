@@ -53,7 +53,7 @@ export const founders: readonly {
     initials: founder.initials,
     title: "Founder",
     intro:
-      "Software engineer with five years of delivering for multiple customers, turning messy workflows into work that runs smoothly.",
+      "Software engineer who has shipped for multiple customers, bringing the same reliability to your practice’s daily work.",
   },
   {
     name: "Muhammad Usman",
