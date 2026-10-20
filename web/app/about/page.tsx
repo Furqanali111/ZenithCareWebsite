@@ -7,7 +7,7 @@ import { BulletedListItem } from "@/components/bulleted-list";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { founder } from "@/lib/site";
+import { founder, founders } from "@/lib/site";
 import {
   categoryMeta,
   servicesByCategory,
@@ -93,29 +93,6 @@ const WHY = [
 
 const CATEGORY_ORDER: ServiceCategory[] = ["rpm", "rcm", "staffing"];
 
-// Keep intros to one line. `intro` is optional and only rendered when set.
-const FOUNDERS: {
-  name: string;
-  initials: string;
-  title: string;
-  intro?: string;
-}[] = [
-  {
-    name: founder.name,
-    initials: founder.initials,
-    title: "Founder",
-    intro:
-      "Software engineer with five years of experience delivering projects to multiple customers.",
-  },
-  {
-    name: "Muhammad Usman",
-    initials: "MU",
-    title: "Co-founder",
-    intro:
-      "Holds a Doctor of Pharmacy (PharmD) degree and is an entrepreneur.",
-  },
-];
-
 export default function AboutPage() {
   return (
     <>
@@ -186,7 +163,7 @@ export default function AboutPage() {
             </Statement>
           </Reveal>
 
-          <Reveal className="mt-16 grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:items-start md:gap-14">
+          <Reveal className="mt-16 grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-14">
             <div>
               <h3 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 The work behind care deserves care, too.
@@ -223,7 +200,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <figure className="rounded-2xl border border-border bg-card p-8 md:p-10">
+            <figure className="flex flex-col justify-center rounded-2xl border border-border bg-card p-8 md:p-10">
               <blockquote className="font-serif text-xl font-semibold leading-snug tracking-tight text-brand-ink md:text-2xl">
                 <p>
                   &ldquo;The work behind care deserves the same attention as
@@ -245,7 +222,7 @@ export default function AboutPage() {
             Meet the founders
           </h2>
           <Reveal className="mt-10 grid gap-6 md:grid-cols-2">
-            {FOUNDERS.map((f) => (
+            {founders.map((f) => (
               <div
                 key={f.name}
                 className="flex items-start gap-5 rounded-xl border border-border bg-card p-6 md:p-8"
@@ -258,21 +235,28 @@ export default function AboutPage() {
                   <p className="mt-1 text-sm font-semibold text-brand-accent">
                     {f.title}
                   </p>
-                  {f.intro ? (
-                    <p className="mt-3 text-base leading-relaxed text-body-ink">
-                      {f.intro}
-                    </p>
-                  ) : null}
+                  <p className="mt-3 text-base leading-relaxed text-body-ink">
+                    {f.intro}
+                  </p>
                 </div>
               </div>
             ))}
           </Reveal>
 
-          <Reveal className="mt-12 rounded-2xl border border-border bg-card p-8 md:p-12">
-            <h3 className="max-w-3xl font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-              We built Zenith so your team can get back to patients.
-            </h3>
-            <div className="mt-6 max-w-3xl space-y-5 text-base leading-relaxed text-body-ink md:text-lg">
+          <Reveal className="mt-12 grid gap-10 rounded-2xl border border-border bg-card p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-14 md:p-12">
+            <div>
+              <h3 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+                We built Zenith so your team can get back to patients.
+              </h3>
+              <p className="mt-8 font-serif text-base font-semibold text-brand-ink">
+                {founders.map((f) => (
+                  <span key={f.name} className="block">
+                    {f.name}, {f.title}
+                  </span>
+                ))}
+              </p>
+            </div>
+            <div className="space-y-5 text-base leading-relaxed text-body-ink md:text-lg">
               <p>
                 Practices carry more work around patient care than they have
                 people to do it. Follow-ups slip, claims wait and phones go
@@ -298,13 +282,6 @@ export default function AboutPage() {
                 right fit.
               </p>
             </div>
-            <p className="mt-8 flex flex-wrap gap-x-8 gap-y-1 font-serif text-base font-semibold text-brand-ink">
-              {FOUNDERS.map((f) => (
-                <span key={f.name}>
-                  {f.name}, {f.title}
-                </span>
-              ))}
-            </p>
           </Reveal>
         </div>
       </section>
