@@ -42,7 +42,14 @@ export const founder = {
 } as const;
 
 /** Founders with the one-line intros used on the homepage and blog bylines. */
-export const founders = [
+export const founders: readonly {
+  name: string;
+  initials: string;
+  title: string;
+  intro: string;
+  /** Optional first-person line shown under the intro. */
+  quote?: string;
+}[] = [
   {
     name: founder.name,
     initials: founder.initials,
@@ -55,8 +62,10 @@ export const founders = [
     initials: "MU",
     title: "Co-founder",
     intro: "Holds a Doctor of Pharmacy (PharmD) degree and is an entrepreneur.",
+    quote:
+      "I believe in continuous learning, teamwork and turning ambitious ideas into meaningful results. I am committed to building a company that grows through integrity, accountability and measurable value for the healthcare professionals we serve.",
   },
-] as const;
+];
 
 export function whatsappHref(prefill = "Hi Zenith, I'd like to learn about CCM.") {
   const n = site.whatsappNumber.replace(/\D/g, "");

@@ -7,7 +7,7 @@ import { BulletedListItem } from "@/components/bulleted-list";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { founder } from "@/lib/site";
+import { founder, founders } from "@/lib/site";
 import {
   categoryMeta,
   servicesByCategory,
@@ -92,29 +92,6 @@ const WHY = [
 ];
 
 const CATEGORY_ORDER: ServiceCategory[] = ["rpm", "rcm", "staffing"];
-
-// Keep intros to one line. `intro` is optional and only rendered when set.
-const FOUNDERS: {
-  name: string;
-  initials: string;
-  title: string;
-  intro?: string;
-}[] = [
-  {
-    name: founder.name,
-    initials: founder.initials,
-    title: "Founder",
-    intro:
-      "Software engineer with five years of experience delivering projects to multiple customers.",
-  },
-  {
-    name: "Muhammad Usman",
-    initials: "MU",
-    title: "Co-founder",
-    intro:
-      "Holds a Doctor of Pharmacy (PharmD) degree and is an entrepreneur.",
-  },
-];
 
 export default function AboutPage() {
   return (
@@ -245,7 +222,7 @@ export default function AboutPage() {
             Meet the founders
           </h2>
           <Reveal className="mt-10 grid gap-6 md:grid-cols-2">
-            {FOUNDERS.map((f) => (
+            {founders.map((f) => (
               <div
                 key={f.name}
                 className="flex items-start gap-5 rounded-xl border border-border bg-card p-6 md:p-8"
@@ -258,10 +235,13 @@ export default function AboutPage() {
                   <p className="mt-1 text-sm font-semibold text-brand-accent">
                     {f.title}
                   </p>
-                  {f.intro ? (
-                    <p className="mt-3 text-base leading-relaxed text-body-ink">
-                      {f.intro}
-                    </p>
+                  <p className="mt-3 text-base leading-relaxed text-body-ink">
+                    {f.intro}
+                  </p>
+                  {f.quote ? (
+                    <blockquote className="mt-4 text-base italic leading-relaxed text-body-ink">
+                      <p>&ldquo;{f.quote}&rdquo;</p>
+                    </blockquote>
                   ) : null}
                 </div>
               </div>
@@ -299,7 +279,7 @@ export default function AboutPage() {
               </p>
             </div>
             <p className="mt-8 flex flex-wrap gap-x-8 gap-y-1 font-serif text-base font-semibold text-brand-ink">
-              {FOUNDERS.map((f) => (
+              {founders.map((f) => (
                 <span key={f.name}>
                   {f.name}, {f.title}
                 </span>
