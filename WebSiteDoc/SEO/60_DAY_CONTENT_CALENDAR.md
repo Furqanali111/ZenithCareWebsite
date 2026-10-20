@@ -32,6 +32,19 @@ Day numbering follows the publish dates already used in the posts: **Day 1 = 202
 | 2026-10-20 | Provider Credentialing: A Step-by-Step Guide for Medical Practices | Provider credentialing |
 | 2026-10-20 | Medical Claim Denials: Top Causes and How to Prevent Them | Medical billing and A/R |
 
+**Cover image sources (added 2026-10-20).** Free stock photos from Pexels (Pexels License: free for commercial use, no attribution required), cropped to 1200x600 and converted to webp. Kept here so a photo can be found or swapped later.
+
+| Post | Pexels photo ID |
+|---|---|
+| medical-billing-outsourcing-guide | 7680736 |
+| rpm-setup-guide | 8088852 |
+| virtual-medical-staffing-benefits | 7709145 |
+| transitional-care-management-guide | 6129141 |
+| provider-credentialing-guide | 7089620 |
+| reduce-claim-denials | 7578802 |
+
+Look up any photo at `https://www.pexels.com/photo/<id>/`.
+
 **Still uncovered by an article:** medical coding, principal care management, remote therapeutic monitoring, medical scribe, scheduler, receptionist, patient care coordinator, virtual assistant. Good next candidates.
 
 All articles still need billing/clinical review before being treated as final.
