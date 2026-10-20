@@ -41,6 +41,29 @@ export const founder = {
   aboutUrl: "/about",
 } as const;
 
+/** Founders with the one-line intros used on the homepage and blog bylines. */
+export const founders: readonly {
+  name: string;
+  initials: string;
+  title: string;
+  intro: string;
+}[] = [
+  {
+    name: founder.name,
+    initials: founder.initials,
+    title: "Founder",
+    intro:
+      "Software engineer who has shipped for multiple customers, bringing the same reliability to your practice’s daily work.",
+  },
+  {
+    name: "Muhammad Usman",
+    initials: "MU",
+    title: "Co-founder",
+    intro:
+      "Doctor of Pharmacy (PharmD) and entrepreneur, turning ambitious ideas into meaningful results.",
+  },
+];
+
 export function whatsappHref(prefill = "Hi Zenith, I'd like to learn about CCM.") {
   const n = site.whatsappNumber.replace(/\D/g, "");
   if (!n) return "#";

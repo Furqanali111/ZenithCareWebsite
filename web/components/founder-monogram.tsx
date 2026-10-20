@@ -11,12 +11,14 @@ export function FounderMonogram({
 }: {
   initials: string;
   name: string;
-  size?: "md" | "lg";
+  size?: "sm" | "md" | "lg";
 }) {
   const sizeClasses =
     size === "lg"
       ? "size-40 md:size-48 text-4xl md:text-5xl"
-      : "size-32 md:size-40 text-3xl md:text-4xl";
+      : size === "sm"
+        ? "size-16 text-xl"
+        : "size-32 md:size-40 text-3xl md:text-4xl";
   return (
     <div
       role="img"

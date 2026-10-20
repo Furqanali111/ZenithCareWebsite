@@ -7,7 +7,7 @@ import { BrandFigure } from "@/components/brand-figure";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
-import { founder, site } from "@/lib/site";
+import { founder, founders, site } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -142,8 +142,7 @@ export default async function PostPage({
                 {founder.name}
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-body-ink">
-                Clinical pharmacist with oncology / BMT background. Founder
-                of Zenith Care Solutions.{" "}
+                {founders[0].intro} Founder of Zenith Care Solutions.{" "}
                 <Link
                   href="/about"
                   className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
