@@ -238,11 +238,6 @@ export default function AboutPage() {
                   <p className="mt-3 text-base leading-relaxed text-body-ink">
                     {f.intro}
                   </p>
-                  {f.quote ? (
-                    <blockquote className="mt-4 text-base italic leading-relaxed text-body-ink">
-                      <p>&ldquo;{f.quote}&rdquo;</p>
-                    </blockquote>
-                  ) : null}
                 </div>
               </div>
             ))}
