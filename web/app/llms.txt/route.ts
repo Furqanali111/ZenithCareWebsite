@@ -18,7 +18,7 @@ const HEADER = `# ${site.name}
 ## About
 
 - **Legal entity**: Zenith Care Solutions LLC (Wyoming)
-- **Founder**: Furqan Ali, clinical pharmacist with oncology / BMT background
+- **Founders**: Furqan Ali (founder, software engineer) and Muhammad Usman (co-founder, Doctor of Pharmacy degree, entrepreneur)
 - **Service area**: United States
 - **Target customers**: physician practices (primary care, internal medicine, geriatrics)
 - **Service lines**: care management (CCM, PCM, RPM, RTM, TCM), revenue cycle management (billing, coding, credentialing, AR), virtual staffing (scribes, schedulers, receptionists, coordinators)
@@ -34,7 +34,7 @@ ${SERVICES}
 - [Who we serve: geriatrics](${site.url}/who-we-serve/geriatrics)
 - [ROI calculator](${site.url}/roi-calculator): client-side estimator; no data stored
 - [HIPAA compliance posture](${site.url}/hipaa-compliance)
-- [About](${site.url}/about): founder bio and credentials
+- [About](${site.url}/about): the team, the founders and how Zenith works
 - [FAQ](${site.url}/faq)
 - [Contact](${site.url}/contact): WhatsApp, email, Calendly
 
