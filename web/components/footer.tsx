@@ -148,7 +148,10 @@ export function Footer() {
             <p>
               {/* shortcut: hardcoded year, bump each January. Cache Components
                    mode refuses `new Date()` during prerender. */}
-              © 2026 Zenith Care Solutions LLC. All rights reserved.
+              © 2026 {site.legalName}. All rights reserved.
+              <span className="mt-1 block">
+                Mailing address: {site.mailingAddress}
+              </span>
             </p>
             <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {LEGAL_LINKS.map((l) => (

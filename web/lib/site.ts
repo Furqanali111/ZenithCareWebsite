@@ -6,6 +6,11 @@ import { services as serviceRegistry } from "./services";
 
 export const site = {
   name: "Zenith Care Solutions",
+  legalName: "Zenith Care Solutions LLC",
+  // Virtual mailing address (mail forwarding), not a physical office: never
+  // label it "office" or "headquarters", and keep it out of PostalAddress schema.
+  // The Wyoming registered agent address is intentionally not on the site.
+  mailingAddress: "30 N Gould St, Suite #70349, Sheridan, WY 82801, USA",
   tagline:
     "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
   url:

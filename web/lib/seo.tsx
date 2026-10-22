@@ -70,6 +70,7 @@ export function organizationLd(): JsonLd {
     "@type": "Organization",
     "@id": `${site.url}#organization`,
     name: site.name,
+    legalName: site.legalName,
     url: site.url,
     logo: abs("/logo.png"),
     description: site.tagline,

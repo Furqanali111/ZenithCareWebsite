@@ -17,7 +17,8 @@ const HEADER = `# ${site.name}
 
 ## About
 
-- **Legal entity**: Zenith Care Solutions LLC (Wyoming)
+- **Legal entity**: ${site.legalName} (Wyoming)
+- **Mailing address** (virtual, not a physical office): ${site.mailingAddress}
 - **Founders**: Furqan Ali (founder, software engineer) and Muhammad Usman (co-founder, Doctor of Pharmacy degree, entrepreneur)
 - **Service area**: United States
 - **Target customers**: physician practices (primary care, internal medicine, geriatrics)
