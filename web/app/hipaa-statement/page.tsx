@@ -125,7 +125,11 @@ export default function HipaaStatementPage() {
             </Link>
             .
           </p>
-          <p>Zenith Care Solutions LLC &middot; Wyoming, USA</p>
+          <p>
+            {site.legalName} &middot; Wyoming, USA
+            <br />
+            Mailing address: {site.mailingAddress}
+          </p>
       </LegalPage>
     </>
   );
