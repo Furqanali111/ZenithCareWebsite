@@ -103,7 +103,9 @@ export default function AccessibilityPage() {
 
           <h2>Contact</h2>
           <p>
-            Zenith Care Solutions LLC &middot; Wyoming, USA
+            {site.legalName} &middot; Wyoming, USA
+            <br />
+            Mailing address: {site.mailingAddress}
             <br />
             Email:{" "}
             <Link
