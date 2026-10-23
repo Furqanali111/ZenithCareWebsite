@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { JsonLd, faqPageLd } from "@/lib/seo";
+import { FaqAnswer } from "@/components/faq-answer";
 
 export type FaqEntry = { question: string; answer: string };
 
@@ -64,7 +65,7 @@ export function FaqSection({
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-base leading-relaxed text-body-ink">
-                  {item.answer}
+                  <FaqAnswer text={item.answer} />
                 </AccordionContent>
               </AccordionItem>
             ))}
