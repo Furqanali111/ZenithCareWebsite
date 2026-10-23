@@ -97,6 +97,7 @@ export const nav = {
     { label: "Geriatrics", href: "/who-we-serve/geriatrics" },
   ],
   main: [
+    { label: "Pricing", href: "/pricing" },
     { label: "About", href: "/about" },
     { label: "Resources", href: "/resources" },
     { label: "FAQ", href: "/faq" },
