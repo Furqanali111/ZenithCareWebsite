@@ -7,7 +7,7 @@ import { BrandFigure } from "@/components/brand-figure";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
-import { founder, founders, site } from "@/lib/site";
+import { founder, founders, reviewer, site } from "@/lib/site";
 import { SERVICE_TAGS, getService } from "@/lib/services";
 import type { Post } from "@/content/posts";
 
@@ -108,6 +108,9 @@ export default async function PostPage({
           <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
             {post.description}
           </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Written by {founder.name}. Reviewed by {reviewer.name}, PharmD.
+          </p>
         </header>
 
         {post.coverImage ? (
@@ -151,6 +154,10 @@ export default async function PostPage({
                 >
                   More about Furqan →
                 </Link>
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-body-ink">
+                <span className="font-medium text-brand-ink">Reviewed by {reviewer.name}, PharmD.</span>{" "}
+                {reviewer.title} of Zenith Care Solutions.
               </p>
             </div>
           </div>
