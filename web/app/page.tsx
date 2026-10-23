@@ -125,7 +125,7 @@ const HOME_CATEGORIES = [
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "Care Management, Billing & Staffing",
+  title: "Outsourced Care Management & Billing",
   description:
     "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider.",
   path: "/",

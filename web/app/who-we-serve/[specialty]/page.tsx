@@ -505,7 +505,7 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   geriatrics: {
     metaTitle: "Services for Geriatric Practices",
     metaDescription:
-      "CCM, RPM, TCM, billing and virtual staffing for U.S. geriatric practices. The highest CCM yield in medicine.",
+      "CCM, RPM, TCM, billing and virtual staffing for U.S. geriatric practices, where many Medicare patients have multiple chronic conditions.",
     heroHeadline:
       "Geriatric panels are built for care management.",
     heroLead:

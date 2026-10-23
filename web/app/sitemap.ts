@@ -6,6 +6,11 @@ import { getAllPosts } from "@/content/posts";
 /**
  * All indexable public routes. Keep in sync as pages are added.
  *
+ * Only articles carry `lastModified`: they have a real `updatedAt`. Other URLs
+ * omit it rather than share one made-up date, because Google ignores lastmod
+ * it can't trust. `priority` / `changeFrequency` are ignored by Google, so
+ * they are not emitted.
+ *
  * shortcut: hand-maintained list; swap for a glob over `app/**\/page.tsx` once
  * we have a dynamic content source (MDX posts) that would make this annoying.
  */
@@ -17,61 +22,45 @@ const BASE = site.url
   .replace(/\/$/, "")
   .replace(/^(https?:\/\/)www\./, "$1");
 
-// Use a stable date for pages whose content hasn't meaningfully changed.
-// Stamping every URL with `new Date()` (the deploy time) tricks Google into
-// thinking all pages changed on every deploy, wasting crawl budget.
-// Update this date when you make a content-significant change to the site shell
-// (nav, footer, global copy). Individual service / post dates are set below.
-const SITE_LAST_UPDATED = new Date("2026-10-18");
+const STATIC_PATHS = [
+  "/",
+  "/services",
+  "/services/care-management",
+  "/services/revenue-cycle-management",
+  "/services/virtual-staffing",
+  "/roi-calculator",
+  "/hipaa-compliance",
+  "/about",
+  "/resources",
+  "/faq",
+  "/contact",
+  "/pricing",
+  "/how-it-works",
+  "/refund-policy",
+  "/service-delivery",
+  "/complaints",
+  "/privacy",
+  "/terms",
+  "/hipaa-statement",
+  "/accessibility",
+  "/security",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = BASE;
-  const siteDate = SITE_LAST_UPDATED;
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${base}/`, lastModified: siteDate, priority: 1.0, changeFrequency: "monthly" },
-    { url: `${base}/services`, lastModified: siteDate, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${base}/services/care-management`, lastModified: siteDate, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${base}/services/revenue-cycle-management`, lastModified: siteDate, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${base}/services/virtual-staffing`, lastModified: siteDate, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${base}/roi-calculator`, lastModified: siteDate, priority: 0.8, changeFrequency: "monthly" },
-    { url: `${base}/hipaa-compliance`, lastModified: siteDate, priority: 0.7, changeFrequency: "yearly" },
-    { url: `${base}/about`, lastModified: siteDate, priority: 0.7, changeFrequency: "yearly" },
-    { url: `${base}/resources`, lastModified: siteDate, priority: 0.7, changeFrequency: "weekly" },
-    { url: `${base}/faq`, lastModified: siteDate, priority: 0.7, changeFrequency: "monthly" },
-    { url: `${base}/contact`, lastModified: siteDate, priority: 0.9, changeFrequency: "yearly" },
-    { url: `${base}/pricing`, lastModified: siteDate, priority: 0.8, changeFrequency: "monthly" },
-    { url: `${base}/how-it-works`, lastModified: siteDate, priority: 0.8, changeFrequency: "monthly" },
-    { url: `${base}/refund-policy`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
-    { url: `${base}/service-delivery`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
-    { url: `${base}/complaints`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
-    { url: `${base}/privacy`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
-    { url: `${base}/terms`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
-    { url: `${base}/hipaa-statement`, lastModified: siteDate, priority: 0.3, changeFrequency: "yearly" },
-    { url: `${base}/accessibility`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
-    { url: `${base}/security`, lastModified: siteDate, priority: 0.5, changeFrequency: "yearly" },
+  const paths = [
+    ...STATIC_PATHS,
+    ...getServiceSlugs().map((slug) => `/services/${slug}`),
+    ...specialties.map((s) => `/who-we-serve/${s}`),
   ];
 
-  const serviceRoutes: MetadataRoute.Sitemap = getServiceSlugs().map((slug) => ({
-    url: `${base}/services/${slug}`,
-    lastModified: siteDate,
-    priority: 0.9,
-    changeFrequency: "monthly",
+  const pages: MetadataRoute.Sitemap = paths.map((p) => ({
+    url: p === "/" ? `${BASE}/` : `${BASE}${p}`,
   }));
 
-  const specialtyRoutes: MetadataRoute.Sitemap = specialties.map((s) => ({
-    url: `${base}/who-we-serve/${s}`,
-    lastModified: siteDate,
-    priority: 0.8,
-    changeFrequency: "monthly",
-  }));
-
-  const postRoutes: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
-    url: `${base}/resources/${p.slug}`,
+  const posts: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
+    url: `${BASE}/resources/${p.slug}`,
     lastModified: new Date(p.updatedAt),
-    priority: 0.6,
-    changeFrequency: "yearly",
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...specialtyRoutes, ...postRoutes];
+  return [...pages, ...posts];
 }

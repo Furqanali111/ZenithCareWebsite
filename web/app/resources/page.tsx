@@ -7,9 +7,9 @@ import { getAllPosts } from "@/content/posts";
 const PATH = "/resources";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Resources",
+  title: "CCM, Billing & Staffing Guides",
   description:
-    "Articles, guides, and reference material for practices running or evaluating Chronic Care Management.",
+    "Practical guides on Chronic Care Management, CPT billing, RPM, credentialing, claim denials and virtual medical staffing for U.S. physician practices.",
   path: PATH,
 });
 
@@ -31,7 +31,7 @@ export default function ResourcesPage() {
             Resources
           </span>
           <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-            Articles for practices evaluating CCM.
+            Guides for practices evaluating care management, billing and staffing.
           </h1>
           <p className="mt-6 text-base leading-relaxed text-body-ink md:text-lg">
             Honest, practical writing on Chronic Care Management, billing,

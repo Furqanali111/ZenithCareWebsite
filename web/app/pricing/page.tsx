@@ -9,7 +9,7 @@ const PATH = "/pricing";
 const UPDATED = "2026-10-23";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Pricing",
+  title: "Pricing and Billing Model",
   description:
     "How Zenith Care Solutions prices care management, revenue cycle management and virtual staffing, what is included, and how billing works.",
   path: PATH,
@@ -24,7 +24,7 @@ export default function PricingPage() {
           { name: "Pricing", path: PATH },
         ])}
       />
-      <LegalPage title="Pricing" eyebrow="Pricing" lastUpdated={UPDATED}>
+      <LegalPage title="Pricing and billing model" eyebrow="Pricing" lastUpdated={UPDATED}>
         <p>
           All prices are in <strong>U.S. dollars (USD)</strong>. Every
           engagement is billed by invoice after you sign a written service
