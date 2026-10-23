@@ -49,6 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/terms`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
     { url: `${base}/hipaa-statement`, lastModified: siteDate, priority: 0.3, changeFrequency: "yearly" },
     { url: `${base}/accessibility`, lastModified: siteDate, priority: 0.2, changeFrequency: "yearly" },
+    { url: `${base}/security`, lastModified: siteDate, priority: 0.5, changeFrequency: "yearly" },
   ];
 
   const serviceRoutes: MetadataRoute.Sitemap = getServiceSlugs().map((slug) => ({
