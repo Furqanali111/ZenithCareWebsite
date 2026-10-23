@@ -33,8 +33,8 @@ export const pricing: readonly PricingPlan[] = [
     ],
     billing: "monthly",
     amount: null,
-    unit: "per month",
-    startTime: "Within 10 business days of the signed agreement",
+    unit: "per patient per month",
+    startTime: "Onboarding typically takes 3 to 6 weeks from the signed agreement, confirmed in writing",
     extras: "None. Any additional work is agreed in writing before it starts.",
   },
   {
@@ -50,7 +50,7 @@ export const pricing: readonly PricingPlan[] = [
     billing: "monthly",
     amount: null,
     unit: "per month",
-    startTime: "Within 10 business days of the signed agreement",
+    startTime: "Onboarding typically takes 3 to 6 weeks from the signed agreement, confirmed in writing",
     extras: "None. Any additional work is agreed in writing before it starts.",
   },
   {
@@ -66,7 +66,7 @@ export const pricing: readonly PricingPlan[] = [
     billing: "monthly",
     amount: null,
     unit: "per staff member per month",
-    startTime: "Within 10 business days of the signed agreement",
+    startTime: "Onboarding typically takes 3 to 6 weeks from the signed agreement, confirmed in writing",
     extras: "None. Any additional work is agreed in writing before it starts.",
   },
 ];
