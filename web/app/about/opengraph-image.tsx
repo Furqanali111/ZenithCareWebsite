@@ -7,6 +7,6 @@ export const contentType = ogContentType;
 export default function OpenGraphImage() {
   return ogImage({
     title: "About Zenith Care Solutions",
-    subtitle: "U.S.-trained clinical team delivering remote care management from day one.",
+    subtitle: "Remote care management for U.S. physician practices, delivered inside your EHR.",
   });
 }

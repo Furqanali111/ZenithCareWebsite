@@ -12,7 +12,7 @@ const DEFAULT_ITEMS: { label: string; detail: string }[] = [
   { label: "HIPAA Business Associate", detail: "BAA signed before any PHI changes hands." },
   { label: "Trained clinical staff", detail: "Professional clinical coordination, delivered by trained healthcare professionals." },
   { label: "Inside your EHR", detail: "No PHI exported. Documentation lives where you work." },
-  { label: "Flat monthly pricing", detail: "Predictable cost per service line. No per-claim or per-patient fees." },
+  { label: "Clear pricing", detail: "The price is agreed in writing before you sign. No hidden charges." },
 ];
 
 const ICONS = [ShieldCheck, Stethoscope, Database, Wallet];
