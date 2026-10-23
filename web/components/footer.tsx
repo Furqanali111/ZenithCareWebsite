@@ -37,6 +37,7 @@ const LEGAL_LINKS: Item[] = [
   { label: "HIPAA Compliance", href: "/hipaa-compliance" },
   { label: "HIPAA Statement", href: "/hipaa-statement" },
   { label: "Accessibility", href: "/accessibility" },
+  { label: "Security", href: "/security" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
 

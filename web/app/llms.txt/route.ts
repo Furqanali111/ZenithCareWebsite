@@ -50,6 +50,7 @@ ${SERVICES}
 - [Complaints and Disputes](${site.url}/complaints)
 - [HIPAA Statement](${site.url}/hipaa-statement)
 - [Accessibility](${site.url}/accessibility)
+- [Security and regulatory status](${site.url}/security)
 
 ## Articles
 `;
