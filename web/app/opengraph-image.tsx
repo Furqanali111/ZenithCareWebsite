@@ -8,6 +8,6 @@ export const contentType = ogContentType;
 export default function OpenGraphImage() {
   return ogImage({
     title: "Care Management, RCM & Virtual Staffing",
-    subtitle: "HIPAA-compliant remote clinical services for U.S. practices.",
+    subtitle: "Remote clinical services for U.S. practices. HIPAA Business Associate.",
   });
 }
