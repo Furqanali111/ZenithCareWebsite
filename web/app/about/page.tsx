@@ -7,7 +7,7 @@ import { BulletedListItem } from "@/components/bulleted-list";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { founder, founders } from "@/lib/site";
+import { founder, founders, site } from "@/lib/site";
 import {
   categoryMeta,
   servicesByCategory,
@@ -469,6 +469,37 @@ export default function AboutPage() {
               </Link>
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Company information: identity facts a bank or payment provider checks */}
+      <section className="section-rhythm border-t border-border/60 bg-surface-tint">
+        <div className="mx-auto max-w-3xl px-6">
+          <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+            Company information
+          </h2>
+          <dl className="mt-8 divide-y divide-border rounded-xl border border-border bg-card text-base text-body-ink">
+            {[
+              ["Legal name", site.legalName],
+              ["Entity", `${site.formation.state} limited liability company`],
+              ["Wyoming filing ID", site.formation.filingId],
+              ["Formed", site.formation.formedOn],
+              ...(site.ein ? [["EIN", site.ein]] : []),
+              ["Mailing address", site.mailingAddress],
+              ["Email", site.email],
+              ...(site.phone ? [["Phone", site.phone]] : []),
+              ["Hours", site.hours],
+            ].map(([k, v]) => (
+              <div key={k} className="grid gap-1 px-6 py-4 sm:grid-cols-[12rem_1fr]">
+                <dt className="font-semibold text-brand-ink">{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 text-sm text-muted-foreground">
+            The mailing address is a mail-forwarding address, not a physical
+            office.
+          </p>
         </div>
       </section>
 
