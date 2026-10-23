@@ -14,6 +14,8 @@
  * the project's claims-hygiene rules. No PHI, no fabricated stats.
  */
 
+import { CPT_RATES, ANCHOR_MONTHLY } from "./roi";
+
 export type ServiceCategory = "rpm" | "staffing" | "rcm";
 
 export const categoryMeta: Record<
@@ -151,13 +153,13 @@ const RPM_SERVICES: Service[] = [
       { icon: "clipboard-check", title: "Eligibility review", body: "We run your panel against documented diagnoses to find who already qualifies." },
     ],
     billing: [
-      { code: "99490", covers: "First 20 min/month of clinical staff time", rate: "~$62" },
-      { code: "99439", covers: "Each additional 20 minutes", rate: "~$47" },
+      { code: "99490", covers: "First 20 min/month of clinical staff time", rate: `~${CPT_RATES["99490"]}` },
+      { code: "99439", covers: "Each additional 20 minutes", rate: `~${CPT_RATES["99439"]}` },
       { code: "99487 / 99489", covers: "Complex CCM, 60+ min, high decision-making", rate: "higher" },
       { code: "99491 / 99437", covers: "Time personally performed by the physician", rate: "higher" },
     ],
     revenue: {
-      value: "$13,200 / mo",
+      value: `${ANCHOR_MONTHLY.toLocaleString("en-US")} / mo`,
       note: "Representative: a 200-patient panel billing the base code alone. Actual results vary by locality and payer.",
     },
     howItWorks: [

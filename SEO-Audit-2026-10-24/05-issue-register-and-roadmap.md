@@ -64,3 +64,7 @@ Evidence needed from you: GSC access (or exports), GA4 access, a PageSpeed API k
 ## Correction after implementation (2026-10-24)
 
 F-04 evidence was partly wrong. Service pages already render a tag-driven "resources" block (`SERVICE_TAGS` in `web/lib/services.ts`), capped at 6 links, and each article showed the same two newest posts as "Related reading". The real gaps were the cap, the repeated related pair, and no article-to-service link. Fixed in `feature/seo-audit-quick-fixes`: cap raised to 8, related posts ranked by shared tags, and a "Related service" link on each article. Lowest inbound count rose from 2 to 3; the two most-linked articles dropped from 16 to 13 to 14, so links are spread more evenly. Category hubs and specialty pages still link to no articles (open item).
+
+## F-01 resolved (2026-10-24)
+
+Owner confirmed `CPT_RATES` in `web/lib/roi.ts` ($66 / $46 / $132 / $70 / $83 / $59) as the 2026 figures. The CCM service page and the `/services` comparison table now read from it; one article typo (99489 listed as ~$67, now ~$70) was aligned. Article prose and `faq.json` still carry the numbers as text and must be updated by hand when rates change.
