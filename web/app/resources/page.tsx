@@ -35,7 +35,7 @@ export default function ResourcesPage() {
           </h1>
           <p className="mt-6 text-base leading-relaxed text-body-ink md:text-lg">
             Honest, practical writing on Chronic Care Management, billing,
-            operations, compliance. Written by Furqan Ali.
+            operations, compliance. Reviewed by Muhammad Usman, PharmD.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             Every article is written for practice managers and physicians who
