@@ -10,7 +10,7 @@ const UPDATED = "2026-10-23";
 export const metadata: Metadata = pageMetadata({
   title: "Refund and Cancellation Policy",
   description:
-    "When a practice can cancel a Zenith Care Solutions service and when a refund is available.",
+    "When a practice can cancel a Zenith Care Solutions service, how notice works, and when a pro-rata refund is available.",
   path: PATH,
 });
 

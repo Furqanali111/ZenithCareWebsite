@@ -349,7 +349,7 @@ const RPM_SERVICES: Service[] = [
     ],
     metaTitle: "Remote Therapeutic Monitoring (RTM)",
     metaDescription:
-      "RTM for U.S. practices. Track therapy adherence, pain and function between visits, inside your EHR.",
+      "Remote therapeutic monitoring for U.S. practices. Track therapy adherence, pain and function between visits, inside your EHR.",
     serviceType: "Remote Therapeutic Monitoring",
     emailSubject: "RTM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Remote Therapeutic Monitoring.",
@@ -591,7 +591,7 @@ const RCM_SERVICES: Service[] = [
     ],
     metaTitle: "AR Follow-Up Services",
     metaDescription:
-      "Remote AR follow-up for U.S. practices. Work aged claims, appeals and unpaid balances to recover revenue.",
+      "Remote AR follow-up for U.S. practices. Work aged claims, denials, appeals and unpaid balances to recover revenue you have earned.",
     serviceType: "Accounts Receivable Management",
     emailSubject: "AR Follow-Up Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Accounts Receivable follow-up service.",
@@ -870,3 +870,22 @@ if (typeof window === "undefined") {
     seen.add(s.slug);
   }
 }
+
+// Maps each service slug to the post tags that belong on that page.
+// Add a slug here when a new service gets blog content.
+export const SERVICE_TAGS: Record<string, string[]> = {
+  "chronic-care-management":     ["ccm"],
+  "principal-care-management":   ["pcm"],
+  "remote-patient-monitoring":   ["rpm"],
+  "remote-therapeutic-monitoring": ["rtm"],
+  "transitional-care-management": ["tcm"],
+  "medical-billing":             ["medical-billing"],
+  "medical-coding":              ["medical-coding"],
+  "provider-credentialing":      ["credentialing"],
+  "accounts-receivable":         ["ar"],
+  "medical-scribe":              ["medical-scribe"],
+  "medical-scheduler":           ["medical-scheduler"],
+  "medical-receptionist":        ["medical-receptionist"],
+  "patient-care-coordinator":    ["patient-care-coordinator"],
+  "virtual-assistant":           ["virtual-assistant"],
+};

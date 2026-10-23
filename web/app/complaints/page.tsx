@@ -10,7 +10,7 @@ const UPDATED = "2026-10-23";
 export const metadata: Metadata = pageMetadata({
   title: "Complaints and Disputes",
   description:
-    "How to report a problem with Zenith Care Solutions and how we resolve complaints and billing disputes.",
+    "How to report a problem with Zenith Care Solutions, who reviews it, and how we resolve complaints and billing disputes.",
   path: PATH,
 });
 

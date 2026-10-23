@@ -8,6 +8,8 @@ import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
 import { founder, founders, site } from "@/lib/site";
+import { SERVICE_TAGS, getService } from "@/lib/services";
+import type { Post } from "@/content/posts";
 
 type Params = { slug: string };
 
@@ -156,7 +158,7 @@ export default async function PostPage({
       </section>
 
       {/* ─── Related articles ──────────────────────────────────────── */}
-      <RelatedArticles currentSlug={post.slug} />
+      <RelatedArticles post={post} />
 
       {/* ─── Final CTA ─────────────────────────────────────────────── */}
       <section className="mx-auto max-w-3xl px-6 py-20 md:py-24 text-center">
@@ -183,14 +185,34 @@ export default async function PostPage({
 
 /* -------------------------------------------------------------------------- */
 
-function RelatedArticles({ currentSlug }: { currentSlug: string }) {
+function RelatedArticles({ post }: { post: Post }) {
+  // Rank siblings by shared tags (newest wins ties) so links spread across the
+  // library instead of always pointing at the same two newest posts.
+  const shared = (p: Post) => p.tags.filter((t) => post.tags.includes(t)).length;
   const related = getAllPosts()
-    .filter((p) => p.slug !== currentSlug)
-    .slice(0, 2);
-  if (related.length === 0) return null;
+    .filter((p) => p.slug !== post.slug)
+    .sort((a, b) => shared(b) - shared(a))
+    .slice(0, 3);
+  // Parent service page: first service whose tags this post carries.
+  const serviceSlug = Object.keys(SERVICE_TAGS).find((s) =>
+    SERVICE_TAGS[s].some((t) => post.tags.includes(t)),
+  );
+  const service = serviceSlug ? getService(serviceSlug) : undefined;
+  if (related.length === 0 && !service) return null;
 
   return (
     <section className="mx-auto max-w-3xl px-6 py-16 md:py-20">
+      {service ? (
+        <p className="mb-10 text-base text-body-ink">
+          Related service:{" "}
+          <Link
+            href={`/services/${service.slug}`}
+            className="font-medium text-brand-accent underline underline-offset-4"
+          >
+            {service.name}
+          </Link>
+        </p>
+      ) : null}
       <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink">
         Related reading
       </h2>

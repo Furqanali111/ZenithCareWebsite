@@ -8,7 +8,7 @@ import { mailtoHref, site, whatsappHref } from "@/lib/site";
 const PATH = "/contact";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact",
+  title: "Book a Call or Contact Us",
   description:
     "Reach us by WhatsApp, email, our contact form, or book a 15-minute call. Do not submit patient information through this site.",
   path: PATH,
@@ -34,7 +34,7 @@ export default function ContactPage() {
             Contact
           </span>
           <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-            Pick whichever is easiest.
+            Book a call or contact us. Pick whichever is easiest.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
             WhatsApp, email, a fifteen-minute call on Calendly, or the form
