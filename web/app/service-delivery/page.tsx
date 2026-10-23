@@ -39,8 +39,9 @@ export default function ServiceDeliveryPage() {
         <h2>When it starts</h2>
         <p>
           Onboarding starts after the service agreement is signed and the first
-          invoice is paid. We aim to start work within 10 business days. We
-          confirm the exact start date in writing.
+          invoice is paid. It typically takes 3 to 6 weeks, depending on panel
+          size and EHR complexity. We confirm the timeline for your practice
+          in writing.
         </p>
 
         <h2>How it is delivered</h2>
