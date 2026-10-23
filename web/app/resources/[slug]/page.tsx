@@ -7,7 +7,7 @@ import { BrandFigure } from "@/components/brand-figure";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
-import { founder, founders, reviewer, site } from "@/lib/site";
+import { reviewer, site } from "@/lib/site";
 import { SERVICE_TAGS, getService } from "@/lib/services";
 import type { Post } from "@/content/posts";
 
@@ -59,7 +59,7 @@ export default async function PostPage({
             slug: post.slug,
             publishedAt: post.publishedAt,
             updatedAt: post.updatedAt,
-            author: { name: founder.name, url: `${site.url}${founder.aboutUrl}` },
+            author: { name: site.name, url: site.url },
             ...(post.coverImage ? { image: new URL(post.coverImage, site.url).toString() } : {}),
           }),
           breadcrumbLd([
@@ -109,7 +109,7 @@ export default async function PostPage({
             {post.description}
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
-            Written by {founder.name}. Reviewed by {reviewer.name}, PharmD.
+            Reviewed by {reviewer.name}, PharmD, co-founder of {site.name}.
           </p>
         </header>
 
@@ -138,26 +138,22 @@ export default async function PostPage({
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
-            <FounderMonogram initials={founder.initials} name={founder.name} />
+            <FounderMonogram initials={reviewer.initials} name={reviewer.name} />
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                Written by
+                Reviewed by
               </p>
               <h2 className="mt-2 font-serif text-xl font-semibold text-brand-ink">
-                {founder.name}
+                {reviewer.name}, PharmD
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-body-ink">
-                {founders[0].intro} Founder of Zenith Care Solutions.{" "}
+                {reviewer.intro} Co-founder of Zenith Care Solutions.{" "}
                 <Link
                   href="/about"
                   className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
                 >
-                  More about Furqan →
+                  More about our team →
                 </Link>
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-body-ink">
-                <span className="font-medium text-brand-ink">Reviewed by {reviewer.name}, PharmD.</span>{" "}
-                {reviewer.title} of Zenith Care Solutions.
               </p>
             </div>
           </div>

@@ -229,9 +229,9 @@ export function articleLd({
     description,
     datePublished: withTz(publishedAt),
     dateModified: withTz(updatedAt ?? publishedAt),
-    author: author.url
-      ? { "@type": "Person", name: author.name, url: author.url }
-      : { "@type": "Person", name: author.name },
+    // Articles are drafted by the company and reviewed by the PharmD co-founder,
+    // so the author is the Organization, not a named person.
+    author: { "@type": "Organization", name: author.name, ...(author.url ? { url: author.url } : {}) },
     publisher: { "@id": `${site.url}#organization` },
     mainEntityOfPage: abs(`/resources/${slug}`),
     ...(image ? { image } : {}),
