@@ -11,6 +11,14 @@ export const site = {
   // label it "office" or "headquarters", and keep it out of PostalAddress schema.
   // The Wyoming registered agent address is intentionally not on the site.
   mailingAddress: "30 N Gould St, Suite #70349, Sheridan, WY 82801, USA",
+  // Wyoming Secretary of State filing facts (Articles of Organization).
+  formation: {
+    state: "Wyoming",
+    filingId: "2026-002113280",
+    formedOn: "October 22, 2026",
+  },
+  // Empty until the IRS issues the EIN; every consumer renders it only when set.
+  ein: process.env.NEXT_PUBLIC_EIN ?? "",
   tagline:
     "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
   url:
@@ -97,6 +105,7 @@ export const nav = {
     { label: "Geriatrics", href: "/who-we-serve/geriatrics" },
   ],
   main: [
+    { label: "Pricing", href: "/pricing" },
     { label: "About", href: "/about" },
     { label: "Resources", href: "/resources" },
     { label: "FAQ", href: "/faq" },

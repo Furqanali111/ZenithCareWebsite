@@ -13,6 +13,8 @@ const QUICK_LINKS: Item[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "All Services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "How It Works", href: "/how-it-works" },
   { label: "Resources", href: "/resources" },
   { label: "Contact Us", href: "/contact" },
   { label: "Primary Care", href: "/who-we-serve/primary-care" },
@@ -29,9 +31,13 @@ const RESOURCE_LINKS: Item[] = [
 const LEGAL_LINKS: Item[] = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
+  { label: "Refund and Cancellation", href: "/refund-policy" },
+  { label: "Service Delivery", href: "/service-delivery" },
+  { label: "Complaints", href: "/complaints" },
   { label: "HIPAA Compliance", href: "/hipaa-compliance" },
   { label: "HIPAA Statement", href: "/hipaa-statement" },
   { label: "Accessibility", href: "/accessibility" },
+  { label: "Security", href: "/security" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
 
@@ -149,6 +155,10 @@ export function Footer() {
               {/* shortcut: hardcoded year, bump each January. Cache Components
                    mode refuses `new Date()` during prerender. */}
               © 2026 {site.legalName}. All rights reserved.
+              <span className="mt-1 block">
+                A {site.formation.state} limited liability company
+                {site.ein ? <> &middot; EIN {site.ein}</> : null}
+              </span>
               <span className="mt-1 block">
                 Mailing address: {site.mailingAddress}
               </span>

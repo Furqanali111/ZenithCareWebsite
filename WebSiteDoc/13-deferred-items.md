@@ -27,6 +27,7 @@ Content you (not a PR) need to author. Only items whose placeholder is already l
 
 | Content | Where it's referenced | What's needed |
 |---|---|---|
+| Real USD prices | `web/lib/pricing.ts` (`amount: null` per plan) | Fill `amount` and `unit` per service. /pricing says "stated in your written proposal" until set. Also confirm the onboarding time (3 to 6 weeks) and refund terms (30 day notice, pro-rata) with an attorney. |
 | _(none open)_ | | First 15 FAQ Q&As shipped in PR #12. Add more entries by appending to `content/faq.json` — the loader validates on build and the page re-renders automatically. |
 
 ## 3. Env vars that need production values

@@ -36,6 +36,8 @@ ${SERVICES}
 - [ROI calculator](${site.url}/roi-calculator): client-side estimator; no data stored
 - [HIPAA compliance posture](${site.url}/hipaa-compliance)
 - [About](${site.url}/about): the team, the founders and how Zenith works
+- [How it works](${site.url}/how-it-works): who we serve, how to order, how work is delivered
+- [Pricing](${site.url}/pricing): what is included and how billing works
 - [FAQ](${site.url}/faq)
 - [Contact](${site.url}/contact): WhatsApp, email, Calendly
 
@@ -43,8 +45,12 @@ ${SERVICES}
 
 - [Privacy Policy](${site.url}/privacy)
 - [Terms of Service](${site.url}/terms)
+- [Refund and Cancellation](${site.url}/refund-policy)
+- [Service Delivery](${site.url}/service-delivery)
+- [Complaints and Disputes](${site.url}/complaints)
 - [HIPAA Statement](${site.url}/hipaa-statement)
 - [Accessibility](${site.url}/accessibility)
+- [Security and regulatory status](${site.url}/security)
 
 ## Articles
 `;

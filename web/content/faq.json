@@ -89,6 +89,60 @@
       "category": "Pricing",
       "question": "Do you take a cut of our Medicare reimbursement?",
       "answer": "No. Zenith charges a flat per-patient-per-month fee for the clinical work. Your practice bills Medicare and keeps every dollar it collects; we invoice separately for the labor. Many vendors structure differently; this is what we offer, and most practice managers find a predictable per-patient rate easier to budget against than a percentage of collections."
+    },
+    {
+      "id": "how-the-service-works",
+      "category": "Working With Us",
+      "question": "How does the service work?",
+      "answer": "You sign a service agreement (and a BAA where patient data is involved). Zenith staff then work remotely inside your EHR and practice systems under your supervision, following your workflows. Your practice stays the billing provider and keeps clinical oversight. You receive regular activity reports. The How It Works page walks through each step."
+    },
+    {
+      "id": "how-to-pay",
+      "category": "Pricing",
+      "question": "How can I pay?",
+      "answer": "Zenith invoices after you sign the service agreement. You pay the invoice by ACH, wire transfer or a payment link included on the invoice. All amounts are in U.S. dollars. Nothing is charged on this website, and we never ask for card details by chat or form."
+    },
+    {
+      "id": "is-payment-secure",
+      "category": "Pricing",
+      "question": "Is payment secure?",
+      "answer": "Payments are made outside this website, through your bank or the payment provider linked on the invoice, so card and bank details never pass through our site or chat. We do not store card numbers. Always check that an invoice came from our official email address, and contact us if anything looks wrong."
+    },
+    {
+      "id": "delivery-time",
+      "category": "Working With Us",
+      "question": "How long does delivery take?",
+      "answer": "Work starts after the service agreement is signed and the first invoice is paid. Full onboarding typically runs 3-6 weeks depending on panel size and EHR complexity, and we confirm a specific timeline in writing. The Service Delivery policy has the details."
+    },
+    {
+      "id": "can-i-cancel",
+      "category": "Pricing",
+      "question": "Can I cancel?",
+      "answer": "Yes. Monthly services can be cancelled at any time by written notice to our contact email. Cancellation takes effect 30 days after we receive it, and no further invoices are sent after that date. See the Refund and Cancellation policy."
+    },
+    {
+      "id": "can-i-get-a-refund",
+      "category": "Pricing",
+      "question": "Can I get a refund?",
+      "answer": "If you paid for a period we did not deliver, we refund the unused part, pro-rated by days. Work already delivered is not refundable. Refunds go back to the original payment method within 10 business days of approval. The Refund and Cancellation policy has the full terms."
+    },
+    {
+      "id": "how-to-contact-support",
+      "category": "Working With Us",
+      "question": "How can I contact support?",
+      "answer": "Email us, message us on WhatsApp, or use the contact form. Support hours are Monday to Friday, 9:00 AM to 6:00 PM EST, and we reply within one business day. To report a problem, see the Complaints and Disputes page."
+    },
+    {
+      "id": "documents-required",
+      "category": "Working With Us",
+      "question": "What documents or information do you need from me?",
+      "answer": "A signed service agreement and, where patient data is involved, a signed BAA. We also need your practice name, NPI, EHR, a main contact, and access to your systems under your own security rules. Please do not send patient information by email, chat or the website forms."
+    },
+    {
+      "id": "recurring-payment",
+      "category": "Pricing",
+      "question": "Is there any recurring payment?",
+      "answer": "Care management, revenue cycle and staffing services are billed monthly by invoice and renew only while your agreement is active. The amount is stated in your written proposal before you sign, and there are no hidden recurring charges. You can cancel on 30 days written notice."
     }
   ]
 }

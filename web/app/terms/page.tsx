@@ -57,6 +57,19 @@ export default function TermsPage() {
             where applicable, a Business Associate Agreement.
           </p>
 
+          <h2>Service engagements</h2>
+          <p>
+            Paid services are governed by the signed service agreement.
+            Prices and billing are described on the{" "}
+            <Link href="/pricing" className="text-brand-accent underline underline-offset-2 hover:text-brand-ink">Pricing</Link>{" "}
+            page, cancellations and refunds in the{" "}
+            <Link href="/refund-policy" className="text-brand-accent underline underline-offset-2 hover:text-brand-ink">Refund and Cancellation policy</Link>,
+            delivery in the{" "}
+            <Link href="/service-delivery" className="text-brand-accent underline underline-offset-2 hover:text-brand-ink">Service Delivery policy</Link>{" "}
+            and problems in{" "}
+            <Link href="/complaints" className="text-brand-accent underline underline-offset-2 hover:text-brand-ink">Complaints and Disputes</Link>.
+          </p>
+
           <h2>No medical advice</h2>
           <p>
             Content on the Site is for informational purposes for U.S.
