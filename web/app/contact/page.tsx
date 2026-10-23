@@ -72,6 +72,54 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* ─── Business details: what a customer or payment provider checks ── */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-5xl px-6 py-16 md:py-20">
+          <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+            Business details
+          </h2>
+          <dl className="mt-8 grid gap-x-10 gap-y-6 text-base text-body-ink sm:grid-cols-2">
+            <div>
+              <dt className="font-semibold text-brand-ink">Company</dt>
+              <dd>{site.legalName}</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-brand-ink">Mailing address</dt>
+              <dd>{site.mailingAddress}</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-brand-ink">Email</dt>
+              <dd>
+                <a className="text-brand-accent underline underline-offset-2" href={mailtoHref()}>
+                  {site.email}
+                </a>
+              </dd>
+            </div>
+            {site.phone ? (
+              <div>
+                <dt className="font-semibold text-brand-ink">Phone</dt>
+                <dd>
+                  <a
+                    className="text-brand-accent underline underline-offset-2"
+                    href={`tel:${site.phone.replace(/\s/g, "")}`}
+                  >
+                    {site.phone}
+                  </a>
+                </dd>
+              </div>
+            ) : null}
+            <div>
+              <dt className="font-semibold text-brand-ink">Support hours</dt>
+              <dd>{site.hours}</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-brand-ink">Response time</dt>
+              <dd>Within one business day</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
       {/* ─── Form ────────────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">

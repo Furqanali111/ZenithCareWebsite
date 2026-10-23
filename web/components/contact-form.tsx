@@ -30,9 +30,9 @@ export function ContactForm() {
     // Three-door CTAs above the form stay as the primary path meanwhile.
     return (
       <p className="rounded-lg border border-dashed border-border/80 bg-surface-tint p-6 text-sm text-muted-foreground">
-        The fallback contact form will light up here once the Formspree
-        endpoint is configured. In the meantime, use the WhatsApp, email, or
-        Calendly options above.
+        The online form is not available right now. Please use the email,
+        WhatsApp or booking options above and we will reply within one
+        business day.
       </p>
     );
   }
