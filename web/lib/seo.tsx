@@ -209,6 +209,10 @@ type ArticleLdInput = {
   image?: string;
 };
 
+// Google wants a timezone on Article dates; frontmatter has date-only values.
+// shortcut: date-only means midnight UTC; add real times to frontmatter if that matters.
+const withTz = (d: string) => (/^\d{4}-\d{2}-\d{2}$/.test(d) ? `${d}T00:00:00Z` : d);
+
 export function articleLd({
   title,
   description,
@@ -223,11 +227,11 @@ export function articleLd({
     "@type": "Article",
     headline: title,
     description,
-    datePublished: publishedAt,
-    dateModified: updatedAt ?? publishedAt,
-    author: author.url
-      ? { "@type": "Person", name: author.name, url: author.url }
-      : { "@type": "Person", name: author.name },
+    datePublished: withTz(publishedAt),
+    dateModified: withTz(updatedAt ?? publishedAt),
+    // Articles are drafted by the company and reviewed by the PharmD co-founder,
+    // so the author is the Organization, not a named person.
+    author: { "@type": "Organization", name: author.name, ...(author.url ? { url: author.url } : {}) },
     publisher: { "@id": `${site.url}#organization` },
     mainEntityOfPage: abs(`/resources/${slug}`),
     ...(image ? { image } : {}),

@@ -7,6 +7,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { ServiceGrid } from "@/components/service-grid";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { CPT_RATES } from "@/lib/roi";
 import { servicesByCategory, categoryMeta, type Service } from "@/lib/services";
 
 const PATH = "/services";
@@ -294,7 +295,7 @@ const COMPARISON = [
     program: "CCM",
     eligibility: "2+ chronic conditions, 12+ months",
     codes: "99490, 99439, 99487/99489, 99491",
-    rate: "~$62/mo",
+    rate: `~${CPT_RATES["99490"]}/mo`,
     whoCanBill: "Physician, NP, PA, clinical staff",
   },
   {

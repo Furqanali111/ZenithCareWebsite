@@ -77,6 +77,9 @@ export const founders: readonly {
   },
 ];
 
+/** Article reviewer: the co-founder with the PharmD (confirmed by the owner). */
+export const reviewer = founders[1];
+
 export function whatsappHref(prefill = "Hi Zenith, I'd like to learn about CCM.") {
   const n = site.whatsappNumber.replace(/\D/g, "");
   if (!n) return "#";
