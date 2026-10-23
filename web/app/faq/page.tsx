@@ -19,7 +19,7 @@ import {
 const PATH = "/faq";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Frequently Asked Questions",
+  title: "CCM, Billing & Staffing FAQ",
   description:
     "Common questions about Chronic Care Management, Medicare billing, HIPAA posture, and working with Zenith Care Solutions.",
   path: PATH,
@@ -47,7 +47,7 @@ export default function FaqPage() {
           FAQ
         </span>
         <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-          Frequently asked questions.
+          Frequently asked questions about CCM, billing and staffing.
         </h1>
         <p className="mt-6 text-base leading-relaxed text-body-ink md:text-lg">
           The things practice managers, physicians, and compliance leads ask on

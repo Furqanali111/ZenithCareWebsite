@@ -17,6 +17,7 @@ import {
   servicesByCategory,
   categoryMeta,
   type Service,
+  SERVICE_TAGS,
 } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
 
@@ -311,33 +312,14 @@ export default async function ServicePage({
 
 /* -------------------------------------------------------------------------- */
 
-// Maps each service slug to the post tags that belong on that page.
-// Add a slug here when a new service gets blog content.
-const SERVICE_TAGS: Record<string, string[]> = {
-  "chronic-care-management":     ["ccm"],
-  "principal-care-management":   ["pcm"],
-  "remote-patient-monitoring":   ["rpm"],
-  "remote-therapeutic-monitoring": ["rtm"],
-  "transitional-care-management": ["tcm"],
-  "medical-billing":             ["medical-billing"],
-  "medical-coding":              ["medical-coding"],
-  "provider-credentialing":      ["credentialing"],
-  "accounts-receivable":         ["ar"],
-  "medical-scribe":              ["medical-scribe"],
-  "medical-scheduler":           ["medical-scheduler"],
-  "medical-receptionist":        ["medical-receptionist"],
-  "patient-care-coordinator":    ["patient-care-coordinator"],
-  "virtual-assistant":           ["virtual-assistant"],
-};
-
 /** Tag-driven resource links; renders nothing when no matching posts exist. */
 function ServiceResources({ slug, name }: { slug: string; name: string }) {
   const tags = SERVICE_TAGS[slug];
   if (!tags) return null;
-  // shortcut: caps at 6; raise when a service has a large content library
+  // shortcut: caps at 8; raise when a service has a large content library
   const posts = getAllPosts()
     .filter((p) => tags.some((t) => p.tags.includes(t)))
-    .slice(0, 6);
+    .slice(0, 8);
   if (posts.length === 0) return null;
   return (
     <section className="section-rhythm border-t border-border/60">
