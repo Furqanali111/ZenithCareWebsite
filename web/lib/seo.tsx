@@ -243,7 +243,11 @@ export function faqPageLd(
     mainEntity: items.map((it) => ({
       "@type": "Question",
       name: it.question,
-      acceptedAnswer: { "@type": "Answer", text: it.answer },
+      // Drop `[label](/path)` link syntax so structured data stays plain text.
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: it.answer.replace(/\[([^\]]+)\]\(\/[^)\s]*\)/g, "$1"),
+      },
     })),
   };
 }

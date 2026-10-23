@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { FaqAnswer } from "@/components/faq-answer";
 import {
   getAllFaqs,
   getFaqCategories,
@@ -114,7 +115,7 @@ function CategorySection({
               {item.question}
             </AccordionTrigger>
             <AccordionContent className="text-base leading-relaxed text-body-ink">
-              {item.answer}
+              <FaqAnswer text={item.answer} />
             </AccordionContent>
           </AccordionItem>
         ))}
