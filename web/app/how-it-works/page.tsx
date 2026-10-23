@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 const PATH = "/how-it-works";
 
 export const metadata: Metadata = pageMetadata({
-  title: "How Outsourced Care Management Works",
+  title: "How Remote Care Management Works",
   description:
     "What Zenith Care Solutions sells, who it serves, how a practice orders, how the work is delivered and how payment works.",
   path: PATH,
@@ -22,7 +22,7 @@ export default function HowItWorksPage() {
           { name: "How It Works", path: PATH },
         ])}
       />
-      <LegalPage title="How outsourced care management works" eyebrow="Working with Zenith" lastUpdated="2026-10-23">
+      <LegalPage title="How remote care management works" eyebrow="Working with Zenith" lastUpdated="2026-10-23">
         <h2>What we do</h2>
         <p>
           {site.legalName} provides remote care management, revenue cycle
