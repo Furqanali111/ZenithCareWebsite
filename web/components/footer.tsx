@@ -150,6 +150,10 @@ export function Footer() {
                    mode refuses `new Date()` during prerender. */}
               © 2026 {site.legalName}. All rights reserved.
               <span className="mt-1 block">
+                A {site.formation.state} limited liability company
+                {site.ein ? <> &middot; EIN {site.ein}</> : null}
+              </span>
+              <span className="mt-1 block">
                 Mailing address: {site.mailingAddress}
               </span>
             </p>
