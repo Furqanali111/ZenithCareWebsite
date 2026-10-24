@@ -244,6 +244,33 @@
     animation-delay: 0s !important;
   }
 }
+/* Scroll reveal for below-the-fold content (the <Reveal> component). A scroll-
+   driven animation: each element fades and lifts as it enters the viewport.
+   Unsupported browsers (no animation-timeline) just show the content. The
+   start is shifted by --reveal-delay to stagger siblings. */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@supports (animation-timeline: view()) {
+  .reveal-in {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry calc(0% + var(--reveal-delay, 0%))
+      entry calc(45% + var(--reveal-delay, 0%));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-in {
+      animation: none;
+    }
+  }
+}
 /* On mobile, skip the stagger entirely so above-the-fold content (especially
    the LCP heading in page-hero) is never gated behind opacity: 0. Desktop
    keeps the entrance animation. */

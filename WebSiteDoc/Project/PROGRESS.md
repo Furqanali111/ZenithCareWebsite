@@ -22,6 +22,13 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-10-25 — `feature/css-only-reveals`
+Replaced the `motion` animation library with CSS scroll-driven reveals. `components/reveal.tsx` is now a plain server component (same props) and `.reveal-in` in `globals.css` does the fade and lift with `animation-timeline: view()`. Browsers without it, and reduced-motion users, see the content with no animation. `motion` and its three sub-packages are out of the bundle.
+
+**Local mobile Lighthouse (production build, same machine):** home 79 to 88, pricing 84 to 92, contact 90 to 91. Total blocking time 120 to 210 ms down to 20 to 30 ms; script bootup 540 to 705 ms down to about 210 to 280 ms. Accessibility, Best Practices and SEO stay 100.
+
+**Still open:** mobile Performance is 88 to 92, not 95. What is left is Lighthouse's simulated LCP (about 3.3 to 3.9 s; the unthrottled run paints in about 90 ms). Likely levers: fewer font files and weights.
+
 ### 2026-10-25 — `feature/phase4-polish`
 Phase 4 polish pass (Lighthouse, axe, keyboard). Live Lighthouse (8 pages, mobile and desktop): Accessibility 100, SEO 100 and Best Practices 100 everywhere except /contact (79, Calendly third-party cookies). Desktop Performance 95 to 99. Mobile Performance 63 to 89 before this change.
 
@@ -223,7 +230,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/Requirements/06-implementation-plan.md`](../Requirements/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **Phase 4 polish (remaining)** — mobile Lighthouse Performance to 95 (drop the `motion` library for CSS reveals), real screen-reader pass (NVDA or VoiceOver), UptimeRobot, HSTS preload submission (after 30 days clean).
+1. **Phase 4 polish (remaining)** — mobile Lighthouse Performance from 88 to 92 up to 95 (trim font files and weights), real screen-reader pass (NVDA or VoiceOver), UptimeRobot, HSTS preload submission (after 30 days clean).
 2. **Search performance plan (open items)** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): request indexing for the 20 pages not yet indexed, GA4 internal traffic filter, one new article every 2 weeks, outreach and backlinks.
 3. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
 
