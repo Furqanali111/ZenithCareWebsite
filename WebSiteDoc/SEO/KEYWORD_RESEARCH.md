@@ -10,7 +10,6 @@ This is not the first keyword-research pass on this site. Before writing anythin
 
 - [`WebSiteDoc/Content/Zenith_Care_Solutions_SEO_Website_Content.xlsx`](../Content/Zenith_Care_Solutions_SEO_Website_Content.xlsx) — the "Keyword Clusters" sheet maps every service to one primary keyword, supporting terms, a target page, and a search intent. Confirmed it matches the live site's category structure (`rpm` = Care Management, `rcm` = Revenue Cycle Management, `staffing` = Virtual Staffing).
 - [`KEYWORD_TO_URL_MAP.md`](KEYWORD_TO_URL_MAP.md) (2026-10-16) — a full commercial + informational keyword map with priority tiers, already covering every service page.
-- [`INTERNAL_LINKING_PLAN.md`](INTERNAL_LINKING_PLAN.md) (2026-10-16) — specific link additions by batch.
 - [`60_DAY_SEO_GROWTH_ROADMAP.md`](60_DAY_SEO_GROWTH_ROADMAP.md) and [`60_DAY_CONTENT_CALENDAR.md`](60_DAY_CONTENT_CALENDAR.md) — execution sequencing.
 - [`SEO_BASELINE_AND_KPI_TRACKER.md`](SEO_BASELINE_AND_KPI_TRACKER.md) — baseline metrics (all "Unknown", no GSC/Bing access at the time).
 

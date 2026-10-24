@@ -20,7 +20,6 @@ thezcs.com has 35 well-built pages with solid technical SEO (correct robots.txt,
 |---|---|
 | [SEO_BASELINE_AND_KPI_TRACKER.md](SEO_BASELINE_AND_KPI_TRACKER.md) | Current metrics baseline, KPI targets, weekly review checklist |
 | [KEYWORD_TO_URL_MAP.md](KEYWORD_TO_URL_MAP.md) | Every target keyword mapped to its URL, with gap analysis |
-| [INTERNAL_LINKING_PLAN.md](INTERNAL_LINKING_PLAN.md) | Specific links to add, with source, destination, and anchor text |
 | [60_DAY_CONTENT_CALENDAR.md](60_DAY_CONTENT_CALENDAR.md) | Week-by-week publishing schedule with outlines and CTAs |
 
 ---
