@@ -21,6 +21,7 @@ Day numbering follows the publish dates already used in the posts: **Day 1 = 202
 | 7 | CCM Time Tracking | Done |
 | 8 | Medical Billing Outsourcing Guide | Done early (published 2026-10-20, ahead of its Day 53 slot) |
 | 9 | ChartSpan Alternatives | Postponed: not enough verified competitor data |
+| Extra | CPT 99490 Documentation Checklist | Done (published 2026-10-25) |
 
 **Extension beyond the original 60-day list (non-CCM services):**
 
@@ -49,7 +50,7 @@ Look up any photo at `https://www.pexels.com/photo/<id>/`.
 
 All articles still need billing/clinical review before being treated as final.
 
-**Known issue:** the CCM posts for Weeks 4 to 7 carry future `publishedAt` dates (Oct 25 to Nov 15) but are already live, so sitemap `lastmod` and Article schema show dates that have not happened. Decide whether to set them to their real publish date.
+**Resolved (2026-10-25):** the Week 4 to 7 CCM posts were live from 2026-10-18 but carried future `publishedAt` dates (Oct 25 to Nov 15). Their `publishedAt` and `updatedAt` now show the real first-publish date, 2026-10-18.
 
 ## Content Principles
 
