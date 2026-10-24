@@ -5,20 +5,22 @@ import createMDX from "@next/mdx";
  * Security headers applied to every response.
  * Keep allowlists tight; extend only when a feature actually needs it.
  *
- * shortcut: CSP uses 'unsafe-inline' for scripts + styles so Next's inline
- * runtime boot and Tailwind's inline critical CSS keep working out of the
- * box. Tighten with nonce-based CSP + strict-dynamic in a dedicated
- * security-hardening PR once Phase 2 features (Calendly, Formspree) are
- * wired and we can allowlist their hosts in one pass.
+ * shortcut: CSP keeps 'unsafe-inline' for scripts and styles. Every prerendered
+ * page carries inline scripts whose text differs per page (Next's flight data,
+ * the theme and Google Analytics init), and the CSS is inlined, so a fixed
+ * header cannot hash them. Removing it needs per-request nonces, which makes
+ * every page dynamic and gives up static prerendering. Revisit if the site
+ * ever handles sensitive data in the browser. What is tightened instead: no
+ * unused third-party hosts, and no inline event-handler attributes
+ * (script-src-attr 'none').
  */
 const isDev = process.env.NODE_ENV !== "production";
 
 // Hosts the browser is allowed to load scripts from.
-// - vercel-scripts: Web Vitals / Speed Insights
 // - googletagmanager: GA4 loader (optional, loaded only when env var set — see layout)
 // - assets.calendly.com: Calendly inline-widget loader
 const scriptHosts =
-  "https://va.vercel-scripts.com https://www.googletagmanager.com https://assets.calendly.com";
+  "https://www.googletagmanager.com https://assets.calendly.com";
 const scriptSrc = isDev
   ? `'self' 'unsafe-inline' 'unsafe-eval' ${scriptHosts}`
   : `'self' 'unsafe-inline' ${scriptHosts}`;
@@ -28,7 +30,7 @@ const scriptSrc = isDev
 // - calendly.com: inline widget telemetry
 // - google-analytics / googletagmanager: GA4 beacons
 const connectSrc =
-  "'self' https://vitals.vercel-insights.com https://vercel.live https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com";
+  "'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com";
 
 // Hosts allowed to embed as <iframe>. Calendly serves its booking widget
 // from calendly.com as an iframe inside the inline-widget container.
@@ -61,6 +63,7 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       `script-src ${scriptSrc}`,
+      "script-src-attr 'none'",
       "style-src 'self' 'unsafe-inline'",
       `img-src ${imgSrc}`,
       "font-src 'self' data:",
