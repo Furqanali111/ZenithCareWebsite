@@ -12,6 +12,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "How to report a problem with Zenith Care Solutions, who reviews it, and how we resolve complaints and billing disputes.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function ComplaintsPage() {

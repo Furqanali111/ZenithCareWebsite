@@ -12,6 +12,8 @@ type PageMetadataInput = {
   path?: string;
   /** Prevent indexing (used for drafts, 404). */
   noindex?: boolean;
+  /** Use the root /opengraph-image. Needed only for pages with no opengraph-image file of their own. */
+  rootOgImage?: boolean;
 };
 
 /**
@@ -23,9 +25,15 @@ export function pageMetadata({
   description,
   path = "/",
   noindex = false,
+  rootOgImage = false,
 }: PageMetadataInput): Metadata {
   const url = new URL(path, site.url).toString();
   const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
+  // A page-level openGraph object drops the root file-based image, so pages
+  // without their own opengraph-image file would ship no social preview.
+  const images = rootOgImage
+    ? [{ url: "/opengraph-image", width: 1200, height: 630, alt: site.name }]
+    : undefined;
 
   return {
     // `absolute` stops the root layout's `%s | <brand>` template from
@@ -40,11 +48,13 @@ export function pageMetadata({
       title: fullTitle,
       description,
       locale: site.locale,
+      ...(images && { images }),
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
+      ...(images && { images }),
     },
     robots: noindex ? { index: false, follow: false } : undefined,
   };
