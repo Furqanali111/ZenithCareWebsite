@@ -66,6 +66,8 @@ export type PostFrontmatter = {
   tags: string[];
   readingMinutes: number;
   coverImage?: string; // local /public path, e.g. "/resources/<slug>.jpg"
+  /** Optional visible FAQ block + FAQPage JSON-LD. Answers must restate the article. */
+  faqs?: { question: string; answer: string }[];
 };
 
 export type Post = PostFrontmatter & {
