@@ -22,6 +22,11 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-10-25 — `feature/tighten-csp`
+CSP review. `script-src` and `style-src` keep `'unsafe-inline'`: every prerendered page has inline scripts that differ per page and the CSS is inlined, so a fixed header cannot hash them, and nonces would make every page dynamic. Tightened instead: removed the unused Vercel hosts (`va.vercel-scripts.com`, `vitals.vercel-insights.com`, `vercel.live`) and added `script-src-attr 'none'` (no inline event handlers exist). Verified on a production build with Google Analytics, the Calendly widget and the nav: no CSP violations. Also added the UptimeRobot setup to `14-go-live-accounts.md` (section 2.11) and `screen-reader-test-script.md` for the NVDA and VoiceOver pass.
+
+**Sitemap resubmitted** in Search Console and **54 URLs sent to IndexNow** (Bing, Yandex and others). Google's "Request indexing" button has no API, so that stays manual.
+
 ### 2026-10-25 — `feature/cut-client-js`
 Cut the JavaScript every page downloads. Two findings from the bundle analysis: (1) `lib/site.ts` imported the whole service registry (all service page copy), so every client component that used `site` shipped it, 53 KB raw on every page; (2) the desktop menus are pure CSS (`group-hover` and `focus-within`) but lived inside a client component together with the mobile slide-out menu.
 
@@ -242,7 +247,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/Requirements/06-implementation-plan.md`](../Requirements/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **Phase 4 polish (remaining)** — mobile Lighthouse Performance from 90 to 94 up to 95 (only the React and Next runtime is left; fonts were tested and are not the cause), real screen-reader pass (NVDA or VoiceOver), UptimeRobot, HSTS preload submission (after 30 days clean).
+1. **Phase 4 polish (remaining)** — mobile Lighthouse Performance from 90 to 94 up to 95 (only the React and Next runtime is left; fonts were tested and are not the cause), run `screen-reader-test-script.md` (NVDA or VoiceOver), set up UptimeRobot (runbook in 14-go-live-accounts.md 2.11), HSTS preload submission (after 30 days clean).
 2. **Search performance plan (open items)** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): request indexing for the 20 pages not yet indexed, GA4 internal traffic filter, one new article every 2 weeks, outreach and backlinks.
 3. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
 

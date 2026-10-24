@@ -70,7 +70,7 @@ Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which 
 
 ## 6. Known traps to avoid (deferred to specific future PRs)
 
-- **CSP tightening**: current CSP uses `'unsafe-inline'` for scripts and styles. Tighten with nonce-based CSP + `strict-dynamic` in a dedicated security-hardening PR once Calendly, Formspree, and Google Analytics are wired and all third-party hosts can be allowlisted in one pass.
+- **CSP `'unsafe-inline'` stays for now**: every prerendered page has inline scripts whose text differs per page (Next flight data, theme and Google Analytics init) and the CSS is inlined, so a fixed header cannot hash them. Removing it needs per-request nonces, which makes every page dynamic and gives up static prerendering. Already tightened: unused Vercel hosts removed, `script-src-attr 'none'` added. Revisit if the site ever handles sensitive data in the browser.
 
 ---
 
