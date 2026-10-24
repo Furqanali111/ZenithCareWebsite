@@ -3,22 +3,22 @@
 import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { whatsappHref, site } from "@/lib/site";
-import { getService } from "@/lib/services";
+import type { ServiceContacts } from "@/lib/service-contact";
 
 /**
  * Floating WhatsApp CTA, visible on every page. On a /services/<slug> page it
  * prefills that service's message instead of the generic CCM one.
  * Hidden if no WhatsApp number is configured so we don't surface a dead link.
  */
-export function WhatsAppButton() {
+export function WhatsAppButton({ contacts }: { contacts: ServiceContacts }) {
   const pathname = usePathname();
   if (!site.whatsappNumber) return null;
 
   const slug = pathname?.startsWith("/services/")
     ? pathname.split("/")[2]
     : undefined;
-  const service = slug ? getService(slug) : undefined;
-  const href = service ? whatsappHref(service.whatsappMessage) : whatsappHref();
+  const message = slug ? contacts[slug]?.whatsapp : undefined;
+  const href = message ? whatsappHref(message) : whatsappHref();
 
   return (
     <aside aria-label="WhatsApp contact">
