@@ -140,4 +140,4 @@ NEXT_PUBLIC_PLAUSIBLE_DOMAIN=zenithcaresolutions.com
 
 - Pushes to `release/*` branches auto-deploy to the production Vercel environment.
 - Every PR gets a preview URL from Vercel's GitHub integration.
-- See [`../WebSiteDoc/10-launch-checklist.md`](../WebSiteDoc/10-launch-checklist.md) for launch-day steps.
+- See [`../WebSiteDoc/Project/10-launch-checklist.md`](../WebSiteDoc/Project/10-launch-checklist.md) for launch-day steps.

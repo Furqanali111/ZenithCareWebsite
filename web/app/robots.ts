@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 /**
  * Allow all crawlers, including AI crawlers (GPTBot, ClaudeBot, PerplexityBot,
  * Google-Extended, CCBot). Blocking them is a top-of-funnel business mistake,
- * see WebSiteDoc/07-seo-and-aiseo-plan.md §5.
+ * see WebSiteDoc/Project/07-seo-and-aiseo-plan.md §5.
  *
  * The sitemap URL is hardcoded to the non-www origin so that even if this
  * file is served from www (before the redirect fires), crawlers still follow

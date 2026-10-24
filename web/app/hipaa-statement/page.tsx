@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 const PATH = "/hipaa-statement";
 const LAST_UPDATED = "2026-10-11";
 // shortcut: contact routes to the primary inbox until role aliases are set
-// up (privacy@, compliance@, legal@) per WebSiteDoc/14-go-live-accounts.md §2.4.
+// up (privacy@, compliance@, legal@) per WebSiteDoc/Project/14-go-live-accounts.md §2.4.
 const COMPLIANCE_EMAIL = site.email;
 
 export const metadata: Metadata = pageMetadata({

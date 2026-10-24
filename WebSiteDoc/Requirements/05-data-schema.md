@@ -138,28 +138,28 @@ Every page on the site: what it is, who sees it, what it exists to do.
 - **What it does**: tells visitors what data we collect, who processes it, and their rights (CCPA/VCDPA/CPA).
 - **Who sees it**: anyone clicking the footer link; procurement teams; attorneys.
 - **Purpose**: legal requirement + trust signal.
-- **Content source**: `08-legal-pages-draft.md` §1 (attorney-reviewed before launch).
+- **Content source**: `../Project/08-legal-pages-draft.md` §1 (attorney-reviewed before launch).
 
 ### `/terms` — Terms of Service
 
 - **What it does**: governs use of the website (not the service contract — that's a separate signed agreement).
 - **Who sees it**: footer visitors, procurement.
 - **Purpose**: liability shield for the site itself.
-- **Content source**: `08-legal-pages-draft.md` §2.
+- **Content source**: `../Project/08-legal-pages-draft.md` §2.
 
 ### `/hipaa-statement` — HIPAA Statement
 
 - **What it does**: formal statement of our HIPAA posture as a Business Associate.
 - **Who sees it**: compliance officers at prospective client practices.
 - **Purpose**: convert the trust claim on `/hipaa-compliance` into a formal written posture.
-- **Content source**: `08-legal-pages-draft.md` §3.
+- **Content source**: `../Project/08-legal-pages-draft.md` §3.
 
 ### `/accessibility` — Accessibility Statement
 
 - **What it does**: commits to WCAG 2.1 AA, provides a reporting channel.
 - **Who sees it**: assistive-technology users, ADA-compliance auditors.
 - **Purpose**: ADA-lawsuit mitigation (healthcare sites are a top target).
-- **Content source**: `08-legal-pages-draft.md` §4.
+- **Content source**: `../Project/08-legal-pages-draft.md` §4.
 
 ---
 
@@ -233,4 +233,4 @@ Called out so no one accidentally builds them in v1:
 | `/`, `/services/*`, `/who-we-serve/*`, `/about`, `/hipaa-compliance`, `/roi-calculator`, `/contact` | Hard-coded in the Next.js component (JSX / inline MDX). Edited by dev or Ali via a PR. |
 | `/resources`, `/resources/[slug]` | MDX files in `content/posts/`. Edited by Ali or dev via a PR. |
 | `/faq` | `content/faq.json`. Edited via PR. |
-| `/privacy`, `/terms`, `/hipaa-statement`, `/accessibility` | Static JSX built from `08-legal-pages-draft.md`. Attorney review before every change. |
+| `/privacy`, `/terms`, `/hipaa-statement`, `/accessibility` | Static JSX built from `../Project/08-legal-pages-draft.md`. Attorney review before every change. |
