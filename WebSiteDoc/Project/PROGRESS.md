@@ -27,6 +27,9 @@ CSP review. `script-src` and `style-src` keep `'unsafe-inline'`: every prerender
 
 **Sitemap resubmitted** in Search Console and **54 URLs sent to IndexNow** (Bing, Yandex and others). Google's "Request indexing" button has no API, so that stays manual.
 
+### 2026-10-25 — `feature/ccm-vendor-guide`
+Week 9 content item. New article `/resources/how-to-choose-a-ccm-vendor`: four program models, an illustrative fee comparison (labelled hypothetical), 12 questions to ask every vendor, red flags, and how Zenith differs. ChartSpan's own pages are script-rendered and could not be verified, so the guide names it only as a vendor the reader may be comparing and makes no claims about it. FAQ schema, cover image (Unsplash), tag `ccm` so it shows on the CCM service page.
+
 ### 2026-10-25 — `feature/cut-client-js`
 Cut the JavaScript every page downloads. Two findings from the bundle analysis: (1) `lib/site.ts` imported the whole service registry (all service page copy), so every client component that used `site` shipped it, 53 KB raw on every page; (2) the desktop menus are pure CSS (`group-hover` and `focus-within`) but lived inside a client component together with the mobile slide-out menu.
 

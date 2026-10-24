@@ -20,7 +20,7 @@ Day numbering follows the publish dates already used in the posts: **Day 1 = 202
 | 6 | CPT 99439 vs 99490 | Done |
 | 7 | CCM Time Tracking | Done |
 | 8 | Medical Billing Outsourcing Guide | Done early (published 2026-10-20, ahead of its Day 53 slot) |
-| 9 | ChartSpan Alternatives | Postponed: not enough verified competitor data |
+| 9 | ChartSpan Alternatives | Done as a neutral vendor guide, `/resources/how-to-choose-a-ccm-vendor` (published 2026-10-25). ChartSpan's own pages are script-rendered and could not be verified, so the guide names it only as a vendor you may be comparing and makes no claims about it |
 | Extra | CPT 99490 Documentation Checklist | Done (published 2026-10-25) |
 
 **Extension beyond the original 60-day list (non-CCM services):**
