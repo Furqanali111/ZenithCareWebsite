@@ -4,7 +4,7 @@ Source data: Google Search Console (`sc-domain:thezcs.com`, pulled Oct 25, 2026)
 
 Canonical host decision: **`https://thezcs.com` (non-www)**. Already enforced in `web/lib/site.ts`, `web/app/sitemap.ts`, `web/app/robots.ts`, and a Vercel 308 redirect from `www.thezcs.com` to `thezcs.com`. No change needed.
 
-Related docs: `07-seo-and-aiseo-plan.md`, `15-technical-seo-audit.md`, `SEO/KEYWORD_TO_URL_MAP.md`, `SEO/60_DAY_CONTENT_CALENDAR.md`, `SEO/SEO_BASELINE_AND_KPI_TRACKER.md`.
+Related docs: `07-seo-and-aiseo-plan.md`, `SEO/KEYWORD_TO_URL_MAP.md`, `SEO/60_DAY_CONTENT_CALENDAR.md`, `SEO/SEO_BASELINE_AND_KPI_TRACKER.md`.
 
 ## 1. Baseline (what the data says)
 
