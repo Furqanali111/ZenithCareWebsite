@@ -65,7 +65,7 @@ Hard rule: **never store client PHI or client production data in this repo.** Ea
 - **Payments**: Stripe Invoicing / PayPal / bank transfer. Sent per-client via email. Off-site. No `/pay` page on the site.
 - **Chatbot**: **scripted decision tree**, not an LLM. `chatbot.json` + ~100-line React component. User clicks pre-defined options; bot replies with pre-written answers. Zero API calls, zero cost, zero HIPAA risk. LLM-powered upgrade deferred to v2 — same content corpus will be reusable.
 - **Contact**: three doors — WhatsApp link (`wa.me/<number>` with prefilled message), `mailto:` link, Formspree free-tier fallback form (50 submissions/mo). No API route needed.
-- **Analytics**: Plausible or Umami (cookieless)
+- **Analytics**: Google Analytics 4 (cookies; named in the Privacy Policy). Conversion events are sent by `web/components/conversion-tracking.tsx`.
 - **Error monitoring**: Sentry free tier (optional)
 
 Rejected: WordPress, Wix/Squarespace, separate backend, Stripe Checkout, Resend API route, LLM chatbot (deferred to v2), Chatbase/Crisp.

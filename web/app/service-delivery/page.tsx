@@ -12,6 +12,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "When and how Zenith Care Solutions starts and delivers its services: onboarding, working hours, reporting and support.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function ServiceDeliveryPage() {

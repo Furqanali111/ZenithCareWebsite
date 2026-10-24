@@ -19,7 +19,7 @@ Do these in this order. Each step unblocks the next.
 2. **Create the GitHub repo** (already done) + apply branch-protection rules.
 3. **Create the Vercel account** and link it to the GitHub repo.
 4. **Set up email** (Google Workspace or Zoho) on the domain.
-5. **Create accounts for each integration** (Formspree, Calendly, WhatsApp Business, Plausible) and copy their credentials into Vercel env vars (production scope).
+5. **Create accounts for each integration** (Formspree, Calendly, WhatsApp Business, Google Analytics) and copy their credentials into Vercel env vars (production scope).
 6. **Point DNS at Vercel** (apex + `www`), verify HTTPS.
 7. **Verify ownership** with Google Search Console + Bing Webmaster Tools, submit sitemap.
 8. **Publish LinkedIn Company Page**, update profile links.
@@ -126,17 +126,13 @@ Each entry has the same shape: **what / why / how / env var / where in Vercel**.
 - **Env var**: `NEXT_PUBLIC_WHATSAPP_NUMBER=15555551234` (digits only, no `+`).
 - **Where in Vercel**: Settings → Environment Variables → add `NEXT_PUBLIC_WHATSAPP_NUMBER` scoped to **Production** only.
 
-### 2.8 Plausible — analytics
+### 2.8 Google Analytics 4: analytics
 
-- **What**: cookieless pageview analytics loaded site-wide.
-- **Why**: measure traffic, referrers, conversion funnel. GDPR-safe, no cookie banner needed.
-- **How**:
-  1. [plausible.io](https://plausible.io) → start free trial (30 days free, then from $9/mo).
-  2. **Add a site** → domain `zenithcaresolutions.com`.
-  3. Plausible gives you a snippet to install — **ignore it**, we already have the script wired up in `web/app/layout.tsx`. You only need to copy the **domain name you entered** (e.g. `zenithcaresolutions.com`).
-  4. Alternative (free): use **Umami Cloud** at [us.umami.is](https://us.umami.is) — free tier covers <100k events/mo. If you switch, we need a tiny code change — ping Claude to swap `plausible.io` for Umami's host and update the env var name.
-- **Env var**: `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=zenithcaresolutions.com`.
-- **Where in Vercel**: Settings → Environment Variables → add `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` scoped to **Production** only. Our code has a belt-and-braces gate (`VERCEL_ENV === "production"` + env var set), so preview deploys never pollute the Plausible dashboard even if the env var leaked.
+- **What**: Google Analytics 4 pageview and event analytics, loaded site-wide in production only (lazy-loaded after the page is interactive).
+- **Why**: measure traffic, referrers and conversions. It sets cookies, so the Privacy Policy names it (see `/privacy`); whether a cookie banner is needed is an open question for the attorney.
+- **Status**: already set up. The measurement ID is in Vercel Production as `NEXT_PUBLIC_GA_MEASUREMENT_ID`. Four key events exist in GA4: `whatsapp_click`, `email_click`, `calendly_booking`, `contact_form_success` (sent by `web/components/conversion-tracking.tsx`).
+- **Still to do in GA4**: define internal traffic (Admin, Data streams, Configure tag settings, Define internal traffic) so your own visits are excluded.
+- **Env var**: `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX`. The code only loads it when `VERCEL_ENV === "production"` and the variable is set, so preview deploys never pollute the data.
 
 ### 2.9 Google Search Console + Bing Webmaster Tools
 
@@ -188,7 +184,7 @@ All env vars Zenith uses, and where to scope each one.
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | digits-only, country code first, no `+` | Production only |
 | `NEXT_PUBLIC_CALENDLY_URL` | the public event URL from Calendly | Production only |
 | `NEXT_PUBLIC_FORMSPREE_ID` | 8-character form ID | Production only |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | `zenithcaresolutions.com` | Production only |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | `G-XXXXXXXXXX` from GA4 Admin, Data streams | Production only |
 
 **How to add each one**:
 
@@ -198,7 +194,7 @@ All env vars Zenith uses, and where to scope each one.
 4. Under **Environment**, tick only the scope(s) listed in the table.
 5. Save. Vercel re-deploys automatically; the next successful deploy picks up the new value.
 
-**Why "Production only" for most of them**: our code already gates the Plausible script on `VERCEL_ENV === "production"`, and the WhatsApp / Calendly components hide themselves when their env is blank. Scoping to Production doubles the defence — a preview deploy literally can't accidentally send events to Plausible or render a WhatsApp link that routes to Ali's real number.
+**Why "Production only" for most of them**: our code already gates the Google Analytics script on `VERCEL_ENV === "production"`, and the WhatsApp / Calendly components hide themselves when their env is blank. Scoping to Production doubles the defence — a preview deploy literally can't accidentally send events to Google Analytics or render a WhatsApp link that routes to Ali's real number.
 
 **Never commit any of these to the repo.** `web/.env.local` is gitignored and holds your local test values; everything that matters in prod lives in Vercel's settings panel.
 
@@ -231,7 +227,7 @@ Full checklist in [`10-launch-checklist.md`](10-launch-checklist.md). Quick vers
 - [ ] `mailto:` link opens the user's mail client with the right subject
 - [ ] Calendly embed renders on `/contact`, you can book a slot end-to-end
 - [ ] Contact form submits — check Formspree inbox + your Google Workspace inbox
-- [ ] Plausible dashboard shows the pageview from the smoke test
+- [ ] GA4 Realtime shows the pageview from the smoke test
 - [ ] Search Console: sitemap submitted, 0 coverage errors
 - [ ] SSL Labs scan on the domain grades A or higher ([ssllabs.com/ssltest](https://www.ssllabs.com/ssltest/))
 - [ ] Lighthouse ≥ 95 on Home / Services / Contact (mobile + desktop)
@@ -246,14 +242,14 @@ Full checklist in [`10-launch-checklist.md`](10-launch-checklist.md). Quick vers
 | Calendly embed shows "Event not found" | The URL env is set but the event isn't published yet | Open the Calendly event, click **Share**, confirm the URL is live. |
 | Contact form shows "Submission failed (422)" | A required field is empty on the server side (Formspree is stricter than browser validation can be) | We dropped `noValidate` in PR #8 so the browser catches most of these. If one still slips through, check Formspree's form settings for required-field rules we didn't declare. |
 | Browser console shows a CSP violation when loading Calendly | Calendly started serving from a subdomain we didn't allowlist | Open browser DevTools → Console, note the blocked URL, add that host to the relevant CSP directive in `web/next.config.ts`, ship as `hotfix/csp-<domain>`. |
-| Plausible dashboard stays empty | Env var not set, or scope includes Preview/Development (both of which code also gates against) | Confirm env var is set to Production only. Check `window.plausible` exists in a prod browser session. |
+| GA4 Realtime stays empty | Env var not set, or scope includes Preview/Development (both of which code also gates against) | Confirm env var is set to Production only. Check `window.gtag` exists in a prod browser session. |
 | `https://zenithcaresolutions.com` doesn't resolve 10 min after DNS change | DNS cache | Try an incognito window. If still broken 1 hour later, re-check the records in Namecheap and Vercel match exactly. |
 
 ---
 
 ## 7. Monthly / yearly maintenance
 
-- **Monthly**: check Plausible dashboard, Formspree inbox, Calendly bookings. Review Search Console for new coverage errors.
+- **Monthly**: check GA4 reports, Formspree inbox, Calendly bookings. Review Search Console for new coverage errors.
 - **January every year**:
   - Bump the hardcoded footer year in `web/components/footer.tsx`
   - Update `CPT_RATES` in `web/lib/roi.ts` when CMS publishes the new Physician Fee Schedule (the self-check throws if the anchor drifts without updating the sentinel)

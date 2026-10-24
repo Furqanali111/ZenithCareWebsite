@@ -22,6 +22,46 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-10-25 — `feature/css-only-reveals`
+Replaced the `motion` animation library with CSS scroll-driven reveals. `components/reveal.tsx` is now a plain server component (same props) and `.reveal-in` in `globals.css` does the fade and lift with `animation-timeline: view()`. Browsers without it, and reduced-motion users, see the content with no animation. `motion` and its three sub-packages are out of the bundle.
+
+**Local mobile Lighthouse (production build, same machine):** home 79 to 88, pricing 84 to 92, contact 90 to 91. Total blocking time 120 to 210 ms down to 20 to 30 ms; script bootup 540 to 705 ms down to about 210 to 280 ms. Accessibility, Best Practices and SEO stay 100.
+
+**Still open:** mobile Performance is 88 to 92, not 95. What is left is Lighthouse's simulated LCP (about 3.3 to 3.9 s; the unthrottled run paints in about 90 ms). Likely levers: fewer font files and weights.
+
+### 2026-10-25 — `feature/phase4-polish`
+Phase 4 polish pass (Lighthouse, axe, keyboard). Live Lighthouse (8 pages, mobile and desktop): Accessibility 100, SEO 100 and Best Practices 100 everywhere except /contact (79, Calendly third-party cookies). Desktop Performance 95 to 99. Mobile Performance 63 to 89 before this change.
+
+**Fixed**
+- **Calendly widget loads only when scrolled near** (`components/calendly-embed.tsx`): removes its third-party cookies and ~200 KB of script from first load. /contact Best Practices 79 to 100.
+- **gtag.js lazy-loaded** (`app/layout.tsx`); the tiny init stub stays early so conversion events still queue.
+- **Logo 73 KB to 11 KB** (`public/logo.webp`, now 520 px wide, 2x of its largest display size).
+- **Stylesheet inlined** (`experimental.inlineCss`) so it no longer blocks first paint.
+- **`<main>` is programmatically focusable** so the skip link also moves focus in older screen readers.
+- **Analytics docs**: CLAUDE.md, `.env.example`, web README, launch checklist, go-live runbook and deferred items now say Google Analytics 4, not Plausible.
+
+**Local mobile Lighthouse after the changes** (production build, same machine): home 64 to 79, pricing 63 to 84, contact 88 to 90.
+
+**Keyboard checks passed** (real key presses on the live site): skip link visible and working, all 74 visible tab stops on the home page show a focus ring, mega menu and mobile menu open from the keyboard, the mobile menu traps focus and Escape returns it to the button, FAQ accordion opens with Space and Enter and moves with arrow keys, the contact form has labels, required fields and alert and status messages.
+
+**Still open**
+- Mobile Performance is still below 95 (home 79). Remaining cost is JavaScript: the animation library and Next runtime (~780 ms script evaluation on the throttled profile). Next lever: replace `motion` with CSS-only reveals.
+- No real screen reader (NVDA or VoiceOver) run; the accessibility tree and axe were checked instead.
+- UptimeRobot and HSTS preload (after 30 days of clean HTTPS) are still to do.
+
+### 2026-10-25 — `feature/payment-qa-fixes`
+Payment-approval QA pass on /pricing, /how-it-works, /refund-policy, /service-delivery, /complaints, /security (plus /privacy and /terms). Legal name, Filing ID, formation date and address match the Wyoming filing record. All 42 internal links return 200. axe-core found no violations on the six pages; a computed colour-contrast check passed in light and dark mode.
+
+**Fixed**
+- **Privacy Policy said analytics were cookieless (Plausible) and that no cookies are used for tracking, but the site runs Google Analytics 4.** Privacy, Security and Terms now name Google Analytics 4 and describe its cookies. Needs attorney review.
+- **No og:image on 8 pages** (pricing, how-it-works, policies, security, terms, privacy): `pageMetadata` now falls back to the root `/opengraph-image`.
+- **Floating WhatsApp button sat outside any landmark** (axe `region`): wrapped in an `aside`.
+
+**Still open (needs owner input)**
+- /pricing shows no USD amounts (per-practice proposals); real prices in `lib/pricing.ts`.
+- Phone number and EIN not set; `logo.png` missing for Organization JSON-LD (see `13-deferred-items.md`).
+- Decide whether a cookie banner is needed for Google Analytics (attorney).
+
 ### 2026-10-11 — PR #19 (awaiting push) — `feature/final-qa`
 Final quality-assurance pass: responsive testing across 8 viewports, mobile/tablet layout fixes, accessibility verification, functionality checks. Tested live in the in-app Chromium browser at 320 / 768 / 1024 / 1920 (375 / 390 / 430 inherit the 320 mobile layout; 1366 sits between two verified-clean widths).
 
@@ -190,10 +230,9 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/Requirements/06-implementation-plan.md`](../Requirements/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-2. **Payment-approval QA pass** — accessibility review and on-page SEO check on /pricing, /how-it-works, /refund-policy, /service-delivery, /complaints and /security; crawl for broken links; confirm legal name, address, founders and services match the bank application.
-3. **Search performance plan (open items)** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): request indexing for the 20 pages not yet indexed, GA4 internal traffic filter, one new article every 2 weeks, outreach and backlinks.
-4. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
+1. **Phase 4 polish (remaining)** — mobile Lighthouse Performance from 88 to 92 up to 95 (trim font files and weights), real screen-reader pass (NVDA or VoiceOver), UptimeRobot, HSTS preload submission (after 30 days clean).
+2. **Search performance plan (open items)** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): request indexing for the 20 pages not yet indexed, GA4 internal traffic filter, one new article every 2 weeks, outreach and backlinks.
+3. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
 
 ---
 

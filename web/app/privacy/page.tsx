@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 const PATH = "/privacy";
 const EFFECTIVE_DATE = "2026-10-11";
-const LAST_UPDATED = "2026-10-11";
+const LAST_UPDATED = "2026-10-25";
 // shortcut: contact routes to the primary inbox until role aliases are set
 // up (privacy@) per WebSiteDoc/Project/14-go-live-accounts.md §2.4.
 const PRIVACY_EMAIL = site.email;
@@ -16,6 +16,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "How Zenith Care Solutions handles information collected through this website, what we collect, what we don't, and your rights.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function PrivacyPage() {
@@ -82,9 +83,9 @@ export default function PrivacyPage() {
           </p>
           <ul>
             <li>
-              Pageview analytics (pages visited, referrer, country, device
-              type) via a privacy-friendly, cookieless analytics tool
-              (Plausible).
+              Pageview and interaction analytics (pages visited, referrer,
+              approximate location, device type, and clicks on our contact
+              links and form submissions) via Google Analytics 4.
             </li>
             <li>
               Server-side request logs retained by our hosting provider
@@ -93,9 +94,12 @@ export default function PrivacyPage() {
             </li>
           </ul>
           <p>
-            <strong>We do not use cookies for tracking.</strong> We do not
-            operate ad networks, retargeting pixels, or third-party
-            trackers on the Site.
+            <strong>Cookies.</strong> Google Analytics 4 sets first-party
+            cookies (such as <code>_ga</code>) to tell visits apart and
+            measure traffic. We do not run ad networks or retargeting
+            pixels on the Site. You can block these cookies in your browser
+            settings or with Google&rsquo;s Analytics opt-out browser
+            add-on.
           </p>
 
           <h2>How we use information</h2>
@@ -135,8 +139,9 @@ export default function PrivacyPage() {
               Booking details you enter in Calendly.
             </li>
             <li>
-              <strong>Plausible</strong>, website analytics. Aggregate
-              pageview data; no personal identifiers.
+              <strong>Google LLC (Google Analytics 4)</strong>, website
+              analytics. Pageview and event data, cookie identifiers,
+              approximate location and device type.
             </li>
             <li>
               <strong>Google Workspace</strong>, email we send and

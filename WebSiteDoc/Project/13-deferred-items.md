@@ -40,7 +40,7 @@ In `web/.env.local` (gitignored) for local work; set in Vercel project settings 
 | `NEXT_PUBLIC_EIN` | footer and About "Company information" via `site.ein` (renders only when set) | not set, waiting for the IRS EIN |
 | `NEXT_PUBLIC_CONTACT_PHONE` | footer and `/contact` via `site.phone` (renders only when set) | not set, no business line yet |
 | `NEXT_PUBLIC_CALENDLY_URL` | `/contact` "Book a 15-min call" button (hidden when unset) | not set — depends on Calendly event being published |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible analytics (script loads only on Production domain + env set) | not set — depends on Plausible site being created |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics 4 (script loads only on the Production domain + env set) | set in Vercel Production (`G-P49414RXPW`) |
 | `NEXT_PUBLIC_SITE_URL` | canonical URL for OG, sitemap, JSON-LD | default is production domain; override only for staging |
 
 Additionally, the About page hardcodes a placeholder LinkedIn URL at `web/app/about/page.tsx` → `FOUNDER_LINKEDIN`. Replace with Ali&rsquo;s actual personal LinkedIn URL once confirmed; it feeds the Person JSON-LD `sameAs` and the "Ali on LinkedIn" CTA.
@@ -56,7 +56,7 @@ Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which 
 - [ ] Attorney retained for legal page review (needed before Phase 4 launch)
 - [ ] Calendly account with "15-min CCM discovery" event type published
 - [ ] WhatsApp Business number provisioned
-- [ ] Plausible site added for `zenithcaresolutions.com`
+- [x] Google Analytics 4 property created and wired (conversion events in `web/components/conversion-tracking.tsx`)
 - [ ] Formspree form created, endpoint ID copied
 - [ ] Google Workspace or Zoho Mail set up for `ali@zenithcaresolutions.com` + role aliases (`privacy@`, `legal@`, `compliance@`, `accessibility@`, `security@`)
 - [ ] LinkedIn Company Page published with logo and cover image
@@ -70,7 +70,7 @@ Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which 
 
 ## 6. Known traps to avoid (deferred to specific future PRs)
 
-- **CSP tightening**: current CSP uses `'unsafe-inline'` for scripts and styles. Tighten with nonce-based CSP + `strict-dynamic` in a dedicated security-hardening PR once Calendly, Formspree, and Plausible are wired and all third-party hosts can be allowlisted in one pass.
+- **CSP tightening**: current CSP uses `'unsafe-inline'` for scripts and styles. Tighten with nonce-based CSP + `strict-dynamic` in a dedicated security-hardening PR once Calendly, Formspree, and Google Analytics are wired and all third-party hosts can be allowlisted in one pass.
 
 ---
 

@@ -16,6 +16,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Terms of use for the Zenith Care Solutions website: access, permitted use, intellectual property and liability.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function TermsPage() {
@@ -114,7 +115,7 @@ export default function TermsPage() {
           <h2>Third-party services</h2>
           <p>
             The Site integrates third-party services (Calendly,
-            Formspree, WhatsApp, analytics). Your use of those services
+            Formspree, WhatsApp, Google Analytics). Your use of those services
             is subject to their own terms and privacy policies. Zenith is
             not responsible for third-party service availability or
             practices.

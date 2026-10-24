@@ -1,13 +1,16 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
  * Scroll-reveal wrapper for below-the-fold content. Fades + lifts its
- * children once, when they scroll into view. Used only below the fold, so
- * there is no LCP/FOIC concern (the hero's entrance is CSS, not this).
- * Under prefers-reduced-motion it renders a plain wrapper, no motion.
+ * children as they enter the viewport, using a CSS scroll-driven animation
+ * (`.reveal-in` in globals.css). No JavaScript, so it ships no client code
+ * and cannot delay hydration or the LCP.
+ *
+ * Browsers without `animation-timeline` support, and users who prefer
+ * reduced motion, simply see the content with no animation.
+ *
+ * `delay` (seconds, as before) staggers siblings by shifting where in the
+ * viewport entry the fade starts: 0.08 becomes an 8% later start.
  */
 export function Reveal({
   children,
@@ -18,18 +21,13 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+  const style = delay
+    ? ({ "--reveal-delay": `${Math.round(delay * 100)}%` } as CSSProperties)
+    : undefined;
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay }}
-    >
+    <div className={className ? `reveal-in ${className}` : "reveal-in"} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }
