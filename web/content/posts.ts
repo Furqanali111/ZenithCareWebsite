@@ -41,6 +41,9 @@ import ProviderCredentialingGuide, {
 import ReduceClaimDenials, {
   frontmatter as claimDenialsFm,
 } from "./posts/reduce-claim-denials.mdx";
+import Cpt99490DocChecklist, {
+  frontmatter as cpt99490DocChecklistFm,
+} from "./posts/cpt-99490-documentation-checklist.mdx";
 
 /**
  * The one-sentence rule: every blog post is listed here as a static
@@ -85,6 +88,7 @@ const POSTS: Post[] = [
   { ...(tcmGuideFm as PostFrontmatter), Component: TransitionalCareManagementGuide },
   { ...(credentialingGuideFm as PostFrontmatter), Component: ProviderCredentialingGuide },
   { ...(claimDenialsFm as PostFrontmatter), Component: ReduceClaimDenials },
+  { ...(cpt99490DocChecklistFm as PostFrontmatter), Component: Cpt99490DocChecklist },
 ];
 
 /** All posts, newest first by publishedAt. */
