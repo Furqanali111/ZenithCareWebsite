@@ -2,7 +2,7 @@
 
 Pinned context for every session in this repo. Read first.
 
-> **Before you touch any code**, also read [`WebSiteDoc/12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md) — it tells you which planning doc to open for the task at hand, which skills (`taste-skill`, `impeccable`, etc.) are mandatory for which kind of work, and the hard rules to enforce (git flow, HIPAA, HTTPS, accessibility, SEO).
+> **Before you touch any code**, also read [`WebSiteDoc/Project/12-claude-requirements.md`](WebSiteDoc/Project/12-claude-requirements.md) — it tells you which planning doc to open for the task at hand, which skills (`taste-skill`, `impeccable`, etc.) are mandatory for which kind of work, and the hard rules to enforce (git flow, HIPAA, HTTPS, accessibility, SEO).
 
 ## The business
 
@@ -92,7 +92,7 @@ Rejected: WordPress, Wix/Squarespace, separate backend, Stripe Checkout, Resend 
 
 ## Git workflow — HARD RULES
 
-Full details: `WebSiteDoc/11-git-workflow.md`. Core rules every session must follow:
+Full details: `WebSiteDoc/Project/11-git-workflow.md`. Core rules every session must follow:
 
 - `develop` is the source of truth. **Never push to `develop` directly.** Every change goes through a PR.
 - `release/vX.Y.Z` branches are cut from `develop` and deployed to production from there.
@@ -106,7 +106,7 @@ Full details: `WebSiteDoc/11-git-workflow.md`. Core rules every session must fol
 - Hotfixes must be back-ported to `develop` via a second PR so the next release doesn't regress.
 - **Commit messages: one-line subject only** — Conventional Commits (`feat(scope): …`). No prose body. Everything explanatory goes in the PR body. Attribution lines (`Co-Authored-By:`) still appended per harness rule.
 - **Before handing a code PR back**: run the `ponytail:ponytail-review` skill on the diff and apply its findings. This is mandatory, not optional.
-- **Dangling references are intentional.** If a review (ponytail or otherwise) suggests *removing* a reference to a missing asset / content key / env var — e.g. "drop `organizationLd.logo` because `/logo.png` doesn't exist yet", "stop loading `faq.json` because it's empty" — do **not** remove it. Add the missing target to [`WebSiteDoc/13-deferred-items.md`](WebSiteDoc/13-deferred-items.md) instead. Removing the reference just costs us the day the asset lands.
+- **Dangling references are intentional.** If a review (ponytail or otherwise) suggests *removing* a reference to a missing asset / content key / env var — e.g. "drop `organizationLd.logo` because `/logo.png` doesn't exist yet", "stop loading `faq.json` because it's empty" — do **not** remove it. Add the missing target to [`WebSiteDoc/Project/13-deferred-items.md`](WebSiteDoc/Project/13-deferred-items.md) instead. Removing the reference just costs us the day the asset lands.
 
 ---
  

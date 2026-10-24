@@ -7,7 +7,7 @@ A catalog of things the code already references but whose target doesn't exist y
 
 > **Rule for every session**: if a ponytail-review (or any skill) suggests *removing* a reference because the target is missing — e.g. "the Organization JSON-LD points at `/logo.png` which 404s, drop the `logo` field" — do **not** remove it. Add the target to the right section below instead. Removing the reference costs us the day the asset lands.
 >
-> This rule is also pinned in [`CLAUDE.md`](../CLAUDE.md) and [`12-claude-requirements.md`](12-claude-requirements.md) §3.
+> This rule is also pinned in [`CLAUDE.md`](../../CLAUDE.md) and [`12-claude-requirements.md`](12-claude-requirements.md) §3.
 
 ---
 

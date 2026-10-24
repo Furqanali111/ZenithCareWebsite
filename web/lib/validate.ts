@@ -4,7 +4,7 @@
  * that catches a provider pasting patient details into our contact form and
  * blocks the submit before anything reaches Formspree.
  *
- * The regex set mirrors WebSiteDoc/05-data-schema.md §5. False positives are
+ * The regex set mirrors WebSiteDoc/Requirements/05-data-schema.md §5. False positives are
  * acceptable (we tell the sender to edit); false negatives are inevitable
  * (patient names without the word "Patient", etc.). The real defence is the
  * disclaimer displayed above every form.

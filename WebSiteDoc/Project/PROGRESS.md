@@ -6,9 +6,9 @@
 This is the "what has been done / what is being done / what is next" log. **Update at the end of every PR.**
 
 > New session? Also open:
-> - [`../CLAUDE.md`](../CLAUDE.md) — pinned project context
+> - [`../CLAUDE.md`](../../CLAUDE.md) — pinned project context
 > - [`12-claude-requirements.md`](12-claude-requirements.md) — session playbook
-> - [`06-implementation-plan.md`](06-implementation-plan.md) — the full phase plan
+> - [`06-implementation-plan.md`](../Requirements/06-implementation-plan.md) — the full phase plan
 
 ---
 
@@ -92,7 +92,7 @@ Ponytail-review fixes applied before handoff:
 - Rewrote the navy "Representative revenue" band to show the Complex-CCM ceiling figure instead of restating the hero card's base figure — teaches base-vs-complex instead of duplicating a number. Figure derived from `CPT_RATES` so the lib/roi.ts single-source rule holds.
 
 ### 2026-10-11 — Planning complete
-All 10 planning docs under `WebSiteDoc/` committed on `develop`. See [`WebSiteDoc/`](WebSiteDoc/) for the full set.
+All 10 planning docs under `WebSiteDoc/` committed on `develop`. See [`WebSiteDoc/`](../) for the full set.
 
 ### 2026-10-11 — Repo scaffolded
 Repo layout agreed: Next.js under `web/`, docs at root, `api/` reserved for future backend. `.gitignore`, `.editorconfig`, root `README.md`, git branches set up (`develop` as source of truth).
@@ -108,7 +108,7 @@ Two concrete fixes shipped: promoted `llms.txt` from a static file in `public/` 
 Ponytail-review fix applied before handoff: the review flagged `llms.txt` being hand-maintained as a near-duplicate of the posts registry that will drift. Promoted to a route handler now instead of waiting for the "~10 posts" trigger — net ~15 lines added but kills a maintenance liability permanently. Route output confirmed as `○ Static` in build (prerenders alongside `/robots.txt` and `/sitemap.xml`).
 
 ### 2026-10-11 — PR #14 (merged) — `feature/legal-pages`
-`/privacy`, `/terms`, `/accessibility` all ship with real content. Content pastes from `WebSiteDoc/08-legal-pages-draft.md` §1 (Privacy), §2 (Terms), §4 (Accessibility) with every placeholder resolved: dates = 2026-10-11, contact = `site.email` (same role-alias shortcut as hipaa-statement), governing law + venue = Wyoming, retention period = 3 years, analytics vendor = Plausible, address = "Wyoming, USA" (full mailing available on request). All four legal routes now have real text; next time an attorney reviews it&rsquo;s a copy edit, not a rewrite from a stub.
+`/privacy`, `/terms`, `/accessibility` all ship with real content. Content pastes from `WebSiteDoc/Project/08-legal-pages-draft.md` §1 (Privacy), §2 (Terms), §4 (Accessibility) with every placeholder resolved: dates = 2026-10-11, contact = `site.email` (same role-alias shortcut as hipaa-statement), governing law + venue = Wyoming, retention period = 3 years, analytics vendor = Plausible, address = "Wyoming, USA" (full mailing available on request). All four legal routes now have real text; next time an attorney reviews it&rsquo;s a copy edit, not a rewrite from a stub.
 
 Ponytail-review fixes applied before handoff: extracted a shared `<LegalPage title lastUpdated effectiveDate?>` component in `web/components/legal-page.tsx` and refactored all four legal pages (privacy, terms, accessibility, and the previously-shipped hipaa-statement) to use it — one place to tune the eyebrow, Fraunces H1, date-line format, and the long `prose prose-neutral …` className wall; added a sixth bullet to the Privacy state-rights list ("Other U.S. states — residents of states with comprehensive consumer privacy laws, including CT, UT, TX, MT, IA, OR, DE, NJ, and others …") so the page doesn&rsquo;t read as frozen at the 2023-era CCPA/VCDPA/CPA snapshot.
 
@@ -134,7 +134,7 @@ Ponytail-review fixes applied before handoff: resized each specialty's example p
 ### 2026-10-11 — PR #10 (merged) — `feature/hipaa-compliance-page`
 Real `/hipaa-compliance` ships. Five sections: hero → "zero PHI on this site" callout with ShieldCheck icon + two trust cards (BAA before any PHI, EHR stays system of record) → three safeguard cards mirroring the HIPAA Security Rule categories (Administrative / Physical / Technical) with specific items under each → side-by-side Minimum Necessary + Breach Notification paragraph pair → CTA card that links out to the formal `/hipaa-statement`. `BreadcrumbList` JSON-LD only (no Service LD — this is a trust posture, not a service). Reuses `BulletedListItem` for every bullet list; two co-located one-caller helpers (TrustCard, SafeguardCard).
 
-Pulled the formal HIPAA Statement forward and shipped it on `/hipaa-statement` in the same PR (previously planned for `feature/legal-pages`), so the "Read the formal statement" CTA on the compliance page no longer lands on a stub. Content pastes from `WebSiteDoc/08-legal-pages-draft.md §3` with placeholders resolved: `LAST_UPDATED` = 2026-10-11, contact email = `site.email` (role aliases like `compliance@` to be swapped in once set up per `WebSiteDoc/14-go-live-accounts.md §2.4`), full mailing address noted on request only.
+Pulled the formal HIPAA Statement forward and shipped it on `/hipaa-statement` in the same PR (previously planned for `feature/legal-pages`), so the "Read the formal statement" CTA on the compliance page no longer lands on a stub. Content pastes from `WebSiteDoc/Project/08-legal-pages-draft.md §3` with placeholders resolved: `LAST_UPDATED` = 2026-10-11, contact email = `site.email` (role aliases like `compliance@` to be swapped in once set up per `WebSiteDoc/Project/14-go-live-accounts.md §2.4`), full mailing address noted on request only.
 
 Ponytail-review fixes applied before handoff: softened the safeguards section intro so the Administrative / Physical / Technical bullets read as framework + process ("implementation specifics — written policies, device inventory, audit-log samples, workforce training records — are shared during BAA review on request") instead of absolute present-tense attestations that would create a HIPAA misrepresentation risk pre-first-client; relaxed the BAA-send SLA from one business day to two to account for the Pakistan↔U.S. time-zone math.
 
@@ -166,10 +166,10 @@ Ponytail-review fixes applied before handoff: removed the arbitrary 1,000-patien
 ### 2026-10-11 — PR #4 (merged) — `feature/content-infra`
 Wired MDX via `@next/mdx` + `mdx-components.tsx` + `pageExtensions: ['ts','tsx','md','mdx']` in `next.config.ts`. Added typed FAQ loader at `lib/faq.ts` with build-time duplicate-id and empty-field validation that throws loudly in both dev and prod; current `content/faq.json` is still `{ items: [] }` — real Q&As ship with the FAQ page PR. Added optional Plausible script to the root layout with defence-in-depth gating (`NODE_ENV === "production"` AND `VERCEL_ENV` is undefined-or-"production" AND domain env is set); `plausible.io` allowlisted in CSP. New devDep: `@types/mdx`.
 
-Also introduced `WebSiteDoc/13-deferred-items.md` as the single catalog of dangling references (missing assets, empty content, unset env vars, setup to-dos, time-based reminders, future-PR traps) — plus pinned the "never remove a dangling reference, add it to that doc instead" rule in `CLAUDE.md` and `12-claude-requirements.md` §3.9. The `PROGRESS.md` "Open questions" section now links to that doc instead of duplicating the list.
+Also introduced `WebSiteDoc/Project/13-deferred-items.md` as the single catalog of dangling references (missing assets, empty content, unset env vars, setup to-dos, time-based reminders, future-PR traps) — plus pinned the "never remove a dangling reference, add it to that doc instead" rule in `CLAUDE.md` and `12-claude-requirements.md` §3.9. The `PROGRESS.md` "Open questions" section now links to that doc instead of duplicating the list.
 
 ### 2026-10-11 — PR #3 (merged) — `feature/seo-plumbing`
-Added `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt`, `.well-known/security.txt`, dynamic OG image at `app/opengraph-image.tsx`, security headers (HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, CSP) in `next.config.ts`. JSON-LD factory helpers in `lib/seo.tsx` for Organization, Service, Person, Article, FAQPage, BreadcrumbList — with a dev-only self-check per Ponytail. Wired Organization LD site-wide via root layout; Service + BreadcrumbList on the CCM services page. Also pinned the standard PR body shape as `.github/PULL_REQUEST_TEMPLATE.md` and rewrote `WebSiteDoc/11-git-workflow.md` §6 accordingly.
+Added `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt`, `.well-known/security.txt`, dynamic OG image at `app/opengraph-image.tsx`, security headers (HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, CSP) in `next.config.ts`. JSON-LD factory helpers in `lib/seo.tsx` for Organization, Service, Person, Article, FAQPage, BreadcrumbList — with a dev-only self-check per Ponytail. Wired Organization LD site-wide via root layout; Service + BreadcrumbList on the CCM services page. Also pinned the standard PR body shape as `.github/PULL_REQUEST_TEMPLATE.md` and rewrote `WebSiteDoc/Project/11-git-workflow.md` §6 accordingly.
 
 ### 2026-10-11 — PR #2 (merged) — `feature/global-layout-and-stubs`
 Global layout, nav, footer, floating WhatsApp button, 404, and stubs for all 13 marketing + legal routes. Brand color tokens wired into Tailwind 4 `@theme`. Fonts via `next/font` (Inter + Fraunces + JetBrains Mono). `pnpm build` passes with 19 static routes. Env file (`.env.local` gitignored, `.env.example` committed) ready for WhatsApp number + contact email + Calendly URL.
@@ -182,18 +182,18 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## In progress
 
-`feature/redesign-overhaul` — code done, build + lint clean, ponytail-review pass applied. Awaiting commit + push + PR + merge. After this merges, remaining work is the OPERATIONAL side of Phase 4 (actual Lighthouse / axe / keyboard / screen-reader runs against the Vercel preview, UptimeRobot setup, HSTS preload submission) + launch per [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md). PR #15 (`feature/pre-launch-polish`) merged earlier today on `develop`.
+`feature/redesign-overhaul` — code done, build + lint clean, ponytail-review pass applied. Awaiting commit + push + PR + merge. After this merges, remaining work is the OPERATIONAL side of Phase 4 (actual Lighthouse / axe / keyboard / screen-reader runs against the Vercel preview, UptimeRobot setup, HSTS preload submission) + launch per [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md). PR #15 (`feature/pre-launch-polish`) merged earlier today on `develop`.
 
 ---
 
 ## Up next (ordered)
 
-Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
+Pulled from [`WebSiteDoc/Requirements/06-implementation-plan.md`](../Requirements/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
 1. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
 2. **Payment-approval QA pass** — accessibility review and on-page SEO check on /pricing, /how-it-works, /refund-policy, /service-delivery, /complaints and /security; crawl for broken links; confirm legal name, address, founders and services match the bank application.
-3. **Search performance plan** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): GA4 key events, 4 unindexed URLs, two new CPT articles, TCM and RTM title fixes.
-4. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+3. **Search performance plan** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): GA4 key events, 4 unindexed URLs, two new CPT articles, TCM and RTM title fixes.
+4. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
 
 ---
 
@@ -214,9 +214,9 @@ Short record of non-obvious decisions so we don't re-litigate them.
 
 ## Open questions / blockers
 
-The full catalog of placeholders, missing assets, env vars that need production values, external accounts to set up, time-based reminders, and known traps lives in [`WebSiteDoc/13-deferred-items.md`](WebSiteDoc/13-deferred-items.md). Check that first before asking "is X ready to fill in?"
+The full catalog of placeholders, missing assets, env vars that need production values, external accounts to set up, time-based reminders, and known traps lives in [`WebSiteDoc/Project/13-deferred-items.md`](13-deferred-items.md). Check that first before asking "is X ready to fill in?"
 
-The step-by-step runbook for creating each external account and wiring it to Vercel (sign-up URLs, which env var it maps to, which Vercel scope to use, DNS steps for the custom domain, launch-day smoke tests, troubleshooting table) lives in [`WebSiteDoc/14-go-live-accounts.md`](WebSiteDoc/14-go-live-accounts.md).
+The step-by-step runbook for creating each external account and wiring it to Vercel (sign-up URLs, which env var it maps to, which Vercel scope to use, DNS steps for the custom domain, launch-day smoke tests, troubleshooting table) lives in [`WebSiteDoc/Project/14-go-live-accounts.md`](14-go-live-accounts.md).
 
 Session-level blockers only — things that actively prevent the next PR from being merged — go here. Currently: none.
 

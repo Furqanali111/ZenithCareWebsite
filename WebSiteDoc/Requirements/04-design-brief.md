@@ -128,7 +128,7 @@ Pull reference boards from these (not for copying, for taste calibration):
 ## 12. Deliverables tracked separately
 
 - Actual page copy → `06-implementation-plan.md` references, finalized during build
-- Legal page copy → `08-legal-pages-draft.md`
+- Legal page copy → `../Project/08-legal-pages-draft.md`
 - Logo artwork → outside this doc; placeholder wordmark acceptable at v1
 
 ## 13. Design-skills to use during BUILD
@@ -139,4 +139,4 @@ This brief is written strategy — I did NOT invoke `taste-skill` or `impeccable
 - **`impeccable:impeccable`** — invoke for any screen or component we're treating as a comp / showcase surface (hero, services page hero, ROI calculator UI). Use `impeccable-finish-reviewer` before merging the component.
 - **`superpowers:brainstorming`** — only if a layout decision needs multiple options compared.
 
-Pin: calling these skills is NOT optional at build time. The planning doc enforces it (see `12-claude-requirements.md`).
+Pin: calling these skills is NOT optional at build time. The planning doc enforces it (see `../Project/12-claude-requirements.md`).

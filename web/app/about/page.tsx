@@ -20,7 +20,7 @@ const PATH = "/about";
 // Deliberately empty until the real slug is confirmed; the Person JSON-LD
 // `sameAs` and the LinkedIn CTA both suppress themselves when blank, same
 // pattern as the WhatsApp / Calendly guards. Dangling-reference per
-// WebSiteDoc/13-deferred-items.md.
+// WebSiteDoc/Project/13-deferred-items.md.
 const FOUNDER_LINKEDIN = "";
 
 export const metadata: Metadata = pageMetadata({
