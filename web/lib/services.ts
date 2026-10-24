@@ -192,7 +192,7 @@ const RPM_SERVICES: Service[] = [
     title:
       "Principal Care Management for one serious condition.",
     lead:
-      "Some of your highest-risk patients do not have a long problem list. They have one serious condition, often managed with a specialist, that can send them to the hospital if it slips. Zenith clinical staff deliver monthly PCM outreach inside your EHR, so that one condition gets steady attention between visits. Your practice stays the billing provider.",
+      "Principal care management (PCM) is a monthly Medicare service for a patient with one serious, high-risk condition expected to last at least three months, the kind that can send them to the hospital if it slips. Zenith clinical staff deliver the monthly outreach, care plan reviews and time log inside your EHR (CPT 99426 and 99427), so that one condition gets steady attention between visits. Your practice stays the billing provider.",
     trust: [
       "Clinical oversight on every account",
       "HIPAA Business Associate",
@@ -241,6 +241,7 @@ const RPM_SERVICES: Service[] = [
       { question: "How is PCM different from CCM?", answer: "CCM is built for patients with two or more chronic conditions. PCM is built for patients with one complex, high-risk condition." },
       { question: "Can a patient be in PCM and another program in the same month?", answer: "It depends on the codes and the billing provider. Your billing lead checks combinations against current CMS rules before any claim goes out." },
       { question: "Who bills for PCM?", answer: "Your practice bills. Zenith supplies the clinical labor and invoices you." },
+      { question: "How many minutes does PCM require?", answer: "Clinical staff time starts at 30 minutes per calendar month (CPT 99426), with add-on time in 30 minute steps (CPT 99427, up to twice per month). Under 30 minutes is not reported. See the [PCM time requirements guide](/resources/cpt-99426-99427-pcm-time-requirements)." },
     ],
   },
   {
@@ -312,7 +313,7 @@ const RPM_SERVICES: Service[] = [
     title:
       "Therapeutic Monitoring for recovery that happens at home.",
     lead:
-      "Therapy plans, respiratory care and pain programs succeed or fail between appointments. RTM tracks whether patients are doing the work and how they are responding, such as therapy adherence, pain levels and function. Zenith staff collect and review that data, then reach out when progress stalls. Your practice stays the billing provider.",
+      "Therapy plans, respiratory care and pain programs succeed or fail between appointments. RTM tracks whether patients are doing the work and how they are responding, such as therapy adherence, pain levels and function. Zenith staff collect and review that data, then reach out when progress stalls. This is a staffed service, not software. Your practice stays the billing provider.",
     trust: [
       "Clinician-reviewed workflows",
       "HIPAA Business Associate",
@@ -349,9 +350,9 @@ const RPM_SERVICES: Service[] = [
       { title: "Monitor and engage", body: "Staff review data and contact patients who fall behind." },
       { title: "Report and bill", body: "You receive organized monthly records, bill the codes, and Zenith invoices for the labor." },
     ],
-    metaTitle: "Remote Therapeutic Monitoring (RTM)",
+    metaTitle: "RTM Services for Medical Practices",
     metaDescription:
-      "Remote therapeutic monitoring for U.S. practices. Track therapy adherence, pain and function between visits, inside your EHR.",
+      "Staffed RTM support for U.S. practices, not software. Our clinical staff review therapy adherence, pain and function data between visits, inside your EHR.",
     serviceType: "Remote Therapeutic Monitoring",
     emailSubject: "RTM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Remote Therapeutic Monitoring.",
@@ -363,6 +364,7 @@ const RPM_SERVICES: Service[] = [
       { question: "How is RTM different from RPM?", answer: "RPM tracks physiologic readings like blood pressure. RTM tracks non-physiologic data such as therapy adherence, pain and function." },
       { question: "Which patients are a fit?", answer: "Typically musculoskeletal, respiratory and pain patients on a defined treatment plan. Your clinician decides who is appropriate." },
       { question: "What tools do patients need?", answer: "A device or app suited to the plan. We confirm the setup with you during scoping." },
+      { question: "Is Zenith an RTM software platform?", answer: "No. Zenith supplies the clinical staff who review the data and contact patients. The monitoring device or app is separate, and we confirm the setup with you during scoping." },
     ],
   },
   {
@@ -373,7 +375,7 @@ const RPM_SERVICES: Service[] = [
     shortDesc: "Close the gap in the critical 30 days after hospital discharge.",
     title: "Transitional Care Management that closes the gap after discharge.",
     lead:
-      "The days after a hospital stay are when patients are most likely to be readmitted. TCM has strict deadlines, and missing them means missing both the care and the claim. Zenith staff make the post-discharge contact on time, reconcile medications and get the follow-up visit booked. Your practice stays the billing provider.",
+      "The days after a hospital stay are when patients are most likely to be readmitted. TCM has strict deadlines, and missing them means missing both the care and the claim. Zenith staff make the post-discharge contact on time, reconcile medications and get the follow-up visit booked. This is a staffed service, not software: our team works inside the tools you already use. Your practice stays the billing provider.",
     trust: [
       "Clinical medication reconciliation",
       "HIPAA Business Associate",
@@ -406,9 +408,9 @@ const RPM_SERVICES: Service[] = [
       { title: "Contact, reconcile, schedule", body: "Required outreach and medication work happen inside the deadline." },
       { title: "Document and bill", body: "Your practice bills TCM after the visit. Zenith invoices for the labor." },
     ],
-    metaTitle: "Transitional Care Management (TCM)",
+    metaTitle: "TCM Services for Medical Practices",
     metaDescription:
-      "Remote TCM for U.S. practices. Post-discharge outreach, medication reconciliation and visit scheduling inside your EHR.",
+      "Staffed TCM support for U.S. practices, not software. Our clinical staff handle post-discharge outreach, medication reconciliation and visit scheduling inside your EHR.",
     serviceType: "Transitional Care Management",
     emailSubject: "TCM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Transitional Care Management.",
@@ -420,6 +422,7 @@ const RPM_SERVICES: Service[] = [
       { question: "What are the TCM deadlines?", answer: "Interactive contact is due within two business days of discharge. The face-to-face visit is due within 7 or 14 days depending on complexity." },
       { question: "Does TCM replace CCM?", answer: "They can serve the same patient at different times, but billing overlap rules apply. Your billing lead confirms combinations before claims." },
       { question: "How do you learn about discharges?", answer: "Through your hospital feeds, notifications and patient contact. We map your sources during setup." },
+      { question: "Is this a TCM software platform?", answer: "No. Zenith provides trained clinical staff, not a software product. They work inside your EHR and your existing workflows, and your practice stays the billing provider." },
     ],
   },
 ];
@@ -503,7 +506,7 @@ const RCM_SERVICES: Service[] = [
       { title: "Code from the chart", body: "Coders work in your EHR and send queries through your agreed channel." },
       { title: "Review and improve", body: "You receive accuracy feedback and common documentation gaps." },
     ],
-    metaTitle: "Remote Medical Coding",
+    metaTitle: "Medical Coding Services",
     metaDescription:
       "Remote medical coding for U.S. practices. ICD-10, CPT and E/M coding from charts inside your EHR with compliance review.",
     serviceType: "Medical Coding",
@@ -547,7 +550,7 @@ const RCM_SERVICES: Service[] = [
       { title: "Submit and follow up", body: "Applications go out and each file is followed until approved." },
       { title: "Maintain", body: "We track renewals and updates so your enrollment stays active." },
     ],
-    metaTitle: "Credentialing & Enrollment",
+    metaTitle: "Provider Credentialing Services",
     metaDescription:
       "Remote provider credentialing and payer enrollment for U.S. practices. CAQH upkeep and revalidation from start to approval.",
     serviceType: "Provider Credentialing",
@@ -751,7 +754,7 @@ const STAFFING_SERVICES: Service[] = [
     shortDesc: "Owns the clinical admin that clogs your care team.",
     title: "A care coordinator who clears the admin clogging your team.",
     lead:
-      "Nurses and medical assistants lose hours every day to referrals, prior authorizations and inbox messages. A Zenith care coordinator takes that work remotely, inside your EHR, so your in-house team stays focused on patients. Staffing is a flat monthly rate.",
+      "A patient care coordinator is a remote team member who takes on the daily administrative and outreach work that slows a practice: pre-visit prep, referral follow-up, prior authorizations and inbox triage. Zenith coordinators work inside your EHR, under the workflows you set, so your in-house nurses and medical assistants stay focused on patients. Staffing is a flat monthly rate.",
     trust: [
       "Trained clinical staff",
       "HIPAA Business Associate",
@@ -786,6 +789,7 @@ const STAFFING_SERVICES: Service[] = [
       { question: "How is this different from CCM?", answer: "CCM is a billable monthly clinical program for chronic patients. A care coordinator handles daily administrative and outreach work for the whole practice." },
       { question: "Can the coordinator give clinical advice?", answer: "No. Clinical questions go to your licensed staff by the process you set." },
       { question: "How is it priced?", answer: "A flat monthly rate based on scope, shared during the intro call." },
+      { question: "What tasks can a care coordinator take over?", answer: "Pre-visit prep, referral follow-up, prior authorization requests and inbox triage, using the workflows and escalation rules you set. Clinical decisions stay with your licensed staff." },
     ],
   },
   {

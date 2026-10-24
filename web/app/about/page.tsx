@@ -7,7 +7,7 @@ import { BulletedListItem } from "@/components/bulleted-list";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { founder, founders, site } from "@/lib/site";
+import { founder, founders, reviewer, site } from "@/lib/site";
 import {
   categoryMeta,
   servicesByCategory,
@@ -105,6 +105,13 @@ export default function AboutPage() {
             bio:
               "Software engineer with five years of experience delivering projects to multiple customers. Founder of Zenith Care Solutions.",
             sameAs: FOUNDER_LINKEDIN ? [FOUNDER_LINKEDIN] : undefined,
+          }),
+          personLd({
+            name: reviewer.name,
+            jobTitle: "Co-founder, Zenith Care Solutions",
+            path: `${PATH}#${reviewer.initials.toLowerCase()}`,
+            bio: `${reviewer.intro} Reviews clinical and billing content published by Zenith Care Solutions.`,
+            hasCredential: ["Doctor of Pharmacy (PharmD)"],
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },
@@ -231,6 +238,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="font-serif text-xl font-semibold tracking-tight text-brand-ink">
                     {f.name}
+                    {f.credential ? `, ${f.credential}` : ""}
                   </h3>
                   <p className="mt-1 text-sm font-semibold text-brand-accent">
                     {f.title}

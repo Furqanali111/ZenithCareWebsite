@@ -8,7 +8,7 @@ const PATH = "/security";
 const UPDATED = "2026-10-23";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Security",
+  title: "Security and Data Protection",
   description:
     "How this website protects visitors, what data it collects (none that is PHI), and the regulatory status of Zenith Care Solutions.",
   path: PATH,
