@@ -3,8 +3,8 @@
 Next.js 14 static-first marketing site. Static-generated, deployed to Vercel.
 
 **Planning docs**: [`../WebSiteDoc/`](../WebSiteDoc/).
-**Design brief**: [`../WebSiteDoc/04-design-brief.md`](../WebSiteDoc/04-design-brief.md).
-**Technical requirements**: [`../WebSiteDoc/02-technical-requirements.md`](../WebSiteDoc/02-technical-requirements.md).
+**Design brief**: [`../WebSiteDoc/Requirements/04-design-brief.md`](../WebSiteDoc/Requirements/04-design-brief.md).
+**Technical requirements**: [`../WebSiteDoc/Requirements/02-technical-requirements.md`](../WebSiteDoc/Requirements/02-technical-requirements.md).
 
 ---
 
@@ -140,4 +140,4 @@ NEXT_PUBLIC_PLAUSIBLE_DOMAIN=zenithcaresolutions.com
 
 - Pushes to `release/*` branches auto-deploy to the production Vercel environment.
 - Every PR gets a preview URL from Vercel's GitHub integration.
-- See [`../WebSiteDoc/10-launch-checklist.md`](../WebSiteDoc/10-launch-checklist.md) for launch-day steps.
+- See [`../WebSiteDoc/Project/10-launch-checklist.md`](../WebSiteDoc/Project/10-launch-checklist.md) for launch-day steps.

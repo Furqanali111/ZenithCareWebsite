@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 const PATH = "/accessibility";
 const LAST_UPDATED = "2026-10-11";
 // shortcut: contact routes to the primary inbox until role aliases are set
-// up (accessibility@) per WebSiteDoc/14-go-live-accounts.md §2.4.
+// up (accessibility@) per WebSiteDoc/Project/14-go-live-accounts.md §2.4.
 const ACCESSIBILITY_EMAIL = site.email;
 
 export const metadata: Metadata = pageMetadata({

@@ -4,7 +4,7 @@ Marketing website and (future) client-facing services for Zenith Care Solutions 
 
 **Business context**: see [`CLAUDE.md`](CLAUDE.md).
 **Full planning docs**: [`WebSiteDoc/`](WebSiteDoc/).
-**For Claude sessions**: read [`WebSiteDoc/12-claude-requirements.md`](WebSiteDoc/12-claude-requirements.md) first.
+**For Claude sessions**: read [`WebSiteDoc/Project/12-claude-requirements.md`](WebSiteDoc/Project/12-claude-requirements.md) first.
 
 ---
 
@@ -18,10 +18,9 @@ Marketing website and (future) client-facing services for Zenith Care Solutions 
 ├── .editorconfig
 ├── Doc/                   ← business reference PDFs (do not edit)
 ├── WebSiteDoc/            ← all project docs (planning, progress, audits)
-│   ├── 01..14-*.md        ← numbered planning/requirements docs
-│   ├── 15-technical-seo-audit.md
-│   ├── PROGRESS.md        ← progress journal (update per PR)
-│   ├── PROJECT_HANDOFF.md ← full project handoff
+│   ├── Requirements/      ← 01..06 product, technical, flow, design, data and build-plan specs
+│   ├── Project/           ← 07 SEO plan, 08 legal draft, 10 launch, 11 git, 12 Claude, 13 deferred, 14 go-live, PROGRESS
+│   ├── SEO/               ← keyword research, content calendar, KPI tracker
 │   └── Content/           ← source content PDFs + XLSX
 └── web/                   ← Next.js marketing website
 ```
@@ -67,7 +66,7 @@ Full bootstrap instructions in [`web/README.md`](web/README.md).
 - `develop` is the source of truth. **Never push to `develop` or any `release/*` directly** — PR only.
 - Branches: `feature/<title>`, `defect/<title>`, `hotfix/<title>`. Lowercase, kebab-case.
 - Rebase (never merge) `develop` into your branch. Squash-merge PRs. Conventional Commits.
-- Full details: [`WebSiteDoc/11-git-workflow.md`](WebSiteDoc/11-git-workflow.md).
+- Full details: [`WebSiteDoc/Project/11-git-workflow.md`](WebSiteDoc/Project/11-git-workflow.md).
 
 ---
 
@@ -78,7 +77,7 @@ Full bootstrap instructions in [`web/README.md`](web/README.md).
 - Every PR gets a Vercel preview URL automatically.
 - HTTPS via Let's Encrypt (auto-provisioned, auto-renewed — nothing to buy).
 
-Launch procedure: [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+Launch procedure: [`WebSiteDoc/Project/10-launch-checklist.md`](WebSiteDoc/Project/10-launch-checklist.md).
 
 ### Index now
 - To run it 

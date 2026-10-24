@@ -10,12 +10,10 @@ This is not the first keyword-research pass on this site. Before writing anythin
 
 - [`WebSiteDoc/Content/Zenith_Care_Solutions_SEO_Website_Content.xlsx`](../Content/Zenith_Care_Solutions_SEO_Website_Content.xlsx) — the "Keyword Clusters" sheet maps every service to one primary keyword, supporting terms, a target page, and a search intent. Confirmed it matches the live site's category structure (`rpm` = Care Management, `rcm` = Revenue Cycle Management, `staffing` = Virtual Staffing).
 - [`KEYWORD_TO_URL_MAP.md`](KEYWORD_TO_URL_MAP.md) (2026-10-16) — a full commercial + informational keyword map with priority tiers, already covering every service page.
-- [`SEO_PRIORITIES_AND_QUICK_WINS.md`](SEO_PRIORITIES_AND_QUICK_WINS.md) (2026-10-16) — ranked action list.
-- [`INTERNAL_LINKING_PLAN.md`](INTERNAL_LINKING_PLAN.md) (2026-10-16) — specific link additions by batch.
 - [`60_DAY_SEO_GROWTH_ROADMAP.md`](60_DAY_SEO_GROWTH_ROADMAP.md) and [`60_DAY_CONTENT_CALENDAR.md`](60_DAY_CONTENT_CALENDAR.md) — execution sequencing.
 - [`SEO_BASELINE_AND_KPI_TRACKER.md`](SEO_BASELINE_AND_KPI_TRACKER.md) — baseline metrics (all "Unknown", no GSC/Bing access at the time).
 
-**Finding:** those docs are 3 days old but already stale in one important way — the content calendar's top 4 "Critical/High" planned articles (`ccm-vs-rpm-vs-pcm`, `how-ccm-billing-works`, `ccm-consent-requirements`, `cpt-99439-vs-99490`) have since been written and published (`web/content/posts/`), and the internal-linking plan's Batches 1–3 (blog→service, service→blog, cross-category) are mostly already implemented in code. See [`SERVICE_PAGE_SEO_AUDIT.md`](SERVICE_PAGE_SEO_AUDIT.md) for the current-state audit that reconciles this.
+**Finding:** those docs are 3 days old but already stale in one important way — the content calendar's top 4 "Critical/High" planned articles (`ccm-vs-rpm-vs-pcm`, `how-ccm-billing-works`, `ccm-consent-requirements`, `cpt-99439-vs-99490`) have since been written and published (`web/content/posts/`), and the internal-linking plan's Batches 1–3 (blog→service, service→blog, cross-category) are mostly already implemented in code. See `SERVICE_PAGE_SEO_AUDIT.md` (since removed, see git history) for the current-state audit that reconciles this.
 
 This document does not repeat that research. It adds what was missing: **real competitor/SERP evidence**, since every existing doc explicitly flags "no paid keyword tool data available" and "no competitor research performed."
 

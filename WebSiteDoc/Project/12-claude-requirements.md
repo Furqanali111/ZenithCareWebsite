@@ -4,7 +4,7 @@
 **Version**: v1.0
 **Last updated**: 2026-10-11
 
-Instructions every Claude session must follow when working on this repo. If a session is starting cold, **read this file + [CLAUDE.md](../CLAUDE.md) + the planning docs listed below BEFORE touching any code**.
+Instructions every Claude session must follow when working on this repo. If a session is starting cold, **read this file + [CLAUDE.md](../../CLAUDE.md) + the planning docs listed below BEFORE touching any code**.
 
 ---
 
@@ -12,14 +12,14 @@ Instructions every Claude session must follow when working on this repo. If a se
 
 Before taking any action in this repo, read in this order:
 
-1. [`CLAUDE.md`](../CLAUDE.md) — pinned project context (business, scope, stack, git rules)
+1. [`CLAUDE.md`](../../CLAUDE.md) — pinned project context (business, scope, stack, git rules)
 2. The planning doc most relevant to the task:
-   - UI / components work → [`04-design-brief.md`](04-design-brief.md)
-   - New page / route → [`05-data-schema.md`](05-data-schema.md) + [`03-app-flow.md`](03-app-flow.md)
+   - UI / components work → [`04-design-brief.md`](../Requirements/04-design-brief.md)
+   - New page / route → [`05-data-schema.md`](../Requirements/05-data-schema.md) + [`03-app-flow.md`](../Requirements/03-app-flow.md)
    - SEO or metadata → [`07-seo-and-aiseo-plan.md`](07-seo-and-aiseo-plan.md)
-   - Legal / compliance text → [`08-legal-pages-draft.md`](08-legal-pages-draft.md) + `/hipaa-compliance` rules in [`01-product-requirements.md`](01-product-requirements.md)
-   - Build/deploy/perf/security → [`02-technical-requirements.md`](02-technical-requirements.md)
-   - Phase / sequencing → [`06-implementation-plan.md`](06-implementation-plan.md)
+   - Legal / compliance text → [`08-legal-pages-draft.md`](08-legal-pages-draft.md) + `/hipaa-compliance` rules in [`01-product-requirements.md`](../Requirements/01-product-requirements.md)
+   - Build/deploy/perf/security → [`02-technical-requirements.md`](../Requirements/02-technical-requirements.md)
+   - Phase / sequencing → [`06-implementation-plan.md`](../Requirements/06-implementation-plan.md)
    - Launch sign-off → [`10-launch-checklist.md`](10-launch-checklist.md)
 3. [`11-git-workflow.md`](11-git-workflow.md) — branch and PR rules, non-negotiable
 4. [`13-deferred-items.md`](13-deferred-items.md) — catalog of placeholders deliberately left dangling (missing assets, env vars, content). **Never remove a dangling reference** — add the target here instead. See §3.9 below.
@@ -77,7 +77,7 @@ Invoke the right skill BEFORE acting. If a skill applies to the current task, us
 - No real client names, real patient data, or production API keys ever committed.
 
 ### 3.3 Security
-- Site served **HTTPS only** (Vercel + Let's Encrypt — no manual cert work; see [`02-technical-requirements.md`](02-technical-requirements.md) §7).
+- Site served **HTTPS only** (Vercel + Let's Encrypt — no manual cert work; see [`02-technical-requirements.md`](../Requirements/02-technical-requirements.md) §7).
 - HSTS, CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy configured and tested before launch.
 - No secrets in commits. If one leaks, rotate immediately — git history is not security.
 - No new third-party domain in HTML without adding it to the CSP allowlist first.
@@ -112,7 +112,7 @@ Invoke the right skill BEFORE acting. If a skill applies to the current task, us
 - Newsletter, site search, comments, i18n
 - Service pages for billing / credentialing / coding / AR (future expansion)
 
-Full exclusion list: [`01-product-requirements.md`](01-product-requirements.md) §7, [`03-app-flow.md`](03-app-flow.md) §9, [`05-data-schema.md`](05-data-schema.md) §6.
+Full exclusion list: [`01-product-requirements.md`](../Requirements/01-product-requirements.md) §7, [`03-app-flow.md`](../Requirements/03-app-flow.md) §9, [`05-data-schema.md`](../Requirements/05-data-schema.md) §6.
 
 ### 3.9 Dangling references are intentional — never delete them
 

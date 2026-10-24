@@ -60,6 +60,8 @@ export const founders: readonly {
   initials: string;
   title: string;
   intro: string;
+  /** Professional credential shown after the name and in Person schema. */
+  credential?: string;
 }[] = [
   {
     name: founder.name,
@@ -72,6 +74,7 @@ export const founders: readonly {
     name: "Muhammad Usman",
     initials: "MU",
     title: "Co-founder",
+    credential: "PharmD",
     intro:
       "Doctor of Pharmacy (PharmD) and entrepreneur, turning ambitious ideas into meaningful results.",
   },

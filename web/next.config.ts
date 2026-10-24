@@ -47,7 +47,7 @@ const securityHeaders = [
     key: "Strict-Transport-Security",
     value: "max-age=63072000; includeSubDomains",
     // NOTE: add `; preload` and submit to hstspreload.org only after
-    //       30 days of clean HTTPS operation per WebSiteDoc/02-technical-requirements.md §7.1.
+    //       30 days of clean HTTPS operation per WebSiteDoc/Requirements/02-technical-requirements.md §7.1.
   },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },

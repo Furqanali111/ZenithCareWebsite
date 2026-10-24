@@ -41,6 +41,12 @@ import ProviderCredentialingGuide, {
 import ReduceClaimDenials, {
   frontmatter as claimDenialsFm,
 } from "./posts/reduce-claim-denials.mdx";
+import Cpt99490DocChecklist, {
+  frontmatter as cpt99490DocChecklistFm,
+} from "./posts/cpt-99490-documentation-checklist.mdx";
+import Cpt99426Pcm, {
+  frontmatter as cpt99426PcmFm,
+} from "./posts/cpt-99426-99427-pcm-time-requirements.mdx";
 
 /**
  * The one-sentence rule: every blog post is listed here as a static
@@ -63,6 +69,8 @@ export type PostFrontmatter = {
   tags: string[];
   readingMinutes: number;
   coverImage?: string; // local /public path, e.g. "/resources/<slug>.jpg"
+  /** Optional visible FAQ block + FAQPage JSON-LD. Answers must restate the article. */
+  faqs?: { question: string; answer: string }[];
 };
 
 export type Post = PostFrontmatter & {
@@ -85,6 +93,8 @@ const POSTS: Post[] = [
   { ...(tcmGuideFm as PostFrontmatter), Component: TransitionalCareManagementGuide },
   { ...(credentialingGuideFm as PostFrontmatter), Component: ProviderCredentialingGuide },
   { ...(claimDenialsFm as PostFrontmatter), Component: ReduceClaimDenials },
+  { ...(cpt99490DocChecklistFm as PostFrontmatter), Component: Cpt99490DocChecklist },
+  { ...(cpt99426PcmFm as PostFrontmatter), Component: Cpt99426Pcm },
 ];
 
 /** All posts, newest first by publishedAt. */

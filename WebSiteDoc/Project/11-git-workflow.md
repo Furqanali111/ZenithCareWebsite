@@ -142,7 +142,7 @@ Reason: subject-only commits read cleanly in `git log --oneline`, release notes,
 
 ## 6. PR template
 
-The template lives at [`.github/PULL_REQUEST_TEMPLATE.md`](../.github/PULL_REQUEST_TEMPLATE.md) at the repo root — GitHub auto-fills every new PR with it. **Do not improvise a different structure in PR bodies.** The reason: PR bodies are what we read months from now to understand why a change landed on `develop`. A standard shape makes that fast.
+The template lives at [`.github/PULL_REQUEST_TEMPLATE.md`](../../.github/PULL_REQUEST_TEMPLATE.md) at the repo root — GitHub auto-fills every new PR with it. **Do not improvise a different structure in PR bodies.** The reason: PR bodies are what we read months from now to understand why a change landed on `develop`. A standard shape makes that fast.
 
 Every PR body must have exactly these five sections, in this order:
 
@@ -150,7 +150,7 @@ Every PR body must have exactly these five sections, in this order:
 2. **Why** — the problem it solves or the goal it serves.
 3. **How** — approach, key decisions, trade-offs. Omit only if the diff is self-explanatory.
 4. **Scope** — ticked checklist of what the PR touches (pages, components, content, SEO, legal, theming, CI, deps, docs).
-5. **Checklist** — ticked verification boxes (rebased, lint, build, no console errors, env docs, no PHI/secrets, docs updated, `WebSiteDoc/PROGRESS.md` updated).
+5. **Checklist** — ticked verification boxes (rebased, lint, build, no console errors, env docs, no PHI/secrets, docs updated, `WebSiteDoc/Project/PROGRESS.md` updated).
 
 Not allowed in PR bodies:
 - Phases, days, or sprint numbers (e.g. "Phase 1 Day 2") — PRs stand on their own, not on a plan the future reader doesn't have.

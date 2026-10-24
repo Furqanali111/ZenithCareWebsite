@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { pageMetadata, JsonLd, articleLd, breadcrumbLd } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { BrandFigure } from "@/components/brand-figure";
+import { FaqSection } from "@/components/faq-section";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
@@ -133,6 +134,8 @@ export default async function PostPage({
           <Component />
         </div>
       </article>
+
+      {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" /> : null}
 
       {/* ─── Author bio ─────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">

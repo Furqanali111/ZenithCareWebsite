@@ -47,7 +47,7 @@ ZenithCareWebsite/              ← git repo root
 ├── README.md
 ├── .gitignore, .editorconfig
 ├── Doc/                        ← business PDFs
-├── WebSiteDoc/                 ← planning docs (this file lives here)
+├── WebSiteDoc/                 ← planning docs (specs live in Requirements/)
 └── web/                        ← Next.js app
     ├── app/
     │   ├── (marketing)/        # /, services, who-we-serve, roi, about, hipaa, resources, faq, contact

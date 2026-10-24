@@ -7,7 +7,7 @@ A catalog of things the code already references but whose target doesn't exist y
 
 > **Rule for every session**: if a ponytail-review (or any skill) suggests *removing* a reference because the target is missing — e.g. "the Organization JSON-LD points at `/logo.png` which 404s, drop the `logo` field" — do **not** remove it. Add the target to the right section below instead. Removing the reference costs us the day the asset lands.
 >
-> This rule is also pinned in [`CLAUDE.md`](../CLAUDE.md) and [`12-claude-requirements.md`](12-claude-requirements.md) §3.
+> This rule is also pinned in [`CLAUDE.md`](../../CLAUDE.md) and [`12-claude-requirements.md`](12-claude-requirements.md) §3.
 
 ---
 
@@ -37,6 +37,8 @@ In `web/.env.local` (gitignored) for local work; set in Vercel project settings 
 | Var | Needed for | Current state |
 |---|---|---|
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | floating WhatsApp button + `/contact` WhatsApp CTA (both hide themselves when unset) | not set |
+| `NEXT_PUBLIC_EIN` | footer and About "Company information" via `site.ein` (renders only when set) | not set, waiting for the IRS EIN |
+| `NEXT_PUBLIC_CONTACT_PHONE` | footer and `/contact` via `site.phone` (renders only when set) | not set, no business line yet |
 | `NEXT_PUBLIC_CALENDLY_URL` | `/contact` "Book a 15-min call" button (hidden when unset) | not set — depends on Calendly event being published |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible analytics (script loads only on Production domain + env set) | not set — depends on Plausible site being created |
 | `NEXT_PUBLIC_SITE_URL` | canonical URL for OG, sitemap, JSON-LD | default is production domain; override only for staging |
