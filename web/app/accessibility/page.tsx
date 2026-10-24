@@ -15,6 +15,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Zenith Care Solutions' commitment to WCAG 2.1 AA accessibility, what we do, how to report an issue, and how we handle third-party embeds.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function AccessibilityPage() {

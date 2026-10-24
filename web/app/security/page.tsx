@@ -12,6 +12,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "How this website protects visitors, what data it collects (none that is PHI), and the regulatory status of Zenith Care Solutions.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function SecurityPage() {
@@ -39,7 +40,7 @@ export default function SecurityPage() {
         <h2>What this website collects</h2>
         <ul>
           <li>Business contact details you choose to send: name, practice, NPI, EHR, state, panel size, and your message.</li>
-          <li>Basic visit statistics through website analytics. See the <Link href="/privacy">Privacy Policy</Link>.</li>
+          <li>Basic visit statistics and contact-link clicks through Google Analytics. See the <Link href="/privacy">Privacy Policy</Link>.</li>
           <li><strong>No patient information.</strong> The contact form warns visitors and checks for patterns that look like patient identifiers before it sends.</li>
           <li><strong>No payment details.</strong> Nothing is paid on this website. Invoices are paid by bank transfer or a payment link sent by email, so card and bank numbers never pass through our pages.</li>
         </ul>
@@ -47,7 +48,7 @@ export default function SecurityPage() {
         <h2>Third-party services</h2>
         <p>
           The site uses Vercel (hosting), Formspree (contact form), Calendly
-          (booking), WhatsApp (messaging link) and website analytics. Each has
+          (booking), WhatsApp (messaging link) and Google Analytics. Each has
           its own security and privacy terms.
         </p>
 

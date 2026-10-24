@@ -12,6 +12,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "When a practice can cancel a Zenith Care Solutions service, how notice works, and when a pro-rata refund is available.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function RefundPolicyPage() {

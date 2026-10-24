@@ -15,6 +15,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Zenith Care Solutions' formal HIPAA Business Associate posture, BAAs, safeguards, Minimum Necessary, breach notification.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function HipaaStatementPage() {

@@ -22,6 +22,19 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-10-25 — `feature/payment-qa-fixes`
+Payment-approval QA pass on /pricing, /how-it-works, /refund-policy, /service-delivery, /complaints, /security (plus /privacy and /terms). Legal name, Filing ID, formation date and address match the Wyoming filing record. All 42 internal links return 200. axe-core found no violations on the six pages; a computed colour-contrast check passed in light and dark mode.
+
+**Fixed**
+- **Privacy Policy said analytics were cookieless (Plausible) and that no cookies are used for tracking, but the site runs Google Analytics 4.** Privacy, Security and Terms now name Google Analytics 4 and describe its cookies. Needs attorney review.
+- **No og:image on 8 pages** (pricing, how-it-works, policies, security, terms, privacy): `pageMetadata` now falls back to the root `/opengraph-image`.
+- **Floating WhatsApp button sat outside any landmark** (axe `region`): wrapped in an `aside`.
+
+**Still open (needs owner input)**
+- /pricing shows no USD amounts (per-practice proposals); real prices in `lib/pricing.ts`.
+- Phone number and EIN not set; `logo.png` missing for Organization JSON-LD (see `13-deferred-items.md`).
+- Decide whether a cookie banner is needed for Google Analytics (attorney).
+
 ### 2026-10-11 — PR #19 (awaiting push) — `feature/final-qa`
 Final quality-assurance pass: responsive testing across 8 viewports, mobile/tablet layout fixes, accessibility verification, functionality checks. Tested live in the in-app Chromium browser at 320 / 768 / 1024 / 1920 (375 / 390 / 430 inherit the 320 mobile layout; 1366 sits between two verified-clean widths).
 
@@ -191,9 +204,8 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 Pulled from [`WebSiteDoc/Requirements/06-implementation-plan.md`](../Requirements/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
 1. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-2. **Payment-approval QA pass** — accessibility review and on-page SEO check on /pricing, /how-it-works, /refund-policy, /service-delivery, /complaints and /security; crawl for broken links; confirm legal name, address, founders and services match the bank application.
-3. **Search performance plan (open items)** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): request indexing for the 20 pages not yet indexed, GA4 internal traffic filter, one new article every 2 weeks, outreach and backlinks.
-4. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
+2. **Search performance plan (open items)** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): request indexing for the 20 pages not yet indexed, GA4 internal traffic filter, one new article every 2 weeks, outreach and backlinks.
+3. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
 
 ---
 

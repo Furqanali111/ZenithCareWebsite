@@ -13,6 +13,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "How Zenith Care Solutions prices care management, revenue cycle management and virtual staffing, what is included, and how billing works.",
   path: PATH,
+  rootOgImage: true,
 });
 
 export default function PricingPage() {
