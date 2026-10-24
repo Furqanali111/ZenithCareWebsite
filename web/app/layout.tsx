@@ -5,6 +5,7 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { ConversionTracking } from "@/components/conversion-tracking";
 import { ThemeProvider } from "@/components/theme-provider";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -103,6 +104,7 @@ export default function RootLayout({
             <Script id="ga4-init" strategy="afterInteractive">
               {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
             </Script>
+            <ConversionTracking />
           </>
         ) : null}
         <ThemeProvider
