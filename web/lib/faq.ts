@@ -1,7 +1,7 @@
 import faqJson from "@/content/faq.json";
 
 /**
- * Shape of a single FAQ entry, mirrored from WebSiteDoc/05-data-schema.md §3
+ * Shape of a single FAQ entry, mirrored from WebSiteDoc/Requirements/05-data-schema.md §3
  * and content/faq.json. Kept narrow on purpose, add fields only when a
  * component actually needs them.
  */

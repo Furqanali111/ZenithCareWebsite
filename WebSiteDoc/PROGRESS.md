@@ -8,7 +8,7 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 > New session? Also open:
 > - [`../CLAUDE.md`](../CLAUDE.md) — pinned project context
 > - [`12-claude-requirements.md`](12-claude-requirements.md) — session playbook
-> - [`06-implementation-plan.md`](06-implementation-plan.md) — the full phase plan
+> - [`06-implementation-plan.md`](Requirements/06-implementation-plan.md) — the full phase plan
 
 ---
 
@@ -188,7 +188,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 ## Up next (ordered)
 
-Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
+Pulled from [`WebSiteDoc/Requirements/06-implementation-plan.md`](WebSiteDoc/Requirements/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
 1. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
 2. **Payment-approval QA pass** — accessibility review and on-page SEO check on /pricing, /how-it-works, /refund-policy, /service-delivery, /complaints and /security; crawl for broken links; confirm legal name, address, founders and services match the bank application.

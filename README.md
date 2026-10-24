@@ -18,7 +18,8 @@ Marketing website and (future) client-facing services for Zenith Care Solutions 
 ├── .editorconfig
 ├── Doc/                   ← business reference PDFs (do not edit)
 ├── WebSiteDoc/            ← all project docs (planning, progress, audits)
-│   ├── 01..14-*.md        ← numbered planning/requirements docs
+│   ├── Requirements/      ← 01..06 product, technical, flow, design, data and build-plan specs
+│   ├── 07..14-*.md        ← SEO, legal, launch, git, Claude and go-live docs
 │   ├── PROGRESS.md        ← progress journal (update per PR)
 │   ├── PROJECT_HANDOFF.md ← full project handoff
 │   └── Content/           ← source content PDFs + XLSX
