@@ -191,7 +191,9 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 Pulled from [`WebSiteDoc/06-implementation-plan.md`](WebSiteDoc/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
 1. **Phase 4 polish** — Lighthouse ≥ 95 everywhere, axe clean, keyboard + screen reader audit, UptimeRobot, HSTS preload submission (after 30 days clean).
-2. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
+2. **Payment-approval QA pass** — accessibility review and on-page SEO check on /pricing, /how-it-works, /refund-policy, /service-delivery, /complaints and /security; crawl for broken links; confirm legal name, address, founders and services match the bank application.
+3. **Search performance plan** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): GA4 key events, 4 unindexed URLs, two new CPT articles, TCM and RTM title fixes.
+4. **Launch** — [`WebSiteDoc/10-launch-checklist.md`](WebSiteDoc/10-launch-checklist.md).
 
 ---
 
