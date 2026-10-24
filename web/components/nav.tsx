@@ -1,23 +1,18 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
-import { Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { MobileMenu } from "@/components/mobile-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { nav, serviceNavItems, site } from "@/lib/site";
-import { servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
+import { nav, site } from "@/lib/site";
+import { services, servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
+
+// Flat services list for the mobile menu, derived from the service registry so
+// it never drifts. Built here (server) so the registry stays out of client JS.
+const serviceNavItems = [
+  { label: "All services", href: "/services" },
+  ...services.map((s) => ({ label: s.name, href: `/services/${s.slug}` })),
+];
 
 export function Nav() {
-  const [open, setOpen] = useState(false);
-
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-6 px-6">
@@ -68,50 +63,11 @@ export function Nav() {
         </nav>
 
         {/* Mobile + tablet trigger (below lg) */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <div className="flex items-center gap-1 lg:hidden">
-            <ThemeToggle className="size-11 min-h-[44px] min-w-[44px]" />
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="size-11 min-h-[44px] min-w-[44px]"
-                aria-label="Open navigation menu"
-              >
-                <Menu className="size-5" />
-              </Button>
-            </SheetTrigger>
-          </div>
-          <SheetContent side="right" className="w-80">
-            <SheetHeader>
-              <SheetTitle className="font-serif text-base">
-                {site.name}
-              </SheetTitle>
-            </SheetHeader>
-            <nav
-              aria-label="Mobile"
-              className="mt-6 flex flex-col gap-1 px-4"
-            >
-              <MobileGroup label="Services" items={serviceNavItems} close={() => setOpen(false)} />
-              <MobileGroup label="Who We Serve" items={nav.whoWeServe} close={() => setOpen(false)} />
-              {nav.main.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-md px-2 py-2 text-sm font-medium hover:bg-muted"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <Button asChild className="mt-4 h-10 text-sm">
-                <Link href="/contact" onClick={() => setOpen(false)}>
-                  Book a call
-                </Link>
-              </Button>
-            </nav>
-          </SheetContent>
-        </Sheet>
+        <MobileMenu
+          services={serviceNavItems}
+          whoWeServe={nav.whoWeServe}
+          main={nav.main}
+        />
       </div>
     </header>
   );
@@ -268,46 +224,6 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function MobileGroup({
-  label,
-  items,
-  close,
-}: {
-  label: string;
-  items: readonly Item[];
-  close: () => void;
-}) {
-  if (items.length === 1) {
-    const only = items[0];
-    return (
-      <Link
-        href={only.href}
-        onClick={close}
-        className="rounded-md px-2 py-2 text-sm font-medium hover:bg-muted"
-      >
-        {label}
-      </Link>
-    );
-  }
-  return (
-    <div className="mb-2">
-      <div className="px-2 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        {label}
-      </div>
-      {items.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          onClick={close}
-          className="block rounded-md px-2 py-2 text-sm hover:bg-muted"
-        >
-          {item.label}
-        </Link>
-      ))}
     </div>
   );
 }

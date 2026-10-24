@@ -171,6 +171,20 @@ Each entry has the same shape: **what / why / how / env var / where in Vercel**.
 - **Env var**: none (the LinkedIn URL is a code constant in `web/lib/site.ts`, not an env).
 - **Where in Vercel**: n/a.
 
+### 2.11 UptimeRobot: uptime monitoring
+
+- **What**: a free service that checks the site every 5 minutes and emails you if it goes down.
+- **Why**: Phase 4 launch item. A broken deploy or expired domain should not be found by a customer first.
+- **How** (needs your account, so this part is yours):
+  1. [uptimerobot.com](https://uptimerobot.com) → register (free plan: 50 monitors, 5 minute checks).
+  2. **Add monitor** → type **HTTP(s)** → name `Zenith home` → URL `https://thezcs.com/` → interval 5 minutes.
+  3. **Add monitor** → type **Keyword** → URL `https://thezcs.com/contact` → keyword `Zenith Care Solutions`, alert when the keyword is **missing**. This catches a blank or error page that still returns 200.
+  4. **Add monitor** → HTTP(s) → `https://thezcs.com/sitemap.xml`, so a broken sitemap is noticed before Google does.
+  5. Alert contact: your email (and optionally WhatsApp via their integrations). Confirm the verification email.
+  6. Optional: create a public status page. Not needed at this size.
+- **Env var**: none.
+- **Check it works**: pause a monitor and confirm you get the "paused" email, then resume.
+
 ---
 
 ## 3. Vercel — environment variables cheat-sheet

@@ -3,6 +3,7 @@ import { Phone, Mail, Clock, CalendarCheck } from "lucide-react";
 import { site, socials } from "@/lib/site";
 import { servicesByCategory, categoryMeta } from "@/lib/services";
 import { ContactEmailLink } from "@/components/contact-email-link";
+import { getServiceContacts } from "@/lib/service-contact";
 
 type Item = { label: string; href: string };
 
@@ -223,7 +224,7 @@ function ContactColumn() {
             className="mt-0.5 size-4 shrink-0 text-[color:var(--color-gold-500)]"
             aria-hidden="true"
           />
-          <ContactEmailLink className="min-w-0 break-words transition-colors hover:text-brand-accent" />
+          <ContactEmailLink contacts={getServiceContacts()} className="min-w-0 break-words transition-colors hover:text-brand-accent" />
         </li>
         {site.hours ? (
           <li className="flex items-start gap-2.5">

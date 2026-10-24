@@ -22,6 +22,26 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-10-25 — `feature/tighten-csp`
+CSP review. `script-src` and `style-src` keep `'unsafe-inline'`: every prerendered page has inline scripts that differ per page and the CSS is inlined, so a fixed header cannot hash them, and nonces would make every page dynamic. Tightened instead: removed the unused Vercel hosts (`va.vercel-scripts.com`, `vitals.vercel-insights.com`, `vercel.live`) and added `script-src-attr 'none'` (no inline event handlers exist). Verified on a production build with Google Analytics, the Calendly widget and the nav: no CSP violations. Also added the UptimeRobot setup to `14-go-live-accounts.md` (section 2.11) and `screen-reader-test-script.md` for the NVDA and VoiceOver pass.
+
+**Sitemap resubmitted** in Search Console and **54 URLs sent to IndexNow** (Bing, Yandex and others). Google's "Request indexing" button has no API, so that stays manual.
+
+### 2026-10-25 — `feature/ccm-vendor-guide`
+Week 9 content item. New article `/resources/how-to-choose-a-ccm-vendor`: four program models, an illustrative fee comparison (labelled hypothetical), 12 questions to ask every vendor, red flags, and how Zenith differs. ChartSpan's own pages are script-rendered and could not be verified, so the guide names it only as a vendor the reader may be comparing and makes no claims about it. FAQ schema, cover image (Unsplash), tag `ccm` so it shows on the CCM service page.
+
+### 2026-10-25 — `feature/cut-client-js`
+Cut the JavaScript every page downloads. Two findings from the bundle analysis: (1) `lib/site.ts` imported the whole service registry (all service page copy), so every client component that used `site` shipped it, 53 KB raw on every page; (2) the desktop menus are pure CSS (`group-hover` and `focus-within`) but lived inside a client component together with the mobile slide-out menu.
+
+**Changes**
+- `lib/site.ts` no longer imports the registry (`serviceNavItems` moved into the server-rendered `Nav`).
+- `Nav` is a server component. The mobile menu is split into `mobile-menu.tsx` (button) and `mobile-sheet.tsx` (slide-out), loaded on first tap and preloaded on hover, focus or touch of the button.
+- `WhatsAppButton` and `ContactEmailLink` get a small per-service map (`lib/service-contact.ts`, built on the server) instead of importing the registry.
+
+**Local mobile Lighthouse (production build, same machine, before to after):** home 88 to 90, pricing 92 to 94, CCM service page 88 to 90, FAQ 92 to 93. Initial JavaScript 208 to 181 KB on home (215 to 183 on pricing). Home page script files in the HTML went from 721 KB to 643 KB raw.
+
+**Still open:** mobile Performance is 90 to 94, not 95. What is left is mostly the React and Next runtime (react-dom 223 KB raw, Next client 160 KB raw), which cannot be lazy-loaded.
+
 ### 2026-10-25 — `feature/css-only-reveals`
 Replaced the `motion` animation library with CSS scroll-driven reveals. `components/reveal.tsx` is now a plain server component (same props) and `.reveal-in` in `globals.css` does the fade and lift with `animation-timeline: view()`. Browsers without it, and reduced-motion users, see the content with no animation. `motion` and its three sub-packages are out of the bundle.
 
@@ -230,7 +250,7 @@ Dark mode shipped in this PR (reversing an earlier decision to defer): `next-the
 
 Pulled from [`WebSiteDoc/Requirements/06-implementation-plan.md`](../Requirements/06-implementation-plan.md) Phase 1 Days 3–5 and Phase 2.
 
-1. **Phase 4 polish (remaining)** — mobile Lighthouse Performance from 88 to 92 up to 95 (trim font files and weights), real screen-reader pass (NVDA or VoiceOver), UptimeRobot, HSTS preload submission (after 30 days clean).
+1. **Phase 4 polish (remaining)** — mobile Lighthouse Performance from 90 to 94 up to 95 (only the React and Next runtime is left; fonts were tested and are not the cause), run `screen-reader-test-script.md` (NVDA or VoiceOver), set up UptimeRobot (runbook in 14-go-live-accounts.md 2.11), HSTS preload submission (after 30 days clean).
 2. **Search performance plan (open items)** — [`WebSiteDoc/SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md`](../SEO/SEARCH_PERFORMANCE_PLAN_OCT_2026.md): request indexing for the 20 pages not yet indexed, GA4 internal traffic filter, one new article every 2 weeks, outreach and backlinks.
 3. **Launch** — [`WebSiteDoc/Project/10-launch-checklist.md`](10-launch-checklist.md).
 

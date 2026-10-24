@@ -47,6 +47,9 @@ import Cpt99490DocChecklist, {
 import Cpt99426Pcm, {
   frontmatter as cpt99426PcmFm,
 } from "./posts/cpt-99426-99427-pcm-time-requirements.mdx";
+import HowToChooseCcmVendor, {
+  frontmatter as chooseVendorFm,
+} from "./posts/how-to-choose-a-ccm-vendor.mdx";
 
 /**
  * The one-sentence rule: every blog post is listed here as a static
@@ -95,6 +98,7 @@ const POSTS: Post[] = [
   { ...(claimDenialsFm as PostFrontmatter), Component: ReduceClaimDenials },
   { ...(cpt99490DocChecklistFm as PostFrontmatter), Component: Cpt99490DocChecklist },
   { ...(cpt99426PcmFm as PostFrontmatter), Component: Cpt99426Pcm },
+  { ...(chooseVendorFm as PostFrontmatter), Component: HowToChooseCcmVendor },
 ];
 
 /** All posts, newest first by publishedAt. */
