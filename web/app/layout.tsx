@@ -6,6 +6,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { ConversionTracking } from "@/components/conversion-tracking";
+import { getServiceContacts } from "@/lib/service-contact";
 import { ThemeProvider } from "@/components/theme-provider";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -124,7 +125,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <WhatsAppButton />
+          <WhatsAppButton contacts={getServiceContacts()} />
         </ThemeProvider>
       </body>
     </html>
