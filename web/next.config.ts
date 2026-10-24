@@ -78,6 +78,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // Inline the (small) stylesheet so it stops blocking first paint on mobile.
+  experimental: { inlineCss: true },
   // Hide the Next.js dev-tools indicator (dev-only; never rendered in prod).
   devIndicators: false,
   // Treat .md and .mdx files alongside .tsx as pages/components.
