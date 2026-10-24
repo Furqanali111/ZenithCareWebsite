@@ -16,7 +16,7 @@ Tick top-to-bottom before flipping DNS. Nothing on this list is optional.
 - [ ] Calendly account created, "15-min CCM discovery" event type live
 - [ ] WhatsApp Business number ready; prefilled `wa.me/` link tested
 - [ ] Formspree account created, form endpoint ID in Vercel env vars
-- [ ] Plausible / Umami account created, domain registered
+- [x] Google Analytics 4 property created
 - [ ] GitHub repo private, main branches protected (see `11-git-workflow.md`)
 - [ ] Vercel project linked to GitHub repo
 - [ ] LinkedIn Company Page published with logo, cover image, description
@@ -71,7 +71,7 @@ Tick top-to-bottom before flipping DNS. Nothing on this list is optional.
 - [ ] Submit `sitemap.xml` to Google Search Console
 - [ ] Submit `sitemap.xml` to Bing Webmaster Tools
 - [ ] Verify ownership of `zenithcaresolutions.com` in both consoles
-- [ ] Verify Plausible / Umami is receiving pageviews
+- [ ] Verify GA4 Realtime is receiving pageviews
 - [ ] Verify Vercel Analytics is receiving Web Vitals
 - [ ] Smoke-test one more time from a fresh browser (not your dev machine)
 - [ ] Smoke-test from a mobile device on cellular (not office Wi-Fi)
@@ -89,7 +89,7 @@ Tick top-to-bottom before flipping DNS. Nothing on this list is optional.
 
 ## Day +30 review
 
-- [ ] Review Plausible: top entry pages, bounce rate, referrer mix
+- [ ] Review GA4: top entry pages, bounce rate, referrer mix
 - [ ] Review Search Console: impressions, clicks, average position, queries
 - [ ] Review Formspree + Calendly: inbound volume vs. target
 - [ ] Review axe + Lighthouse again (any regressions from new content?)
