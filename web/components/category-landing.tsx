@@ -10,6 +10,14 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ServiceGrid } from "@/components/service-grid";
 import { servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
 import { categoryContent } from "@/lib/categories";
+import { CPT_BASE } from "@/lib/cpt-codes";
+import { DENIAL_BASE } from "@/lib/denial-codes";
+
+// Silo: each hub links down to its own code guide (virtual staffing has none).
+const CODE_GUIDE: Partial<Record<ServiceCategory, { href: string; label: string }>> = {
+  rpm: { href: CPT_BASE, label: "Browse the CPT code guide" },
+  rcm: { href: DENIAL_BASE, label: "Browse the claim denial code guide" },
+};
 
 /**
  * Category landing page (hub) shared by /care-management,
@@ -74,6 +82,18 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
             </p>
           </Reveal>
           <ServiceGrid services={services} />
+          {CODE_GUIDE[category] ? (
+            <p className="mt-8 text-sm text-muted-foreground">
+              Need the detail?{" "}
+              <Link
+                href={CODE_GUIDE[category]!.href}
+                className="font-medium text-brand-accent hover:underline"
+              >
+                {CODE_GUIDE[category]!.label}
+              </Link>
+              .
+            </p>
+          ) : null}
         </div>
       </section>
 

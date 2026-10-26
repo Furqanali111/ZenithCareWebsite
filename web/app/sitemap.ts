@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { site, specialties } from "@/lib/site";
 import { getServiceSlugs } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
+import { CPT_BASE, cptCodes, cptPath } from "@/lib/cpt-codes";
+import { DENIAL_BASE, denialCodes, denialPath } from "@/lib/denial-codes";
 
 /**
  * All indexable public routes. Keep in sync as pages are added.
@@ -53,6 +55,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...STATIC_PATHS,
     ...getServiceSlugs().map((slug) => `/services/${slug}`),
     ...specialties.map((s) => `/who-we-serve/${s}`),
+    CPT_BASE,
+    ...cptCodes.map((c) => cptPath(c.code)),
+    DENIAL_BASE,
+    ...denialCodes.map((d) => denialPath(d.slug)),
   ];
 
   const pages: MetadataRoute.Sitemap = paths.map((p) => ({
