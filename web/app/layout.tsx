@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { ConversionTracking } from "@/components/conversion-tracking";
+import { CookieConsent } from "@/components/cookie-consent";
 import { getServiceContacts } from "@/lib/service-contact";
 import { ThemeProvider } from "@/components/theme-provider";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 /**
- * Google Analytics 4 loads only on the production domain.
+ * Google Analytics 4 loads only on the production domain, and only after the
+ * visitor accepts optional cookies (see CookieConsent).
  *
  * Belt + braces:
  *   - NODE_ENV === "production" rules out `pnpm dev`
@@ -96,18 +96,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background text-foreground">
         <JsonLd data={[organizationLd(), websiteLd()]} />
-        {gaEnabled ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="lazyOnload"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
-            </Script>
-            <ConversionTracking />
-          </>
-        ) : null}
+        <CookieConsent gaId={gaEnabled ? GA_ID : undefined} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

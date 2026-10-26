@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { site } from "@/lib/site";
+import { useConsent } from "@/components/cookie-consent";
 
 /**
  * Calendly's inline widget. Renders nothing when the Calendly URL env is
@@ -19,6 +20,8 @@ export function CalendlyEmbed({ heightPx = 720 }: { heightPx?: number }) {
   const url = site.calendlyUrl;
   const holder = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
+  // Calendly sets third-party cookies, so the widget loads only after consent.
+  const consent = useConsent();
 
   useEffect(() => {
     const el = holder.current;
@@ -40,7 +43,7 @@ export function CalendlyEmbed({ heightPx = 720 }: { heightPx?: number }) {
 
   return (
     <div ref={holder}>
-      {near ? (
+      {near && consent === "granted" ? (
         <>
           <div
             className="calendly-inline-widget w-full rounded-xl overflow-hidden border border-border"

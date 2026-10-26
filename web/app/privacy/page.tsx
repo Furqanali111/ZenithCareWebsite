@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 const PATH = "/privacy";
 const EFFECTIVE_DATE = "2026-10-11";
-const LAST_UPDATED = "2026-10-25";
+const LAST_UPDATED = "2026-10-26";
 // shortcut: contact routes to the primary inbox until role aliases are set
 // up (privacy@) per WebSiteDoc/Project/14-go-live-accounts.md §2.4.
 const PRIVACY_EMAIL = site.email;
@@ -83,9 +83,11 @@ export default function PrivacyPage() {
           </p>
           <ul>
             <li>
-              Pageview and interaction analytics (pages visited, referrer,
-              approximate location, device type, and clicks on our contact
-              links and form submissions) via Google Analytics 4.
+              If you accept optional cookies: pageview and interaction
+              analytics (pages visited, referrer, approximate location,
+              device type, and clicks on our contact links and form
+              submissions) via Google Analytics 4. If you reject them, none
+              of this is collected.
             </li>
             <li>
               Server-side request logs retained by our hosting provider
@@ -94,12 +96,11 @@ export default function PrivacyPage() {
             </li>
           </ul>
           <p>
-            <strong>Cookies.</strong> Google Analytics 4 sets first-party
-            cookies (such as <code>_ga</code>) to tell visits apart and
-            measure traffic. We do not run ad networks or retargeting
-            pixels on the Site. You can block these cookies in your browser
-            settings or with Google&rsquo;s Analytics opt-out browser
-            add-on.
+            <strong>Cookies.</strong> Google Analytics 4 and the Calendly
+            booking widget load only if you accept optional cookies in the
+            banner. We do not run ad networks or retargeting pixels on the
+            Site. You can change your choice at any time. See our{" "}
+            <Link href="/cookies">Cookie Policy</Link>.
           </p>
 
           <h2>How we use information</h2>
@@ -168,8 +169,8 @@ export default function PrivacyPage() {
               3 years thereafter for recordkeeping.
             </li>
             <li>
-              Analytics data: aggregate only; retained indefinitely for
-              trend analysis. No personal identifiers are stored.
+              Analytics data: held by Google Analytics for up to 14 months
+              under our retention setting, then deleted automatically.
             </li>
           </ul>
 
@@ -227,14 +228,21 @@ export default function PrivacyPage() {
             >
               {PRIVACY_EMAIL}
             </Link>
-            . We will respond within the timeframes required by applicable
-            law.
+            , or use our <Link href="/data-request">data access and deletion
+            request page</Link>. We will respond within the timeframes
+            required by applicable law, and within 45 days at most. We do
+            not charge for requests and do not treat you differently for
+            making one.
           </p>
 
           <h2>Children</h2>
           <p>
-            The Site is not directed to children under 13, and we do not
-            knowingly collect personal information from children.
+            The Site is a business service for healthcare providers. It is
+            not directed to children under 13, and we do not knowingly
+            collect personal information from children. Because we never
+            collect children&rsquo;s data, no parental consent flow is
+            needed. If you believe a child sent us information, email us
+            and we will delete it.
           </p>
 
           <h2>International users</h2>
