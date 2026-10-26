@@ -1,11 +1,16 @@
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
+import { CPT_BASE, cptCodes, cptPath } from "@/lib/cpt-codes";
 
 // Service lines, derived from the registry so this never drifts from the
 // pages that exist.
 const SERVICES = services
   .map((s) => `- [${s.name}](${site.url}/services/${s.slug}): ${s.shortDesc}`)
+  .join("\n");
+
+const CPT_PAGES = cptCodes
+  .map((c) => `- [CPT ${c.code}: ${c.shortTitle}](${site.url}${cptPath(c.code)})`)
   .join("\n");
 
 // Static chrome of the file, everything above the auto-generated article
@@ -30,6 +35,8 @@ const HEADER = `# ${site.name}
 - [Home](${site.url}/): overview + revenue math for a typical panel
 - [Services overview](${site.url}/services): all Medicare care-management programs and virtual medical staffing roles
 ${SERVICES}
+- [Care management CPT codes](${site.url}${CPT_BASE}): plain-English guide to CCM, PCM, RPM and TCM billing codes
+${CPT_PAGES}
 - [Who we serve: primary care](${site.url}/who-we-serve/primary-care)
 - [Who we serve: internal medicine](${site.url}/who-we-serve/internal-medicine)
 - [Who we serve: geriatrics](${site.url}/who-we-serve/geriatrics)

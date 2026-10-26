@@ -10,6 +10,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ServiceGrid } from "@/components/service-grid";
 import { servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
 import { categoryContent } from "@/lib/categories";
+import { CPT_BASE } from "@/lib/cpt-codes";
 
 /**
  * Category landing page (hub) shared by /care-management,
@@ -74,6 +75,18 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
             </p>
           </Reveal>
           <ServiceGrid services={services} />
+          {category === "rpm" ? (
+            <p className="mt-8 text-sm text-muted-foreground">
+              Need the billing detail?{" "}
+              <Link
+                href={CPT_BASE}
+                className="font-medium text-brand-accent hover:underline"
+              >
+                Browse the CPT code guide
+              </Link>
+              .
+            </p>
+          ) : null}
         </div>
       </section>
 

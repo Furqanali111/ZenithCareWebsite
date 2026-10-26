@@ -272,7 +272,7 @@ const RPM_SERVICES: Service[] = [
       { icon: "file-signature", title: "Billing-ready records", body: "Reading counts and time logs organized for the month." },
     ],
     billing: [
-      { code: "99453", covers: "Initial device setup & patient education (once per device)", rate: "~$20" },
+      { code: "99453", covers: "Initial device setup & patient education (once per episode of care)", rate: "~$20" },
       { code: "99454", covers: "Device supply, 16+ days of data in 30 days", rate: "~$52/mo" },
       { code: "99445", covers: "New for 2026: device supply, 2-15 days of data", rate: "~$52/mo" },
       { code: "99457", covers: "First 20 min/month of monitoring & management", rate: "~$52" },

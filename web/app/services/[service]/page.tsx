@@ -20,6 +20,7 @@ import {
   SERVICE_TAGS,
 } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
+import { getCpt, cptPath } from "@/lib/cpt-codes";
 
 type Params = { service: string };
 
@@ -352,6 +353,22 @@ function ServiceResources({ slug, name }: { slug: string; name: string }) {
   );
 }
 
+/** Silo link down: "99487 / 99489" -> each code links to its page if one exists. */
+function CodeLinks({ codes }: { codes: string }) {
+  return codes.split(" / ").map((code, i) => (
+    <span key={code}>
+      {i > 0 ? " / " : null}
+      {getCpt(code) ? (
+        <Link href={cptPath(code)} className="underline-offset-2 hover:underline">
+          {code}
+        </Link>
+      ) : (
+        code
+      )}
+    </span>
+  ));
+}
+
 function BillingTable({ service }: { service: Service }) {
   if (!service.billing) return null;
   return (
@@ -377,7 +394,7 @@ function BillingTable({ service }: { service: Service }) {
           {service.billing.map((b) => (
             <tr key={b.code}>
               <td className="whitespace-nowrap px-4 py-3 font-mono text-sm font-medium text-brand-accent">
-                {b.code}
+                <CodeLinks codes={b.code} />
               </td>
               <td className="px-4 py-3 leading-snug">{b.covers}</td>
               <td className="whitespace-nowrap px-4 py-3 text-right font-mono text-sm">
