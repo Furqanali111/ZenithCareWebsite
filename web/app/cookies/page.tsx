@@ -53,7 +53,7 @@ export default function CookiePolicyPage() {
             <strong>Analytics (only if you accept):</strong> Google Analytics 4
             sets first-party cookies such as <code>_ga</code> and{" "}
             <code>_ga_*</code> (up to 2 years) to count visits and see which
-            pages and contact options are used. We turn on IP anonymization.
+            pages and contact options are used. Google Analytics 4 does not store full IP addresses.
             We do not use advertising or retargeting cookies.
           </li>
           <li>
