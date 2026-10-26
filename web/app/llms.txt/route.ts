@@ -2,6 +2,7 @@ import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
 import { CPT_BASE, cptCodes, cptPath } from "@/lib/cpt-codes";
+import { DENIAL_BASE, denialCodes, denialPath } from "@/lib/denial-codes";
 
 // Service lines, derived from the registry so this never drifts from the
 // pages that exist.
@@ -11,6 +12,10 @@ const SERVICES = services
 
 const CPT_PAGES = cptCodes
   .map((c) => `- [CPT ${c.code}: ${c.shortTitle}](${site.url}${cptPath(c.code)})`)
+  .join("\n");
+
+const DENIAL_PAGES = denialCodes
+  .map((d) => `- [${d.code} denial: ${d.shortTitle}](${site.url}${denialPath(d.slug)})`)
   .join("\n");
 
 // Static chrome of the file, everything above the auto-generated article
@@ -37,6 +42,8 @@ const HEADER = `# ${site.name}
 ${SERVICES}
 - [Care management CPT codes](${site.url}${CPT_BASE}): plain-English guide to CCM, PCM, RPM and TCM billing codes
 ${CPT_PAGES}
+- [Claim denial codes](${site.url}${DENIAL_BASE}): plain-English guide to common denial codes and how to fix them
+${DENIAL_PAGES}
 - [Who we serve: primary care](${site.url}/who-we-serve/primary-care)
 - [Who we serve: internal medicine](${site.url}/who-we-serve/internal-medicine)
 - [Who we serve: geriatrics](${site.url}/who-we-serve/geriatrics)

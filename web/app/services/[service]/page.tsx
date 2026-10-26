@@ -20,7 +20,8 @@ import {
   SERVICE_TAGS,
 } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
-import { getCpt, cptPath } from "@/lib/cpt-codes";
+import { getCpt, cptPath, CPT_BASE } from "@/lib/cpt-codes";
+import { DENIAL_BASE } from "@/lib/denial-codes";
 
 type Params = { service: string };
 
@@ -408,36 +409,35 @@ function BillingTable({ service }: { service: Service }) {
   );
 }
 
-const CROSS_LINKS: Record<string, { before: string; href: string; label: string }> = {
+// SILO: every contextual cross-link stays inside the service's own category
+// (care management, revenue cycle, virtual staffing). Cross-silo paths are the
+// global nav, footer, contact CTA and the who-we-serve pages only.
+type CrossLink = {
+  before: string;
+  href: string;
+  label: string;
+  /** Optional second in-silo link rendered as "See also". */
+  extra?: { href: string; label: string };
+};
+
+const DENIAL_LINK = { href: DENIAL_BASE, label: "common claim denial codes" };
+
+const CROSS_LINKS: Record<string, CrossLink> = {
   "chronic-care-management": {
-    before: "Your practice stays the billing provider. For clean claim submission on CCM encounters, Zenith also provides",
-    href: "/services/medical-billing",
-    label: "medical billing support",
-  },
-  "medical-billing": {
-    before: "Zenith also supports practices running",
-    href: "/services/chronic-care-management",
-    label: "care management programs like CCM",
-  },
-  "medical-coding": {
-    before: "We scope coding work at the service level, including",
-    href: "/services/chronic-care-management",
-    label: "CCM coding (99490, 99439)",
-  },
-  "medical-scribe": {
-    before: "Scribes are particularly useful for practices managing",
-    href: "/services/chronic-care-management",
-    label: "CCM documentation requirements",
+    before: "Patients with only one serious condition are often a better fit for",
+    href: "/services/principal-care-management",
+    label: "Principal Care Management",
+    extra: { href: CPT_BASE, label: "CPT code guide for care management" },
   },
   "principal-care-management": {
-    before: "Your practice stays the billing provider for every PCM claim. For clean claim submission, Zenith also provides",
-    href: "/services/medical-billing",
-    label: "medical billing support",
+    before: "Patients with two or more chronic conditions fit",
+    href: "/services/chronic-care-management",
+    label: "Chronic Care Management",
   },
   "remote-patient-monitoring": {
-    before: "RPM pairs well with a dedicated point of contact for device and adherence calls. Zenith also provides",
-    href: "/services/patient-care-coordinator",
-    label: "patient care coordinators",
+    before: "Home readings are most useful alongside monthly coordination from",
+    href: "/services/chronic-care-management",
+    label: "Chronic Care Management",
   },
   "remote-therapeutic-monitoring": {
     before: "RTM shares the same monthly care-coordination model as",
@@ -445,39 +445,56 @@ const CROSS_LINKS: Record<string, { before: string; href: string; label: string 
     label: "Chronic Care Management",
   },
   "transitional-care-management": {
-    before: "TCM's 7- and 14-day follow-up windows are easier to hit with dedicated scheduling support. Zenith also provides",
-    href: "/services/medical-scheduler",
-    label: "remote medical scheduling",
+    before: "After the 30-day TCM period, many patients move into ongoing",
+    href: "/services/chronic-care-management",
+    label: "Chronic Care Management",
+  },
+  "medical-billing": {
+    before: "Billing works hand in hand with",
+    href: "/services/accounts-receivable",
+    label: "AR follow-up on aged claims",
+    extra: DENIAL_LINK,
+  },
+  "medical-coding": {
+    before: "Clean codes lead to cleaner claims, which Zenith also handles through",
+    href: "/services/medical-billing",
+    label: "medical billing",
   },
   "provider-credentialing": {
-    before: "Once a provider is credentialed and billing, many practices start their first",
-    href: "/services/care-management",
-    label: "care management program",
+    before: "Once providers are enrolled, their claims flow through",
+    href: "/services/medical-billing",
+    label: "medical billing",
   },
   "accounts-receivable": {
-    before: "AR follow-up often surfaces denials tied to recurring claims like",
-    href: "/services/chronic-care-management",
-    label: "Chronic Care Management",
+    before: "Preventing denials at the source is the job of",
+    href: "/services/medical-billing",
+    label: "medical billing",
+    extra: DENIAL_LINK,
+  },
+  "medical-scribe": {
+    before: "Scribed notes feed the follow-up work done by a",
+    href: "/services/patient-care-coordinator",
+    label: "patient care coordinator",
   },
   "medical-scheduler": {
-    before: "Scheduling support pairs naturally with structured follow-up programs like",
-    href: "/services/transitional-care-management",
-    label: "Transitional Care Management",
+    before: "Booking and call handling work together with a",
+    href: "/services/medical-receptionist",
+    label: "medical receptionist",
   },
   "medical-receptionist": {
-    before: "Receptionists fielding insurance questions work closely with Zenith's",
-    href: "/services/revenue-cycle-management",
-    label: "revenue cycle management team",
+    before: "Heavy booking workloads are better served by our",
+    href: "/services/medical-scheduler",
+    label: "Medical Scheduler",
   },
   "patient-care-coordinator": {
-    before: "Coordinators frequently support practices already running",
-    href: "/services/chronic-care-management",
-    label: "Chronic Care Management",
+    before: "Pre-visit prep pairs with calendar management from our",
+    href: "/services/medical-scheduler",
+    label: "Medical Scheduler",
   },
   "virtual-assistant": {
-    before: "Virtual assistants often handle the admin side of",
-    href: "/services/revenue-cycle-management",
-    label: "revenue cycle management work",
+    before: "Patient-facing workflows like referrals and authorizations belong to our",
+    href: "/services/patient-care-coordinator",
+    label: "Patient Care Coordinator",
   },
 };
 
@@ -493,6 +510,15 @@ function CrossLinkNote({ slug }: { slug: string }) {
             {cl.label}
           </Link>
           .
+          {cl.extra ? (
+            <>
+              {" "}See also:{" "}
+              <Link href={cl.extra.href} className="font-medium text-brand-accent hover:underline">
+                {cl.extra.label}
+              </Link>
+              .
+            </>
+          ) : null}
         </p>
       </div>
     </section>

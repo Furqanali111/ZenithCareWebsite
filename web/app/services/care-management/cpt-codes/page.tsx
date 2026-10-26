@@ -9,12 +9,12 @@ import { CPT_BASE, cptByProgram, cptPath, programMeta, type CptProgram } from "@
 export const metadata: Metadata = pageMetadata({
   title: "Care Management CPT Codes Guide",
   description:
-    "Plain-English guide to the Medicare CPT codes behind CCM, PCM, RPM and TCM: time thresholds, documentation, 2026 rates and common billing mistakes.",
+    "Plain-English guide to the Medicare CPT codes behind CCM, PCM, RPM, RTM and TCM: time thresholds, documentation, 2026 rates and common billing mistakes.",
   path: CPT_BASE,
   rootOgImage: true,
 });
 
-const PROGRAMS: CptProgram[] = ["ccm", "pcm", "rpm", "tcm"];
+const PROGRAMS: CptProgram[] = ["ccm", "pcm", "rpm", "rtm", "tcm"];
 
 const crumbs = [
   { name: "Home", path: "/" },
@@ -36,7 +36,7 @@ export default function CptCodesIndexPage() {
         secondaryCta={{ label: "Care management programs", href: "/services/care-management" }}
       >
         Time thresholds, documentation and common billing mistakes for the codes
-        behind CCM, PCM, RPM and TCM. Your practice bills these codes; Zenith
+        behind CCM, PCM, RPM, RTM and TCM. Your practice bills these codes; Zenith
         supplies the clinical staff time. Educational summaries, not billing
         advice.
       </PageHero>

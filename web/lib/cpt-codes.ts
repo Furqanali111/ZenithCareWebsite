@@ -19,7 +19,7 @@ import { CPT_RATES } from "./roi";
 
 export const CPT_BASE = "/services/care-management/cpt-codes";
 
-export type CptProgram = "ccm" | "pcm" | "rpm" | "tcm";
+export type CptProgram = "ccm" | "pcm" | "rpm" | "rtm" | "tcm";
 
 /** Program -> the existing /services/<slug> page that parents its codes. */
 export const programMeta: Record<
@@ -29,6 +29,7 @@ export const programMeta: Record<
   ccm: { label: "Chronic Care Management", serviceSlug: "chronic-care-management" },
   pcm: { label: "Principal Care Management", serviceSlug: "principal-care-management" },
   rpm: { label: "Remote Patient Monitoring", serviceSlug: "remote-patient-monitoring" },
+  rtm: { label: "Remote Therapeutic Monitoring", serviceSlug: "remote-therapeutic-monitoring" },
   tcm: { label: "Transitional Care Management", serviceSlug: "transitional-care-management" },
 };
 
@@ -569,6 +570,186 @@ export const cptCodes: readonly CptCodeEntry[] = [
         question: "What changed for short management time in 2026?",
         answer:
           "A newer code, 99470, covers the first 10 minutes and cannot be billed with 99457. Check current rules to see which code fits each patient's month.",
+      },
+    ],
+  },
+
+  /* ------------------------------- RTM ---------------------------------- */
+  {
+    code: "98975",
+    program: "rtm",
+    shortTitle: "RTM device setup",
+    metaDescription:
+      "CPT 98975 explained: the one-time Remote Therapeutic Monitoring setup and patient education code. Requirements, billing limits, 2026 rate and mistakes.",
+    summary:
+      "The one-time RTM code for setting up the monitoring tool and teaching the patient how to use it for therapy, respiratory or pain tracking.",
+    time: "Setup and education, no monthly minute threshold",
+    performer: "Clinical staff, a therapist or the practitioner, as the payer allows",
+    frequency: "Typically once per episode of care; confirm with your MAC",
+    rate: "~$22",
+    requirements: [
+      "An order or plan from the billing practitioner for remote therapeutic monitoring",
+      "Documented patient consent",
+      "A device or software that meets the FDA definition of a medical device",
+      "A record that setup was done and the patient was taught to use the tool",
+    ],
+    pitfalls: [
+      "Billing setup again for a patient already inside an episode of care",
+      "Using an app that does not meet the device definition",
+      "No documented order or consent",
+    ],
+    pairsWith: ["98976", "98977", "98980"],
+    faqs: [
+      {
+        question: "Can 98975 be billed every month?",
+        answer: "No. It is a setup code, usually reported once per episode of care, not monthly.",
+      },
+      {
+        question: "Is RTM software something Zenith sells?",
+        answer:
+          "No. Zenith supplies clinical staff who review the data and contact patients. The monitoring tool is separate, and we confirm the setup with you during scoping.",
+      },
+    ],
+  },
+  {
+    code: "98976",
+    program: "rtm",
+    shortTitle: "RTM respiratory supply",
+    metaDescription:
+      "CPT 98976 explained: the RTM device supply code for respiratory monitoring and its 16-day data rule. Documentation, limits, 2026 rate and mistakes.",
+    summary:
+      "The monthly device-supply code for respiratory system monitoring. It requires data on at least 16 days in a 30-day period.",
+    time: "At least 16 days of data in a 30-day period",
+    performer: "Device supplied and data collected; no staff time threshold",
+    frequency: "Once per 30-day period per patient",
+    rate: "~$47 per month",
+    requirements: [
+      "Setup already documented (98975) and an active RTM order",
+      "A data log showing the days with respiratory data",
+      "Consent on file",
+    ],
+    pitfalls: [
+      "Billing with fewer than 16 data days when a shorter-window code applies",
+      "Billing both a respiratory and a musculoskeletal supply code without separate support",
+    ],
+    pairsWith: ["98975", "98980"],
+    conflicts:
+      "Newer 2026 short-window supply codes cover 2 to 15 days; they are not reported together with this code for the same period.",
+    faqs: [
+      {
+        question: "What if there are fewer than 16 days of respiratory data?",
+        answer:
+          "A newer 2026 supply code covers 2 to 15 days of data. Your billing lead should confirm which code fits each patient's month.",
+      },
+      {
+        question: "How is RTM different from RPM?",
+        answer:
+          "RPM tracks physiologic readings like blood pressure. RTM tracks non-physiologic data such as therapy adherence, pain and function.",
+      },
+    ],
+  },
+  {
+    code: "98977",
+    program: "rtm",
+    shortTitle: "RTM musculoskeletal",
+    metaDescription:
+      "CPT 98977 explained: the RTM device supply code for musculoskeletal monitoring and its 16-day data rule. Documentation, limits, 2026 rate and mistakes.",
+    summary:
+      "The monthly device-supply code for musculoskeletal monitoring such as exercise adherence and pain or range-of-motion tracking. It requires data on at least 16 days in a 30-day period.",
+    time: "At least 16 days of data in a 30-day period",
+    performer: "Device supplied and data collected; no staff time threshold",
+    frequency: "Once per 30-day period per patient",
+    rate: "~$40 per month",
+    requirements: [
+      "Setup already documented (98975) and an active RTM order",
+      "A data log showing the days with musculoskeletal data",
+      "Consent on file",
+    ],
+    pitfalls: [
+      "Billing with fewer than 16 data days when a shorter-window code applies",
+      "Using it for physiologic vitals that belong under RPM",
+    ],
+    pairsWith: ["98975", "98980"],
+    conflicts:
+      "Newer 2026 short-window supply codes cover 2 to 15 days; they are not reported together with this code for the same period.",
+    faqs: [
+      {
+        question: "Which practices commonly use CPT 98977?",
+        answer:
+          "Orthopedics, physical therapy, PM&R and pain management practices, where recovery depends on work done at home between visits.",
+      },
+      {
+        question: "Can therapists bill RTM?",
+        answer:
+          "Yes. Unlike RPM, therapists in private practice can bill RTM codes, subject to payer and state rules.",
+      },
+    ],
+  },
+  {
+    code: "98980",
+    program: "rtm",
+    shortTitle: "RTM management, 20 min",
+    metaDescription:
+      "CPT 98980 explained: RTM treatment management with 20 minutes of time and one live interactive contact. Documentation, rate and common billing mistakes.",
+    summary:
+      "Monthly RTM management time: at least 20 minutes of reviewing data and managing treatment, including one real-time two-way contact with the patient or caregiver.",
+    time: "20 minutes per calendar month with interactive communication",
+    performer: "Clinical staff under direction, or the practitioner or therapist",
+    frequency: "Once per patient per month for the base unit",
+    rate: "Varies by locality",
+    requirements: [
+      "At least one real-time two-way contact with the patient or caregiver in the month",
+      "A time log showing the management minutes",
+      "A note linking the data to the changes made to the treatment plan",
+    ],
+    pitfalls: [
+      "Counting automated reminders as interactive contact",
+      "Logging time with no record of what changed in the plan",
+    ],
+    pairsWith: ["98981", "98976", "98977"],
+    conflicts: "Not reported in the same month as the shorter-time code 98979.",
+    faqs: [
+      {
+        question: "Does an automated message count as interactive communication?",
+        answer: "No. The contact must be real-time and two-way with the patient or caregiver.",
+      },
+      {
+        question: "Can clinical staff perform the 98980 time?",
+        answer:
+          "Yes, under the billing practitioner's direction and within payer and state rules. This is how Zenith staff support RTM programs.",
+      },
+    ],
+  },
+  {
+    code: "98981",
+    program: "rtm",
+    shortTitle: "RTM add-on, extra 20 min",
+    metaDescription:
+      "CPT 98981 explained: the RTM add-on for each additional 20 minutes of treatment management time. Pairing with 98980, documentation and billing mistakes.",
+    summary:
+      "An add-on reported with 98980 for each additional 20 minutes of treatment management time in the same month.",
+    time: "Each additional 20 minutes beyond the first 20",
+    performer: "Clinical staff under direction, or the practitioner or therapist",
+    frequency: "Add-on to 98980; monthly limits apply",
+    rate: "Varies by locality",
+    requirements: [
+      "98980 supported for the same patient and month",
+      "Time log showing minutes beyond the first 20",
+      "Notes showing the added time was real treatment management",
+    ],
+    pitfalls: [
+      "Reporting 98981 without 98980",
+      "Rounding up an incomplete 20-minute block",
+    ],
+    pairsWith: ["98980"],
+    faqs: [
+      {
+        question: "Can 98981 be billed on its own?",
+        answer: "No. It is an add-on and attaches only to 98980 for the same patient and month.",
+      },
+      {
+        question: "Is there a monthly limit on 98981?",
+        answer: "Monthly unit limits apply. Confirm the current count in the Physician Fee Schedule.",
       },
     ],
   },
