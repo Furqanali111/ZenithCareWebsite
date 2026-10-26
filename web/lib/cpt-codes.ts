@@ -584,13 +584,14 @@ export const cptCodes: readonly CptCodeEntry[] = [
     summary:
       "The one-time RTM code for setting up the monitoring tool and teaching the patient how to use it for therapy, respiratory or pain tracking.",
     time: "Setup and education, no monthly minute threshold",
-    performer: "Clinical staff, a therapist or the practitioner, as the payer allows",
+    performer: "The billing practitioner or therapist, or staff under general supervision where incident-to billing applies",
     frequency: "Typically once per episode of care; confirm with your MAC",
     rate: "~$22",
     requirements: [
       "An order or plan from the billing practitioner for remote therapeutic monitoring",
       "Documented patient consent",
       "A device or software that meets the FDA definition of a medical device",
+      "For therapist-billed RTM, a therapy plan of care and the GP, GO or GN modifier",
       "A record that setup was done and the patient was taught to use the tool",
     ],
     pitfalls: [
@@ -634,12 +635,12 @@ export const cptCodes: readonly CptCodeEntry[] = [
     ],
     pairsWith: ["98975", "98980"],
     conflicts:
-      "Newer 2026 short-window supply codes cover 2 to 15 days; they are not reported together with this code for the same period.",
+      "The 2026 short-window respiratory supply code 98984 covers 2 to 15 days; it is not reported together with this code for the same period.",
     faqs: [
       {
         question: "What if there are fewer than 16 days of respiratory data?",
         answer:
-          "A newer 2026 supply code covers 2 to 15 days of data. Your billing lead should confirm which code fits each patient's month.",
+          "The 2026 code 98984 covers 2 to 15 days of data. Your billing lead should confirm which code fits each patient's month.",
       },
       {
         question: "How is RTM different from RPM?",
@@ -671,7 +672,7 @@ export const cptCodes: readonly CptCodeEntry[] = [
     ],
     pairsWith: ["98975", "98980"],
     conflicts:
-      "Newer 2026 short-window supply codes cover 2 to 15 days; they are not reported together with this code for the same period.",
+      "The 2026 short-window musculoskeletal supply code 98985 covers 2 to 15 days; it is not reported together with this code for the same period.",
     faqs: [
       {
         question: "Which practices commonly use CPT 98977?",
@@ -681,7 +682,7 @@ export const cptCodes: readonly CptCodeEntry[] = [
       {
         question: "Can therapists bill RTM?",
         answer:
-          "Yes. Unlike RPM, therapists in private practice can bill RTM codes, subject to payer and state rules.",
+          "Yes. Unlike RPM, therapists can bill RTM, but the service needs a therapy plan of care and the GP, GO or GN modifier. Incident-to staff rules differ for therapists, so confirm payer and state rules.",
       },
     ],
   },
@@ -694,7 +695,7 @@ export const cptCodes: readonly CptCodeEntry[] = [
     summary:
       "Monthly RTM management time: at least 20 minutes of reviewing data and managing treatment, including one real-time two-way contact with the patient or caregiver.",
     time: "20 minutes per calendar month with interactive communication",
-    performer: "Clinical staff under direction, or the practitioner or therapist",
+    performer: "The billing practitioner or therapist, or staff under general supervision where incident-to billing applies",
     frequency: "Once per patient per month for the base unit",
     rate: "Varies by locality",
     requirements: [
@@ -707,7 +708,7 @@ export const cptCodes: readonly CptCodeEntry[] = [
       "Logging time with no record of what changed in the plan",
     ],
     pairsWith: ["98981", "98976", "98977"],
-    conflicts: "Not reported in the same month as the shorter-time code 98979.",
+    conflicts: "Not reported in the same month as 98979, the 2026 code for the first 10 minutes of management.",
     faqs: [
       {
         question: "Does an automated message count as interactive communication?",
@@ -716,7 +717,7 @@ export const cptCodes: readonly CptCodeEntry[] = [
       {
         question: "Can clinical staff perform the 98980 time?",
         answer:
-          "Yes, under the billing practitioner's direction and within payer and state rules. This is how Zenith staff support RTM programs.",
+          "Since 2023, CMS allows general supervision for RTM where incident-to billing applies, such as physician, NP and PA practices. Therapist practices generally cannot use incident-to, so the therapist or a supervised assistant must furnish it.",
       },
     ],
   },
@@ -729,7 +730,7 @@ export const cptCodes: readonly CptCodeEntry[] = [
     summary:
       "An add-on reported with 98980 for each additional 20 minutes of treatment management time in the same month.",
     time: "Each additional 20 minutes beyond the first 20",
-    performer: "Clinical staff under direction, or the practitioner or therapist",
+    performer: "The billing practitioner or therapist, or staff under general supervision where incident-to billing applies",
     frequency: "Add-on to 98980; monthly limits apply",
     rate: "Varies by locality",
     requirements: [

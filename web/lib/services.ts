@@ -277,7 +277,7 @@ const RPM_SERVICES: Service[] = [
       { code: "99445", covers: "New for 2026: device supply, 2-15 days of data", rate: "~$52/mo" },
       { code: "99457", covers: "First 20 min/month of monitoring & management", rate: "~$52" },
       { code: "99458", covers: "Each additional 20 minutes", rate: "varies" },
-      { code: "99470", covers: "New for 2026: 10-19 minutes of management time", rate: "lower" },
+      { code: "99470", covers: "New for 2026: first 10 minutes of management time", rate: "lower" },
     ],
     revenue: {
       value: "$150-$200+ / mo",
@@ -337,7 +337,7 @@ const RPM_SERVICES: Service[] = [
       { code: "98977", covers: "Musculoskeletal device supply, 16-30 days", rate: "~$40/mo" },
       { code: "98984 / 98985", covers: "New for 2026: short-window supply, 2-15 days", rate: "varies" },
       { code: "98980", covers: "First 20 min/month of treatment management", rate: "varies" },
-      { code: "98981 / 98979", covers: "Additional / lower-threshold (10-19 min) management", rate: "varies" },
+      { code: "98981 / 98979", covers: "Additional 20 min, and the new 2026 first-10-minute code (98979)", rate: "varies" },
     ],
     billingNote:
       "RPM tracks physiological vitals (blood pressure, glucose); RTM tracks therapeutic and functional data (pain, range of motion, adherence), and can be billed by therapists, not just physicians and mid-levels.",

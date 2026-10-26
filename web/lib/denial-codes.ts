@@ -339,7 +339,7 @@ export const denialCodes: readonly DenialCode[] = [
     fixes: [
       "Read the payer's coverage policy for the service and compare it to the chart",
       "Appeal with the visit notes, test results and a short letter tying them to the policy",
-      "Follow the payer's appeal deadline; Medicare redetermination requests are generally due within 120 days of the notice",
+      "Follow the payer's appeal deadline; Medicare redetermination requests are generally due within 120 days of receiving the remittance (receipt is presumed 5 days after its date)",
     ],
     prevention: [
       "Check coverage policies for high-cost or frequent services before they are done",
