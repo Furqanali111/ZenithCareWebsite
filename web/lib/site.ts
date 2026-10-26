@@ -108,6 +108,7 @@ export const nav = {
   legal: [
     { label: "Privacy", href: "/privacy" },
     { label: "Terms", href: "/terms" },
+    { label: "Cookies", href: "/cookies" },
     { label: "HIPAA Statement", href: "/hipaa-statement" },
     { label: "Accessibility", href: "/accessibility" },
   ],

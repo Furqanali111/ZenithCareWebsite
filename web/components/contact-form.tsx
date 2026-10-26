@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { track } from "@/components/conversion-tracking";
 import { Button } from "@/components/ui/button";
@@ -209,6 +210,25 @@ export function ContactForm() {
           aria-describedby="contact-no-phi"
         />
       </Field>
+
+      <div className="flex items-start gap-3">
+        <input
+          id="cf-consent"
+          name="consent"
+          type="checkbox"
+          required
+          className="mt-1 size-4 shrink-0 accent-[color:var(--color-brand-700)]"
+        />
+        <label htmlFor="cf-consent" className="text-sm text-body-ink">
+          I agree that Zenith Care Solutions may use these details to reply to
+          my inquiry, as described in the{" "}
+          <Link href="/privacy" className="underline underline-offset-2">
+            Privacy Policy
+          </Link>
+          . I have not included patient information.
+          <span aria-hidden="true" className="ml-1 text-[color:var(--color-error-600)]">*</span>
+        </label>
+      </div>
 
       {status.kind === "phi" ? (
         <div

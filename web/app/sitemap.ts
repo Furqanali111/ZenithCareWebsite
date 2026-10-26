@@ -40,6 +40,8 @@ const STATIC_PATHS = [
   "/service-delivery",
   "/complaints",
   "/privacy",
+  "/cookies",
+  "/data-request",
   "/terms",
   "/hipaa-statement",
   "/accessibility",

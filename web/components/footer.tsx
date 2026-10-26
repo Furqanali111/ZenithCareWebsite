@@ -4,6 +4,7 @@ import { site, socials } from "@/lib/site";
 import { servicesByCategory, categoryMeta } from "@/lib/services";
 import { ContactEmailLink } from "@/components/contact-email-link";
 import { getServiceContacts } from "@/lib/service-contact";
+import { CookieSettingsButton } from "@/components/cookie-consent";
 
 type Item = { label: string; href: string };
 
@@ -32,6 +33,8 @@ const RESOURCE_LINKS: Item[] = [
 const LEGAL_LINKS: Item[] = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
+  { label: "Cookie Policy", href: "/cookies" },
+  { label: "Data Requests", href: "/data-request" },
   { label: "Refund and Cancellation", href: "/refund-policy" },
   { label: "Service Delivery", href: "/service-delivery" },
   { label: "Complaints", href: "/complaints" },
@@ -172,6 +175,9 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <CookieSettingsButton className="transition-colors hover:text-brand-ink" />
+              </li>
             </ul>
           </div>
         </div>
