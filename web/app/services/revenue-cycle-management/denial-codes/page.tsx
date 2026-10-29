@@ -43,7 +43,7 @@ export default function DenialCodesIndexPage() {
               <li key={d.slug}>
                 <Link
                   href={denialPath(d.slug)}
-                  className="spotlight group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                  className="spotlight-edge group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                 >
                   <span className="font-mono text-sm font-medium text-brand-accent">
                     {d.code}

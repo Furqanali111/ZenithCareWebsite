@@ -53,7 +53,7 @@ export function ScrollStack({
             className="scroll-mt-28 lg:sticky lg:mb-[14svh] last:lg:mb-0"
             style={{ top: `calc(7rem + ${i * 1.25}rem)` }}
           >
-            <div className="spotlight rounded-2xl border border-border/70 bg-card p-7 shadow-[var(--shadow-lift)] md:p-9">
+            <div className="spotlight-edge rounded-2xl border border-border/70 bg-card p-7 shadow-[var(--shadow-lift)] md:p-9">
               <p className="font-serif text-4xl font-semibold tabular-nums text-brand-accent">
                 {String(i + 1).padStart(2, "0")}
               </p>

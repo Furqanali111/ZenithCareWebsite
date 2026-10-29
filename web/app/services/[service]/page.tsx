@@ -355,7 +355,7 @@ function ServiceResources({ slug, name }: { slug: string; name: string }) {
             <li key={p.slug}>
               <Link
                 href={`/resources/${p.slug}`}
-                className="spotlight group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                className="spotlight-edge group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
               >
                 <ArrowRight
                   className="mt-0.5 size-4 shrink-0 text-brand-accent transition-transform group-hover:translate-x-0.5"

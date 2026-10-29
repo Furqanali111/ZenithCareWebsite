@@ -50,7 +50,7 @@ export default function ResourcesPage() {
             <li key={post.slug}>
               <Link
                 href={`/resources/${post.slug}`}
-                className="spotlight group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card transition-shadow hover:shadow-[var(--shadow-lift)]"
+                className="spotlight-edge group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card transition-shadow hover:shadow-[var(--shadow-lift)]"
               >
                 {post.coverImage ? (
                   <BrandFigure

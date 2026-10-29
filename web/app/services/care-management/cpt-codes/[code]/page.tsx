@@ -110,7 +110,7 @@ export default async function CptCodePage({
             {facts.map(([k, v]) => (
               <div
                 key={k}
-                className="spotlight rounded-xl border border-border/70 bg-card p-5"
+                className="spotlight-edge rounded-xl border border-border/70 bg-card p-5"
               >
                 <dt className="text-xs font-semibold text-muted-foreground">
                   {k}
@@ -193,7 +193,7 @@ export default async function CptCodePage({
                 <li key={r.code}>
                   <Link
                     href={cptPath(r.code)}
-                    className="spotlight group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="spotlight-edge group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
                     <span className="text-sm font-medium text-brand-accent">
                       CPT {r.code}
@@ -221,7 +221,7 @@ export default async function CptCodePage({
                 <li key={p.slug}>
                   <Link
                     href={`/resources/${p.slug}`}
-                    className="spotlight group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="spotlight-edge group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
                     <ArrowRight
                       className="mt-0.5 size-4 shrink-0 text-brand-accent"

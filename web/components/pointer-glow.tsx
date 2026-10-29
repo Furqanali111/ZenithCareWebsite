@@ -12,7 +12,7 @@ export function PointerGlow() {
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
       if (e.pointerType === "touch") return;
-      const el = (e.target as Element | null)?.closest?.(".spotlight") as HTMLElement | null;
+      const el = (e.target as Element | null)?.closest?.(".spotlight, .spotlight-edge") as HTMLElement | null;
       if (!el) return;
       const r = el.getBoundingClientRect();
       el.style.setProperty("--mx", `${e.clientX - r.left}px`);
