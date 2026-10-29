@@ -45,7 +45,7 @@ export function ServiceCard({
         } ${
           flipped
             ? ""
-            : "shadow-[0_18px_40px_-20px_rgba(11,37,69,0.35)] group-hover:-translate-y-1.5 group-hover:shadow-[0_28px_60px_-24px_rgba(11,37,69,0.5)]"
+            : "shadow-[var(--shadow-float-sm)] group-hover:-translate-y-1.5 group-hover:shadow-[var(--shadow-float-hover)]"
         }`}
       >
         {/* ── Front ── */}
@@ -66,7 +66,7 @@ export function ServiceCard({
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--color-brand-900)]/80 via-[color:var(--color-brand-900)]/20 to-transparent" />
-            <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-accent backdrop-blur">
+            <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand-accent backdrop-blur">
               <span className="text-[color:var(--color-teal-600)]">{icon}</span>
               {label}
             </span>

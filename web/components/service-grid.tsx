@@ -15,7 +15,7 @@ export function ServiceGrid({ services }: { services: Service[] }) {
         <Reveal key={s.slug} delay={(i % 3) * 0.08} className="h-full">
           <Link
             href={`/services/${s.slug}`}
-            className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+            className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
           >
             <h3 className="font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">
               {s.name}

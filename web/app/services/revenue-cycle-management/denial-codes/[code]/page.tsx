@@ -66,7 +66,6 @@ export default async function DenialCodePage({
       <Breadcrumbs items={crumbs} />
 
       <PageHero
-        eyebrow="Revenue Cycle · Denial code"
         title={`${d.code} denial: ${d.shortTitle}`}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "AR follow-up service", href: "/services/accounts-receivable" }}
@@ -150,7 +149,7 @@ export default async function DenialCodePage({
                 <li key={r.slug}>
                   <Link
                     href={denialPath(r.slug)}
-                    className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
                     <span className="font-mono text-sm font-medium text-brand-accent">
                       {r.code}
@@ -177,7 +176,7 @@ export default async function DenialCodePage({
                 <li key={p.slug}>
                   <Link
                     href={`/resources/${p.slug}`}
-                    className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
                     <ArrowRight
                       className="mt-0.5 size-4 shrink-0 text-brand-accent"

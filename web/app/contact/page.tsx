@@ -30,9 +30,6 @@ export default function ContactPage() {
       {/* ─── Hero + three-door CTAs ──────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 pt-24 pb-14 md:pt-32 md:pb-16">
         <div className="max-w-3xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent">
-            Contact
-          </span>
           <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             Book a call or contact us. Pick whichever is easiest.
           </h1>
@@ -124,9 +121,6 @@ export default function ContactPage() {
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">
           <header>
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Or send us a note
-            </span>
             <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Tell us about your panel.
             </h2>
@@ -144,9 +138,6 @@ export default function ContactPage() {
       {hasCalendly ? (
         <section id="calendly" className="mx-auto max-w-5xl px-6 py-20 md:py-24">
           <header className="max-w-2xl">
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Or book directly
-            </span>
             <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Fifteen minutes on the calendar.
             </h2>

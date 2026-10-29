@@ -41,7 +41,6 @@ export default function ServicesOverviewPage() {
       />
 
       <PageHero
-        eyebrow="Services"
         title="Capture unbilled revenue and the admin hours you can't hire for."
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
@@ -77,7 +76,7 @@ export default function ServicesOverviewPage() {
           </Reveal>
           <Reveal delay={0.1} className="mt-8 overflow-x-auto rounded-xl border border-border">
             <table className="w-full min-w-[46rem] text-left text-sm">
-              <thead className="bg-card text-xs uppercase tracking-wide text-muted-foreground">
+              <thead className="bg-card text-xs text-muted-foreground">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold">Program</th>
                   <th scope="col" className="px-4 py-3 font-semibold">Eligibility</th>
@@ -139,7 +138,7 @@ export default function ServicesOverviewPage() {
           </Reveal>
           <Reveal delay={0.1} className="mt-8 overflow-x-auto rounded-xl border border-border">
             <table className="w-full min-w-[48rem] text-left text-sm">
-              <thead className="bg-card text-xs uppercase tracking-wide text-muted-foreground">
+              <thead className="bg-card text-xs text-muted-foreground">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold">Service</th>
                   <th scope="col" className="px-4 py-3 font-semibold">Eligible practices</th>

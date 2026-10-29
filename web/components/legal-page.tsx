@@ -11,13 +11,11 @@ import type { ReactNode } from "react";
  */
 export function LegalPage({
   title,
-  eyebrow = "Legal",
   lastUpdated,
   effectiveDate,
   children,
 }: {
   title: string;
-  eyebrow?: string;
   lastUpdated: string;
   effectiveDate?: string;
   children: ReactNode;
@@ -25,9 +23,6 @@ export function LegalPage({
   return (
     <article className="mx-auto max-w-prose px-6 pt-24 pb-20 md:pt-32 md:pb-24">
       <header>
-        <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-          {eyebrow}
-        </span>
         <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-brand-ink md:text-5xl">
           {title}
         </h1>

@@ -62,7 +62,6 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
       />
 
       <PageHero
-        eyebrow={c.eyebrow}
         title={c.title}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "All services", href: "/services" }}
