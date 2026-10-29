@@ -564,3 +564,27 @@
   --step-idle: var(--dk-step-idle);
   --step-idle-text: var(--dk-step-idle-text);
 }
+
+/* Spotlight card: a soft cyan light under the pointer, behind the content.
+   Pointer devices only; no layout change, no motion for touch or keyboard. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklch, var(--step-line) 16%, transparent),
+    transparent 70%
+  );
+}
+@media (hover: hover) {
+  .spotlight:hover::before { opacity: 1; }
+}

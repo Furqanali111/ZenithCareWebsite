@@ -1,16 +1,14 @@
 import { Marquee } from "@/components/marquee";
+import { ServiceBento } from "@/components/service-bento";
 import { ScrollSteps } from "@/components/scroll-steps";
 import { OrbitVisual } from "@/components/orbit-visual";
 import { cptCodes, cptPath } from "@/lib/cpt-codes";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  Activity,
   ArrowRight,
   HeartPulse,
-  Receipt,
   Stethoscope,
-  Users,
   UserCog,
 } from "lucide-react";
 import {
@@ -33,7 +31,6 @@ import { FounderMonogram } from "@/components/founder-monogram";
 import { HomeHero } from "@/components/home-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
-import { categoryMeta } from "@/lib/services";
 import { founders } from "@/lib/site";
 import { getAllPosts } from "@/content/posts";
 import {
@@ -140,13 +137,6 @@ const HOME_FAQ = [
   },
 ];
 
-// The three service lines for the home preview, linking to each category hub.
-const HOME_CATEGORIES = [
-  { meta: categoryMeta.rpm, icon: <Activity className="size-5" aria-hidden="true" /> },
-  { meta: categoryMeta.rcm, icon: <Receipt className="size-5" aria-hidden="true" /> },
-  { meta: categoryMeta.staffing, icon: <Users className="size-5" aria-hidden="true" /> },
-];
-
 export const metadata: Metadata = pageMetadata({
   title: "Care Management, Billing and Staffing",
   description:
@@ -206,33 +196,7 @@ export default function HomePage() {
             </header>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {HOME_CATEGORIES.map(({ meta, icon }, i) => (
-              <Reveal key={meta.href} delay={(i % 3) * 0.08} className="h-full">
-                <Link
-                  href={meta.href}
-                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
-                >
-                  <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    {icon}
-                  </span>
-                  <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink group-hover:text-brand-accent">
-                    {meta.label}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
-                    {meta.blurb}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
-                    Explore
-                    <ArrowRight
-                      className="size-4 transition-transform group-hover:translate-x-0.5"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
+          <ServiceBento />
         </div>
       </section>
 
