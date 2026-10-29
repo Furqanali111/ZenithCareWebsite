@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { track } from "@/components/conversion-tracking";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,8 @@ type Status =
   | { kind: "error"; message: string }
   | { kind: "success" };
 
+const STEPS = ["About you", "Your practice", "Your message"] as const;
+
 const US_STATES = [
   "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA",
   "KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ",
@@ -26,6 +28,42 @@ const US_STATES = [
 export function ContactForm() {
   const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "";
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const [step, setStep] = useState(0);
+  const panels = useRef<HTMLDivElement>(null);
+  const moved = useRef(false);
+
+  // After Next or Back, put focus on the first field of the new step.
+  useEffect(() => {
+    if (!moved.current) return;
+    panels.current
+      ?.querySelector<HTMLElement>(`[data-step="${step}"] input, [data-step="${step}"] select, [data-step="${step}"] textarea`)
+      ?.focus();
+  }, [step]);
+
+  function next() {
+    const fields = panels.current?.querySelectorAll<HTMLInputElement>(
+      `[data-step="${step}"] input, [data-step="${step}"] select, [data-step="${step}"] textarea`,
+    );
+    for (const el of Array.from(fields ?? [])) {
+      if (!el.checkValidity()) {
+        el.reportValidity();
+        return;
+      }
+    }
+    moved.current = true;
+    setStep((v) => Math.min(v + 1, STEPS.length - 1));
+  }
+  function back() {
+    moved.current = true;
+    setStep((v) => Math.max(v - 1, 0));
+  }
+  // Enter inside a field moves to the next step instead of submitting early.
+  function onKeyDown(e: KeyboardEvent<HTMLFormElement>) {
+    if (e.key === "Enter" && step < STEPS.length - 1 && (e.target as HTMLElement).tagName === "INPUT") {
+      e.preventDefault();
+      next();
+    }
+  }
 
   if (!formspreeId) {
     // No endpoint configured, don't render a form that would submit to "".
@@ -99,6 +137,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
+      onKeyDown={onKeyDown}
       className="space-y-6"
       aria-describedby="contact-no-phi"
     >
@@ -120,114 +159,152 @@ export function ContactForm() {
         data belongs inside your EHR under a signed BAA.
       </p>
 
-      <div className="grid gap-5 md:grid-cols-2">
-        <Field label="Your name" htmlFor="cf-name" required>
-          <Input
-            id="cf-name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            required
-            minLength={2}
-            maxLength={80}
-          />
-        </Field>
-        <Field label="Work email" htmlFor="cf-email" required>
-          <Input
-            id="cf-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            maxLength={120}
-          />
-        </Field>
-        <Field label="Practice name" htmlFor="cf-practice" required>
-          <Input
-            id="cf-practice"
-            name="practice"
-            type="text"
-            autoComplete="organization"
-            required
-            minLength={2}
-            maxLength={120}
-          />
-        </Field>
-        <Field label="State" htmlFor="cf-state" required>
-          <select
-            id="cf-state"
-            name="state"
-            required
-            defaultValue=""
-            className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+      <ol aria-label="Form progress" className="flex justify-between gap-2 text-sm">
+        {STEPS.map((label, i) => (
+          <li
+            key={label}
+            aria-current={i === step ? "step" : undefined}
+            className={`flex flex-1 items-center gap-2 transition-colors duration-500 ${
+              i <= step ? "text-brand-ink" : "text-muted-foreground"
+            }`}
           >
-            <option value="" disabled>
-              Select…
-            </option>
-            {US_STATES.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-        </Field>
-        <Field label="Your role" htmlFor="cf-role">
-          <select
-            id="cf-role"
-            name="role"
-            defaultValue=""
-            className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <option value="">Select role…</option>
-            <option value="Physician">Physician</option>
-            <option value="Practice Manager">Practice Manager</option>
-            <option value="Office Manager">Office Manager</option>
-            <option value="Other">Other</option>
-          </select>
-        </Field>
-        <Field label="Approx. Medicare patients" htmlFor="cf-patient-count">
-          <Input
-            id="cf-patient-count"
-            name="patientCount"
-            type="number"
-            min={0}
-            max={5000}
-            step={10}
-            placeholder="e.g. 200"
-          />
-        </Field>
+            <span
+              className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold tabular-nums transition-[background-color,border-color,color] duration-500 motion-reduce:transition-none ${
+                i <= step
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-background"
+              }`}
+            >
+              {i + 1}
+            </span>
+            <span className="hidden sm:inline">{label}</span>
+          </li>
+        ))}
+      </ol>
+      <div aria-hidden="true" className="-mt-2 h-1 overflow-hidden rounded-full bg-border">
+        <div
+          className="h-full w-full origin-left rounded-full bg-primary transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
+          style={{ transform: `scaleX(${(step + 1) / STEPS.length})` }}
+        />
       </div>
+      <p className="sr-only" aria-live="polite">
+        Step {step + 1} of {STEPS.length}: {STEPS[step]}
+      </p>
 
-      <Field label="What should we know?" htmlFor="cf-message" required>
-        <Textarea
-          id="cf-message"
-          name="message"
-          required
-          minLength={10}
-          maxLength={2000}
-          rows={5}
-          placeholder="Panel size, EHR, timeline, anything useful before our call. No patient details, please."
-          aria-describedby="contact-no-phi"
-        />
-      </Field>
+      <div ref={panels}>
+        <div data-step="0" hidden={step !== 0} className="grid gap-5 md:grid-cols-2">
+          <Field label="Your name" htmlFor="cf-name" required>
+            <Input
+              id="cf-name"
+              name="name"
+              type="text"
+              autoComplete="name"
+              required
+              minLength={2}
+              maxLength={80}
+            />
+          </Field>
+          <Field label="Work email" htmlFor="cf-email" required>
+            <Input
+              id="cf-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              maxLength={120}
+            />
+          </Field>
+          <Field label="Your role" htmlFor="cf-role">
+            <select
+              id="cf-role"
+              name="role"
+              defaultValue=""
+              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="">Select role…</option>
+              <option value="Physician">Physician</option>
+              <option value="Practice Manager">Practice Manager</option>
+              <option value="Office Manager">Office Manager</option>
+              <option value="Other">Other</option>
+            </select>
+          </Field>
+        </div>
+        <div data-step="1" hidden={step !== 1} className="grid gap-5 md:grid-cols-2">
+          <Field label="Practice name" htmlFor="cf-practice" required>
+            <Input
+              id="cf-practice"
+              name="practice"
+              type="text"
+              autoComplete="organization"
+              required
+              minLength={2}
+              maxLength={120}
+            />
+          </Field>
+          <Field label="State" htmlFor="cf-state" required>
+            <select
+              id="cf-state"
+              name="state"
+              required
+              defaultValue=""
+              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="" disabled>
+                Select…
+              </option>
+              {US_STATES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Approx. Medicare patients" htmlFor="cf-patient-count">
+            <Input
+              id="cf-patient-count"
+              name="patientCount"
+              type="number"
+              min={0}
+              max={5000}
+              step={10}
+              placeholder="e.g. 200"
+            />
+          </Field>
+        </div>
+        <div data-step="2" hidden={step !== 2} className="space-y-6">
+          <Field label="What should we know?" htmlFor="cf-message" required>
+            <Textarea
+              id="cf-message"
+              name="message"
+              required
+              minLength={10}
+              maxLength={2000}
+              rows={5}
+              placeholder="Panel size, EHR, timeline, anything useful before our call. No patient details, please."
+              aria-describedby="contact-no-phi"
+            />
+          </Field>
 
-      <div className="flex items-start gap-3">
-        <input
-          id="cf-consent"
-          name="consent"
-          type="checkbox"
-          required
-          className="mt-1 size-4 shrink-0 accent-[color:var(--color-brand-700)]"
-        />
-        <label htmlFor="cf-consent" className="text-sm text-body-ink">
-          I agree that Zenith Care Solutions may use these details to reply to
-          my inquiry, as described in the{" "}
-          <Link href="/privacy" className="underline underline-offset-2">
-            Privacy Policy
-          </Link>
-          . I have not included patient information.
-          <span aria-hidden="true" className="ml-1 text-[color:var(--color-error-600)]">*</span>
-        </label>
+          <div className="flex items-start gap-3">
+            <input
+              id="cf-consent"
+              name="consent"
+              type="checkbox"
+              required
+              className="mt-1 size-4 shrink-0 accent-[color:var(--color-brand-700)]"
+            />
+            <label htmlFor="cf-consent" className="text-sm text-body-ink">
+              I agree that Zenith Care Solutions may use these details to reply to
+              my inquiry, as described in the{" "}
+              <Link href="/privacy" className="underline underline-offset-2">
+                Privacy Policy
+              </Link>
+              . I have not included patient information.
+              <span aria-hidden="true" className="ml-1 text-[color:var(--color-error-600)]">*</span>
+            </label>
+          </div>
+
+        </div>
       </div>
 
       {status.kind === "phi" ? (
@@ -250,9 +327,22 @@ export function ContactForm() {
         </div>
       ) : null}
 
-      <Button type="submit" size="lg" disabled={isSubmitting}>
-        {isSubmitting ? "Sending…" : "Send message"}
-      </Button>
+      <div className="flex items-center gap-3">
+        {step > 0 ? (
+          <Button type="button" variant="outline" size="lg" onClick={back}>
+            Back
+          </Button>
+        ) : null}
+        {step < STEPS.length - 1 ? (
+          <Button type="button" size="lg" onClick={next}>
+            Next
+          </Button>
+        ) : (
+          <Button type="submit" size="lg" disabled={isSubmitting}>
+            {isSubmitting ? "Sending…" : "Send message"}
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

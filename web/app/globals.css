@@ -564,3 +564,62 @@
   --step-idle: var(--dk-step-idle);
   --step-idle-text: var(--dk-step-idle-text);
 }
+
+/* Spotlight card: a soft cyan light and a glowing edge that follow the
+   pointer (set by <PointerGlow />). Behind the content, pointer devices only,
+   no layout change. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before,
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.spotlight::before {
+  z-index: -1;
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklch, var(--step-line) 16%, transparent),
+    transparent 70%
+  );
+}
+.spotlight::after {
+  padding: 1px;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklch, var(--step-line) 85%, transparent),
+    transparent 65%
+  );
+  -webkit-mask: linear-gradient(currentcolor 0 0) content-box, linear-gradient(currentcolor 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(currentcolor 0 0) content-box exclude, linear-gradient(currentcolor 0 0);
+}
+@media (hover: hover) {
+  .spotlight:hover::before,
+  .spotlight:hover::after { opacity: 1; }
+}
+
+/* Scroll Reveal text: words light up as the line scrolls into view. Needs
+   scroll-driven animations; otherwise (and under reduced motion) all words are
+   fully visible. */
+@keyframes reveal-word {
+  to { opacity: 1; }
+}
+@supports (animation-timeline: view()) {
+  .reveal-word {
+    opacity: 0.22;
+    animation: reveal-word linear both;
+    animation-timeline: view();
+    animation-range: entry 15% cover 38%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-word { animation: none !important; opacity: 1 !important; }
+}
