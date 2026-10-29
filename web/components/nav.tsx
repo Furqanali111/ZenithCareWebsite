@@ -28,7 +28,7 @@ export function Nav() {
             alt={site.name}
             width={211}
             height={72}
-            className="h-18 w-auto dark:brightness-0 dark:invert"
+            className="-ml-4 h-18 w-auto dark:brightness-0 dark:invert"
           />
         </Link>
 
