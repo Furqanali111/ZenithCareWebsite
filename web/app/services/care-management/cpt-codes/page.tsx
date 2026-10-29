@@ -66,7 +66,7 @@ export default function CptCodesIndexPage() {
                   <li key={c.code}>
                     <Link
                       href={cptPath(c.code)}
-                      className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                      className="spotlight group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                     >
                       <span className="text-sm font-medium text-brand-accent">
                         CPT {c.code}
