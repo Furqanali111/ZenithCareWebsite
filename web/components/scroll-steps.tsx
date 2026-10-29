@@ -85,7 +85,7 @@ export function ScrollSteps({ heading, steps }: { heading: string; steps: readon
 
       {/* Desktop: pinned, scroll-linked scene */}
       <div ref={track} className="relative hidden lg:block" style={{ height: `${steps.length * 90}svh` }}>
-        <div className="sticky top-0 grid h-svh grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-20">
+        <div className="sticky top-24 grid h-[calc(100svh-6rem)] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-20">
           <div>
             <h2 className="max-w-xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               {heading}
@@ -146,13 +146,13 @@ export function ScrollSteps({ heading, steps }: { heading: string; steps: readon
           </div>
 
           <svg
-            viewBox="0 0 520 440"
+            viewBox="0 25 520 405"
             role="img"
             aria-label="Practice workflow connecting to your EHR as each step completes"
-            className="w-full"
+            className="mx-auto max-h-[calc(100svh-9rem)] w-full"
           >
             {NODES.map((n) => {
-              const r = smooth(clamp((pos - (n.from - 0.5)) / 0.9));
+              const r = smooth(clamp((pos - (n.from - 0.5)) / 0.5));
               const len = Math.hypot(n.x - CX, n.y - CY);
               return (
                 <line
@@ -169,7 +169,7 @@ export function ScrollSteps({ heading, steps }: { heading: string; steps: readon
               );
             })}
             {NODES.map((n) => {
-              const r = smooth(clamp((pos - (n.from - 0.5)) / 0.9));
+              const r = smooth(clamp((pos - (n.from - 0.5)) / 0.5));
               const ty = n.y + (n.y > CY ? 28 : -18);
               return (
                 <g key={n.label}>

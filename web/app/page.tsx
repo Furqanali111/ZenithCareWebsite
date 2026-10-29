@@ -284,7 +284,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── How it works ─────────────────────────────────────────────── */}
-      <section className="section-rhythm">
+      <section>
         <div className="mx-auto max-w-[90rem] px-6">
           <ScrollSteps
             heading="Three steps. Your practice stays the billing provider."
