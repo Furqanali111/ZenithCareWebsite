@@ -2,7 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  serviceLd,
+  serviceId,
+  breadcrumbLd,
+  webPageLd,
+} from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BrandFigure } from "@/components/brand-figure";
 import { BulletedListItem } from "@/components/bulleted-list";
@@ -62,6 +69,12 @@ export default async function WhoWeServePage({
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path,
+            name: label,
+            description: c.metaDescription,
+            about: serviceId(path),
+          }),
           serviceLd({
             name: `Remote care management and virtual staffing for ${label.toLowerCase()} practices`,
             description: c.metaDescription,

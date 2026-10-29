@@ -11,7 +11,15 @@ import {
   Users,
   UserCog,
 } from "lucide-react";
-import { pageMetadata, JsonLd, serviceLd, faqPageLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  serviceLd,
+  serviceId,
+  faqPageLd,
+  faqId,
+  webPageLd,
+} from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -143,7 +151,20 @@ export default function HomePage() {
           serviceType: "Healthcare Practice Support",
         })}
       />
-      <JsonLd data={faqPageLd(HOME_FAQ)} />
+      <JsonLd
+        data={[
+          webPageLd({
+            path: "/",
+            name: "Zenith Care Solutions",
+            description:
+              "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices.",
+            breadcrumb: false,
+            about: serviceId("/"),
+            mainEntity: faqId("/"),
+          }),
+          faqPageLd(HOME_FAQ, "/"),
+        ]}
+      />
 
       {/* ─── Hero: dark editorial ledger-split ────────────────────────── */}
       <HomeHero />

@@ -1,7 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { pageMetadata, JsonLd, articleLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  articleLd,
+  articleId,
+  breadcrumbLd,
+  personId,
+  webPageLd,
+} from "@/lib/seo";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { BrandFigure } from "@/components/brand-figure";
 import { FaqSection } from "@/components/faq-section";
@@ -54,6 +62,15 @@ export default async function PostPage({
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path: `/resources/${post.slug}`,
+            name: post.title,
+            description: post.description,
+            mainEntity: articleId(post.slug),
+            reviewedBy: personId(reviewer.initials),
+            datePublished: post.publishedAt,
+            dateModified: post.updatedAt ?? post.publishedAt,
+          }),
           articleLd({
             title: post.title,
             description: post.description,

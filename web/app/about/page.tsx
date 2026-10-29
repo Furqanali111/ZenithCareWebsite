@@ -1,7 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Eye, Handshake, Target, type LucideIcon } from "lucide-react";
-import { pageMetadata, JsonLd, personLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  personLd,
+  breadcrumbLd,
+  personId,
+  webPageLd,
+  ORG_ID,
+} from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { FounderMonogram } from "@/components/founder-monogram";
@@ -98,7 +106,15 @@ export default function AboutPage() {
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path: PATH,
+            name: "About Zenith Care Solutions",
+            description: "Who runs Zenith Care Solutions and how the team works with U.S. physician practices.",
+            type: "AboutPage",
+            about: ORG_ID,
+          }),
           personLd({
+            id: personId(founder.initials),
             name: founder.name,
             jobTitle: "Founder, Zenith Care Solutions",
             path: PATH,
@@ -107,6 +123,7 @@ export default function AboutPage() {
             sameAs: FOUNDER_LINKEDIN ? [FOUNDER_LINKEDIN] : undefined,
           }),
           personLd({
+            id: personId(reviewer.initials),
             name: reviewer.name,
             jobTitle: "Co-founder, Zenith Care Solutions",
             path: `${PATH}#${reviewer.initials.toLowerCase()}`,
