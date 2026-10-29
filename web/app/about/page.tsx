@@ -139,7 +139,6 @@ export default function AboutPage() {
 
       {/* 1. Hero */}
       <PageHero
-        eyebrow="About Zenith"
         title={
           <>
             Your patients need you.
@@ -364,7 +363,7 @@ export default function AboutPage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            What we do
+            What we do for your practice
           </h2>
           <Reveal className="mt-10 grid gap-6 lg:grid-cols-3">
             {CATEGORY_ORDER.map((cat) => {
@@ -572,7 +571,7 @@ function Statement({
   children: React.ReactNode;
 }) {
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
+    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
       <span
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-1.5 bg-[color:var(--color-teal-500)]"

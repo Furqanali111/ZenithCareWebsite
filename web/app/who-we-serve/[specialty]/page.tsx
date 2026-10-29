@@ -99,7 +99,6 @@ export default async function WhoWeServePage({
 
       {/* ─── Hero (shared premium aurora hero, consistent with home/services) ─ */}
       <PageHero
-        eyebrow={`Who we serve · ${label}`}
         title={c.heroHeadline}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
@@ -148,11 +147,8 @@ export default async function WhoWeServePage({
               <Reveal key={p.href} delay={(i % 3) * 0.08} className="h-full">
                 <Link
                   href={p.href}
-                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
                 >
-                  <span className="text-xs font-semibold tracking-[0.14em] text-brand-accent">
-                    {p.eyebrow}
-                  </span>
                   <h3 className="mt-2 font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">
                     {p.title}
                   </h3>
@@ -366,7 +362,6 @@ for (const refs of Object.values(specialtyPrograms)) {
 }
 
 type ProgramCard = {
-  eyebrow: string;
   title: string;
   body: string;
   href: string;
@@ -377,7 +372,6 @@ function resolveProgram(ref: ProgramRef): ProgramCard {
   if ("slug" in ref) {
     const s = getService(ref.slug)!; // validated at module load
     return {
-      eyebrow: "Care Management",
       title: s.name,
       body: s.shortDesc,
       href: `/services/${s.slug}#who-we-serve`,
@@ -386,7 +380,6 @@ function resolveProgram(ref: ProgramRef): ProgramCard {
   }
   const m = categoryMeta[ref.category];
   return {
-    eyebrow: "For any practice",
     title: m.label,
     body: m.blurb,
     href: m.href,

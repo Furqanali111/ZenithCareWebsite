@@ -11,10 +11,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function NotFound() {
   return (
-    <section className="mx-auto flex min-h-[60vh] max-w-prose flex-col items-start justify-center px-6 py-24">
-      <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-        404
-      </p>
+    <section className="mx-auto flex min-h-[60svh] max-w-prose flex-col items-start justify-center px-6 py-24">
       <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight md:text-5xl">
         We couldn&rsquo;t find that page.
       </h1>

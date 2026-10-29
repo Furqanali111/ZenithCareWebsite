@@ -32,9 +32,6 @@ export default function RoiCalculatorPage() {
       />
       <section className="mx-auto max-w-5xl px-6 py-16 md:py-24">
         <header className="max-w-prose">
-          <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-            Tools
-          </p>
           <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight md:text-5xl">
             Estimate your CCM reimbursement
           </h1>

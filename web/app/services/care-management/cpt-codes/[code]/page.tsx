@@ -91,7 +91,6 @@ export default async function CptCodePage({
       <Breadcrumbs items={crumbs} />
 
       <PageHero
-        eyebrow={`${program.label} · CPT code`}
         title={`CPT ${c.code}: ${c.shortTitle}`}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: `About ${program.label}`, href: programPath }}
@@ -113,7 +112,7 @@ export default async function CptCodePage({
                 key={k}
                 className="rounded-xl border border-border/70 bg-card p-5"
               >
-                <dt className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <dt className="text-xs font-semibold text-muted-foreground">
                   {k}
                 </dt>
                 <dd className="mt-2 text-base leading-snug text-ink-strong">{v}</dd>
@@ -194,9 +193,9 @@ export default async function CptCodePage({
                 <li key={r.code}>
                   <Link
                     href={cptPath(r.code)}
-                    className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
-                    <span className="font-mono text-sm font-medium text-brand-accent">
+                    <span className="text-sm font-medium text-brand-accent">
                       CPT {r.code}
                     </span>
                     <span className="mt-1 text-sm font-medium leading-snug text-brand-ink group-hover:text-brand-accent">
@@ -222,7 +221,7 @@ export default async function CptCodePage({
                 <li key={p.slug}>
                   <Link
                     href={`/resources/${p.slug}`}
-                    className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
                     <ArrowRight
                       className="mt-0.5 size-4 shrink-0 text-brand-accent"

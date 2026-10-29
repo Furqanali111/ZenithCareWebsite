@@ -36,19 +36,9 @@ export function HomeHero() {
       <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
-          <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent dark:border-white/15 dark:bg-white/5">
-            For U.S. physician practices
-          </span>
-
           <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
             Care management, billing, and staffing for your{" "}
-            <span className="relative inline-block whitespace-nowrap italic">
-              practice
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
-              />
-            </span>.
+            practice.
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
@@ -86,12 +76,12 @@ export function HomeHero() {
           aria-label="Representative CCM reimbursement"
           className="reveal-up reveal-up-3 relative"
         >
-          <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[0_24px_60px_-28px_rgba(11,37,69,0.35)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
+          <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[var(--shadow-float)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
             <div className="flex items-center justify-between gap-3">
               <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)]">
                 Monthly reimbursement, typical panel
               </span>
-              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
+              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium text-[color:var(--color-brand-700)]">
                 CPT 99490
               </span>
             </div>
@@ -143,7 +133,7 @@ function StatPill({
 }) {
   return (
     <div className="rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)]">
+      <p className="text-xs font-semibold text-[color:var(--color-brand-700)]">
         {label}
       </p>
       <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">

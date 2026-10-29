@@ -28,7 +28,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FounderMonogram } from "@/components/founder-monogram";
-import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { HomeHero } from "@/components/home-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
@@ -192,7 +191,7 @@ export default function HomePage() {
               <Reveal key={meta.href} delay={(i % 3) * 0.08} className="h-full">
                 <Link
                   href={meta.href}
-                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
                 >
                   <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                     {icon}
@@ -238,7 +237,7 @@ export default function HomePage() {
                 <Reveal key={item.href} delay={(i % 3) * 0.08} className="h-full">
                   <Link
                     href={item.href}
-                    className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                    className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
                   >
                     <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                       {item.icon}
@@ -393,7 +392,6 @@ export default function HomePage() {
         <div className="section-rhythm">
           <div className="mx-auto max-w-7xl px-6">
             <Reveal className="max-w-3xl">
-              <HeroEyebrow>The founders</HeroEyebrow>
               <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Zenith is led by two founders.
               </h2>
@@ -426,7 +424,7 @@ export default function HomePage() {
             </Reveal>
             <p className="mt-10 text-sm">
               <Link href="/about" className="text-brand-accent hover:underline">
-                Learn more about Zenith →
+                About Zenith
               </Link>
             </p>
           </div>
@@ -564,19 +562,16 @@ function ResourcesPreview() {
             <Reveal key={post.slug} delay={(i % 3) * 0.08} className="h-full">
               <Link
                 href={`/resources/${post.slug}`}
-                className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
               >
-                <span className="text-xs font-medium uppercase tracking-wider text-brand-accent">
-                  {post.category}
-                </span>
-                <h3 className="mt-3 font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
+                <h3 className="font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
                   {post.title}
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-body-ink line-clamp-3">
                   {post.description}
                 </p>
                 <span className="mt-4 text-xs text-muted-foreground">
-                  {post.readingMinutes} min read
+                  {post.category}, {post.readingMinutes} min read
                 </span>
               </Link>
             </Reveal>

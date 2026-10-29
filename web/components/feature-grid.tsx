@@ -84,7 +84,7 @@ export function FeatureGrid({
           const Icon = ICONS[item.icon];
           return (
             <Reveal key={item.title} delay={(i % 3) * 0.08}>
-              <div className="group h-full rounded-2xl border border-border/70 bg-card p-7 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]">
+              <div className="group h-full rounded-2xl border border-border/70 bg-card p-7 text-center transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]">
                 <span className="mx-auto inline-flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-105">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>

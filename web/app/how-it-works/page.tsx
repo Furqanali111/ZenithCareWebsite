@@ -23,7 +23,7 @@ export default function HowItWorksPage() {
           { name: "How It Works", path: PATH },
         ])}
       />
-      <LegalPage title="How remote care management works" eyebrow="Working with Zenith" lastUpdated="2026-10-23">
+      <LegalPage title="How remote care management works" lastUpdated="2026-10-23">
         <h2>What we do</h2>
         <p>
           {site.legalName} provides remote care management, revenue cycle

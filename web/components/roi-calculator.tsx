@@ -136,7 +136,7 @@ function StatTile({
       : "text-2xl md:text-3xl";
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+      <p className="text-xs font-medium text-muted-foreground">
         {caption}
       </p>
       <p className="mt-2 flex items-baseline gap-2">

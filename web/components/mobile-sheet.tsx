@@ -96,7 +96,7 @@ function MobileGroup({
   }
   return (
     <div className="mb-2">
-      <div className="px-2 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+      <div className="px-2 pb-1 pt-3 text-xs font-semibold text-muted-foreground">
         {label}
       </div>
       {items.map((item) => (
