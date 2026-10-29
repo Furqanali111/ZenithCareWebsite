@@ -11,6 +11,7 @@ import {
   webPageLd,
 } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { HeroPanel } from "@/components/hero-panel";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
@@ -103,6 +104,12 @@ export default async function ServicePage({
       />
 
       <PageHero
+        visual={
+          <HeroPanel
+            heading={s.capabilitiesHeading}
+            items={s.capabilities.slice(0, 4).map((c) => ({ label: c.title }))}
+          />
+        }
         title={s.title}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "All services", href: "/services" }}
@@ -150,7 +157,7 @@ export default async function ServicePage({
         className="scroll-mt-24 border-t border-border/60"
       >
         <div className="section-rhythm">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <Reveal className="max-w-2xl">
               <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 Who we serve
@@ -242,7 +249,7 @@ export default async function ServicePage({
       {/* ─── Revenue band (care-management programs only) ─────────────── */}
       {s.revenue ? (
         <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <Reveal>
               <div className="relative overflow-hidden rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-16 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
                 <div
@@ -337,7 +344,7 @@ function ServiceResources({ slug, name }: { slug: string; name: string }) {
   if (posts.length === 0) return null;
   return (
     <section className="section-rhythm border-t border-border/60">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
             {name} resources
@@ -515,7 +522,7 @@ function CrossLinkNote({ slug }: { slug: string }) {
   if (!cl) return null;
   return (
     <section className="border-t border-border/40">
-      <div className="mx-auto max-w-7xl px-6 py-6">
+      <div className="mx-auto max-w-[90rem] px-6 py-6">
         <p className="text-sm leading-relaxed text-muted-foreground">
           {cl.before}{" "}
           <Link href={cl.href} className="font-medium text-brand-accent hover:underline">
@@ -551,7 +558,7 @@ function RelatedServices({ current }: { current: Service }) {
 
   return (
     <section className="section-rhythm border-t border-border/60">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
             Related {cat.label.toLowerCase()} services

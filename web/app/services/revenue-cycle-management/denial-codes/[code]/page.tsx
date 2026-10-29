@@ -77,7 +77,7 @@ export default async function DenialCodePage({
       </PageHero>
 
       <section className="section-rhythm">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-2">
+        <div className="mx-auto grid max-w-[90rem] gap-12 px-6 md:grid-cols-2">
           <Reveal>
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Common causes
@@ -140,7 +140,7 @@ export default async function DenialCodePage({
 
       {related.length > 0 ? (
         <section className="section-rhythm border-t border-border/60">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Related denial codes
             </h2>
@@ -167,7 +167,7 @@ export default async function DenialCodePage({
 
       {posts.length > 0 ? (
         <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Revenue cycle guides
             </h2>

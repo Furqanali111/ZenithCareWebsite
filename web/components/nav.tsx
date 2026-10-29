@@ -15,7 +15,7 @@ const serviceNavItems = [
 export function Nav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-6 px-6">
+      <div className="mx-auto flex h-24 max-w-[90rem] items-center justify-between gap-6 px-6">
         <Link
           href="/"
           className="flex items-center"

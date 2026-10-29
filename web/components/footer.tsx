@@ -83,7 +83,7 @@ export function Footer() {
   // as a distinct surface either way.
   return (
     <footer className="border-t border-border bg-surface-tint text-body-ink">
-      <div className="mx-auto max-w-7xl px-6 py-14 md:py-16">
+      <div className="mx-auto max-w-[90rem] px-6 py-14 md:py-16">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           {/* Brand + blurb + socials */}
           <div className="md:col-span-3">
@@ -148,7 +148,7 @@ export function Footer() {
 
       {/* Bottom bar: compliance disclaimer, copyright, legal links */}
       <div className="border-t border-border">
-        <div className="mx-auto max-w-7xl px-6 py-6">
+        <div className="mx-auto max-w-[90rem] px-6 py-6">
           <p className="text-xs leading-relaxed text-muted-foreground">
             Informational only, not medical, legal, billing, or compliance
             advice. Please do not submit patient-identifying information through
