@@ -50,7 +50,7 @@ export function ScrollStack({
           <li
             key={s.title}
             id={`step-${i + 1}`}
-            className="scroll-mt-28 lg:sticky lg:mb-[14svh]"
+            className="scroll-mt-28 lg:sticky lg:mb-[14svh] last:lg:mb-0"
             style={{ top: `calc(7rem + ${i * 1.25}rem)` }}
           >
             <div className="spotlight rounded-2xl border border-border/70 bg-card p-7 shadow-[var(--shadow-lift)] md:p-9">
@@ -63,7 +63,7 @@ export function ScrollStack({
           </li>
         ))}
         {/* Keeps the pile pinned for a while after the last card lands. */}
-        <li aria-hidden="true" className="hidden h-[32svh] lg:block" />
+        <li aria-hidden="true" className="hidden h-[14svh] lg:block" />
       </ol>
     </div>
   );
