@@ -47,7 +47,7 @@ export default function CptCodesIndexPage() {
             key={p}
             className={`section-rhythm border-t border-border/60 ${i % 2 ? "bg-surface-tint" : ""}`}
           >
-            <div className="mx-auto max-w-7xl px-6">
+            <div className="mx-auto max-w-[90rem] px-6">
               <Reveal className="max-w-2xl">
                 <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                   {meta.label}

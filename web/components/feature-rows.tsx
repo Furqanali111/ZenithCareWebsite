@@ -19,7 +19,7 @@ export function FeatureRows({ items }: { items: FeatureRow[] }) {
   if (items.length === 0) return null;
   return (
     <section className="section-rhythm">
-      <div className="mx-auto max-w-7xl space-y-16 px-6 md:space-y-24">
+      <div className="mx-auto max-w-[90rem] space-y-16 px-6 md:space-y-24">
         {items.map((row, i) => {
           const imageFirst = i % 2 === 1;
           return (

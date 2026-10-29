@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES, formatUsd } from "@/lib/roi";
+import { CountUp } from "@/components/count-up";
+import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES } from "@/lib/roi";
 
 /**
  * Homepage hero, theme-reactive. Light mode is an airy "Soft Structuralism"
@@ -33,7 +34,7 @@ export function HomeHero() {
         className="bg-dotgrid pointer-events-none absolute inset-0 z-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
+      <div className="relative z-[1] mx-auto grid max-w-[90rem] grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
           <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
@@ -88,7 +89,7 @@ export function HomeHero() {
 
             <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight">
               <span className="text-5xl tabular-nums md:text-6xl">
-                {formatUsd(ANCHOR_MONTHLY)}
+                <CountUp value={ANCHOR_MONTHLY} prefix="$" />
               </span>
               <span className="text-base font-medium text-[color:var(--color-ink-700)]">
                 / month

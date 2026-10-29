@@ -100,7 +100,7 @@ export default async function CptCodePage({
 
       {/* ─── At a glance ─────────────────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               CPT {c.code} at a glance
@@ -129,7 +129,7 @@ export default async function CptCodePage({
 
       {/* ─── Requirements + pitfalls ─────────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-2">
+        <div className="mx-auto grid max-w-[90rem] gap-12 px-6 md:grid-cols-2">
           <Reveal>
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               What the record needs to show
@@ -184,7 +184,7 @@ export default async function CptCodePage({
       {/* ─── Related codes (same silo only) ──────────────────────────── */}
       {related.length > 0 ? (
         <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Related {program.label} codes
             </h2>
@@ -212,7 +212,7 @@ export default async function CptCodePage({
       {/* ─── Guides (posts tagged for this program) ──────────────────── */}
       {posts.length > 0 ? (
         <section className="section-rhythm border-t border-border/60">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               {program.label} guides
             </h2>
