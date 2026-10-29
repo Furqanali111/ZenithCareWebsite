@@ -41,7 +41,7 @@ export function OrbitVisual() {
       </g>
       <circle r={R} className="fill-none stroke-[color:var(--color-teal-600)] dark:stroke-[color:var(--color-teal-400)]" strokeWidth={1.5} />
 
-      <g className="stroke-[color:var(--color-gold-500)]" strokeWidth={1.2}>
+      <g className="stroke-[color:var(--step-accent)]" strokeWidth={1.2}>
         <line x1={NODES[0].x} y1={NODES[0].y} x2={NODES[1].x} y2={NODES[1].y} />
         <line x1={NODES[1].x} y1={NODES[1].y} x2={NODES[2].x} y2={NODES[2].y} />
         <line x1={NODES[2].x} y1={NODES[2].y} x2={NODES[0].x} y2={NODES[0].y} />
@@ -51,7 +51,7 @@ export function OrbitVisual() {
           <g className={`float-y ${i === 1 ? "float-y-b" : i === 2 ? "float-y-c" : ""}`}>
             <polygon
               points="0,-11 9.5,-5.5 9.5,5.5 0,11 -9.5,5.5 -9.5,-5.5"
-              className="fill-[color:var(--color-gold-500)] stroke-[color:var(--color-surface-0)] dark:stroke-[color:var(--color-brand-900)]"
+              className="fill-[color:var(--step-accent)] stroke-[color:var(--color-surface-0)] dark:stroke-[color:var(--color-brand-900)]"
               strokeWidth={2}
             />
             <text y={-20} textAnchor="middle" className="fill-[color:var(--color-ink-900)] text-[13px] font-medium dark:fill-white">

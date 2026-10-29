@@ -549,11 +549,11 @@
 /* Steps scene colours, each pair checked at 3:1 (graphics) or 4.5:1 (text)
    against its page background in both themes. */
 :root {
-  --step-accent: #b8541f;
+  --step-accent: #0e7490;
   --step-line: #0e7490;
   --step-idle: #758790;
   --step-idle-text: #4f6168;
-  --dk-step-accent: #db7e4c;
+  --dk-step-accent: #5fc7d6;
   --dk-step-line: #1596b0;
   --dk-step-idle: #5f7479;
   --dk-step-idle-text: #93a0a4;
