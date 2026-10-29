@@ -1,7 +1,7 @@
 import { Marquee } from "@/components/marquee";
 import { ScrollSteps } from "@/components/scroll-steps";
 import { OrbitVisual } from "@/components/orbit-visual";
-import { cptCodes } from "@/lib/cpt-codes";
+import { cptCodes, cptPath } from "@/lib/cpt-codes";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
@@ -186,7 +186,10 @@ export default function HomePage() {
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
-      <Marquee items={cptCodes.slice(0, 14).map((c) => `CPT ${c.code}`)} />
+      <Marquee
+        label="CPT code guides"
+        items={cptCodes.slice(0, 14).map((c) => ({ label: `CPT ${c.code}`, href: cptPath(c.code) }))}
+      />
 
       {/* ─── Service lines (three categories) ────────────────────────── */}
       <section className="section-rhythm">
