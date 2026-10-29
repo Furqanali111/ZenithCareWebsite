@@ -77,7 +77,7 @@ export function HomeHero() {
           aria-label="Representative CCM reimbursement"
           className="reveal-up reveal-up-3 relative"
         >
-          <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[var(--shadow-float)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
+          <div className="float-y rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[var(--shadow-float)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
             <div className="flex items-center justify-between gap-3">
               <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)]">
                 Monthly reimbursement, typical panel
