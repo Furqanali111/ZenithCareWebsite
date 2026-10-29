@@ -96,7 +96,7 @@ export function organizationLd(): JsonLd {
     url: site.url,
     logo: abs("/logo.png"),
     description: site.tagline,
-    sameAs: [site.linkedin],
+    sameAs: [site.linkedin, site.facebook, site.instagram],
     // Services Zenith offers, surfaced so search + AI engines can map the
     // brand to its full offering catalogue across the three service
     // categories (care management, revenue cycle, virtual staffing). Mirrors
