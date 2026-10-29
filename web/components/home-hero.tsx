@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES, formatUsd } from "@/lib/roi";
+import { CountUp } from "@/components/count-up";
+import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES } from "@/lib/roi";
 
 /**
  * Homepage hero, theme-reactive. Light mode is an airy "Soft Structuralism"
@@ -33,7 +34,7 @@ export function HomeHero() {
         className="bg-dotgrid pointer-events-none absolute inset-0 z-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
+      <div className="relative z-[1] mx-auto grid max-w-[90rem] grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
           <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
@@ -76,25 +77,25 @@ export function HomeHero() {
           aria-label="Representative CCM reimbursement"
           className="reveal-up reveal-up-3 relative"
         >
-          <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[var(--shadow-float)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
+          <div className="float-y rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[var(--shadow-float)] dark:border-white/10 dark:bg-[color:var(--dk-surface)] dark:text-[color:var(--dk-ink)] dark:shadow-2xl dark:shadow-black/40 md:p-8">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)]">
+              <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)] dark:text-[color:var(--dk-ring)]">
                 Monthly reimbursement, typical panel
               </span>
-              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium text-[color:var(--color-brand-700)]">
+              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium text-[color:var(--color-brand-700)] dark:bg-white/10 dark:text-[color:var(--dk-ring)]">
                 CPT 99490
               </span>
             </div>
 
             <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight">
               <span className="text-5xl tabular-nums md:text-6xl">
-                {formatUsd(ANCHOR_MONTHLY)}
+                <CountUp value={ANCHOR_MONTHLY} prefix="$" />
               </span>
-              <span className="text-base font-medium text-[color:var(--color-ink-700)]">
+              <span className="text-base font-medium text-[color:var(--color-ink-700)] dark:text-[color:var(--dk-body-ink)]">
                 / month
               </span>
             </div>
-            <p className="mt-2 text-sm text-[color:var(--color-ink-700)]">
+            <p className="mt-2 text-sm text-[color:var(--color-ink-700)] dark:text-[color:var(--dk-body-ink)]">
               {ANCHOR_PATIENTS} enrolled patients × ${CPT_RATES["99490"]}{" "}
               base-code reimbursement
             </p>
@@ -107,7 +108,7 @@ export function HomeHero() {
 
             <Link
               href="/roi-calculator"
-              className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
+              className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)] dark:text-[color:var(--dk-ring)] dark:hover:text-[color:var(--dk-ink)]"
             >
               See the full breakdown
               <ArrowRight className="size-5" aria-hidden="true" />
@@ -132,14 +133,14 @@ function StatPill({
   note: string;
 }) {
   return (
-    <div className="rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center">
-      <p className="text-xs font-semibold text-[color:var(--color-brand-700)]">
+    <div className="rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center dark:border-white/10 dark:bg-white/5">
+      <p className="text-xs font-semibold text-[color:var(--color-brand-700)] dark:text-[color:var(--dk-ring)]">
         {label}
       </p>
-      <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">
+      <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)] dark:text-[color:var(--dk-ink)]">
         {value}
       </p>
-      <p className="mt-0.5 font-mono text-xs text-[color:var(--color-ink-700)]">
+      <p className="mt-0.5 font-mono text-xs text-[color:var(--color-ink-700)] dark:text-[color:var(--dk-body-ink)]">
         {note}
       </p>
     </div>

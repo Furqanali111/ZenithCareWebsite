@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Activity, Receipt, Users } from "lucide-react";
 import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { HeroPanel } from "@/components/hero-panel";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { ServiceGrid } from "@/components/service-grid";
@@ -41,6 +42,12 @@ export default function ServicesOverviewPage() {
       />
 
       <PageHero
+        visual={
+          <HeroPanel
+            heading="Three service lines"
+            items={[categoryMeta.rpm, categoryMeta.rcm, categoryMeta.staffing].map((c) => ({ label: c.label, href: c.href }))}
+          />
+        }
         title="Capture unbilled revenue and the admin hours you can't hire for."
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
@@ -63,7 +70,7 @@ export default function ServicesOverviewPage() {
 
       {/* ─── RPM comparison table ────────────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Which program fits which patient?
@@ -125,7 +132,7 @@ export default function ServicesOverviewPage() {
 
       {/* ─── Who we serve: eligibility at a glance ───────────────────── */}
       <section className="section-rhythm border-t border-border/60">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Who we serve, at a glance
@@ -217,7 +224,7 @@ function ServiceCategorySection({
         tone === "surface" ? "border-t border-border/60 bg-surface-tint" : ""
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
         <Reveal className="max-w-2xl">
           <div className="flex items-center gap-3">
             <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">

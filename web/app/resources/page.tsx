@@ -26,7 +26,7 @@ export default function ResourcesPage() {
         ])}
       />
 
-      <section className="mx-auto max-w-7xl px-6 pt-24 pb-10 md:pt-32 md:pb-14">
+      <section className="mx-auto max-w-[90rem] px-6 pt-24 pb-10 md:pt-32 md:pb-14">
         <div className="max-w-2xl">
           <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             Guides for practices evaluating care management, billing and staffing.
@@ -44,7 +44,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 md:pb-28">
+      <section className="mx-auto max-w-[90rem] px-6 pb-20 md:pb-28">
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <li key={post.slug}>

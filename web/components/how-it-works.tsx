@@ -18,7 +18,7 @@ export function HowItWorks({
   steps: HowStep[];
 }) {
   return (
-    <div className="mx-auto max-w-7xl px-6">
+    <div className="mx-auto max-w-[90rem] px-6">
       <Reveal className="mx-auto max-w-2xl text-center">
         <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
           {heading}

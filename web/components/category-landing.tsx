@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { JsonLd, serviceLd, serviceId, breadcrumbLd, webPageLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { HeroPanel } from "@/components/hero-panel";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
@@ -62,6 +63,12 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
       />
 
       <PageHero
+        visual={
+          <HeroPanel
+            heading="What is included"
+            items={services.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))}
+          />
+        }
         title={c.title}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "All services", href: "/services" }}
@@ -76,7 +83,7 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
 
       {/* ─── Services in this category ───────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               {label} services

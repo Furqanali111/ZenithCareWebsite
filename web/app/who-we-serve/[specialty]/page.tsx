@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { BrandFigure } from "@/components/brand-figure";
 import { BulletedListItem } from "@/components/bulleted-list";
+import { HeroPanel } from "@/components/hero-panel";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
@@ -99,6 +100,12 @@ export default async function WhoWeServePage({
 
       {/* ─── Hero (shared premium aurora hero, consistent with home/services) ─ */}
       <PageHero
+        visual={
+          <HeroPanel
+            heading={`Programs for ${label.toLowerCase()} practices`}
+            items={programs.map((p) => ({ label: p.title, href: p.href }))}
+          />
+        }
         title={c.heroHeadline}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
@@ -111,7 +118,7 @@ export default async function WhoWeServePage({
 
       {/* ─── Specialty image band (art-directed cyan duotone) ────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal>
             <BrandFigure
               src={`/specialties/${specialty}.webp`}
@@ -125,7 +132,7 @@ export default async function WhoWeServePage({
 
       {/* ─── Programs this practice can offer (full service line) ─────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Programs your {label.toLowerCase()} practice can offer
@@ -171,7 +178,7 @@ export default async function WhoWeServePage({
 
       {/* ─── Why CCM is the flagship lever for this specialty ────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <div className="grid gap-10 md:grid-cols-2 md:gap-12">
             <Reveal>
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -227,7 +234,7 @@ export default async function WhoWeServePage({
 
       {/* ─── Representative revenue ──────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal>
           <div className="relative overflow-hidden rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
             <div

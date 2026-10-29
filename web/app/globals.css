@@ -498,3 +498,69 @@
 .dark .border-brand-100 {
   border-color: var(--dk-line);
 }
+
+/* Motion pack: float, marquee. Transform only; off under reduced motion. */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float-y { animation: float-y 7s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.float-y-b { animation-duration: 9s; animation-delay: -3s; }
+.float-y-c { animation-duration: 8s; animation-delay: -5s; }
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track { display: flex; width: max-content; animation: marquee-x 52s linear infinite; }
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .float-y, .marquee-track { animation: none; }
+}
+
+@keyframes meridian-turn {
+  0%, 100% { transform: scaleX(1); }
+  25% { transform: scaleX(0); }
+  50% { transform: scaleX(-1); }
+  75% { transform: scaleX(0); }
+}
+.meridian {
+  animation: meridian-turn 16s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .meridian { animation: none; transform: scaleX(0.5); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+.pulse-ring {
+  animation: pulse-ring 3.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring { animation: none; opacity: 0; }
+}
+
+/* Steps scene colours, each pair checked at 3:1 (graphics) or 4.5:1 (text)
+   against its page background in both themes. */
+:root {
+  --step-accent: #0e7490;
+  --step-line: #0e7490;
+  --step-idle: #758790;
+  --step-idle-text: #4f6168;
+  --dk-step-accent: #5fc7d6;
+  --dk-step-line: #1596b0;
+  --dk-step-idle: #5f7479;
+  --dk-step-idle-text: #93a0a4;
+}
+.dark {
+  --step-accent: var(--dk-step-accent);
+  --step-line: var(--dk-step-line);
+  --step-idle: var(--dk-step-idle);
+  --step-idle-text: var(--dk-step-idle-text);
+}

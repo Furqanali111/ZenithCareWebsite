@@ -37,7 +37,7 @@ export default function DenialCodesIndexPage() {
       </PageHero>
 
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {denialCodes.map((d) => (
               <li key={d.slug}>
