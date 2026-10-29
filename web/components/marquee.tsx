@@ -36,7 +36,7 @@ export function Marquee({
       aria-label={label}
       className="marquee overflow-hidden border-b border-border/60 bg-background py-5 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
     >
-      <div className="marquee-track">
+      <div className="marquee-track flex w-max">
         {row(false)}
         {row(true)}
       </div>
