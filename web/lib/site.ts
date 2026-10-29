@@ -29,8 +29,13 @@ export const site = {
   // placeholder number); hours is a plain business fact, override via env.
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "",
   hours: process.env.NEXT_PUBLIC_BUSINESS_HOURS ?? "Mon to Fri, 9:00 AM to 6:00 PM EST",
-  linkedin:
-    "https://www.linkedin.com/company/zenith-care-solutions",
+  linkedin: "https://www.linkedin.com/company/the-zenith-care-solutions/",
+  facebook:
+    process.env.NEXT_PUBLIC_FACEBOOK_URL ??
+    "https://www.facebook.com/profile.php?id=61595852378826",
+  instagram:
+    process.env.NEXT_PUBLIC_INSTAGRAM_URL ??
+    "https://www.instagram.com/zenithcaresolutions/",
   locale: "en_US",
 } as const;
 
@@ -40,9 +45,9 @@ export const site = {
  */
 export const socials = [
   { label: "LinkedIn", href: site.linkedin },
-  { label: "Facebook", href: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "" },
+  { label: "Facebook", href: site.facebook },
   { label: "YouTube", href: process.env.NEXT_PUBLIC_YOUTUBE_URL ?? "" },
-  { label: "Instagram", href: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "" },
+  { label: "Instagram", href: site.instagram },
 ] as const;
 
 /** Founder identity, shared across home, about, and blog bylines. */
