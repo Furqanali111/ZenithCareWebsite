@@ -155,7 +155,7 @@ export default function AboutPage() {
 
       {/* 2. Who we are + team message */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-3xl">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Who we are
@@ -240,7 +240,7 @@ export default function AboutPage() {
 
       {/* Founders: short intros and a joint message */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Meet the founders
           </h2>
@@ -312,7 +312,7 @@ export default function AboutPage() {
 
       {/* 3. The practice challenge */}
       <section className="section-rhythm">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-14">
+        <div className="mx-auto grid max-w-[90rem] gap-8 px-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-14">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             The work around patient care adds up.
           </h2>
@@ -334,7 +334,7 @@ export default function AboutPage() {
 
       {/* 4. Four pillars */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             What guides our work
           </h2>
@@ -361,7 +361,7 @@ export default function AboutPage() {
 
       {/* 5. What we do */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             What we do for your practice
           </h2>
@@ -402,7 +402,7 @@ export default function AboutPage() {
 
       {/* 6. How we work */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             How we work
           </h2>
@@ -437,7 +437,7 @@ export default function AboutPage() {
 
       {/* 7. Why Zenith */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Why practices work with Zenith
           </h2>
@@ -458,7 +458,7 @@ export default function AboutPage() {
 
       {/* 8. Trust and safeguards */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="rounded-2xl border border-border bg-card p-8 md:p-12">
             <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Trust and safeguards

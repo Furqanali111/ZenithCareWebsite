@@ -16,11 +16,14 @@ export function PageHero({
   children,
   primaryCta,
   secondaryCta,
+  visual,
 }: {
   title: ReactNode;
   children?: ReactNode;
   primaryCta?: Cta;
   secondaryCta?: Cta;
+  /** Right-hand visual; the hero is two columns when set. */
+  visual?: ReactNode;
 }) {
   return (
     <section className="relative overflow-hidden bg-surface-tint dark:bg-[color:var(--color-brand-900)]">
@@ -37,9 +40,9 @@ export function PageHero({
         className="bg-dotgrid pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-20 md:pt-28 md:pb-24">
+      <div className={`relative mx-auto max-w-[90rem] px-6 pt-24 pb-20 md:pt-28 md:pb-24 ${visual ? "grid items-center gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20" : ""}`}>
         <div className="max-w-3xl">
-          <h1 className="reveal-up reveal-up-2 mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
+          <h1 className="reveal-up reveal-up-2 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             {title}
           </h1>
 
@@ -71,6 +74,7 @@ export function PageHero({
             </div>
           ) : null}
         </div>
+        {visual}
       </div>
     </section>
   );
