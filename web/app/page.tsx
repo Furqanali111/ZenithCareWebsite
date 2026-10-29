@@ -564,17 +564,14 @@ function ResourcesPreview() {
                 href={`/resources/${post.slug}`}
                 className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
               >
-                <span className="text-xs font-medium text-brand-accent">
-                  {post.category}
-                </span>
-                <h3 className="mt-3 font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
+                <h3 className="font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
                   {post.title}
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-body-ink line-clamp-3">
                   {post.description}
                 </p>
                 <span className="mt-4 text-xs text-muted-foreground">
-                  {post.readingMinutes} min read
+                  {post.category}, {post.readingMinutes} min read
                 </span>
               </Link>
             </Reveal>
