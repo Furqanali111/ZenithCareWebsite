@@ -1,5 +1,7 @@
 import { Marquee } from "@/components/marquee";
 import { ServiceBento } from "@/components/service-bento";
+import { BentoGrid } from "@/components/bento-grid";
+import { ScrollRevealText } from "@/components/scroll-reveal-text";
 import { ScrollSteps } from "@/components/scroll-steps";
 import { OrbitVisual } from "@/components/orbit-visual";
 import { cptCodes, cptPath } from "@/lib/cpt-codes";
@@ -189,10 +191,10 @@ export default function HomePage() {
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Three service lines. One operational partner.
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-body-ink">
-                Everything a practice needs to capture unbilled revenue and
-                recover staff hours, under one BAA. Take one line or all three.
-              </p>
+              <ScrollRevealText
+                className="mt-5 text-xl leading-relaxed text-body-ink md:text-2xl"
+                text="Everything a practice needs to capture unbilled revenue and recover staff hours, under one BAA. Take one line or all three."
+              />
             </header>
           </Reveal>
 
@@ -216,20 +218,23 @@ export default function HomePage() {
               </header>
             </Reveal>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {WHO_WE_SERVE.map((item, i) => (
-                <Reveal key={item.href} delay={(i % 3) * 0.08} className="h-full">
+            <BentoGrid
+              className="mt-12"
+              tiles={WHO_WE_SERVE.map((item, i) => (
+                <Reveal key={item.href} delay={i * 0.08} className="h-full">
                   <Link
                     href={item.href}
-                    className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
+                    className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-[border-color] duration-300 hover:border-[color:var(--color-teal-500)]/40 md:p-8"
                   >
                     <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                       {item.icon}
                     </span>
-                    <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink group-hover:text-brand-accent">
+                    <h3
+                      className={`mt-5 font-serif font-semibold text-brand-ink group-hover:text-brand-accent ${i === 0 ? "text-2xl" : "text-xl"}`}
+                    >
                       {item.label}
                     </h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
+                    <p className={`mt-3 flex-1 leading-relaxed text-body-ink ${i === 0 ? "max-w-md text-base" : "text-sm"}`}>
                       {item.pain}
                     </p>
                     <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
@@ -242,7 +247,7 @@ export default function HomePage() {
                   </Link>
                 </Reveal>
               ))}
-            </div>
+            />
           </div>
         </div>
       </section>
@@ -433,7 +438,7 @@ export default function HomePage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-[90rem] px-6">
           <Reveal>
-          <div className="rounded-2xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
+          <div className="spotlight rounded-2xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Ready to find out if we are a fit?
             </h2>
@@ -495,7 +500,7 @@ function ResourcesPreview() {
             <Reveal key={post.slug} delay={(i % 3) * 0.08} className="h-full">
               <Link
                 href={`/resources/${post.slug}`}
-                className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
+                className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
               >
                 <h3 className="font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
                   {post.title}

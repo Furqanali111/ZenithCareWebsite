@@ -55,7 +55,7 @@ export function ServiceCard({
           aria-expanded={flipped}
           aria-label={`${title}, show what's included`}
           tabIndex={flipped ? -1 : 0}
-          className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card text-left [backface-visibility:hidden] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-teal-600)]"
+          className="spotlight absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card text-left [backface-visibility:hidden] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-teal-600)]"
         >
           <div className="relative h-44 w-full overflow-hidden">
             <Image

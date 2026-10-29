@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Activity, ArrowRight, Receipt, Users } from "lucide-react";
 import { Reveal } from "@/components/reveal";
-import { SpotlightCard } from "@/components/spotlight-card";
 import { categoryMeta, servicesByCategory, type ServiceCategory } from "@/lib/services";
 
 /**
@@ -27,7 +26,7 @@ export function ServiceBento() {
             delay={i * 0.08}
             className={big ? "h-full lg:col-span-2 lg:row-span-2" : "h-full"}
           >
-            <SpotlightCard className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-7 transition-[border-color] duration-300 hover:border-[color:var(--color-teal-500)]/40 md:p-8">
+            <div className="spotlight group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-7 transition-[border-color] duration-300 hover:border-[color:var(--color-teal-500)]/40 md:p-8">
               <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                 {icon}
               </span>
@@ -79,7 +78,7 @@ export function ServiceBento() {
                   aria-hidden="true"
                 />
               </span>
-            </SpotlightCard>
+            </div>
           </Reveal>
         );
       })}
