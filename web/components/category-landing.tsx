@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
+import { JsonLd, serviceLd, serviceId, breadcrumbLd, webPageLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -33,6 +33,12 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path: c.path,
+            name: label,
+            description: c.metaDescription,
+            about: serviceId(c.path),
+          }),
           serviceLd({
             name: label,
             description: c.metaDescription,

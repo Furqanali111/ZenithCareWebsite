@@ -2,7 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  serviceLd,
+  serviceId,
+  breadcrumbLd,
+  webPageLd,
+} from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -65,6 +72,12 @@ export default async function ServicePage({
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path,
+            name: s.name,
+            description: s.metaDescription,
+            about: serviceId(path),
+          }),
           serviceLd({
             name: s.name,
             description: s.metaDescription,

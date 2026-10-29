@@ -1,6 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { pageMetadata, JsonLd, faqPageLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  faqPageLd,
+  faqId,
+  breadcrumbLd,
+  webPageLd,
+} from "@/lib/seo";
 import {
   Accordion,
   AccordionContent,
@@ -33,7 +40,13 @@ export default function FaqPage() {
     <>
       <JsonLd
         data={[
-          faqPageLd(all.map(({ question, answer }) => ({ question, answer }))),
+          webPageLd({
+            path: PATH,
+            name: "Frequently asked questions",
+            description: "Answers to common questions about Zenith Care Solutions.",
+            mainEntity: faqId(PATH),
+          }),
+          faqPageLd(all.map(({ question, answer }) => ({ question, answer })), PATH),
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "FAQ", path: PATH },
