@@ -1,6 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { pageMetadata, JsonLd, faqPageLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  faqPageLd,
+  faqId,
+  breadcrumbLd,
+  webPageLd,
+} from "@/lib/seo";
 import {
   Accordion,
   AccordionContent,
@@ -33,7 +40,13 @@ export default function FaqPage() {
     <>
       <JsonLd
         data={[
-          faqPageLd(all.map(({ question, answer }) => ({ question, answer }))),
+          webPageLd({
+            path: PATH,
+            name: "Frequently asked questions",
+            description: "Answers to common questions about Zenith Care Solutions.",
+            mainEntity: faqId(PATH),
+          }),
+          faqPageLd(all.map(({ question, answer }) => ({ question, answer })), PATH),
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "FAQ", path: PATH },
@@ -43,9 +56,6 @@ export default function FaqPage() {
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-3xl px-6 pt-24 pb-14 md:pt-32 md:pb-16">
-        <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent">
-          FAQ
-        </span>
         <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
           Frequently asked questions about CCM, billing and staffing.
         </h1>

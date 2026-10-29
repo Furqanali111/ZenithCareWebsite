@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Activity, Receipt, Users } from "lucide-react";
 import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { HeroPanel } from "@/components/hero-panel";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { ServiceGrid } from "@/components/service-grid";
@@ -41,7 +42,12 @@ export default function ServicesOverviewPage() {
       />
 
       <PageHero
-        eyebrow="Services"
+        visual={
+          <HeroPanel
+            heading="Three service lines"
+            items={[categoryMeta.rpm, categoryMeta.rcm, categoryMeta.staffing].map((c) => ({ label: c.label, href: c.href }))}
+          />
+        }
         title="Capture unbilled revenue and the admin hours you can't hire for."
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Estimate your ROI", href: "/roi-calculator" }}
@@ -64,7 +70,7 @@ export default function ServicesOverviewPage() {
 
       {/* ─── RPM comparison table ────────────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Which program fits which patient?
@@ -77,7 +83,7 @@ export default function ServicesOverviewPage() {
           </Reveal>
           <Reveal delay={0.1} className="mt-8 overflow-x-auto rounded-xl border border-border">
             <table className="w-full min-w-[46rem] text-left text-sm">
-              <thead className="bg-card text-xs uppercase tracking-wide text-muted-foreground">
+              <thead className="bg-card text-xs text-muted-foreground">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold">Program</th>
                   <th scope="col" className="px-4 py-3 font-semibold">Eligibility</th>
@@ -89,8 +95,13 @@ export default function ServicesOverviewPage() {
               <tbody className="divide-y divide-border/70 bg-card text-ink-strong">
                 {COMPARISON.map((row) => (
                   <tr key={row.program}>
-                    <td className="whitespace-nowrap px-4 py-3 font-medium text-brand-accent">
-                      {row.program}
+                    <td className="whitespace-nowrap px-4 py-3 font-medium">
+                      <Link
+                        href={`/services/${row.slug}`}
+                        className="text-brand-accent underline-offset-4 transition-colors hover:text-brand-ink hover:underline"
+                      >
+                        {row.program}
+                      </Link>
                     </td>
                     <td className="px-4 py-3 leading-snug">{row.eligibility}</td>
                     <td className="px-4 py-3 font-mono text-xs leading-snug">{row.codes}</td>
@@ -126,7 +137,7 @@ export default function ServicesOverviewPage() {
 
       {/* ─── Who we serve: eligibility at a glance ───────────────────── */}
       <section className="section-rhythm border-t border-border/60">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Who we serve, at a glance
@@ -139,7 +150,7 @@ export default function ServicesOverviewPage() {
           </Reveal>
           <Reveal delay={0.1} className="mt-8 overflow-x-auto rounded-xl border border-border">
             <table className="w-full min-w-[48rem] text-left text-sm">
-              <thead className="bg-card text-xs uppercase tracking-wide text-muted-foreground">
+              <thead className="bg-card text-xs text-muted-foreground">
                 <tr>
                   <th scope="col" className="px-4 py-3 font-semibold">Service</th>
                   <th scope="col" className="px-4 py-3 font-semibold">Eligible practices</th>
@@ -218,7 +229,7 @@ function ServiceCategorySection({
         tone === "surface" ? "border-t border-border/60 bg-surface-tint" : ""
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
         <Reveal className="max-w-2xl">
           <div className="flex items-center gap-3">
             <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
@@ -293,13 +304,15 @@ const ELIGIBILITY = [
 const COMPARISON = [
   {
     program: "CCM",
+    slug: "chronic-care-management",
     eligibility: "2+ chronic conditions, 12+ months",
     codes: "99490, 99439, 99487/99489, 99491",
-    rate: `~${CPT_RATES["99490"]}/mo`,
+    rate: `~$${CPT_RATES["99490"]}/mo`,
     whoCanBill: "Physician, NP, PA, clinical staff",
   },
   {
     program: "PCM",
+    slug: "principal-care-management",
     eligibility: "1 high-risk condition, 3+ months",
     codes: "99424, 99425, 99426, 99427",
     rate: "~$68-$88/mo",
@@ -307,6 +320,7 @@ const COMPARISON = [
   },
   {
     program: "RPM",
+    slug: "remote-patient-monitoring",
     eligibility: "Acute/chronic condition + connected device",
     codes: "99453, 99454, 99445, 99457, 99458, 99470",
     rate: "~$150-$200+/mo",
@@ -314,6 +328,7 @@ const COMPARISON = [
   },
   {
     program: "RTM",
+    slug: "remote-therapeutic-monitoring",
     eligibility: "Respiratory/MSK condition, app or device",
     codes: "98975, 98976/98977, 98980, 98981",
     rate: "~$90-$150/mo",
@@ -321,6 +336,7 @@ const COMPARISON = [
   },
   {
     program: "TCM",
+    slug: "transitional-care-management",
     eligibility: "Post-discharge, 30-day window",
     codes: "99495, 99496",
     rate: "$220-$299/episode",

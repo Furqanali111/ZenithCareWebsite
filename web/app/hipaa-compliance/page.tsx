@@ -27,9 +27,6 @@ export default function HipaaCompliancePage() {
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
         <div className="max-w-3xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent">
-            Trust &amp; compliance
-          </span>
           <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             HIPAA Business Associate, from day one.
           </h1>
@@ -83,9 +80,6 @@ export default function HipaaCompliancePage() {
       {/* ─── Safeguards ──────────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <header className="max-w-2xl">
-          <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Safeguards
-          </span>
           <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Three layers, the HIPAA Security Rule way.
           </h2>
@@ -203,7 +197,7 @@ export default function HipaaCompliancePage() {
 
 function TrustCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+    <div className="spotlight-edge rounded-xl border border-border bg-card p-6 md:p-8">
       <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {title}
       </h3>
@@ -222,8 +216,8 @@ function SafeguardCard({
   items: string[];
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
-      <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+    <div className="spotlight-edge rounded-xl border border-border bg-card p-6 md:p-8">
+      <p className="text-xs font-medium text-muted-foreground">
         {label}
       </p>
       <ul className="mt-4 space-y-3 text-sm leading-relaxed text-body-ink">

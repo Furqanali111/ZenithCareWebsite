@@ -15,7 +15,7 @@ const serviceNavItems = [
 export function Nav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-6 px-6">
+      <div className="mx-auto flex h-24 max-w-[90rem] items-center justify-between gap-6 px-6">
         <Link
           href="/"
           className="flex items-center"
@@ -28,7 +28,7 @@ export function Nav() {
             alt={site.name}
             width={211}
             height={72}
-            className="h-18 w-auto dark:brightness-0 dark:invert"
+            className="-ml-4 h-18 w-auto dark:brightness-0 dark:invert"
           />
         </Link>
 
@@ -84,7 +84,7 @@ type Item = { label: string; href: string };
 function ServicesMegaMenu() {
   return (
     <div className="group relative">
-      {/* Clickable → the /services overview; hover/focus still opens the
+      {/* Clickable, goes to the /services overview; hover/focus still opens the
           mega-menu (the panel is a group-hover sibling). */}
       <Link
         href="/services"
@@ -131,20 +131,14 @@ function MegaColumn({ category }: { category: ServiceCategory }) {
   const items = servicesByCategory(category);
   return (
     <div>
-      {/* Clickable category header → the matching section on the overview. */}
+      {/* Clickable category header that goes to the matching section on the overview. */}
       <Link
         href={meta.href}
         role="menuitem"
         className="group/cat block rounded-lg px-3 py-1.5 transition-colors hover:bg-[color:var(--color-brand-50)] dark:hover:bg-white/10"
       >
-        <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand-accent">
+        <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-accent">
           {meta.label}
-          <span
-            aria-hidden="true"
-            className="transition-transform group-hover/cat:translate-x-0.5"
-          >
-            &rarr;
-          </span>
         </span>
         <span className="mt-1 block text-xs leading-relaxed text-muted-foreground line-clamp-2">
           {meta.blurb}
@@ -167,7 +161,7 @@ function MegaColumn({ category }: { category: ServiceCategory }) {
 }
 
 /**
- * One nav slot. One item → plain link. Multiple → hover-reveal menu.
+ * One nav slot. One item: plain link. Several: hover-reveal menu.
  * Keyboard: focus the label span, panel opens via :focus-within.
  */
 function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {

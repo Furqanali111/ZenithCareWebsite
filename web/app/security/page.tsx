@@ -24,7 +24,7 @@ export default function SecurityPage() {
           { name: "Security", path: PATH },
         ])}
       />
-      <LegalPage title="Security" eyebrow="Trust" lastUpdated={UPDATED}>
+      <LegalPage title="Security" lastUpdated={UPDATED}>
         <p>
           This page lists what we do to protect visitors to this website, and
           what we do not do. We only state things we can show.

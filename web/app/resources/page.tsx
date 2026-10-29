@@ -26,11 +26,8 @@ export default function ResourcesPage() {
         ])}
       />
 
-      <section className="mx-auto max-w-7xl px-6 pt-24 pb-10 md:pt-32 md:pb-14">
+      <section className="mx-auto max-w-[90rem] px-6 pt-24 pb-10 md:pt-32 md:pb-14">
         <div className="max-w-2xl">
-          <span className="rounded-full border border-border/80 px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent">
-            Resources
-          </span>
           <h1 className="mt-6 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
             Guides for practices evaluating care management, billing and staffing.
           </h1>
@@ -47,13 +44,13 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 md:pb-28">
+      <section className="mx-auto max-w-[90rem] px-6 pb-20 md:pb-28">
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <li key={post.slug}>
               <Link
                 href={`/resources/${post.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card transition-shadow hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                className="spotlight-edge group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card transition-shadow hover:shadow-[var(--shadow-lift)]"
               >
                 {post.coverImage ? (
                   <BrandFigure
@@ -64,9 +61,8 @@ export default function ResourcesPage() {
                   />
                 ) : null}
                 <div className="flex flex-1 flex-col p-6">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                     <span className="text-brand-accent">{post.category}</span>
-                    <span aria-hidden="true">·</span>
                     <span>{post.readingMinutes} min read</span>
                   </div>
                   <h2 className="mt-3 font-serif text-xl font-semibold leading-snug tracking-tight text-brand-ink group-hover:text-brand-accent md:text-2xl">

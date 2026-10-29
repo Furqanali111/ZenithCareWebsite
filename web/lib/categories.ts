@@ -13,7 +13,6 @@ export type CategoryContent = {
   serviceType: string;
   metaTitle: string;
   metaDescription: string;
-  eyebrow: string;
   title: string;
   lead: string;
   /** Alternating image + text feature rows. */
@@ -28,7 +27,6 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
     metaTitle: "Care Management Programs",
     metaDescription:
       "CCM, PCM, RPM, RTM and TCM services for U.S. physician practices. Monthly clinical coordination inside your EHR; you stay the billing provider.",
-    eyebrow: "Care Management & Monitoring",
     title: "Medicare care-management programs, delivered by clinical staff.",
     lead:
       "Five Medicare programs reimburse your practice for coordinating, monitoring, and transitioning patient care: CCM, PCM, RPM, RTM, and TCM. Zenith runs the monthly coordination labor inside your EHR, and your practice bills the CPT codes.",
@@ -83,7 +81,6 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
     metaTitle: "Revenue Cycle Management Services",
     metaDescription:
       "Medical billing, coding, credentialing and AR follow-up services for U.S. physician practices. Inside your PM system, more claims collected.",
-    eyebrow: "Revenue Cycle Management",
     title: "Revenue cycle support that gets more of what you earn collected.",
     lead:
       "Medical billing, coding, provider credentialing, and accounts-receivable follow-up, handled inside your practice-management system, so more of what you earn is coded right, billed clean, and collected.",
@@ -138,7 +135,6 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
     metaTitle: "Virtual Medical Staffing Services",
     metaDescription:
       "Remote medical scribes, schedulers, receptionists, coordinators and virtual assistants for U.S. physician practices. Inside your systems under a BAA.",
-    eyebrow: "Virtual Staffing & Admin Support",
     title: "Remote medical staff who absorb the admin that slows your team down.",
     lead:
       "Trained remote medical professionals, scribes, schedulers, receptionists, patient care coordinators, and virtual assistants, who take the clinical admin off your in-house team, inside your systems, under a signed BAA, at a flat monthly rate.",

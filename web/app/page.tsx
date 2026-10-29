@@ -1,17 +1,27 @@
+import { Marquee } from "@/components/marquee";
+import { ServiceBento } from "@/components/service-bento";
+import { BentoGrid } from "@/components/bento-grid";
+import { ScrollRevealText } from "@/components/scroll-reveal-text";
+import { ScrollSteps } from "@/components/scroll-steps";
+import { OrbitVisual } from "@/components/orbit-visual";
+import { cptCodes, cptPath } from "@/lib/cpt-codes";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
-  Activity,
   ArrowRight,
-  Database,
   HeartPulse,
-  Receipt,
-  ShieldCheck,
   Stethoscope,
-  Users,
   UserCog,
 } from "lucide-react";
-import { pageMetadata, JsonLd, serviceLd, faqPageLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  serviceLd,
+  serviceId,
+  faqPageLd,
+  faqId,
+  webPageLd,
+} from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -20,11 +30,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FounderMonogram } from "@/components/founder-monogram";
-import { HeroEyebrow } from "@/components/hero-eyebrow";
 import { HomeHero } from "@/components/home-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
-import { categoryMeta } from "@/lib/services";
 import { founders } from "@/lib/site";
 import { getAllPosts } from "@/content/posts";
 import {
@@ -69,25 +77,39 @@ const WHO_WE_SERVE = [
   },
 ];
 
+const HOME_STEPS = [
+  {
+    number: "01",
+    title: "Identify & enroll",
+    body: "We find patients in your panel with two or more chronic conditions on Medicare Part B, confirm eligibility, and obtain documented consent.",
+  },
+  {
+    number: "02",
+    title: "Deliver monthly care coordination",
+    body: "Each month our clinical team spends 20+ minutes per patient on calls, medication reconciliation, specialist follow-up, and care-plan documentation, inside your EHR.",
+  },
+  {
+    number: "03",
+    title: "You bill, we invoice",
+    body: "Your practice bills Medicare for CPT 99490 and relevant add-ons (99439 / 99487 / 99489). Zenith invoices you for the clinical labor. Monthly, predictable.",
+  },
+] as const;
+
 // Why Zenith differentiators.
 const WHY_ZENITH = [
   {
-    icon: <Users className="size-5" aria-hidden="true" />,
     title: "Staff, not software",
     body: "We provide trained clinical and administrative professionals, not a platform. No new system to learn.",
   },
   {
-    icon: <Database className="size-5" aria-hidden="true" />,
     title: "Inside your EHR",
     body: "All documentation lives in your system. No PHI exported, no data migration.",
   },
   {
-    icon: <Receipt className="size-5" aria-hidden="true" />,
     title: "You bill, we invoice",
     body: "Your practice bills Medicare and payers. Zenith invoices you monthly for the labor.",
   },
   {
-    icon: <ShieldCheck className="size-5" aria-hidden="true" />,
     title: "One BAA, one partner",
     body: "A single Business Associate Agreement covers every service line. One vendor, one relationship.",
   },
@@ -117,15 +139,8 @@ const HOME_FAQ = [
   },
 ];
 
-// The three service lines for the home preview, linking to each category hub.
-const HOME_CATEGORIES = [
-  { meta: categoryMeta.rpm, icon: <Activity className="size-5" aria-hidden="true" /> },
-  { meta: categoryMeta.rcm, icon: <Receipt className="size-5" aria-hidden="true" /> },
-  { meta: categoryMeta.staffing, icon: <Users className="size-5" aria-hidden="true" /> },
-];
-
 export const metadata: Metadata = pageMetadata({
-  title: "Chronic Care Management & Billing",
+  title: "Care Management, Billing and Staffing",
   description:
     "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider.",
   path: "/",
@@ -143,63 +158,54 @@ export default function HomePage() {
           serviceType: "Healthcare Practice Support",
         })}
       />
-      <JsonLd data={faqPageLd(HOME_FAQ)} />
+      <JsonLd
+        data={[
+          webPageLd({
+            path: "/",
+            name: "Zenith Care Solutions",
+            description:
+              "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices.",
+            breadcrumb: false,
+            about: serviceId("/"),
+            mainEntity: faqId("/"),
+          }),
+          faqPageLd(HOME_FAQ, "/"),
+        ]}
+      />
 
       {/* ─── Hero: dark editorial ledger-split ────────────────────────── */}
       <HomeHero />
 
       {/* ─── Trust strip ─────────────────────────────────────────────── */}
       <TrustStrip tone="surface" />
+      <Marquee
+        label="CPT code guides"
+        items={cptCodes.slice(0, 14).map((c) => ({ label: `CPT ${c.code}`, href: cptPath(c.code) }))}
+      />
 
       {/* ─── Service lines (three categories) ────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal>
             <header className="max-w-2xl">
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Three service lines. One operational partner.
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-body-ink">
-                Everything a practice needs to capture unbilled revenue and
-                recover staff hours, under one BAA. Take one line or all three.
-              </p>
+              <ScrollRevealText
+                className="mt-5 text-xl leading-relaxed text-body-ink md:text-2xl"
+                text="Everything a practice needs to capture unbilled revenue and recover staff hours, under one BAA. Take one line or all three."
+              />
             </header>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {HOME_CATEGORIES.map(({ meta, icon }, i) => (
-              <Reveal key={meta.href} delay={(i % 3) * 0.08} className="h-full">
-                <Link
-                  href={meta.href}
-                  className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
-                >
-                  <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    {icon}
-                  </span>
-                  <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink group-hover:text-brand-accent">
-                    {meta.label}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
-                    {meta.blurb}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
-                    Explore
-                    <ArrowRight
-                      className="size-4 transition-transform group-hover:translate-x-0.5"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
+          <ServiceBento />
         </div>
       </section>
 
       {/* ─── Who We Serve ──────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <Reveal>
               <header className="max-w-2xl">
                 <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -212,20 +218,23 @@ export default function HomePage() {
               </header>
             </Reveal>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {WHO_WE_SERVE.map((item, i) => (
-                <Reveal key={item.href} delay={(i % 3) * 0.08} className="h-full">
+            <BentoGrid
+              className="mt-12"
+              tiles={WHO_WE_SERVE.map((item, i) => (
+                <Reveal key={item.href} delay={i * 0.08} className="h-full">
                   <Link
                     href={item.href}
-                    className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                    className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-7 transition-[border-color] duration-300 hover:border-[color:var(--color-teal-500)]/40 md:p-8"
                   >
                     <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                       {item.icon}
                     </span>
-                    <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink group-hover:text-brand-accent">
+                    <h3
+                      className={`mt-5 font-serif font-semibold text-brand-ink group-hover:text-brand-accent ${i === 0 ? "text-2xl" : "text-xl"}`}
+                    >
                       {item.label}
                     </h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-body-ink">
+                    <p className={`mt-3 flex-1 leading-relaxed text-body-ink ${i === 0 ? "max-w-md text-base" : "text-sm"}`}>
                       {item.pain}
                     </p>
                     <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-accent">
@@ -238,48 +247,25 @@ export default function HomePage() {
                   </Link>
                 </Reveal>
               ))}
-            </div>
+            />
           </div>
         </div>
       </section>
 
       {/* ─── How it works ─────────────────────────────────────────────── */}
-      <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
-            <Reveal>
-              <header className="max-w-2xl">
-                <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                  Three steps. Your practice stays the billing provider.
-                </h2>
-              </header>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-              <HowStep
-                number="01"
-                title="Identify & enroll"
-                body="We find patients in your panel with two or more chronic conditions on Medicare Part B, confirm eligibility, and obtain documented consent."
-              />
-              <HowStep
-                number="02"
-                title="Deliver monthly care coordination"
-                body="Each month our clinical team spends 20+ minutes per patient on calls, medication reconciliation, specialist follow-up, and care-plan documentation, inside your EHR."
-              />
-              <HowStep
-                number="03"
-                title="You bill, we invoice"
-                body="Your practice bills Medicare for CPT 99490 and relevant add-ons (99439 / 99487 / 99489). Zenith invoices you for the clinical labor. Monthly, predictable."
-              />
-              </ol>
-            </Reveal>
-          </div>
+      <section>
+        <div className="mx-auto max-w-[90rem] px-6">
+          <ScrollSteps
+            heading="Three steps. Your practice stays the billing provider."
+            steps={HOME_STEPS}
+          />
+        </div>
       </section>
 
       {/* ─── Revenue math navy band, complex-mix ceiling vs the hero's base floor ─ */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
           <Reveal>
           <div className="relative overflow-hidden rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-20 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
             <div
@@ -336,43 +322,38 @@ export default function HomePage() {
 
       {/* ─── Why Zenith ────────────────────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
-          <Reveal>
-            <header className="max-w-2xl">
+        <div className="mx-auto grid max-w-[90rem] items-center gap-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-20">
+          <div>
+            <Reveal>
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Why Zenith.
               </h2>
-            </header>
-          </Reveal>
-
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
-            {WHY_ZENITH.map((item, i) => (
-              <Reveal key={item.title} delay={(i % 2) * 0.08}>
-                <div className="flex gap-4">
-                  <span className="mt-0.5 inline-flex size-10 flex-none items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-brand-accent dark:bg-white/10">
-                    {item.icon}
-                  </span>
-                  <div>
-                    <h3 className="font-serif text-lg font-semibold text-brand-ink">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-body-ink">
-                      {item.body}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+            </Reveal>
+            <ol className="mt-10 space-y-9">
+              {WHY_ZENITH.map((item, i) => (
+                <Reveal key={item.title} delay={i * 0.08}>
+                  <li className="flex gap-5">
+                    <span className="pt-1 font-serif text-sm tabular-nums text-muted-foreground">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className="font-serif text-lg font-semibold text-brand-ink">{item.title}</h3>
+                      <p className="mt-2 max-w-md text-base leading-relaxed text-body-ink">{item.body}</p>
+                    </div>
+                  </li>
+                </Reveal>
+              ))}
+            </ol>
           </div>
+          <OrbitVisual />
         </div>
       </section>
 
       {/* ─── Founders strip ──────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <Reveal className="max-w-3xl">
-              <HeroEyebrow>The founders</HeroEyebrow>
               <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
                 Zenith is led by two founders.
               </h2>
@@ -405,7 +386,7 @@ export default function HomePage() {
             </Reveal>
             <p className="mt-10 text-sm">
               <Link href="/about" className="text-brand-accent hover:underline">
-                Learn more about Zenith →
+                About Zenith
               </Link>
             </p>
           </div>
@@ -455,7 +436,7 @@ export default function HomePage() {
 
       {/* ─── Final CTA band ──────────────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal>
           <div className="rounded-2xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -489,30 +470,6 @@ export default function HomePage() {
 
 /* -------------------------------------------------------------------------- */
 
-function HowStep({
-  number,
-  title,
-  body,
-}: {
-  number: string;
-  title: string;
-  body: string;
-}) {
-  return (
-    <li className="flex flex-col">
-      <span className="inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/35 bg-[color:var(--color-gold-100)]/35 font-mono text-sm font-medium text-[color:var(--color-gold-500)] dark:bg-[color:var(--color-gold-500)]/10">
-        {number}
-      </span>
-      <h3 className="mt-5 font-serif text-xl font-semibold text-brand-ink">
-        {title}
-      </h3>
-      <p className="mt-3 text-base leading-relaxed text-body-ink">
-        {body}
-      </p>
-    </li>
-  );
-}
-
 /* -------------------------------------------------------------------------- */
 /* Resources preview, shows latest 3 blog posts.                             */
 /* -------------------------------------------------------------------------- */
@@ -522,7 +479,7 @@ function ResourcesPreview() {
   if (posts.length === 0) return null;
   return (
     <section className="section-rhythm">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
         <Reveal>
           <header className="flex items-end justify-between gap-4">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
@@ -543,19 +500,16 @@ function ResourcesPreview() {
             <Reveal key={post.slug} delay={(i % 3) * 0.08} className="h-full">
               <Link
                 href={`/resources/${post.slug}`}
-                className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[0_18px_40px_-24px_rgba(11,32,38,0.4)]"
+                className="spotlight-edge group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
               >
-                <span className="text-xs font-medium uppercase tracking-wider text-brand-accent">
-                  {post.category}
-                </span>
-                <h3 className="mt-3 font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
+                <h3 className="font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
                   {post.title}
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-body-ink line-clamp-3">
                   {post.description}
                 </p>
                 <span className="mt-4 text-xs text-muted-foreground">
-                  {post.readingMinutes} min read
+                  {post.category}, {post.readingMinutes} min read
                 </span>
               </Link>
             </Reveal>

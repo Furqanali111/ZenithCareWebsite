@@ -27,7 +27,6 @@ export default function DenialCodesIndexPage() {
       <Breadcrumbs items={crumbs} />
 
       <PageHero
-        eyebrow="Revenue Cycle"
         title="Claim denial codes, explained."
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Revenue cycle services", href: "/services/revenue-cycle-management" }}
@@ -38,13 +37,13 @@ export default function DenialCodesIndexPage() {
       </PageHero>
 
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {denialCodes.map((d) => (
               <li key={d.slug}>
                 <Link
                   href={denialPath(d.slug)}
-                  className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                  className="spotlight-edge group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                 >
                   <span className="font-mono text-sm font-medium text-brand-accent">
                     {d.code}

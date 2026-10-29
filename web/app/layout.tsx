@@ -7,6 +7,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button";
 import { CookieConsent } from "@/components/cookie-consent";
 import { getServiceContacts } from "@/lib/service-contact";
 import { ThemeProvider } from "@/components/theme-provider";
+import { PointerGlow } from "@/components/pointer-glow";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -96,6 +97,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background text-foreground">
         <JsonLd data={[organizationLd(), websiteLd()]} />
+        <PointerGlow />
         <CookieConsent gaId={gaEnabled ? GA_ID : undefined} />
         <ThemeProvider
           attribute="class"

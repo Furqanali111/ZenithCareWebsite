@@ -30,7 +30,6 @@ export default function CptCodesIndexPage() {
       <Breadcrumbs items={crumbs} />
 
       <PageHero
-        eyebrow="Care Management"
         title="CPT codes for Medicare care management, explained."
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "Care management programs", href: "/services/care-management" }}
@@ -48,7 +47,7 @@ export default function CptCodesIndexPage() {
             key={p}
             className={`section-rhythm border-t border-border/60 ${i % 2 ? "bg-surface-tint" : ""}`}
           >
-            <div className="mx-auto max-w-7xl px-6">
+            <div className="mx-auto max-w-[90rem] px-6">
               <Reveal className="max-w-2xl">
                 <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                   {meta.label}
@@ -67,9 +66,9 @@ export default function CptCodesIndexPage() {
                   <li key={c.code}>
                     <Link
                       href={cptPath(c.code)}
-                      className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                      className="spotlight-edge group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                     >
-                      <span className="font-mono text-sm font-medium text-brand-accent">
+                      <span className="text-sm font-medium text-brand-accent">
                         CPT {c.code}
                       </span>
                       <span className="mt-1 font-serif text-base font-semibold text-brand-ink group-hover:text-brand-accent">

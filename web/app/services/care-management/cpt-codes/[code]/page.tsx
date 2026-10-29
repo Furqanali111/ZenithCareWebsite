@@ -91,7 +91,6 @@ export default async function CptCodePage({
       <Breadcrumbs items={crumbs} />
 
       <PageHero
-        eyebrow={`${program.label} · CPT code`}
         title={`CPT ${c.code}: ${c.shortTitle}`}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: `About ${program.label}`, href: programPath }}
@@ -101,7 +100,7 @@ export default async function CptCodePage({
 
       {/* ─── At a glance ─────────────────────────────────────────────── */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-2xl">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               CPT {c.code} at a glance
@@ -111,9 +110,9 @@ export default async function CptCodePage({
             {facts.map(([k, v]) => (
               <div
                 key={k}
-                className="rounded-xl border border-border/70 bg-card p-5"
+                className="spotlight-edge rounded-xl border border-border/70 bg-card p-5"
               >
-                <dt className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <dt className="text-xs font-semibold text-muted-foreground">
                   {k}
                 </dt>
                 <dd className="mt-2 text-base leading-snug text-ink-strong">{v}</dd>
@@ -130,7 +129,7 @@ export default async function CptCodePage({
 
       {/* ─── Requirements + pitfalls ─────────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-2">
+        <div className="mx-auto grid max-w-[90rem] gap-12 px-6 md:grid-cols-2">
           <Reveal>
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               What the record needs to show
@@ -185,7 +184,7 @@ export default async function CptCodePage({
       {/* ─── Related codes (same silo only) ──────────────────────────── */}
       {related.length > 0 ? (
         <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               Related {program.label} codes
             </h2>
@@ -194,9 +193,9 @@ export default async function CptCodePage({
                 <li key={r.code}>
                   <Link
                     href={cptPath(r.code)}
-                    className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="spotlight-edge group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
-                    <span className="font-mono text-sm font-medium text-brand-accent">
+                    <span className="text-sm font-medium text-brand-accent">
                       CPT {r.code}
                     </span>
                     <span className="mt-1 text-sm font-medium leading-snug text-brand-ink group-hover:text-brand-accent">
@@ -213,7 +212,7 @@ export default async function CptCodePage({
       {/* ─── Guides (posts tagged for this program) ──────────────────── */}
       {posts.length > 0 ? (
         <section className="section-rhythm border-t border-border/60">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
               {program.label} guides
             </h2>
@@ -222,7 +221,7 @@ export default async function CptCodePage({
                 <li key={p.slug}>
                   <Link
                     href={`/resources/${p.slug}`}
-                    className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                    className="spotlight-edge group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
                   >
                     <ArrowRight
                       className="mt-0.5 size-4 shrink-0 text-brand-accent"

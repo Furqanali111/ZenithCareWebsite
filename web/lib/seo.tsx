@@ -74,17 +74,29 @@ type JsonLd = Record<string, unknown>;
 
 const abs = (path: string) => new URL(path, site.url).toString();
 
+// Stable @id helpers: every node gets one so WebPage can link its Service,
+// FAQ, breadcrumb and people into a single graph.
+export const ORG_ID =`${site.url}/#organization`;
+const WEBSITE_ID = `${site.url}/#website`;
+export const serviceId = (path: string) => `${abs(path)}#service`;
+export const faqId = (path: string) => `${abs(path)}#faq`;
+export const articleId = (slug: string) => `${abs(`/resources/${slug}`)}#article`;
+export const personId = (initials: string) =>
+  `${abs("/about")}#${initials.toLowerCase()}`;
+const pageId = (path: string) => `${abs(path)}#webpage`;
+const ref = (id: string) => ({ "@id": id });
+
 export function organizationLd(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${site.url}#organization`,
+    "@id": ORG_ID,
     name: site.name,
     legalName: site.legalName,
     url: site.url,
     logo: abs("/logo.png"),
     description: site.tagline,
-    sameAs: [site.linkedin],
+    sameAs: [site.linkedin, site.facebook, site.instagram],
     // Services Zenith offers, surfaced so search + AI engines can map the
     // brand to its full offering catalogue across the three service
     // categories (care management, revenue cycle, virtual staffing). Mirrors
@@ -122,12 +134,64 @@ export function websiteLd(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${site.url}#website`,
+    "@id": WEBSITE_ID,
     url: site.url,
     name: site.name,
     description: site.tagline,
     inLanguage: "en-US",
-    publisher: { "@id": `${site.url}#organization` },
+    publisher: ref(ORG_ID),
+  };
+}
+
+type WebPageLdInput = {
+  path: string;
+  name: string;
+  description: string;
+  type?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage" | "FAQPage";
+  /** Set false on the home page, which has no BreadcrumbList. */
+  breadcrumb?: boolean;
+  /** @id of the entity the page is about (e.g. serviceId(path)). */
+  about?: string;
+  /** @id of the page's primary entity (e.g. faqId(path), articleId(slug)). */
+  mainEntity?: string;
+  /** @id of the clinical reviewer Person. */
+  reviewedBy?: string;
+  datePublished?: string;
+  dateModified?: string;
+};
+
+/**
+ * The glue node: one WebPage per URL that points at the page's Service, FAQ,
+ * breadcrumb, article and reviewer by @id, so parsers read them as one graph.
+ */
+export function webPageLd({
+  path,
+  name,
+  description,
+  type = "WebPage",
+  breadcrumb = true,
+  about,
+  mainEntity,
+  reviewedBy,
+  datePublished,
+  dateModified,
+}: WebPageLdInput): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": type,
+    "@id": pageId(path),
+    url: abs(path),
+    name,
+    description,
+    inLanguage: "en-US",
+    isPartOf: ref(WEBSITE_ID),
+    publisher: ref(ORG_ID),
+    ...(breadcrumb && { breadcrumb: ref(`${abs(path)}#breadcrumb`) }),
+    ...(about && { about: ref(about) }),
+    ...(mainEntity && { mainEntity: ref(mainEntity) }),
+    ...(reviewedBy && { reviewedBy: ref(reviewedBy) }),
+    ...(datePublished && { datePublished: withTz(datePublished) }),
+    ...(dateModified && { dateModified: withTz(dateModified) }),
   };
 }
 
@@ -149,11 +213,13 @@ export function serviceLd({
   return {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": serviceId(path),
     name,
     description,
     serviceType,
     url: abs(path),
-    provider: { "@id": `${site.url}#organization` },
+    provider: ref(ORG_ID),
+    mainEntityOfPage: ref(pageId(path)),
     areaServed: { "@type": "Country", name: "United States" },
     audience: {
       "@type": "MedicalAudience",
@@ -163,6 +229,8 @@ export function serviceLd({
 }
 
 type PersonLdInput = {
+  /** @id; use personId(initials) so other pages can reference this person. */
+  id?: string;
   name: string;
   jobTitle: string;
   path: string;
@@ -179,6 +247,7 @@ type PersonLdInput = {
 };
 
 export function personLd({
+  id,
   name,
   jobTitle,
   path,
@@ -191,11 +260,12 @@ export function personLd({
   const obj: JsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": id ?? `${abs(path)}#person`,
     name,
     jobTitle,
     description: bio,
     url: abs(path),
-    worksFor: { "@id": `${site.url}#organization` },
+    worksFor: ref(ORG_ID),
   };
   if (sameAs?.length) obj.sameAs = sameAs;
   if (knowsAbout?.length) obj.knowsAbout = knowsAbout;
@@ -235,25 +305,30 @@ export function articleLd({
   return {
     "@context": "https://schema.org",
     "@type": "Article",
+    "@id": articleId(slug),
     headline: title,
     description,
+    inLanguage: "en-US",
     datePublished: withTz(publishedAt),
     dateModified: withTz(updatedAt ?? publishedAt),
     // Articles are drafted by the company and reviewed by the PharmD co-founder,
     // so the author is the Organization, not a named person.
     author: { "@type": "Organization", name: author.name, ...(author.url ? { url: author.url } : {}) },
-    publisher: { "@id": `${site.url}#organization` },
-    mainEntityOfPage: abs(`/resources/${slug}`),
+    publisher: ref(ORG_ID),
+    mainEntityOfPage: ref(pageId(`/resources/${slug}`)),
     ...(image ? { image } : {}),
   };
 }
 
 export function faqPageLd(
   items: { question: string; answer: string }[],
+  /** Page path; gives the FAQ an @id the page's WebPage can reference. */
+  path?: string,
 ): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    ...(path && { "@id": faqId(path) }),
     mainEntity: items.map((it) => ({
       "@type": "Question",
       name: it.question,
@@ -272,6 +347,7 @@ export function breadcrumbLd(
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${abs(items[items.length - 1].path)}#breadcrumb`,
     itemListElement: items.map((it, i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -290,7 +366,10 @@ export function JsonLd({ data }: { data: JsonLd | JsonLd[] }) {
     <script
       type="application/ld+json"
       // JSON.stringify is safe; keys/values are not user input.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      // Escape "<" so content containing "</script>" cannot break out.
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }
@@ -312,6 +391,12 @@ if (process.env.NODE_ENV !== "production" && typeof window === "undefined") {
     serviceType: "Chronic Care Management",
   });
   console.assert(svc["@type"] === "Service", "serviceLd: wrong @type");
+
+  const wp = webPageLd({ path: "/t", name: "T", description: "T", about: serviceId("/t") });
+  console.assert(
+    (wp.about as { "@id": string })["@id"] === svc["@id"],
+    "webPageLd: about must match serviceLd @id",
+  );
 
   const faq = faqPageLd([{ question: "Q?", answer: "A." }]);
   const main = (faq as { mainEntity: unknown[] }).mainEntity;

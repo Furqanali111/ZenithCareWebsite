@@ -25,7 +25,7 @@ export default function PricingPage() {
           { name: "Pricing", path: PATH },
         ])}
       />
-      <LegalPage title="Pricing and billing model" eyebrow="Pricing" lastUpdated={UPDATED}>
+      <LegalPage title="Pricing and billing model" lastUpdated={UPDATED}>
         <p>
           All prices are in <strong>U.S. dollars (USD)</strong>. Every
           engagement is billed by invoice after you sign a written service

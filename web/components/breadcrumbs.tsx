@@ -16,7 +16,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="mx-auto max-w-7xl px-6 pt-4"
+      className="mx-auto max-w-[90rem] px-6 pt-4"
     >
       <ol className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
         {items.map((item, i) => {

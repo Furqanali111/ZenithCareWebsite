@@ -75,3 +75,5 @@ graphify-out/
 # Dev-helper config for Claude Code preview tooling. Personal to each dev;
 # format documented in Claude Code docs. Not committed.
 .claude/launch.json
+
+.playwright-mcp

@@ -1,7 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { pageMetadata, JsonLd, articleLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  articleLd,
+  articleId,
+  breadcrumbLd,
+  personId,
+  webPageLd,
+} from "@/lib/seo";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { BrandFigure } from "@/components/brand-figure";
 import { FaqSection } from "@/components/faq-section";
@@ -54,6 +62,15 @@ export default async function PostPage({
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path: `/resources/${post.slug}`,
+            name: post.title,
+            description: post.description,
+            mainEntity: articleId(post.slug),
+            reviewedBy: personId(reviewer.initials),
+            datePublished: post.publishedAt,
+            dateModified: post.updatedAt ?? post.publishedAt,
+          }),
           articleLd({
             title: post.title,
             description: post.description,
@@ -81,17 +98,15 @@ export default async function PostPage({
 
       <article className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-20">
         <header>
-          <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             <span className="text-brand-accent">
               {post.category}
             </span>
-            <span aria-hidden="true">·</span>
             <time dateTime={post.publishedAt}>
               {formatDate(post.publishedAt)}
             </time>
             {post.updatedAt !== post.publishedAt ? (
               <>
-                <span aria-hidden="true">·</span>
                 <span>
                   Updated{" "}
                   <time dateTime={post.updatedAt}>
@@ -100,7 +115,6 @@ export default async function PostPage({
                 </span>
               </>
             ) : null}
-            <span aria-hidden="true">·</span>
             <span>{post.readingMinutes} min read</span>
           </div>
           <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
@@ -143,7 +157,7 @@ export default async function PostPage({
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
             <FounderMonogram initials={reviewer.initials} name={reviewer.name} />
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-xs font-medium text-muted-foreground">
                 Reviewed by
               </p>
               <h2 className="mt-2 font-serif text-xl font-semibold text-brand-ink">
@@ -155,7 +169,7 @@ export default async function PostPage({
                   href="/about"
                   className="text-brand-accent underline underline-offset-2 hover:text-brand-ink"
                 >
-                  More about our team →
+                  About our team
                 </Link>
               </p>
             </div>
@@ -226,7 +240,7 @@ function RelatedArticles({ post }: { post: Post }) {
         {related.map((p) => (
           <li key={p.slug} className="py-5">
             <Link href={`/resources/${p.slug}`} className="group block">
-              <p className="text-xs uppercase tracking-[0.18em] text-brand-accent">
+              <p className="text-xs text-brand-accent">
                 {p.category}
               </p>
               <p className="mt-2 font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">

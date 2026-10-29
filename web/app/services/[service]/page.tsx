@@ -2,13 +2,21 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  serviceLd,
+  serviceId,
+  breadcrumbLd,
+  webPageLd,
+} from "@/lib/seo";
 import { Button } from "@/components/ui/button";
+import { HeroPanel } from "@/components/hero-panel";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { FeatureGrid } from "@/components/feature-grid";
-import { HowItWorks } from "@/components/how-it-works";
+import { ScrollStack } from "@/components/scroll-stack";
 import { FaqSection } from "@/components/faq-section";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
@@ -65,6 +73,12 @@ export default async function ServicePage({
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path,
+            name: s.name,
+            description: s.metaDescription,
+            about: serviceId(path),
+          }),
           serviceLd({
             name: s.name,
             description: s.metaDescription,
@@ -90,7 +104,12 @@ export default async function ServicePage({
       />
 
       <PageHero
-        eyebrow={cat.label}
+        visual={
+          <HeroPanel
+            heading={s.capabilitiesHeading}
+            items={s.capabilities.slice(0, 4).map((c) => ({ label: c.title }))}
+          />
+        }
         title={s.title}
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
         secondaryCta={{ label: "All services", href: "/services" }}
@@ -129,7 +148,7 @@ export default async function ServicePage({
 
       {/* ─── How it works (3-step flow) ──────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <HowItWorks steps={s.howItWorks} />
+        <ScrollStack steps={s.howItWorks} />
       </section>
 
       {/* ─── Who we serve: eligibility & billing (every service) ──────── */}
@@ -138,7 +157,7 @@ export default async function ServicePage({
         className="scroll-mt-24 border-t border-border/60"
       >
         <div className="section-rhythm">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <Reveal className="max-w-2xl">
               <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 Who we serve
@@ -230,7 +249,7 @@ export default async function ServicePage({
       {/* ─── Revenue band (care-management programs only) ─────────────── */}
       {s.revenue ? (
         <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-[90rem] px-6">
             <Reveal>
               <div className="relative overflow-hidden rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-brand-50)] px-8 py-14 text-brand-ink md:px-14 md:py-16 dark:border-white/10 dark:bg-[color:var(--color-brand-800)] dark:text-[color:var(--color-surface-0)]">
                 <div
@@ -325,7 +344,7 @@ function ServiceResources({ slug, name }: { slug: string; name: string }) {
   if (posts.length === 0) return null;
   return (
     <section className="section-rhythm border-t border-border/60">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
             {name} resources
@@ -336,7 +355,7 @@ function ServiceResources({ slug, name }: { slug: string; name: string }) {
             <li key={p.slug}>
               <Link
                 href={`/resources/${p.slug}`}
-                className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                className="spotlight-edge group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
               >
                 <ArrowRight
                   className="mt-0.5 size-4 shrink-0 text-brand-accent transition-transform group-hover:translate-x-0.5"
@@ -378,7 +397,7 @@ function BillingTable({ service }: { service: Service }) {
         <caption className="sr-only">
           CPT codes and representative 2026 Medicare rates for {service.name}.
         </caption>
-        <thead className="bg-card text-xs uppercase tracking-wide text-muted-foreground">
+        <thead className="bg-card text-xs text-muted-foreground">
           <tr>
             <th scope="col" className="px-4 py-3 font-semibold">
               CPT
@@ -503,7 +522,7 @@ function CrossLinkNote({ slug }: { slug: string }) {
   if (!cl) return null;
   return (
     <section className="border-t border-border/40">
-      <div className="mx-auto max-w-7xl px-6 py-6">
+      <div className="mx-auto max-w-[90rem] px-6 py-6">
         <p className="text-sm leading-relaxed text-muted-foreground">
           {cl.before}{" "}
           <Link href={cl.href} className="font-medium text-brand-accent hover:underline">
@@ -539,7 +558,7 @@ function RelatedServices({ current }: { current: Service }) {
 
   return (
     <section className="section-rhythm border-t border-border/60">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
             Related {cat.label.toLowerCase()} services
@@ -550,7 +569,7 @@ function RelatedServices({ current }: { current: Service }) {
             <Reveal key={sib.slug} className="h-full">
               <Link
                 href={`/services/${sib.slug}`}
-                className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                className="spotlight group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
               >
                 <h3 className="font-serif text-base font-semibold text-brand-ink group-hover:text-brand-accent">
                   {sib.name}

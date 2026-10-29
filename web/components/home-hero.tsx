@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ANCHOR_MONTHLY, ANCHOR_PATIENTS, CPT_RATES, formatUsd } from "@/lib/roi";
+import { HeroLedger } from "@/components/hero-ledger";
 
 /**
  * Homepage hero, theme-reactive. Light mode is an airy "Soft Structuralism"
@@ -33,22 +33,12 @@ export function HomeHero() {
         className="bg-dotgrid pointer-events-none absolute inset-0 z-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
       />
 
-      <div className="relative z-[1] mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
+      <div className="relative z-[1] mx-auto grid max-w-[90rem] grid-cols-1 gap-14 px-6 pt-24 pb-24 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-16 md:pt-28 md:pb-28">
         {/* Left, copy */}
         <div className="max-w-xl">
-          <span className="reveal-up reveal-up-1 inline-flex items-center rounded-full border border-brand-100 bg-card px-3 py-1 text-xs font-medium tracking-[0.14em] text-brand-accent dark:border-white/15 dark:bg-white/5">
-            For U.S. physician practices
-          </span>
-
           <h1 className="mt-6 font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
             Care management, billing, and staffing for your{" "}
-            <span className="relative inline-block whitespace-nowrap italic">
-              practice
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 -bottom-1 h-[3px] rounded-full bg-[color:var(--color-gold-500)]"
-              />
-            </span>.
+            practice.
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
@@ -81,77 +71,9 @@ export function HomeHero() {
           </ul>
         </div>
 
-        {/* Right, light reimbursement ledger on navy (real data, not a fake dashboard) */}
-        <aside
-          aria-label="Representative CCM reimbursement"
-          className="reveal-up reveal-up-3 relative"
-        >
-          <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[0_24px_60px_-28px_rgba(11,37,69,0.35)] dark:border-white/10 dark:shadow-2xl dark:shadow-black/40 md:p-8">
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)]">
-                Monthly reimbursement, typical panel
-              </span>
-              <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 font-mono text-xs font-medium uppercase tracking-wider text-[color:var(--color-brand-700)]">
-                CPT 99490
-              </span>
-            </div>
-
-            <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight">
-              <span className="text-5xl tabular-nums md:text-6xl">
-                {formatUsd(ANCHOR_MONTHLY)}
-              </span>
-              <span className="text-base font-medium text-[color:var(--color-ink-700)]">
-                / month
-              </span>
-            </div>
-            <p className="mt-2 text-sm text-[color:var(--color-ink-700)]">
-              {ANCHOR_PATIENTS} enrolled patients × ${CPT_RATES["99490"]}{" "}
-              base-code reimbursement
-            </p>
-
-            <div className="mt-7 grid grid-cols-3 gap-3">
-              <StatPill label="Base" value={`$${CPT_RATES["99490"]}`} note="99490" />
-              <StatPill label="Add-on" value={`$${CPT_RATES["99439"]}`} note="99439" />
-              <StatPill label="Complex" value={`$${CPT_RATES["99487"]}`} note="99487" />
-            </div>
-
-            <Link
-              href="/roi-calculator"
-              className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-[color:var(--color-brand-700)] hover:text-[color:var(--color-brand-900)]"
-            >
-              See the full breakdown
-              <ArrowRight className="size-5" aria-hidden="true" />
-            </Link>
-          </div>
-          <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground dark:text-white/75">
-            Representative example at the base code. Actual results vary.
-          </p>
-        </aside>
+        {/* Right: interactive reimbursement ledger (real math, not a fake dashboard) */}
+        <HeroLedger />
       </div>
     </section>
-  );
-}
-
-function StatPill({
-  label,
-  value,
-  note,
-}: {
-  label: string;
-  value: string;
-  note: string;
-}) {
-  return (
-    <div className="rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)]">
-        {label}
-      </p>
-      <p className="mt-1 font-serif text-lg font-semibold text-[color:var(--color-brand-900)]">
-        {value}
-      </p>
-      <p className="mt-0.5 font-mono text-xs text-[color:var(--color-ink-700)]">
-        {note}
-      </p>
-    </div>
   );
 }

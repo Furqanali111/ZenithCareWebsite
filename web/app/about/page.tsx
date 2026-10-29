@@ -1,7 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Eye, Handshake, Target, type LucideIcon } from "lucide-react";
-import { pageMetadata, JsonLd, personLd, breadcrumbLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  JsonLd,
+  personLd,
+  breadcrumbLd,
+  personId,
+  webPageLd,
+  ORG_ID,
+} from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { FounderMonogram } from "@/components/founder-monogram";
@@ -98,7 +106,15 @@ export default function AboutPage() {
     <>
       <JsonLd
         data={[
+          webPageLd({
+            path: PATH,
+            name: "About Zenith Care Solutions",
+            description: "Who runs Zenith Care Solutions and how the team works with U.S. physician practices.",
+            type: "AboutPage",
+            about: ORG_ID,
+          }),
           personLd({
+            id: personId(founder.initials),
             name: founder.name,
             jobTitle: "Founder, Zenith Care Solutions",
             path: PATH,
@@ -107,6 +123,7 @@ export default function AboutPage() {
             sameAs: FOUNDER_LINKEDIN ? [FOUNDER_LINKEDIN] : undefined,
           }),
           personLd({
+            id: personId(reviewer.initials),
             name: reviewer.name,
             jobTitle: "Co-founder, Zenith Care Solutions",
             path: `${PATH}#${reviewer.initials.toLowerCase()}`,
@@ -122,7 +139,6 @@ export default function AboutPage() {
 
       {/* 1. Hero */}
       <PageHero
-        eyebrow="About Zenith"
         title={
           <>
             Your patients need you.
@@ -139,7 +155,7 @@ export default function AboutPage() {
 
       {/* 2. Who we are + team message */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-3xl">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Who we are
@@ -207,7 +223,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <figure className="flex flex-col justify-center rounded-2xl border border-border bg-card p-8 md:p-10">
+            <figure className="spotlight-edge flex flex-col justify-center rounded-2xl border border-border bg-card p-8 md:p-10">
               <blockquote className="font-serif text-xl font-semibold leading-snug tracking-tight text-brand-ink md:text-2xl">
                 <p>
                   &ldquo;The work behind care deserves the same attention as
@@ -224,7 +240,7 @@ export default function AboutPage() {
 
       {/* Founders: short intros and a joint message */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Meet the founders
           </h2>
@@ -232,7 +248,7 @@ export default function AboutPage() {
             {founders.map((f) => (
               <div
                 key={f.name}
-                className="flex items-start gap-5 rounded-xl border border-border bg-card p-6 md:p-8"
+                className="spotlight-edge flex items-start gap-5 rounded-xl border border-border bg-card p-6 md:p-8"
               >
                 <FounderMonogram initials={f.initials} name={f.name} size="sm" />
                 <div>
@@ -296,7 +312,7 @@ export default function AboutPage() {
 
       {/* 3. The practice challenge */}
       <section className="section-rhythm">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-14">
+        <div className="mx-auto grid max-w-[90rem] gap-8 px-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-14">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             The work around patient care adds up.
           </h2>
@@ -318,7 +334,7 @@ export default function AboutPage() {
 
       {/* 4. Four pillars */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             What guides our work
           </h2>
@@ -326,7 +342,7 @@ export default function AboutPage() {
             {PILLARS.map((p) => (
               <div
                 key={p.name}
-                className="rounded-xl border border-border bg-card p-6 md:p-8"
+                className="spotlight-edge rounded-xl border border-border bg-card p-6 md:p-8"
               >
                 <p className="text-sm font-semibold text-brand-accent">
                   {p.name}
@@ -345,9 +361,9 @@ export default function AboutPage() {
 
       {/* 5. What we do */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            What we do
+            What we do for your practice
           </h2>
           <Reveal className="mt-10 grid gap-6 lg:grid-cols-3">
             {CATEGORY_ORDER.map((cat) => {
@@ -355,7 +371,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={cat}
-                  className="flex flex-col rounded-xl border border-border bg-card p-6 md:p-8"
+                  className="spotlight-edge flex flex-col rounded-xl border border-border bg-card p-6 md:p-8"
                 >
                   <h3 className="font-serif text-xl font-semibold tracking-tight text-brand-ink md:text-2xl">
                     <Link href={meta.href} className="hover:underline">
@@ -386,7 +402,7 @@ export default function AboutPage() {
 
       {/* 6. How we work */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             How we work
           </h2>
@@ -398,7 +414,7 @@ export default function AboutPage() {
               {STEPS.map((s, i) => (
                 <li
                   key={s.title}
-                  className="rounded-xl border border-border bg-card p-6"
+                  className="spotlight-edge rounded-xl border border-border bg-card p-6"
                 >
                   <span
                     aria-hidden="true"
@@ -421,7 +437,7 @@ export default function AboutPage() {
 
       {/* 7. Why Zenith */}
       <section className="section-rhythm">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
             Why practices work with Zenith
           </h2>
@@ -442,7 +458,7 @@ export default function AboutPage() {
 
       {/* 8. Trust and safeguards */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="rounded-2xl border border-border bg-card p-8 md:p-12">
             <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Trust and safeguards
@@ -555,7 +571,7 @@ function Statement({
   children: React.ReactNode;
 }) {
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
+    <div className="spotlight-edge group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
       <span
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-1.5 bg-[color:var(--color-teal-500)]"
