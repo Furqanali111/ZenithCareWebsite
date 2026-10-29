@@ -156,7 +156,7 @@ export default function HipaaCompliancePage() {
 
       {/* ─── CTA + link to formal statement ──────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <div className="spotlight rounded-2xl border border-border/70 bg-card p-8 md:p-12">
+        <div className="rounded-2xl border border-border/70 bg-card p-8 md:p-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_auto] md:items-center">
             <div>
               <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
@@ -197,7 +197,7 @@ export default function HipaaCompliancePage() {
 
 function TrustCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+    <div className="spotlight-edge rounded-xl border border-border bg-card p-6 md:p-8">
       <h3 className="font-serif text-xl font-semibold text-brand-ink">
         {title}
       </h3>
@@ -216,7 +216,7 @@ function SafeguardCard({
   items: string[];
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+    <div className="spotlight-edge rounded-xl border border-border bg-card p-6 md:p-8">
       <p className="text-xs font-medium text-muted-foreground">
         {label}
       </p>

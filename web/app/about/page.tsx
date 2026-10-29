@@ -223,7 +223,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <figure className="flex flex-col justify-center rounded-2xl border border-border bg-card p-8 md:p-10">
+            <figure className="spotlight-edge flex flex-col justify-center rounded-2xl border border-border bg-card p-8 md:p-10">
               <blockquote className="font-serif text-xl font-semibold leading-snug tracking-tight text-brand-ink md:text-2xl">
                 <p>
                   &ldquo;The work behind care deserves the same attention as
@@ -248,7 +248,7 @@ export default function AboutPage() {
             {founders.map((f) => (
               <div
                 key={f.name}
-                className="flex items-start gap-5 rounded-xl border border-border bg-card p-6 md:p-8"
+                className="spotlight-edge flex items-start gap-5 rounded-xl border border-border bg-card p-6 md:p-8"
               >
                 <FounderMonogram initials={f.initials} name={f.name} size="sm" />
                 <div>
@@ -342,7 +342,7 @@ export default function AboutPage() {
             {PILLARS.map((p) => (
               <div
                 key={p.name}
-                className="rounded-xl border border-border bg-card p-6 md:p-8"
+                className="spotlight-edge rounded-xl border border-border bg-card p-6 md:p-8"
               >
                 <p className="text-sm font-semibold text-brand-accent">
                   {p.name}
@@ -371,7 +371,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={cat}
-                  className="flex flex-col rounded-xl border border-border bg-card p-6 md:p-8"
+                  className="spotlight-edge flex flex-col rounded-xl border border-border bg-card p-6 md:p-8"
                 >
                   <h3 className="font-serif text-xl font-semibold tracking-tight text-brand-ink md:text-2xl">
                     <Link href={meta.href} className="hover:underline">
@@ -414,7 +414,7 @@ export default function AboutPage() {
               {STEPS.map((s, i) => (
                 <li
                   key={s.title}
-                  className="rounded-xl border border-border bg-card p-6"
+                  className="spotlight-edge rounded-xl border border-border bg-card p-6"
                 >
                   <span
                     aria-hidden="true"
@@ -571,7 +571,7 @@ function Statement({
   children: React.ReactNode;
 }) {
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
+    <div className="spotlight-edge group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
       <span
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-1.5 bg-[color:var(--color-teal-500)]"

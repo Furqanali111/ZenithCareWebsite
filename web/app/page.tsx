@@ -438,7 +438,7 @@ export default function HomePage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-[90rem] px-6">
           <Reveal>
-          <div className="spotlight rounded-2xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
+          <div className="rounded-2xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               Ready to find out if we are a fit?
             </h2>
@@ -500,7 +500,7 @@ function ResourcesPreview() {
             <Reveal key={post.slug} delay={(i % 3) * 0.08} className="h-full">
               <Link
                 href={`/resources/${post.slug}`}
-                className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
+                className="spotlight-edge group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
               >
                 <h3 className="font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
                   {post.title}

@@ -95,8 +95,13 @@ export default function ServicesOverviewPage() {
               <tbody className="divide-y divide-border/70 bg-card text-ink-strong">
                 {COMPARISON.map((row) => (
                   <tr key={row.program}>
-                    <td className="whitespace-nowrap px-4 py-3 font-medium text-brand-accent">
-                      {row.program}
+                    <td className="whitespace-nowrap px-4 py-3 font-medium">
+                      <Link
+                        href={`/services/${row.slug}`}
+                        className="text-brand-accent underline-offset-4 transition-colors hover:text-brand-ink hover:underline"
+                      >
+                        {row.program}
+                      </Link>
                     </td>
                     <td className="px-4 py-3 leading-snug">{row.eligibility}</td>
                     <td className="px-4 py-3 font-mono text-xs leading-snug">{row.codes}</td>
@@ -299,13 +304,15 @@ const ELIGIBILITY = [
 const COMPARISON = [
   {
     program: "CCM",
+    slug: "chronic-care-management",
     eligibility: "2+ chronic conditions, 12+ months",
     codes: "99490, 99439, 99487/99489, 99491",
-    rate: `~${CPT_RATES["99490"]}/mo`,
+    rate: `~$${CPT_RATES["99490"]}/mo`,
     whoCanBill: "Physician, NP, PA, clinical staff",
   },
   {
     program: "PCM",
+    slug: "principal-care-management",
     eligibility: "1 high-risk condition, 3+ months",
     codes: "99424, 99425, 99426, 99427",
     rate: "~$68-$88/mo",
@@ -313,6 +320,7 @@ const COMPARISON = [
   },
   {
     program: "RPM",
+    slug: "remote-patient-monitoring",
     eligibility: "Acute/chronic condition + connected device",
     codes: "99453, 99454, 99445, 99457, 99458, 99470",
     rate: "~$150-$200+/mo",
@@ -320,6 +328,7 @@ const COMPARISON = [
   },
   {
     program: "RTM",
+    slug: "remote-therapeutic-monitoring",
     eligibility: "Respiratory/MSK condition, app or device",
     codes: "98975, 98976/98977, 98980, 98981",
     rate: "~$90-$150/mo",
@@ -327,6 +336,7 @@ const COMPARISON = [
   },
   {
     program: "TCM",
+    slug: "transitional-care-management",
     eligibility: "Post-discharge, 30-day window",
     codes: "99495, 99496",
     rate: "$220-$299/episode",

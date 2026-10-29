@@ -568,12 +568,26 @@
 /* Spotlight card: a soft cyan light and a glowing edge that follow the
    pointer (set by <PointerGlow />). Behind the content, pointer devices only,
    no layout change. */
-.spotlight {
+.spotlight,
+.spotlight-edge {
   position: relative;
   isolation: isolate;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s;
+}
+/* Cards lift a few pixels on hover (pointer devices, motion allowed). */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .spotlight:hover,
+  .spotlight-edge:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
 }
 .spotlight::before,
-.spotlight::after {
+.spotlight::after,
+.spotlight-edge::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -590,7 +604,8 @@
     transparent 70%
   );
 }
-.spotlight::after {
+.spotlight::after,
+.spotlight-edge::after {
   padding: 1px;
   background: radial-gradient(
     240px circle at var(--mx, 50%) var(--my, 50%),
@@ -603,7 +618,8 @@
 }
 @media (hover: hover) {
   .spotlight:hover::before,
-  .spotlight:hover::after { opacity: 1; }
+  .spotlight:hover::after,
+  .spotlight-edge:hover::after { opacity: 1; }
 }
 
 /* Scroll Reveal text: words light up as the line scrolls into view. Needs
