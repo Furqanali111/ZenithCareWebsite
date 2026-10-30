@@ -50,6 +50,9 @@ import Cpt99426Pcm, {
 import HowToChooseCcmVendor, {
   frontmatter as chooseVendorFm,
 } from "./posts/how-to-choose-a-ccm-vendor.mdx";
+import Cpt99487Complex, {
+  frontmatter as cpt99487Fm,
+} from "./posts/cpt-99487-99489-complex-ccm.mdx";
 
 /**
  * The one-sentence rule: every blog post is listed here as a static
@@ -99,6 +102,7 @@ const POSTS: Post[] = [
   { ...(cpt99490DocChecklistFm as PostFrontmatter), Component: Cpt99490DocChecklist },
   { ...(cpt99426PcmFm as PostFrontmatter), Component: Cpt99426Pcm },
   { ...(chooseVendorFm as PostFrontmatter), Component: HowToChooseCcmVendor },
+  { ...(cpt99487Fm as PostFrontmatter), Component: Cpt99487Complex },
 ];
 
 /** All posts, newest first by publishedAt. */
