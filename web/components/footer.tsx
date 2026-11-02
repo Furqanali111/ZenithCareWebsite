@@ -170,7 +170,7 @@ export function Footer() {
             <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {LEGAL_LINKS.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="transition-colors hover:text-brand-ink">
+                  <Link href={l.href} className="inline-block py-2 transition-colors hover:text-brand-ink">
                     {l.label}
                   </Link>
                 </li>
@@ -195,7 +195,7 @@ function FooterColumn({ label, items }: { label: string; items: Item[] }) {
           <li key={item.href}>
             <Link
               href={item.href}
-              className="text-body-ink transition-colors hover:text-brand-accent"
+              className="inline-block py-1.5 text-body-ink transition-colors hover:text-brand-accent"
             >
               {item.label}
             </Link>

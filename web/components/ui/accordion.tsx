@@ -62,6 +62,8 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
+      // Keep answers in the server HTML (hidden when closed) so crawlers that skip JS can read them.
+      forceMount
       className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
       {...props}
     >

@@ -130,7 +130,7 @@ const HOME_FAQ = [
   {
     question: "How long does onboarding take?",
     answer:
-      "Typically two to four weeks, depending on the scope. We set up inside your EHR and practice management system, sign a BAA, and confirm workflows before going live.",
+      "Typically three to six weeks from the signed agreement, depending on panel size and EHR complexity. We set up inside your EHR and practice management system, sign a BAA, and confirm workflows before going live.",
   },
   {
     question: "What EHR systems do you work with?",
@@ -140,7 +140,7 @@ const HOME_FAQ = [
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "Care Management, Billing and Staffing",
+  title: "Care Management, Billing & Staffing",
   description:
     "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider.",
   path: "/",

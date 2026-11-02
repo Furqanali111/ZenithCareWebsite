@@ -2,12 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
+import { pageMetadata, JsonLd, breadcrumbLd, webPageLd } from "@/lib/seo";
+import { CONTENT_UPDATED } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { FaqSection } from "@/components/faq-section";
+import { Sources, SourcedFacts, SOURCES } from "@/components/sources";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   CPT_BASE,
@@ -87,7 +89,17 @@ export default async function CptCodePage({
 
   return (
     <>
-      <JsonLd data={breadcrumbLd(crumbs)} />
+      <JsonLd
+        data={[
+          webPageLd({
+            path,
+            name: `CPT ${c.code}: ${c.shortTitle}`,
+            description: c.metaDescription,
+            dateModified: CONTENT_UPDATED,
+          }),
+          breadcrumbLd(crumbs),
+        ]}
+      />
       <Breadcrumbs items={crumbs} />
 
       <PageHero
@@ -243,6 +255,15 @@ export default async function CptCodePage({
         idPrefix={`cpt-${c.code}-faq`}
         items={c.faqs}
         tone="surface"
+      />
+
+      {c.cmsFacts && c.cmsSource ? (
+        <SourcedFacts heading="What CMS says" items={c.cmsFacts} />
+      ) : null}
+
+      <Sources
+        links={c.cmsSource ? [...SOURCES.care, c.cmsSource] : SOURCES.care}
+        updated={CONTENT_UPDATED}
       />
 
       <section className="border-t border-border/60 bg-background">

@@ -174,10 +174,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-/**
- * MDX plugin set is deliberately empty for v1. Add remark-gfm / rehype-slug
- * / rehype-pretty-code when the first post actually needs the feature.
- */
-const withMDX = createMDX({});
+// remark-gfm renders the pipe tables in posts. Turbopack needs plugins by name.
+const withMDX = createMDX({ options: { remarkPlugins: ["remark-gfm"] } });
 
 export default withMDX(nextConfig);

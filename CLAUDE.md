@@ -7,7 +7,7 @@ Pinned context for every session in this repo. Read first.
 ## The business
 
 - **Brand**: Zenith Care Solutions (working name; also considering Zenith Health Partners)
-- **Founder**: Ali Hassan Kaleem, PharmD (clinical oncology / BMT background)
+- **Founders**: Furqan Ali (founder, software engineer) and Muhammad Usman (co-founder, PharmD, entrepreneur). Messages from the /contact page land with Furqan. Muhammad Usman is the clinical reviewer named on articles.
 - **Operating from**: Pakistan → serving U.S. providers
 - **Legal entity (planned)**: Wyoming single-member LLC
 - **Service**: Chronic Care Management (CCM) for U.S. primary care, internal medicine, geriatrics

@@ -23,6 +23,9 @@ export type DenialCode = {
   shortTitle: string;
   metaDescription: string;
   summary: string;
+  /** What the official X12 reason-code text says, paraphrased, plus usage rules. */
+  remit?: string;
+  extraSources?: readonly { label: string; href: string }[];
   /** True when it is a routine contractual adjustment, not a real denial. */
   routine?: boolean;
   causes: string[];
@@ -36,6 +39,8 @@ export type DenialCode = {
 export const denialCodes: readonly DenialCode[] = [
   {
     slug: "co-4",
+    remit:
+      "X12 defines this reason as a procedure code that does not fit the modifier used. When the payer sends one, the 835 remittance can carry a pointer to the payer's policy in the Healthcare Policy Identification Segment (loop 2110, REF), which is the first place to look for the edit that fired.",
     code: "CO-4",
     shortTitle: "Modifier issue",
     metaDescription:
@@ -72,6 +77,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-11",
+    remit:
+      "X12 defines this reason as a diagnosis that is inconsistent with the procedure. As with CO-4, the 835 may include a Healthcare Policy Identification Segment (loop 2110, REF) pointing to the payer policy behind the edit.",
     code: "CO-11",
     shortTitle: "Diagnosis mismatch",
     metaDescription:
@@ -108,6 +115,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-16",
+    remit:
+      "X12 defines this reason as a claim or service that lacks information or has a submission or billing error. X12 says it should not be used for claim attachments or other documentation, and that at least one remark code (an NCPDP reject reason code or a non-ALERT remittance advice remark code) must accompany it. That remark code tells you which piece of information is missing.",
     code: "CO-16",
     shortTitle: "Missing information",
     metaDescription:
@@ -144,6 +153,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-18",
+    remit:
+      "X12 defines this reason as an exact duplicate of a claim or service. X12 limits it to group code OA, except where state workers' compensation rules require CO, so check which group code your payer actually sent.",
     code: "CO-18",
     shortTitle: "Duplicate claim",
     metaDescription:
@@ -180,6 +191,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-22",
+    remit:
+      "X12 defines this reason as care that may be covered by another payer under coordination of benefits.",
     code: "CO-22",
     shortTitle: "Other payer primary",
     metaDescription:
@@ -216,6 +229,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-27",
+    remit:
+      "X12 defines this reason as expenses incurred after coverage terminated.",
     code: "CO-27",
     shortTitle: "Coverage had ended",
     metaDescription:
@@ -252,6 +267,9 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-29",
+    remit:
+      "X12 defines this reason as an expired time limit for filing. For Original Medicare fee-for-service, 42 CFR 424.44 sets the limit at the end of one calendar year after the date of service. Other payers set their own limits.",
+    extraSources: [{ label: "42 CFR 424.44, time limits for filing claims", href: "https://www.law.cornell.edu/cfr/text/42/424.44" }],
     code: "CO-29",
     shortTitle: "Timely filing expired",
     metaDescription:
@@ -325,6 +343,9 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-50",
+    remit:
+      "X12 defines this reason as non-covered services because the payer does not deem them medically necessary. The 835 may include a Healthcare Policy Identification Segment (loop 2110, REF) pointing to the policy used. For Original Medicare claims, CMS says a redetermination request is due within 120 days of receiving the initial determination, and the notice is presumed received 5 days after its date.",
+    extraSources: [{ label: "CMS: first level of appeal, redetermination", href: "https://www.cms.gov/medicare/appeals-grievances/fee-for-service/first-level-appeal-redetermination-medicare-contractor" }],
     code: "CO-50",
     shortTitle: "Medical necessity",
     metaDescription:
@@ -361,6 +382,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-96",
+    remit:
+      "X12 defines this reason as non-covered charges. X12 requires at least one remark code with it, and the 835 may include a Healthcare Policy Identification Segment (loop 2110, REF). The remark code is the main clue to why the charge is not covered.",
     code: "CO-96",
     shortTitle: "Non-covered charge",
     metaDescription:
@@ -397,6 +420,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-97",
+    remit:
+      "X12 defines this reason as a benefit that is included in the payment or allowance for another service or procedure that has already been adjudicated. The 835 may include a Healthcare Policy Identification Segment (loop 2110, REF) pointing to the payer policy.",
     code: "CO-97",
     shortTitle: "Bundled service",
     metaDescription:
@@ -433,6 +458,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-109",
+    remit:
+      "X12 defines this reason as a claim or service not covered by this payer or contractor, with the instruction that you must send it to the correct payer or contractor.",
     code: "CO-109",
     shortTitle: "Wrong payer",
     metaDescription:
@@ -469,6 +496,8 @@ export const denialCodes: readonly DenialCode[] = [
   },
   {
     slug: "co-197",
+    remit:
+      "X12 defines this reason as precertification, authorization, notification or pre-treatment approval being absent.",
     code: "CO-197",
     shortTitle: "Authorization missing",
     metaDescription:

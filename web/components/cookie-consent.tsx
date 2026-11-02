@@ -107,10 +107,10 @@ export function CookieConsent({ gaId }: { gaId?: string }) {
         <div
           role="dialog"
           aria-label="Cookie consent"
-          className="fixed inset-x-0 bottom-0 z-[60] border-t border-border bg-background p-4 shadow-lg"
+          className="fixed inset-x-0 bottom-0 z-[60] border-t border-border bg-background p-3 shadow-lg md:p-4"
         >
           <div className="mx-auto flex max-w-5xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm text-body-ink">
+            <p className="text-xs text-body-ink md:text-sm">
               We use optional analytics cookies (Google Analytics) and load our
               booking calendar (Calendly) only if you agree. Essential
               features work either way. See our{" "}
@@ -123,7 +123,7 @@ export function CookieConsent({ gaId }: { gaId?: string }) {
               </Link>
               .
             </p>
-            <div className="flex shrink-0 gap-3">
+            <div className="flex shrink-0 gap-3 [&>button]:flex-1 md:[&>button]:flex-none">
               <Button variant="outline" onClick={() => save("denied", gaId)}>
                 Reject optional
               </Button>

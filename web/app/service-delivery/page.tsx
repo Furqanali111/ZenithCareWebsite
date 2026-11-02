@@ -10,7 +10,7 @@ const UPDATED = "2026-10-23";
 export const metadata: Metadata = pageMetadata({
   title: "Service Delivery Policy",
   description:
-    "When and how Zenith Care Solutions starts and delivers its services: onboarding, working hours, reporting and support.",
+    "When and how Zenith Care Solutions starts and delivers its services to your practice: onboarding steps, working hours, reporting cadence and support.",
   path: PATH,
   rootOgImage: true,
 });
