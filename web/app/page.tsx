@@ -29,11 +29,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { FounderMonogram } from "@/components/founder-monogram";
 import { HomeHero } from "@/components/home-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
-import { founders } from "@/lib/site";
 import { getAllPosts } from "@/content/posts";
 import {
   ANCHOR_MONTHLY,
@@ -349,40 +347,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── Founders strip ──────────────────────────────────────────── */}
+      {/* ─── About strip ─────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">
           <div className="mx-auto max-w-[90rem] px-6">
             <Reveal className="max-w-3xl">
               <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                Zenith is led by two founders.
+                We built Zenith so your team can get back to patients.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-body-ink">
-                {founders[0].name} and {founders[1].name} started Zenith to help
-                practices make more room for patient care. One brings software
-                delivery experience, the other a Doctor of Pharmacy degree and
-                an entrepreneurial background. Your practice keeps clinical
-                oversight and its billing relationship while our team supports
-                the work around it.
+                Zenith Care Solutions supports U.S. practices with the clinical
+                coordination and operational work behind patient care. Your
+                practice keeps clinical oversight and its billing relationship
+                while our team supports the work around it.
               </p>
-            </Reveal>
-            <Reveal className="mt-10 grid gap-8 sm:grid-cols-2">
-              {founders.map((f) => (
-                <div key={f.name} className="flex items-start gap-5">
-                  <FounderMonogram initials={f.initials} name={f.name} size="sm" />
-                  <div>
-                    <p className="font-serif text-xl font-semibold text-brand-ink">
-                      {f.name}
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-brand-accent">
-                      {f.title}
-                    </p>
-                    <p className="mt-2 text-base leading-relaxed text-body-ink">
-                      {f.intro}
-                    </p>
-                  </div>
-                </div>
-              ))}
             </Reveal>
             <p className="mt-10 text-sm">
               <Link href="/about" className="text-brand-accent hover:underline">

@@ -4,18 +4,15 @@ import { Eye, Handshake, Target, type LucideIcon } from "lucide-react";
 import {
   pageMetadata,
   JsonLd,
-  personLd,
   breadcrumbLd,
-  personId,
   webPageLd,
   ORG_ID,
 } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { BulletedListItem } from "@/components/bulleted-list";
-import { FounderMonogram } from "@/components/founder-monogram";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { founder, founders, reviewer, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import {
   categoryMeta,
   servicesByCategory,
@@ -23,13 +20,6 @@ import {
 } from "@/lib/services";
 
 const PATH = "/about";
-
-// Personal LinkedIn URL, distinct from the Zenith company page.
-// Deliberately empty until the real slug is confirmed; the Person JSON-LD
-// `sameAs` and the LinkedIn CTA both suppress themselves when blank, same
-// pattern as the WhatsApp / Calendly guards. Dangling-reference per
-// WebSiteDoc/Project/13-deferred-items.md.
-const FOUNDER_LINKEDIN = "";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Our Team and Service Model",
@@ -109,26 +99,9 @@ export default function AboutPage() {
           webPageLd({
             path: PATH,
             name: "About Zenith Care Solutions",
-            description: "Who runs Zenith Care Solutions and how the team works with U.S. physician practices.",
+            description: "About Zenith Care Solutions and how the team works with U.S. physician practices.",
             type: "AboutPage",
             about: ORG_ID,
-          }),
-          personLd({
-            id: personId(founder.initials),
-            name: founder.name,
-            jobTitle: "Founder, Zenith Care Solutions",
-            path: PATH,
-            bio:
-              "Software engineer with five years of experience delivering projects to multiple customers. Founder of Zenith Care Solutions.",
-            sameAs: FOUNDER_LINKEDIN ? [FOUNDER_LINKEDIN] : undefined,
-          }),
-          personLd({
-            id: personId(reviewer.initials),
-            name: reviewer.name,
-            jobTitle: "Co-founder, Zenith Care Solutions",
-            path: `${PATH}#${reviewer.initials.toLowerCase()}`,
-            bio: `${reviewer.intro} Reviews clinical and billing content published by Zenith Care Solutions.`,
-            hasCredential: ["Doctor of Pharmacy (PharmD)"],
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },
@@ -238,46 +211,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founders: short intros and a joint message */}
+      {/* Company message */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-[90rem] px-6">
-          <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            Meet the founders
-          </h2>
-          <Reveal className="mt-10 grid gap-6 md:grid-cols-2">
-            {founders.map((f) => (
-              <div
-                key={f.name}
-                className="spotlight-edge flex items-start gap-5 rounded-xl border border-border bg-card p-6 md:p-8"
-              >
-                <FounderMonogram initials={f.initials} name={f.name} size="sm" />
-                <div>
-                  <h3 className="font-serif text-xl font-semibold tracking-tight text-brand-ink">
-                    {f.name}
-                    {f.credential ? `, ${f.credential}` : ""}
-                  </h3>
-                  <p className="mt-1 text-sm font-semibold text-brand-accent">
-                    {f.title}
-                  </p>
-                  <p className="mt-3 text-base leading-relaxed text-body-ink">
-                    {f.intro}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </Reveal>
-
-          <Reveal className="mt-12 grid gap-10 rounded-2xl border border-border bg-card p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-14 md:p-12">
+          <Reveal className="grid gap-10 rounded-2xl border border-border bg-card p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-14 md:p-12">
             <div>
-              <h3 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+              <p className="text-sm font-semibold text-brand-accent">
+                A message from Zenith
+              </p>
+              <h2 className="mt-3 font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
                 We built Zenith so your team can get back to patients.
-              </h3>
+              </h2>
               <p className="mt-8 font-serif text-base font-semibold text-brand-ink">
-                {founders.map((f) => (
-                  <span key={f.name} className="block">
-                    {f.name}, {f.title}
-                  </span>
-                ))}
+                The Zenith Care Solutions Team
               </p>
             </div>
             <div className="space-y-5 text-base leading-relaxed text-body-ink md:text-lg">
@@ -541,17 +487,6 @@ export default function AboutPage() {
             <Button asChild size="lg">
               <Link href="/contact">Book a 15-minute call</Link>
             </Button>
-            {FOUNDER_LINKEDIN ? (
-              <Button asChild size="lg" variant="outline">
-                <a
-                  href={FOUNDER_LINKEDIN}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Furqan on LinkedIn
-                </a>
-              </Button>
-            ) : null}
           </div>
         </div>
       </section>
