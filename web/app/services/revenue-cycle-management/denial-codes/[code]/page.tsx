@@ -2,13 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
+import { pageMetadata, JsonLd, breadcrumbLd, webPageLd } from "@/lib/seo";
+import { CONTENT_UPDATED } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { FaqSection } from "@/components/faq-section";
-import { Sources, SOURCES } from "@/components/sources";
+import { Sources, SourcedFacts, SOURCES } from "@/components/sources";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { DENIAL_BASE, denialCodes, denialPath, getDenial } from "@/lib/denial-codes";
 import { getAllPosts } from "@/content/posts";
@@ -17,6 +18,10 @@ type Params = { code: string };
 
 // Fully static, SEO-prerendered page (same pattern as /services/[service]).
 export const instant = false;
+
+// X12 claim adjustment group codes, paraphrased from x12.org.
+const GROUP_CODES =
+  "The group code printed before the number says who the adjustment belongs to. X12 defines CO as Contractual Obligation, PR as Patient Responsibility, OA as Other Adjustment and PI as Payer Initiated Reductions.";
 
 export function generateStaticParams(): Params[] {
   return denialCodes.map((d) => ({ code: d.slug }));
@@ -63,7 +68,17 @@ export default async function DenialCodePage({
 
   return (
     <>
-      <JsonLd data={breadcrumbLd(crumbs)} />
+      <JsonLd
+        data={[
+          webPageLd({
+            path: denialPath(d.slug),
+            name: `${d.code} denial: ${d.shortTitle}`,
+            description: d.metaDescription,
+            dateModified: CONTENT_UPDATED,
+          }),
+          breadcrumbLd(crumbs),
+        ]}
+      />
       <Breadcrumbs items={crumbs} />
 
       <PageHero
@@ -200,7 +215,17 @@ export default async function DenialCodePage({
         items={d.faqs}
       />
 
-      <Sources links={SOURCES.denial} />
+      {d.remit ? (
+        <SourcedFacts
+          heading="What the official code says"
+          items={[d.remit, GROUP_CODES]}
+        />
+      ) : null}
+
+      <Sources
+        links={d.extraSources ? [...SOURCES.denial, ...d.extraSources] : SOURCES.denial}
+        updated={CONTENT_UPDATED}
+      />
 
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">

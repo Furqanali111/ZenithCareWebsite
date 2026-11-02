@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { site, specialties } from "@/lib/site";
+import { site, specialties, CONTENT_UPDATED } from "@/lib/site";
 import { getServiceSlugs } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
 import { CPT_BASE, cptCodes, cptPath } from "@/lib/cpt-codes";
@@ -8,9 +8,9 @@ import { DENIAL_BASE, denialCodes, denialPath } from "@/lib/denial-codes";
 /**
  * All indexable public routes. Keep in sync as pages are added.
  *
- * Only articles carry `lastModified`: they have a real `updatedAt`. Other URLs
- * omit it rather than share one made-up date, because Google ignores lastmod
- * it can't trust. `priority` / `changeFrequency` are ignored by Google, so
+ * Articles carry their own `updatedAt`. Service, CPT and denial pages carry
+ * CONTENT_UPDATED, the date the owner set. Other URLs omit lastmod rather than
+ * share a made-up date, because Google ignores lastmod it can't trust. `priority` / `changeFrequency` are ignored by Google, so
  * they are not emitted.
  *
  * shortcut: hand-maintained list; swap for a glob over `app/**\/page.tsx` once
@@ -64,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const pages: MetadataRoute.Sitemap = paths.map((p) => ({
     url: p === "/" ? BASE : `${BASE}${p}`,
+    ...(p.startsWith("/services") && { lastModified: new Date(CONTENT_UPDATED) }),
   }));
 
   const posts: MetadataRoute.Sitemap = getAllPosts().map((p) => ({

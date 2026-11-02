@@ -42,6 +42,9 @@ export type CptCodeEntry = {
   shortTitle: string;
   metaDescription: string;
   summary: string;
+  /** Sourced statements from CMS publications, shown with a link to the source. */
+  cmsFacts?: readonly string[];
+  cmsSource?: { label: string; href: string };
   time: string;
   performer: string;
   frequency: string;
@@ -329,6 +332,13 @@ export const cptCodes: readonly CptCodeEntry[] = [
   },
   {
     code: "99425",
+    cmsSource: { label: "CMS MLN909188, Chronic Care Management Services (June 2025)", href: "https://www.cms.gov/files/document/chroniccaremanagement.pdf" },
+    cmsFacts: [
+      "CMS describes principal care management (PCM) as focused on a single high-risk chronic condition expected to last at least 3 months that puts the patient at significant risk of hospitalization, acute exacerbation or decompensation, functional decline, or death.",
+      "CMS says PCM can be provided monthly if the patient needs it, and that another initial visit is required after 1 year to continue the services.",
+      "CMS says PCM of less than 30 minutes in a calendar month cannot be billed.",
+      "CMS lists the PCM codes as 99424, 99425, 99426 and 99427.",
+    ],
     program: "pcm",
     shortTitle: "PCM add-on by physician",
     metaDescription:
@@ -541,6 +551,14 @@ export const cptCodes: readonly CptCodeEntry[] = [
   },
   {
     code: "99458",
+    cmsSource: { label: "CMS MLN901705, Telehealth & Remote Monitoring (December 2025)", href: "https://www.cms.gov/files/document/mln901705-telehealth-remote-monitoring.pdf" },
+    cmsFacts: [
+      "CMS says only physicians and non-physician practitioners who are eligible to bill evaluation and management services can bill remote monitoring, and that auxiliary personnel can provide it under the general supervision of the billing practitioner.",
+      "CMS says only 1 practitioner can bill remote monitoring per patient in a 30-day period, and that remote physiologic monitoring and remote therapeutic monitoring cannot be billed together.",
+      "CMS says patient consent is required at the time RPM services are provided.",
+      "CMS says the 2 to 15 or 16 plus day data-collection requirement does not apply to the treatment management codes 98980, 98981, 99457 and 99458.",
+      "CMS says the device must meet the FDA definition of a medical device, and the data must be collected electronically and uploaded automatically to a secure location the billing practitioner can use for analysis.",
+    ],
     program: "rpm",
     shortTitle: "RPM add-on, extra 20 min",
     metaDescription:
@@ -723,6 +741,14 @@ export const cptCodes: readonly CptCodeEntry[] = [
   },
   {
     code: "98981",
+    cmsSource: { label: "CMS MLN901705, Telehealth & Remote Monitoring (December 2025)", href: "https://www.cms.gov/files/document/mln901705-telehealth-remote-monitoring.pdf" },
+    cmsFacts: [
+      "CMS says remote therapeutic monitoring (RTM) captures non-physiological data, which can be self-reported, tied to a therapeutic treatment, such as musculoskeletal or respiratory data, and can monitor treatment adherence and response.",
+      "CMS says remote physiologic monitoring requires an established patient relationship, but RTM does not.",
+      "CMS says only 1 practitioner can bill remote monitoring per patient in a 30-day period, and that RTM and remote physiologic monitoring cannot be billed together.",
+      "CMS says the 2 to 15 or 16 plus day data-collection requirement does not apply to the treatment management codes 98980, 98981, 99457 and 99458.",
+      "CMS says only practitioners eligible to bill evaluation and management services can bill remote monitoring, and that auxiliary personnel can provide it under the general supervision of the billing practitioner.",
+    ],
     program: "rtm",
     shortTitle: "RTM add-on, extra 20 min",
     metaDescription:

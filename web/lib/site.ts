@@ -133,3 +133,6 @@ export const specialtyLabel: Record<Specialty, string> = {
   "internal-medicine": "Internal Medicine",
   geriatrics: "Geriatrics",
 };
+
+/** Date the reference pages (CPT, denial, service) were last updated. Set by the owner. */
+export const CONTENT_UPDATED = "2026-11-01";
