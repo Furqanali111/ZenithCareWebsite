@@ -184,7 +184,9 @@ export default async function ServicePage({
 
               <Reveal delay={0.1}>
                 <h3 className="font-serif text-lg font-semibold text-brand-ink">
-                  Patients who can be billed
+                  {s.category === "rpm"
+                    ? "Patients who can be billed"
+                    : "How this is billed"}
                 </h3>
                 <span
                   aria-hidden="true"
