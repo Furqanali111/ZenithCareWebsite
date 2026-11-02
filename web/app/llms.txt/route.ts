@@ -50,7 +50,7 @@ ${DENIAL_PAGES}
 - [Who we serve: geriatrics](${site.url}/who-we-serve/geriatrics)
 - [ROI calculator](${site.url}/roi-calculator): client-side estimator; no data stored
 - [HIPAA compliance posture](${site.url}/hipaa-compliance)
-- [About](${site.url}/about): the team, the founders and how Zenith works
+- [About](${site.url}/about): our company, our message and how Zenith works
 - [How it works](${site.url}/how-it-works): who we serve, how to order, how work is delivered
 - [Pricing](${site.url}/pricing): what is included and how billing works
 - [FAQ](${site.url}/faq)
