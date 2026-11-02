@@ -18,6 +18,8 @@ import { TrustStrip } from "@/components/trust-strip";
 import { FeatureGrid } from "@/components/feature-grid";
 import { ScrollStack } from "@/components/scroll-stack";
 import { FaqSection } from "@/components/faq-section";
+import { Sources, SOURCES } from "@/components/sources";
+import { CONTENT_UPDATED } from "@/lib/site";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   getService,
@@ -78,6 +80,7 @@ export default async function ServicePage({
             name: s.name,
             description: s.metaDescription,
             about: serviceId(path),
+            dateModified: CONTENT_UPDATED,
           }),
           serviceLd({
             name: s.name,
@@ -184,7 +187,9 @@ export default async function ServicePage({
 
               <Reveal delay={0.1}>
                 <h3 className="font-serif text-lg font-semibold text-brand-ink">
-                  Patients who can be billed
+                  {s.category === "rpm"
+                    ? "Patients who can be billed"
+                    : "How this is billed"}
                 </h3>
                 <span
                   aria-hidden="true"
@@ -300,6 +305,8 @@ export default async function ServicePage({
         items={s.faqs}
         tone="surface"
       />
+
+      {s.category === "staffing" ? null : <Sources links={SOURCES.care} updated={CONTENT_UPDATED} />}
 
       {/* ─── Related services (same category, excluding current) ─────── */}
       <RelatedServices current={s} />

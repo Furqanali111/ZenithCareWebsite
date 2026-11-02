@@ -130,7 +130,7 @@ const HOME_FAQ = [
   {
     question: "How long does onboarding take?",
     answer:
-      "Typically two to four weeks, depending on the scope. We set up inside your EHR and practice management system, sign a BAA, and confirm workflows before going live.",
+      "Typically three to six weeks from the signed agreement, depending on panel size and EHR complexity. We set up inside your EHR and practice management system, sign a BAA, and confirm workflows before going live.",
   },
   {
     question: "What EHR systems do you work with?",

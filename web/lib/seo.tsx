@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { site } from "./site";
+import { site, founders } from "./site";
 
 /* --------------------------------------------------------------------------
  * Per-page <Metadata>
@@ -97,6 +97,9 @@ export function organizationLd(): JsonLd {
     logo: abs("/logo.png"),
     description: site.tagline,
     sameAs: [site.linkedin, site.facebook, site.instagram],
+    // Same @ids the /about page gives each founder.
+    founder: founders.map((f) => ref(personId(f.initials))),
+    foundingDate: new Date(`${site.formation.formedOn} UTC`).toISOString().slice(0, 10),
     // Services Zenith offers, surfaced so search + AI engines can map the
     // brand to its full offering catalogue across the three service
     // categories (care management, revenue cycle, virtual staffing). Mirrors
@@ -117,6 +120,7 @@ export function organizationLd(): JsonLd {
     contactPoint: {
       "@type": "ContactPoint",
       email: site.email,
+      url: `${site.url}/contact`,
       contactType: "sales",
       areaServed: "US",
       availableLanguage: ["en"],
