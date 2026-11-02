@@ -8,6 +8,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { FaqSection } from "@/components/faq-section";
+import { Sources, SOURCES } from "@/components/sources";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { DENIAL_BASE, denialCodes, denialPath, getDenial } from "@/lib/denial-codes";
 import { getAllPosts } from "@/content/posts";
@@ -198,6 +199,8 @@ export default async function DenialCodePage({
         idPrefix={`denial-${d.slug}-faq`}
         items={d.faqs}
       />
+
+      <Sources links={SOURCES.denial} />
 
       <section className="border-t border-border/60 bg-surface-tint">
         <div className="section-rhythm">

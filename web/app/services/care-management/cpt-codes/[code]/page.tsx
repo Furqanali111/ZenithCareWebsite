@@ -8,6 +8,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { BulletedListItem } from "@/components/bulleted-list";
 import { FaqSection } from "@/components/faq-section";
+import { Sources, SOURCES } from "@/components/sources";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   CPT_BASE,
@@ -244,6 +245,8 @@ export default async function CptCodePage({
         items={c.faqs}
         tone="surface"
       />
+
+      <Sources links={SOURCES.care} />
 
       <section className="border-t border-border/60 bg-background">
         <div className="section-rhythm">

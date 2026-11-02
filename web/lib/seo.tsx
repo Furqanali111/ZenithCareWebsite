@@ -117,6 +117,7 @@ export function organizationLd(): JsonLd {
     contactPoint: {
       "@type": "ContactPoint",
       email: site.email,
+      url: `${site.url}/contact`,
       contactType: "sales",
       areaServed: "US",
       availableLanguage: ["en"],

@@ -13,6 +13,7 @@ import {
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { BrandFigure } from "@/components/brand-figure";
 import { FaqSection } from "@/components/faq-section";
+import { Sources, SOURCES } from "@/components/sources";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
@@ -150,6 +151,8 @@ export default async function PostPage({
       </article>
 
       {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" /> : null}
+
+      <Sources links={SOURCES.care} />
 
       {/* ─── Author bio ─────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">

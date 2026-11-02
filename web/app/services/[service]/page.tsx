@@ -18,6 +18,7 @@ import { TrustStrip } from "@/components/trust-strip";
 import { FeatureGrid } from "@/components/feature-grid";
 import { ScrollStack } from "@/components/scroll-stack";
 import { FaqSection } from "@/components/faq-section";
+import { Sources, SOURCES } from "@/components/sources";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   getService,
@@ -302,6 +303,8 @@ export default async function ServicePage({
         items={s.faqs}
         tone="surface"
       />
+
+      {s.category === "staffing" ? null : <Sources links={SOURCES.care} />}
 
       {/* ─── Related services (same category, excluding current) ─────── */}
       <RelatedServices current={s} />

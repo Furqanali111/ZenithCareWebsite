@@ -87,9 +87,10 @@ export function ScrollSteps({ heading, steps }: { heading: string; steps: readon
       <div ref={track} className="relative hidden lg:block" style={{ height: `${steps.length * 90}svh` }}>
         <div className="sticky top-24 grid h-[calc(100svh-6rem)] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-20">
           <div>
-            <h2 className="max-w-xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
+            {/* A <p> with a heading role: the mobile layout above already holds the page's <h2>. */}
+            <p role="heading" aria-level={2} className="max-w-xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
               {heading}
-            </h2>
+            </p>
 
             <div className="relative mt-12 flex gap-10">
               {/* Progress rail: the fill follows scroll continuously */}
