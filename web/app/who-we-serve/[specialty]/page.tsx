@@ -84,7 +84,7 @@ export default async function WhoWeServePage({
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },
-            { name: "Who We Serve", path },
+            { name: "Who We Serve", path: "/who-we-serve" },
             { name: label, path },
           ]),
         ]}
@@ -93,7 +93,7 @@ export default async function WhoWeServePage({
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
-          { name: "Who We Serve", path },
+          { name: "Who We Serve", path: "/who-we-serve" },
           { name: label, path },
         ]}
       />
@@ -414,7 +414,7 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   "primary-care": {
     metaTitle: "Services for Primary Care",
     metaDescription:
-      "CCM, RPM, TCM, billing and virtual staffing for U.S. primary care practices. The broadest program fit in medicine.",
+      "CCM, RPM, TCM, billing and virtual staffing for U.S. primary care practices. Zenith supplies the staff; your practice stays the billing provider.",
     heroHeadline:
       "Primary care practices have the broadest fit across Zenith's programs.",
     heroLead:
@@ -465,7 +465,7 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   "internal-medicine": {
     metaTitle: "Services for Internal Medicine",
     metaDescription:
-      "CCM, RPM, TCM, billing and virtual staffing for U.S. internal medicine practices. Built for polychronic panels.",
+      "CCM, RPM, TCM, billing and virtual staffing for U.S. internal medicine practices. Built for polychronic panels; your practice stays the billing provider.",
     heroHeadline:
       "Internal medicine fits the full care-management stack.",
     heroLead:

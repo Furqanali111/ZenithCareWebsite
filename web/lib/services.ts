@@ -229,7 +229,7 @@ const RPM_SERVICES: Service[] = [
     ],
     metaTitle: "Principal Care Management (PCM)",
     metaDescription:
-      "Remote PCM for U.S. practices. Monthly management for patients with one serious, high-risk condition, inside your EHR.",
+      "Remote PCM for U.S. practices. Monthly care management for patients with one serious, high-risk condition, delivered by clinical staff inside your EHR.",
     serviceType: "Principal Care Management",
     emailSubject: "PCM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Principal Care Management.",
@@ -691,7 +691,7 @@ const STAFFING_SERVICES: Service[] = [
     ],
     metaTitle: "Remote Medical Schedulers",
     metaDescription:
-      "Remote schedulers for U.S. practices. Fill the calendar, reduce no-shows and manage cancellations inside your system.",
+      "Remote medical schedulers for U.S. practices. Fill the calendar, reduce no-shows and manage cancellations and reminders inside your own scheduling system.",
     serviceType: "Medical Scheduler Staffing",
     emailSubject: "Medical Scheduler Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Scheduler service.",
@@ -735,7 +735,7 @@ const STAFFING_SERVICES: Service[] = [
     ],
     metaTitle: "Remote Medical Receptionists",
     metaDescription:
-      "Remote receptionists for U.S. practices. Answer calls, route messages and handle patient intake professionally.",
+      "Remote medical receptionists for U.S. practices. Answer calls, route messages and handle patient intake professionally, working inside your phone and EHR systems.",
     serviceType: "Medical Receptionist Staffing",
     emailSubject: "Medical Receptionist Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Receptionist service.",
@@ -779,7 +779,7 @@ const STAFFING_SERVICES: Service[] = [
     ],
     metaTitle: "Patient Care Coordinators",
     metaDescription:
-      "Remote care coordinators for U.S. practices. Pre-visit prep, referrals, prior auths and inbox triage inside your EHR.",
+      "Remote patient care coordinators for U.S. practices. Pre-visit prep, referral tracking, prior authorizations and inbox triage handled inside your EHR.",
     serviceType: "Patient Care Coordination",
     emailSubject: "Patient Care Coordinator Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Patient Care Coordinator service.",
@@ -824,7 +824,7 @@ const STAFFING_SERVICES: Service[] = [
     ],
     metaTitle: "Medical Virtual Assistants",
     metaDescription:
-      "Remote virtual assistants for U.S. medical practices. Inbox management, data entry, records requests and office tasks.",
+      "Remote virtual assistants for U.S. medical practices. Inbox management, data entry, records requests and routine office tasks so your front desk can focus.",
     serviceType: "Virtual Assistant Staffing",
     emailSubject: "Virtual Assistant Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Virtual Assistant service.",

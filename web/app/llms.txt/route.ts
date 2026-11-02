@@ -44,6 +44,7 @@ ${SERVICES}
 ${CPT_PAGES}
 - [Claim denial codes](${site.url}${DENIAL_BASE}): plain-English guide to common denial codes and how to fix them
 ${DENIAL_PAGES}
+- [Who we serve](${site.url}/who-we-serve)
 - [Who we serve: primary care](${site.url}/who-we-serve/primary-care)
 - [Who we serve: internal medicine](${site.url}/who-we-serve/internal-medicine)
 - [Who we serve: geriatrics](${site.url}/who-we-serve/geriatrics)
