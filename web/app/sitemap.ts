@@ -48,6 +48,7 @@ const STATIC_PATHS = [
   "/hipaa-statement",
   "/accessibility",
   "/security",
+  "/who-we-serve",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -62,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const pages: MetadataRoute.Sitemap = paths.map((p) => ({
-    url: p === "/" ? `${BASE}/` : `${BASE}${p}`,
+    url: p === "/" ? BASE : `${BASE}${p}`,
   }));
 
   const posts: MetadataRoute.Sitemap = getAllPosts().map((p) => ({

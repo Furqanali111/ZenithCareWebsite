@@ -14,7 +14,7 @@ import { servicesByCategory, categoryMeta, type Service } from "@/lib/services";
 const PATH = "/services";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Care Management & Billing Services",
+  title: "Care, Billing & Staffing Services",
   description:
     "Care management, revenue cycle and virtual staffing for U.S. practices. CCM, RPM, billing, coding, scribes, schedulers and more.",
   path: PATH,
