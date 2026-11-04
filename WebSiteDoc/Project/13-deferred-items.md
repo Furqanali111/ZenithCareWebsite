@@ -1,7 +1,7 @@
 # Deferred Items
 
 **Project**: Zenith Care Solutions — marketing website
-**Updated**: 2026-10-11
+**Updated**: 2026-11-04
 
 A catalog of things the code already references but whose target doesn't exist yet. **Nothing on this list is a bug.** Each entry is a placeholder we deliberately kept so that filling it later is a one-step action — drop the file, add the content, set the env var — not a code change.
 
@@ -15,11 +15,8 @@ A catalog of things the code already references but whose target doesn't exist y
 
 | Asset path | Referenced from | What it should be |
 |---|---|---|
-| `web/public/logo.png` | `organizationLd()` in `web/lib/seo.tsx` → every page's Organization JSON-LD | 512×512 PNG, square, brand navy background with wordmark or mark; also acceptable 1200×630 for best Google rich-card. |
 | Founder portrait (e.g. `web/public/images/ali-hassan-kaleem.jpg`) | planned use on `/about` + `personLd()` + home hero | Portrait of Ali in clinical attire, neutral background, 1600+px wide. Not yet referenced in code; add path here once the photo exists so we remember to wire it. |
-| OG image per high-value page | currently we only have the default `app/opengraph-image.tsx` | Add `app/services/chronic-care-management/opengraph-image.tsx` and similar for `/about`, `/roi-calculator` when their final hero copy exists. |
 | Per-post hero images for blog articles | `web/public/images/posts/<slug>.webp` referenced by `articleLd({ image })` in `web/app/resources/[slug]/page.tsx` and (future) a hero `<Image>` in the article header | 1600×900 ideally; feeds the Google Article rich-card image slot. Omit until real art exists — a generic stock image across all posts is worse than no image for rich-result eligibility. |
-| Favicon set | not yet shipped | Replace the stock `web/app/favicon.ico` from create-next-app with brand-navy "Z" at 32×32 + Apple touch icon at 180×180. |
 
 ## 2. User-authored content with a live code reference
 
@@ -54,10 +51,10 @@ Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which 
 - [ ] GitHub branch-protection rules on `develop` and `release/*` per [`11-git-workflow.md`](11-git-workflow.md) §4
 - [ ] Vercel project linked to the GitHub repo for automatic preview deploys
 - [ ] Attorney retained for legal page review (needed before Phase 4 launch)
-- [ ] Calendly account with "15-min CCM discovery" event type published
-- [ ] WhatsApp Business number provisioned
+- [x] Calendly account with "15-min CCM discovery" event type published
+- [x] WhatsApp Business number provisioned
 - [x] Google Analytics 4 property created and wired (conversion events in `web/components/conversion-tracking.tsx`)
-- [ ] Formspree form created, endpoint ID copied
+- [x] Formspree form created, endpoint ID copied
 - [ ] Google Workspace or Zoho Mail set up for `ali@zenithcaresolutions.com` + role aliases (`privacy@`, `legal@`, `compliance@`, `accessibility@`, `security@`)
 - [ ] LinkedIn Company Page published with logo and cover image
 - [ ] Google Search Console + Bing Webmaster Tools ownership verified
