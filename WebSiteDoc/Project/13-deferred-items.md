@@ -40,7 +40,6 @@ In `web/.env.local` (gitignored) for local work; set in Vercel project settings 
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics 4 (script loads only on the Production domain + env set) | set in Vercel Production (`G-P49414RXPW`) |
 | `NEXT_PUBLIC_SITE_URL` | canonical URL for OG, sitemap, JSON-LD | default is production domain; override only for staging |
 
-Additionally, the About page hardcodes a placeholder LinkedIn URL at `web/app/about/page.tsx` → `FOUNDER_LINKEDIN`. Replace with Ali&rsquo;s actual personal LinkedIn URL once confirmed; it feeds the Person JSON-LD `sameAs` and the "Ali on LinkedIn" CTA.
 | `NEXT_PUBLIC_FORMSPREE_ID` | fallback contact form (not yet built — lands in `feature/contact-page`) | not set |
 | `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_INTERNAL_TO` | reserved for future transactional email; v1 has no backend | documented in `.env.example`, commented out |
 
@@ -56,8 +55,8 @@ Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which 
 - [x] Google Analytics 4 property created and wired (conversion events in `web/components/conversion-tracking.tsx`)
 - [x] Formspree form created, endpoint ID copied
 - [ ] Google Workspace or Zoho Mail set up for `ali@zenithcaresolutions.com` + role aliases (`privacy@`, `legal@`, `compliance@`, `accessibility@`, `security@`)
-- [ ] LinkedIn Company Page published with logo and cover image
-- [ ] Google Search Console + Bing Webmaster Tools ownership verified
+- [x] LinkedIn Company Page published with logo and cover image
+- [x] Google Search Console + Bing Webmaster Tools ownership verified
 
 ## 5. Time-based reminders
 
