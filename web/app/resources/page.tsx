@@ -11,7 +11,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Practical guides on Chronic Care Management, CPT billing, RPM, credentialing, claim denials and virtual medical staffing for U.S. physician practices.",
   path: PATH,
-  rootOgImage: true,
 });
 
 export default function ResourcesPage() {

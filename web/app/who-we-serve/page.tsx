@@ -12,7 +12,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Zenith supports U.S. primary care, internal medicine and geriatric practices with remote care management, revenue cycle services and virtual staffing.",
   path: "/who-we-serve",
-  rootOgImage: true,
 });
 
 const blurbs = {
