@@ -452,8 +452,6 @@ export default function AboutPage() {
             {[
               ["Legal name", site.legalName],
               ["Entity", `${site.formation.state} limited liability company`],
-              ["Wyoming filing ID", site.formation.filingId],
-              ["Formed", site.formation.formedOn],
               ...(site.ein ? [["EIN", site.ein]] : []),
               ["Mailing address", site.mailingAddress],
               ["Email", site.email],

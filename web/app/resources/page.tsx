@@ -73,12 +73,6 @@ export default function ResourcesPage() {
                   <span className="mt-4 inline-block text-sm font-medium text-brand-accent">
                     Read article →
                   </span>
-                  <time
-                    dateTime={post.publishedAt}
-                    className="mt-5 block text-xs text-muted-foreground"
-                  >
-                    {formatDate(post.publishedAt)}
-                  </time>
                 </div>
               </Link>
             </li>
@@ -87,13 +81,4 @@ export default function ResourcesPage() {
       </section>
     </>
   );
-}
-
-const DATE_FMT = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
-function formatDate(iso: string): string {
-  return DATE_FMT.format(new Date(iso));
 }
