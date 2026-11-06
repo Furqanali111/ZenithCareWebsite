@@ -96,7 +96,7 @@ export default async function DenialCodePage({
         <div className="mx-auto grid max-w-[90rem] gap-12 px-6 md:grid-cols-2">
           <Reveal>
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-              Common causes
+              Common causes of {d.code}
             </h2>
             <ul className="mt-6 space-y-3 text-base text-body-ink">
               {d.causes.map((c) => (
@@ -106,7 +106,7 @@ export default async function DenialCodePage({
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-              How to fix it
+              How to fix a {d.code} denial
             </h2>
             <ul className="mt-6 space-y-3 text-base text-body-ink">
               {d.fixes.map((c) => (
@@ -120,7 +120,7 @@ export default async function DenialCodePage({
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-3xl px-6">
           <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-            How to prevent it
+            How to prevent {d.code} denials
           </h2>
           <ul className="mt-6 space-y-3 text-base text-body-ink">
             {d.prevention.map((c) => (

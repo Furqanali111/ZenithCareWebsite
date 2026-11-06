@@ -522,11 +522,11 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
     heroHeadline:
       "Geriatric panels are built for care management.",
     heroLead:
-      "Near-universal Medicare coverage and dense, multi-condition panels make geriatrics the highest-yield fit for Chronic Care Management, with remote monitoring and transitional care close behind, plus revenue-cycle and virtual-staffing support for a small team carrying a heavy load. CCM is the flagship.",
+      "Most geriatric patients have Medicare and several chronic conditions. That makes geriatrics the best fit for Chronic Care Management. Remote monitoring and transitional care come next. We also help with billing and virtual staffing, so a small team does not carry it all. CCM is the flagship.",
     whyHeadline: "Geriatrics gets the highest per-panel CCM revenue in medicine.",
     whyParagraphs: [
-      "Cognitive decline, polypharmacy, frailty, and cardiovascular comorbidities almost always coexist in geriatric patients. That combination pushes a substantial share of the panel into Complex CCM (99487 / 99489), which reimburses roughly double the base code.",
-      "Zenith’s clinical team handles the care-coordination patterns geriatric patients need most: medication reviews across specialists, caregiver communication, closed-loop follow-up on fall-risk and ADL interventions, and the documentation audit standard requires.",
+      "Older patients often have memory loss, many medicines, frailty and heart disease at the same time. Many of them qualify for Complex CCM (99487 / 99489). It reimburses roughly double the base code.",
+      "Zenith’s clinical team covers what older patients need most. That means medication reviews across specialists, talking with caregivers, and follow-up on fall risk and daily-living needs. We also keep the documentation an audit requires.",
     ],
     patientMix: [
       "Cognitive decline and dementia",
@@ -541,23 +541,23 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
     example: {
       panel: 500,
       enrollmentRate: 0.7,
-      note: "With a substantial Complex CCM mix typical of geriatric panels, actual reimbursement often runs 30-50% higher than the base-code figure shown.",
+      note: "Geriatric panels often have many Complex CCM patients. Actual reimbursement often runs 30-50% higher than the base-code figure shown.",
     },
     faqs: [
       {
         question: "Which Zenith programs can a geriatric practice run?",
         answer:
-          "Geriatric practices are typically eligible for Chronic Care Management, Remote Patient Monitoring, and Transitional Care Management, plus Revenue Cycle Management and virtual staffing, which apply to any practice. Eligibility is confirmed per patient and per payer at the time of service.",
+          "Geriatric practices can usually run Chronic Care Management, Remote Patient Monitoring and Transitional Care Management. Revenue Cycle Management and virtual staffing fit any practice. We confirm eligibility for each patient and payer at the time of service.",
       },
       {
         question: "What share of a geriatric panel qualifies for CCM?",
         answer:
-          "The share of a geriatric panel that qualifies for Chronic Care Management is higher than any other specialty, frequently 60 to 80 percent, because geriatric practices combine near-universal Medicare coverage with near-universal multi-condition eligibility.",
+          "More of a geriatric panel qualifies for Chronic Care Management than in any other specialty, often 60 to 80 percent. Most patients have Medicare, and most have more than one chronic condition.",
       },
       {
         question: "Why does geriatrics produce the highest CCM revenue per panel?",
         answer:
-          "Cognitive decline, polypharmacy, frailty, and cardiovascular comorbidities almost always coexist in geriatric patients. That combination pushes a substantial share of the panel into complex CCM (CPT 99487 and 99489), which reimburses roughly double the base code.",
+          "Older patients often have memory loss, many medicines, frailty and heart disease at once. Many of them qualify for complex CCM (CPT 99487 and 99489). It reimburses roughly double the base code.",
       },
       {
         question: "Which conditions count toward CCM in a geriatric panel?",
