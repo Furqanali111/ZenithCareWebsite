@@ -166,7 +166,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Deliver monthly coordination", body: "Our clinical team spends 20+ minutes per patient on calls, care plans, and medication reconciliation, inside your EHR." },
       { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99490 and add-ons; we invoice for the clinical labor. Monthly and predictable." },
     ],
-    metaTitle: "Chronic Care Management (CCM)",
+    metaTitle: "Chronic Care Management Services",
     metaDescription:
       "CCM services for U.S. physician practices. Monthly coordination, care plans, and CPT 99490 documentation inside your EHR. You stay the billing provider.",
     serviceType: "Chronic Care Management",
@@ -226,7 +226,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Deliver monthly management", body: "Clinical staff spend the required time each month on that condition and document it." },
       { title: "You bill, Zenith invoices", body: "Your practice bills the PCM codes. Zenith invoices you for the clinical labor." },
     ],
-    metaTitle: "Principal Care Management (PCM)",
+    metaTitle: "Principal Care Management Services",
     metaDescription:
       "Remote PCM for U.S. practices. Monthly care management for patients with one serious, high-risk condition, delivered by clinical staff inside your EHR.",
     serviceType: "Principal Care Management",
@@ -287,7 +287,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Onboard and monitor", body: "We set up the patient, confirm readings arrive, and review them on a regular schedule." },
       { title: "Escalate and document", body: "Concerning readings go to your clinician fast, and every contact is logged for billing." },
     ],
-    metaTitle: "Remote Patient Monitoring (RPM)",
+    metaTitle: "Remote Patient Monitoring Services",
     metaDescription:
       "RPM services for U.S. physician practices. Device setup, daily data review and patient outreach by clinical staff inside your EHR.",
     serviceType: "Remote Patient Monitoring",
@@ -349,7 +349,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Monitor and engage", body: "Staff review data and contact patients who fall behind." },
       { title: "Report and bill", body: "You receive organized monthly records, bill the codes, and Zenith invoices for the labor." },
     ],
-    metaTitle: "RTM Services for Medical Practices",
+    metaTitle: "Remote Therapeutic Monitoring (RTM)",
     metaDescription:
       "Staffed RTM support for U.S. practices, not software. Our clinical staff review therapy adherence, pain and function data between visits, inside your EHR.",
     serviceType: "Remote Therapeutic Monitoring",
@@ -407,7 +407,7 @@ const RPM_SERVICES: Service[] = [
       { title: "Contact, reconcile, schedule", body: "Required outreach and medication work happen inside the deadline." },
       { title: "Document and bill", body: "Your practice bills TCM after the visit. Zenith invoices for the labor." },
     ],
-    metaTitle: "TCM Services for Medical Practices",
+    metaTitle: "Transitional Care Management (TCM)",
     metaDescription:
       "Staffed TCM support for U.S. practices, not software. Our clinical staff handle post-discharge outreach, medication reconciliation and visit scheduling inside your EHR.",
     serviceType: "Transitional Care Management",
@@ -461,7 +461,7 @@ const RCM_SERVICES: Service[] = [
       { title: "Match and onboard", body: "We place a biller with role-based access under a signed BAA." },
       { title: "Bill and reconcile", body: "Your biller submits claims, posts payments and works denials in your system." },
     ],
-    metaTitle: "Medical Billing Services",
+    metaTitle: "Outsourced Medical Billing Services",
     metaDescription:
       "Medical billing services for U.S. physician practices. Clean claims, payment posting and denial management inside your PM system.",
     serviceType: "Medical Billing",
@@ -505,7 +505,7 @@ const RCM_SERVICES: Service[] = [
       { title: "Code from the chart", body: "Coders work in your EHR and send queries through your agreed channel." },
       { title: "Review and improve", body: "You receive accuracy feedback and common documentation gaps." },
     ],
-    metaTitle: "Medical Coding Services",
+    metaTitle: "Outsourced Medical Coding Services",
     metaDescription:
       "Remote medical coding for U.S. practices. ICD-10, CPT and E/M coding from charts inside your EHR with compliance review.",
     serviceType: "Medical Coding",
@@ -593,7 +593,7 @@ const RCM_SERVICES: Service[] = [
       { title: "Work the claims", body: "Staff follow up, correct and appeal on a steady schedule." },
       { title: "Report and prevent", body: "You receive progress reports and fixes for repeat denial causes." },
     ],
-    metaTitle: "AR Follow-Up Services",
+    metaTitle: "Medical AR Follow-Up Services",
     metaDescription:
       "Remote AR follow-up for U.S. practices. Work aged claims, denials, appeals and unpaid balances to recover revenue you have earned.",
     serviceType: "Accounts Receivable Management",
