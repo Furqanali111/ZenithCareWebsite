@@ -32,25 +32,22 @@ export default function HipaaStatementPage() {
           <h2>Our role under HIPAA</h2>
           <p>
             Zenith Care Solutions LLC provides Chronic Care Management
-            (&ldquo;CCM&rdquo;) and related clinical support services to
-            U.S. healthcare providers under contract. When we handle
-            protected health information (PHI) on behalf of a client
-            practice, we operate as a <strong>Business Associate</strong>{" "}
-            under the Health Insurance Portability and Accountability Act
-            (HIPAA), as amended by the HITECH Act, and the regulations
-            issued thereunder (collectively, &ldquo;HIPAA&rdquo;).
+            (&ldquo;CCM&rdquo;) and related clinical support to U.S.
+            healthcare providers under contract. When we handle protected
+            health information (PHI) for a client practice, we act as a{" "}
+            <strong>Business Associate</strong>. This follows the Health
+            Insurance Portability and Accountability Act, the HITECH Act
+            and their rules (together, &ldquo;HIPAA&rdquo;).
           </p>
 
           <h2>This website collects no PHI</h2>
           <p>
-            This website ({site.url}) is a marketing and informational
-            resource for prospective client practices. <strong>It does not
-            collect, store, process, or transmit protected health
-            information.</strong> Our contact forms and chatbot are limited
-            to business-contact information from providers and
-            administrators. We ask every visitor <strong>not</strong> to
-            submit any patient-identifying information through this site or
-            by unencrypted email.
+            This website ({site.url}) is for practices that are thinking
+            about working with us. <strong>It does not collect, store or
+            send protected health information.</strong> Our forms and
+            chatbot take business contact details only. Please
+            do <strong>not</strong> send patient information through this
+            site or by unencrypted email.
           </p>
 
           <h2>Our Business Associate Agreements</h2>
@@ -82,12 +79,11 @@ export default function HipaaStatementPage() {
             handling PHI; device inventory; secure disposal of hardware.
           </p>
           <p>
-            <strong>Technical</strong>: encrypted transmission of all PHI;
-            access via client-controlled EHR/CCM platforms rather than
-            exported data; multi-factor authentication; audit logging;
-            secure password management; encrypted email tooling (HIPAA-
-            eligible Google Workspace or Microsoft 365, each with a signed
-            BAA from the respective vendor).
+            <strong>Technical</strong>: all PHI is encrypted in transit. Staff
+            work in the client&rsquo;s own EHR/CCM platform, not in exported
+            data. We use multi-factor authentication, audit logs and a
+            password manager. Email runs on HIPAA-eligible Google Workspace
+            or Microsoft 365, each with a signed BAA from the vendor.
           </p>
 
           <h2>Minimum Necessary</h2>
@@ -98,11 +94,10 @@ export default function HipaaStatementPage() {
 
           <h2>Breach notification</h2>
           <p>
-            In the event of a breach of unsecured PHI, Zenith will notify
-            the affected client practice without unreasonable delay and in
-            no case later than the timeframe required by HIPAA and the
-            governing BAA. The client practice remains responsible for
-            notifying affected individuals and HHS as required by law.
+            If unsecured PHI is breached, Zenith will tell the affected
+            practice without unreasonable delay. This will be no later than
+            HIPAA and the BAA require. The practice remains responsible for
+            notifying affected individuals and HHS as the law requires.
           </p>
 
           <h2>What this statement is not</h2>

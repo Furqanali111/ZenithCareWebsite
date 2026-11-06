@@ -526,7 +526,7 @@ const RCM_SERVICES: Service[] = [
     shortDesc: "Get and stay enrolled with payers, without the paperwork drag.",
     title: "Credentialing that gets your providers enrolled, and keeps them.",
     lead:
-      "A provider who is not enrolled cannot bill, and every week of delay is revenue you cannot recover. Zenith handles the paperwork, the follow-up calls and the deadlines for new providers, new locations and renewals, so approvals do not stall in someone's inbox. Your practice stays in control of every application.",
+      "A provider who is not enrolled cannot bill. Every week of delay is revenue you cannot get back. Zenith handles the paperwork, follow-up calls and deadlines. That covers new providers, new locations and renewals. Approvals do not stall in someone's inbox. Your practice stays in control of every application.",
     trust: [
       "HIPAA Business Associate",
       "Sensitive provider data handled under a BAA",

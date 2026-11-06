@@ -50,12 +50,11 @@ export default function TermsPage() {
 
           <h2>The Site is informational, not a service agreement</h2>
           <p>
-            The Site provides information about Zenith&rsquo;s Chronic
-            Care Management and related services. Nothing on the Site
-            constitutes a service contract, an offer to enter into a
-            contract, or professional advice. A binding engagement with
-            Zenith requires a separately signed service agreement and,
-            where applicable, a Business Associate Agreement.
+            The Site describes Zenith&rsquo;s Chronic Care Management and
+            related services. Nothing on the Site is a contract, an offer
+            of a contract, or professional advice. To work with Zenith, you
+            need a separate signed service agreement. You may also need a
+            Business Associate Agreement.
           </p>
 
           <h2>Service engagements</h2>
@@ -73,19 +72,17 @@ export default function TermsPage() {
 
           <h2>No medical advice</h2>
           <p>
-            Content on the Site is for informational purposes for U.S.
-            healthcare providers and practice administrators. It is{" "}
-            <strong>not medical advice</strong> and must not be used as a
-            substitute for clinical judgment or professional licensure,
-            billing, legal, or compliance advice. Zenith makes no
-            warranty regarding the accuracy, completeness, or timeliness
-            of any content.
+            Content on the Site is for U.S. healthcare providers and
+            practice administrators to read. It is{" "}
+            <strong>not medical advice</strong>. Do not use it in place of
+            clinical judgment, or of billing, legal or compliance advice.
+            Zenith makes no warranty that any content is accurate,
+            complete or current.
           </p>
           <p>
-            Users are responsible for independently verifying any CPT
-            code reimbursement amounts, Medicare rules, or regulatory
-            statements before acting on them. CMS rules change; always
-            consult the current authority.
+            Check any CPT code amounts, Medicare rules or regulatory
+            statements yourself before you act on them. CMS rules change,
+            so always consult the current source.
           </p>
 
           <h2>Permitted use</h2>
@@ -104,12 +101,10 @@ export default function TermsPage() {
 
           <h2>Intellectual property</h2>
           <p>
-            The Site, its design, text, graphics, logos, and compiled
-            content are the property of Zenith or its licensors and are
-            protected by U.S. and international intellectual property
-            laws. You may share links to our pages and quote brief
-            excerpts with attribution. Any other reproduction requires
-            written permission.
+            The Site&rsquo;s design, text, graphics and logos belong to
+            Zenith or its licensors. U.S. and international law protect
+            them. You may share links to our pages and quote brief excerpts
+            with credit. Any other copying needs written permission.
           </p>
 
           <h2>Third-party services</h2>
