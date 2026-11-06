@@ -38,6 +38,9 @@ export default function DenialCodesIndexPage() {
 
       <section className="section-rhythm">
         <div className="mx-auto max-w-[90rem] px-6">
+          <h2 className="mb-8 font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+            Common denial codes
+          </h2>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {denialCodes.map((d) => (
               <li key={d.slug}>

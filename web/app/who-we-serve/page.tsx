@@ -74,6 +74,41 @@ export default function WhoWeServeIndexPage() {
           </ul>
         </div>
       </section>
+
+      <section className="section-rhythm border-t border-border/60 bg-surface-tint">
+        <div className="mx-auto max-w-3xl px-6">
+          <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
+            What stays the same in every specialty
+          </h2>
+          <ul className="mt-6 space-y-3 text-base leading-relaxed text-body-ink">
+            <li>
+              Your practice stays the billing provider. Zenith supplies trained
+              staff who work inside your EHR and invoices you for the labor. It
+              does not bill Medicare.
+            </li>
+            <li>
+              No patient information is collected on this website. Patient data
+              stays in your systems, under a signed BAA. See{" "}
+              <Link href="/hipaa-compliance" className="text-brand-accent underline-offset-4 hover:underline">HIPAA compliance</Link>.
+            </li>
+            <li>
+              Programs start from{" "}
+              <Link href="/services/chronic-care-management" className="text-brand-accent underline-offset-4 hover:underline">chronic care management</Link>{" "}
+              and extend to{" "}
+              <Link href="/services/medical-billing" className="text-brand-accent underline-offset-4 hover:underline">billing</Link>,{" "}
+              <Link href="/services/provider-credentialing" className="text-brand-accent underline-offset-4 hover:underline">credentialing</Link>{" "}
+              and{" "}
+              <Link href="/services/virtual-staffing" className="text-brand-accent underline-offset-4 hover:underline">virtual staffing</Link>.
+            </li>
+          </ul>
+          <p className="mt-6 text-base leading-relaxed text-body-ink">
+            Not sure where to start? See{" "}
+            <Link href="/how-it-works" className="text-brand-accent underline-offset-4 hover:underline">how it works</Link>,{" "}
+            <Link href="/pricing" className="text-brand-accent underline-offset-4 hover:underline">pricing</Link>, or estimate revenue with the{" "}
+            <Link href="/roi-calculator" className="text-brand-accent underline-offset-4 hover:underline">ROI calculator</Link>.
+          </p>
+        </div>
+      </section>
     </>
   );
 }

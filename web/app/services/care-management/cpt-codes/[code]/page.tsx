@@ -144,7 +144,7 @@ export default async function CptCodePage({
         <div className="mx-auto grid max-w-[90rem] gap-12 px-6 md:grid-cols-2">
           <Reveal>
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-              What the record needs to show
+              What the record needs to show for CPT {c.code}
             </h2>
             <ul className="mt-6 space-y-3 text-base text-body-ink">
               {c.requirements.map((r) => (
@@ -154,7 +154,7 @@ export default async function CptCodePage({
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-              Common billing mistakes
+              Common CPT {c.code} billing mistakes
             </h2>
             <ul className="mt-6 space-y-3 text-base text-body-ink">
               {c.pitfalls.map((r) => (
