@@ -103,19 +103,6 @@ export default async function PostPage({
             <span className="text-brand-accent">
               {post.category}
             </span>
-            <time dateTime={post.publishedAt}>
-              {formatDate(post.publishedAt)}
-            </time>
-            {post.updatedAt !== post.publishedAt ? (
-              <>
-                <span>
-                  Updated{" "}
-                  <time dateTime={post.updatedAt}>
-                    {formatDate(post.updatedAt)}
-                  </time>
-                </span>
-              </>
-            ) : null}
             <span>{post.readingMinutes} min read</span>
           </div>
           <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
@@ -255,13 +242,4 @@ function RelatedArticles({ post }: { post: Post }) {
       </ul>
     </section>
   );
-}
-
-const DATE_FMT = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
-function formatDate(iso: string): string {
-  return DATE_FMT.format(new Date(iso));
 }
