@@ -129,8 +129,7 @@ const RPM_SERVICES: Service[] = [
     slug: "chronic-care-management",
     category: "rpm",
     code: "CCM",
-    name: "Chronic Care Management (CCM)",
-    shortDesc: "Recurring monthly coordination for patients with 2+ chronic conditions.",
+    name: "Chronic Care Management (CCM)",    shortDesc: "Recurring monthly coordination for patients with 2+ chronic conditions.",
     title:
       "Chronic Care Management that turns chronic patients into revenue.",
     lead:
@@ -141,7 +140,7 @@ const RPM_SERVICES: Service[] = [
       "Documentation inside your EHR",
       "CPT 99490 / 99439 / 99487 / 99491",
     ],
-    capabilitiesHeading: "What Zenith handles every month",
+    capabilitiesHeading: "What Zenith handles every month for CCM",
     capabilitiesSubtitle:
       "Trained clinical staff, working inside your EHR.",
     capabilities: [
@@ -199,7 +198,7 @@ const RPM_SERVICES: Service[] = [
       "Documentation inside your EHR",
       "CPT 99424 / 99425 / 99426 / 99427",
     ],
-    capabilitiesHeading: "What Zenith handles every month",
+    capabilitiesHeading: "What Zenith handles every month for PCM",
     capabilitiesSubtitle:
       "Focused, single-condition management with clinical oversight.",
     capabilities: [
@@ -260,7 +259,7 @@ const RPM_SERVICES: Service[] = [
       "Readings flow into your EHR",
       "CPT 99453 / 99454 / 99457 / 99458",
     ],
-    capabilitiesHeading: "What Zenith handles every month",
+    capabilitiesHeading: "What Zenith handles every month for RPM",
     capabilitiesSubtitle:
       "Device data watched, patients engaged, documentation done.",
     capabilities: [
@@ -320,7 +319,7 @@ const RPM_SERVICES: Service[] = [
       "Data reviewed inside your EHR",
       "CPT 98975 / 98977 / 98980 / 98981",
     ],
-    capabilitiesHeading: "What Zenith handles every month",
+    capabilitiesHeading: "What Zenith handles every month for RTM",
     capabilitiesSubtitle:
       "Adherence and functional data, watched and acted on.",
     capabilities: [
@@ -382,7 +381,7 @@ const RPM_SERVICES: Service[] = [
       "Documentation inside your EHR",
       "CPT 99495 / 99496",
     ],
-    capabilitiesHeading: "What Zenith handles per episode",
+    capabilitiesHeading: "What Zenith handles per TCM episode",
     capabilitiesSubtitle:
       "The time-sensitive post-discharge work, tracked so nothing is missed.",
     capabilities: [

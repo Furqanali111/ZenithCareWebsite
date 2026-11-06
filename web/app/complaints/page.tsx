@@ -44,6 +44,20 @@ export default function ComplaintsPage() {
           <li><strong>Not satisfied?</strong> Ask for escalation. A founder reviews the case and replies within 5 business days.</li>
         </ul>
 
+        <h2>What helps us resolve it faster</h2>
+        <ul>
+          <li>The invoice number or month the issue relates to.</li>
+          <li>Which service it concerns, for example CCM, billing, or virtual staffing.</li>
+          <li>What outcome you are asking for, such as a correction, credit, or call.</li>
+        </ul>
+
+        <h2>What this page does not cover</h2>
+        <ul>
+          <li>Concerns about a patient&rsquo;s clinical care belong with the treating practice. In an emergency, call 911.</li>
+          <li>Questions about what Medicare paid on a claim belong with your practice, which is the billing provider. Zenith does not bill Medicare.</li>
+          <li>Privacy requests are handled on the <Link href="/data-request">data request page</Link>.</li>
+        </ul>
+
         <h2>Billing disputes</h2>
         <p>
           Tell us before the invoice due date if you dispute an amount. We pause
