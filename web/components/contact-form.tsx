@@ -17,6 +17,10 @@ type Status =
   | { kind: "error"; message: string }
   | { kind: "success" };
 
+// Mirrors ui/input.tsx so selects match text inputs (44px touch height on mobile, 16px text avoids iOS zoom).
+const SELECT_CLASS =
+  "h-8 max-md:h-11 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm dark:bg-input/30";
+
 const STEPS = ["About you", "Your practice", "Your message"] as const;
 
 const US_STATES = [
@@ -220,7 +224,7 @@ export function ContactForm() {
               id="cf-role"
               name="role"
               defaultValue=""
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+              className={SELECT_CLASS}
             >
               <option value="">Select role…</option>
               <option value="Physician">Physician</option>
@@ -248,7 +252,7 @@ export function ContactForm() {
               name="state"
               required
               defaultValue=""
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+              className={SELECT_CLASS}
             >
               <option value="" disabled>
                 Select…
