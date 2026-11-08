@@ -44,8 +44,7 @@ const bodyFont = Inter({
 // Display face: Space Grotesk, a modern grotesk (v3 "Warm Cyan"). Mapped to
 // `--font-serif`, which the existing `font-serif` headings consume, so the
 // whole site picks up the new display face without a repo-wide rename. (Space
-// Grotesk has no italic axis; the hero's emphasis word renders as a synthesized
-// oblique, which is acceptable for a single accent word.)
+// Grotesk has no italic axis, so avoid italics.)
 const displayFont = Space_Grotesk({
   variable: "--font-serif",
   subsets: ["latin"],

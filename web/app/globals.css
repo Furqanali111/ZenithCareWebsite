@@ -203,9 +203,12 @@
   html {
     @apply font-sans antialiased;
     overflow-x: clip;
-    /* Tabular numerals for prices and CPT codes everywhere; marketing numbers
-       read as data, not decoration. */
     font-feature-settings: "cv11", "ss01", "ss03";
+  }
+  /* Tabular numerals in tables so price and CPT columns line up. Elsewhere
+     use the `tabular-nums` utility. */
+  table {
+    font-variant-numeric: tabular-nums;
   }
   body {
     @apply bg-background text-foreground;
@@ -223,6 +226,9 @@
   }
   h1 {
     letter-spacing: -0.018em;
+  }
+  p, li {
+    text-wrap: pretty;
   }
   ::selection {
     background-color: var(--color-brand-100);
@@ -255,30 +261,31 @@
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
+/* 500ms rise, 40ms stagger step: the last item starts at 200ms, not 410ms. */
 .reveal-up {
-  animation: reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: reveal-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .reveal-up-1 {
-  animation-delay: 0.05s;
+  animation-delay: 0.04s;
 }
 .reveal-up-2 {
-  animation-delay: 0.14s;
+  animation-delay: 0.08s;
 }
 .reveal-up-3 {
-  animation-delay: 0.23s;
+  animation-delay: 0.12s;
 }
 .reveal-up-4 {
-  animation-delay: 0.32s;
+  animation-delay: 0.16s;
 }
 .reveal-up-5 {
-  animation-delay: 0.41s;
+  animation-delay: 0.2s;
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-up {

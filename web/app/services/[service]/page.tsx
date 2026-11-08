@@ -362,7 +362,7 @@ function ServiceResources({ slug, name }: { slug: string; name: string }) {
             <li key={p.slug}>
               <Link
                 href={`/resources/${p.slug}`}
-                className="spotlight-edge group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                className="spotlight-edge group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-5 transition-[translate,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
               >
                 <ArrowRight
                   className="mt-0.5 size-4 shrink-0 text-brand-accent transition-transform group-hover:translate-x-0.5"
@@ -576,7 +576,7 @@ function RelatedServices({ current }: { current: Service }) {
             <Reveal key={sib.slug} className="h-full">
               <Link
                 href={`/services/${sib.slug}`}
-                className="spotlight group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
+                className="spotlight group flex h-full flex-col rounded-xl border border-border/70 bg-card p-5 transition-[translate,box-shadow,border-color,background-color] hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-lg"
               >
                 <h3 className="font-serif text-base font-semibold text-brand-ink group-hover:text-brand-accent">
                   {sib.name}
