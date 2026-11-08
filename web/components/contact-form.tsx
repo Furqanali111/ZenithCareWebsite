@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { track } from "@/components/conversion-tracking";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,10 @@ type Status =
   | { kind: "phi"; pattern: PhiHit["pattern"] }
   | { kind: "error"; message: string }
   | { kind: "success" };
+
+// Mirrors ui/input.tsx so selects match text inputs (44px touch height on mobile, 16px text avoids iOS zoom).
+const SELECT_CLASS =
+  "h-8 max-md:h-11 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm dark:bg-input/30";
 
 const STEPS = ["About you", "Your practice", "Your message"] as const;
 
@@ -119,7 +124,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-xl border border-border bg-surface-tint p-8 text-center"
+        className="animate-in fade-in zoom-in-95 rounded-xl border border-border bg-surface-tint p-8 text-center duration-250 ease-out motion-reduce:animate-none"
       >
         <h3 className="font-serif text-xl font-semibold text-brand-ink">
           Thanks, your message is in.
@@ -164,12 +169,12 @@ export function ContactForm() {
           <li
             key={label}
             aria-current={i === step ? "step" : undefined}
-            className={`flex flex-1 items-center gap-2 transition-colors duration-500 ${
+            className={`flex flex-1 items-center gap-2 transition-colors duration-250 ${
               i <= step ? "text-brand-ink" : "text-muted-foreground"
             }`}
           >
             <span
-              className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold tabular-nums transition-[background-color,border-color,color] duration-500 motion-reduce:transition-none ${
+              className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold tabular-nums transition-[background-color,border-color,color] duration-250 motion-reduce:transition-none ${
                 i <= step
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border bg-background"
@@ -183,7 +188,7 @@ export function ContactForm() {
       </ol>
       <div aria-hidden="true" className="-mt-2 h-1 overflow-hidden rounded-full bg-border">
         <div
-          className="h-full w-full origin-left rounded-full bg-primary transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
+          className="h-full w-full origin-left rounded-full bg-primary transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
           style={{ transform: `scaleX(${(step + 1) / STEPS.length})` }}
         />
       </div>
@@ -219,7 +224,7 @@ export function ContactForm() {
               id="cf-role"
               name="role"
               defaultValue=""
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+              className={SELECT_CLASS}
             >
               <option value="">Select role…</option>
               <option value="Physician">Physician</option>
@@ -247,7 +252,7 @@ export function ContactForm() {
               name="state"
               required
               defaultValue=""
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+              className={SELECT_CLASS}
             >
               <option value="" disabled>
                 Select…
@@ -339,7 +344,14 @@ export function ContactForm() {
           </Button>
         ) : (
           <Button type="submit" size="lg" disabled={isSubmitting}>
-            {isSubmitting ? "Sending…" : "Send message"}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                Sending…
+              </>
+            ) : (
+              "Send message"
+            )}
           </Button>
         )}
       </div>

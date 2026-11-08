@@ -141,7 +141,7 @@ function StatTile({
       </p>
       <p className="mt-2 flex items-baseline gap-2">
         <span
-          className={`font-serif font-semibold tracking-tight text-brand-ink ${valueSize}`}
+          className={`font-serif font-semibold tabular-nums tracking-tight text-brand-ink ${valueSize}`}
         >
           {value}
         </span>

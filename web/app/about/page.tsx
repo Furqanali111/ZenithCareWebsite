@@ -504,7 +504,7 @@ function Statement({
   children: React.ReactNode;
 }) {
   return (
-    <div className="spotlight-edge group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
+    <div className="spotlight-edge group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:border-[color:var(--color-teal-500)]/50 hover:shadow-lg md:p-9">
       <span
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-1.5 bg-[color:var(--color-teal-500)]"

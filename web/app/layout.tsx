@@ -3,9 +3,9 @@ import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { WhatsAppButton } from "@/components/whatsapp-button";
+import { FaqChatbot } from "@/components/faq-chatbot";
+import { getAllFaqs } from "@/lib/faq";
 import { CookieConsent } from "@/components/cookie-consent";
-import { getServiceContacts } from "@/lib/service-contact";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PointerGlow } from "@/components/pointer-glow";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
@@ -44,8 +44,7 @@ const bodyFont = Inter({
 // Display face: Space Grotesk, a modern grotesk (v3 "Warm Cyan"). Mapped to
 // `--font-serif`, which the existing `font-serif` headings consume, so the
 // whole site picks up the new display face without a repo-wide rename. (Space
-// Grotesk has no italic axis; the hero's emphasis word renders as a synthesized
-// oblique, which is acceptable for a single accent word.)
+// Grotesk has no italic axis, so avoid italics.)
 const displayFont = Space_Grotesk({
   variable: "--font-serif",
   subsets: ["latin"],
@@ -116,7 +115,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <WhatsAppButton contacts={getServiceContacts()} />
+          <FaqChatbot items={getAllFaqs()} />
         </ThemeProvider>
       </body>
     </html>

@@ -154,7 +154,7 @@ export default async function WhoWeServePage({
               <Reveal key={p.href} delay={(i % 3) * 0.08} className="h-full">
                 <Link
                   href={p.href}
-                  className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
+                  className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
                 >
                   <h3 className="mt-2 font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">
                     {p.title}
@@ -256,11 +256,8 @@ export default async function WhoWeServePage({
                 {c.example.panel}-patient {label.toLowerCase()} panel with
                 roughly {Math.round(c.example.enrollmentRate * 100)}% of
                 eligible patients enrolled, at the{" "}
-                <span className="font-mono">CPT 99490</span> base rate.
-                Complex-CCM add-ons (
-                <span className="font-mono">99439</span> /{" "}
-                <span className="font-mono">99487</span> /{" "}
-                <span className="font-mono">99489</span>) lift the figure
+                CPT 99490 base rate. Complex-CCM add-ons (99439 / 99487 /
+                99489) lift the figure
                 for patients with higher clinical complexity.
                 {c.example.note ? ` ${c.example.note}` : ""}
               </p>
