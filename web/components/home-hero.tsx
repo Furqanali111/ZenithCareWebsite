@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroLedger } from "@/components/hero-ledger";
+import { ANCHOR_MONTHLY, ANCHOR_PATIENTS } from "@/lib/roi";
 
 /**
  * Homepage hero, theme-reactive. Light mode is an airy "Soft Structuralism"
@@ -32,8 +33,8 @@ export function HomeHero() {
         {/* Left, copy */}
         <div className="max-w-xl">
           <h1 className="font-serif text-[2.5rem] font-semibold leading-[1.04] tracking-tight text-brand-ink md:text-[3.25rem] lg:text-[3.75rem]">
-            A typical 200-patient CCM panel adds about $13K a month to your
-            practice.
+            A typical {ANCHOR_PATIENTS}-patient CCM panel adds about $
+            {Math.round(ANCHOR_MONTHLY / 1000)}K a month to your practice.
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
