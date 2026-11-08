@@ -72,11 +72,14 @@ const i = (n: number) => ({ "--i": n }) as CSSProperties;
  * from content/faq.json via the layout; the revenue estimate uses lib/roi.
  */
 export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
-  // Open state is tied to the page it was opened on, so it closes by itself
-  // once navigation lands (and stays visible while a slow page loads).
+  const [open, setOpen] = useState(false);
+  // Close once navigation lands; the panel stays visible while a slow page loads.
   const pathname = usePathname();
-  const [openAt, setOpenAt] = useState<string | null>(null);
-  const open = openAt === pathname;
+  const [seenPath, setSeenPath] = useState(pathname);
+  if (seenPath !== pathname) {
+    setSeenPath(pathname);
+    setOpen(false);
+  }
   const [view, setView] = useState<View>({ kind: "menu" });
   const fab = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -89,7 +92,7 @@ export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
   );
 
   function toggle(next: boolean) {
-    setOpenAt(next ? pathname : null);
+    setOpen(next);
     if (next) {
       track("chatbot_open");
       requestAnimationFrame(() => panel.current?.focus());
@@ -167,6 +170,8 @@ export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
 
         <div
           ref={body}
+          role="group"
+          aria-labelledby="faq-chat-title"
           tabIndex={-1}
           key={JSON.stringify(view)}
           className="flex-1 space-y-3 overflow-y-auto p-4 outline-none"
