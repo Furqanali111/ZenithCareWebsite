@@ -138,7 +138,6 @@ export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
                 {item.question}
               </p>
               {/* Links inside the answer navigate away, so close the panel with them. */}
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
               <p
                 className="chat-rise rounded-xl bg-surface-tint p-3 text-sm leading-relaxed text-body-ink"
                 style={{ "--i": 1 } as React.CSSProperties}
