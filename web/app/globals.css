@@ -329,6 +329,60 @@
   }
 }
 
+/* FAQ chatbot. Panel scales from its button: 250ms open, 150ms close. Content
+   lines rise in with a soft blur, 40ms apart. Icons cross-fade in the button. */
+.chat-panel {
+  transform-origin: bottom right;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96) translateY(6px);
+  transition:
+    transform 150ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 150ms ease-out,
+    visibility 0s linear 150ms;
+}
+.chat-panel[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease-out,
+    visibility 0s;
+}
+@keyframes chat-rise {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+.chat-rise {
+  animation: chat-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+.chat-icon {
+  position: absolute;
+  display: flex;
+  opacity: 0;
+  transform: scale(0.25);
+  filter: blur(4px);
+  transition:
+    opacity 200ms cubic-bezier(0.2, 0, 0, 1),
+    transform 200ms cubic-bezier(0.2, 0, 0, 1),
+    filter 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+.chat-icon[data-on="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
 .page-enter {
   animation: page-enter 0.4s cubic-bezier(0.32, 0.72, 0, 1) both;
 }
