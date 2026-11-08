@@ -52,7 +52,7 @@ export default function WhoWeServeIndexPage() {
                 <Reveal delay={i * 0.08} className="h-full">
                   <Link
                     href={`/who-we-serve/${s}`}
-                    className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
+                    className="spotlight group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color] duration-300 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
                   >
                     <h2 className="font-serif text-lg font-semibold text-brand-ink group-hover:text-brand-accent">
                       {specialtyLabel[s]}

@@ -477,7 +477,7 @@ function ResourcesPreview() {
             <Reveal key={post.slug} delay={(i % 3) * 0.08} className="h-full">
               <Link
                 href={`/resources/${post.slug}`}
-                className="spotlight-edge group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
+                className="spotlight-edge group flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 hover:border-[color:var(--color-teal-500)]/40 hover:shadow-[var(--shadow-lift)]"
               >
                 <h3 className="font-serif text-lg font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
                   {post.title}

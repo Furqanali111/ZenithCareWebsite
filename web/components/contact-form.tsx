@@ -120,7 +120,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="animate-in fade-in zoom-in-95 rounded-xl border border-border bg-surface-tint p-8 text-center duration-300 motion-reduce:animate-none"
+        className="animate-in fade-in zoom-in-95 rounded-xl border border-border bg-surface-tint p-8 text-center duration-250 ease-out motion-reduce:animate-none"
       >
         <h3 className="font-serif text-xl font-semibold text-brand-ink">
           Thanks, your message is in.
@@ -165,12 +165,12 @@ export function ContactForm() {
           <li
             key={label}
             aria-current={i === step ? "step" : undefined}
-            className={`flex flex-1 items-center gap-2 transition-colors duration-500 ${
+            className={`flex flex-1 items-center gap-2 transition-colors duration-250 ${
               i <= step ? "text-brand-ink" : "text-muted-foreground"
             }`}
           >
             <span
-              className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold tabular-nums transition-[background-color,border-color,color] duration-500 motion-reduce:transition-none ${
+              className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold tabular-nums transition-[background-color,border-color,color] duration-250 motion-reduce:transition-none ${
                 i <= step
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border bg-background"
@@ -184,7 +184,7 @@ export function ContactForm() {
       </ol>
       <div aria-hidden="true" className="-mt-2 h-1 overflow-hidden rounded-full bg-border">
         <div
-          className="h-full w-full origin-left rounded-full bg-primary transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
+          className="h-full w-full origin-left rounded-full bg-primary transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
           style={{ transform: `scaleX(${(step + 1) / STEPS.length})` }}
         />
       </div>
