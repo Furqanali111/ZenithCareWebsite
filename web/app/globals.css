@@ -203,9 +203,12 @@
   html {
     @apply font-sans antialiased;
     overflow-x: clip;
-    /* Tabular numerals for prices and CPT codes everywhere; marketing numbers
-       read as data, not decoration. */
     font-feature-settings: "cv11", "ss01", "ss03";
+  }
+  /* Tabular numerals in tables so price and CPT columns line up. Elsewhere
+     use the `tabular-nums` utility. */
+  table {
+    font-variant-numeric: tabular-nums;
   }
   body {
     @apply bg-background text-foreground;

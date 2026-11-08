@@ -287,9 +287,8 @@ export default function HomePage() {
                 </p>
                 <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
                   Base-only revenue is{" "}
-                  <span className="font-mono">{formatUsd(ANCHOR_MONTHLY)}</span>{" "}
-                  (shown above). Shifting ~20% of patients to{" "}
-                  <span className="font-mono">CPT 99487</span> lifts the figure
+                  <span className="tabular-nums">{formatUsd(ANCHOR_MONTHLY)}</span>{" "}
+                  (shown above). Shifting ~20% of patients to CPT 99487 lifts the figure
                   by roughly 20%. Internal-medicine and geriatric panels
                   typically index higher; primary-care lower.
                 </p>

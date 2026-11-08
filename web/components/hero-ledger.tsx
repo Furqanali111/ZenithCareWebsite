@@ -28,18 +28,15 @@ export function HeroLedger() {
 
   return (
     <aside aria-label="Representative CCM reimbursement" className="reveal-up reveal-up-3 relative">
-      <div className="float-y rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[var(--shadow-float)] dark:border-white/10 dark:bg-[color:var(--dk-surface)] dark:text-[color:var(--dk-ink)] dark:shadow-2xl dark:shadow-black/40 md:p-8">
+      <div className="rounded-2xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-0)] p-7 text-[color:var(--color-brand-900)] shadow-[var(--shadow-float)] dark:border-white/10 dark:bg-[color:var(--dk-surface)] dark:text-[color:var(--dk-ink)] dark:shadow-2xl dark:shadow-black/40 md:p-8">
         <div className="flex items-center justify-between gap-3">
           <span className="text-xs font-semibold tracking-[0.14em] text-[color:var(--color-brand-700)] dark:text-[color:var(--dk-ring)]">
             Monthly reimbursement, typical panel
           </span>
-          <span className="shrink-0 rounded-full bg-[color:var(--color-brand-50)] px-2.5 py-1 text-xs font-medium text-[color:var(--color-brand-700)] dark:bg-white/10 dark:text-[color:var(--dk-ring)]">
-            CPT <span className="font-mono">{code}</span>
-          </span>
         </div>
 
         <div className="mt-5 flex items-baseline gap-3 font-serif font-semibold tracking-tight">
-          <span className="text-5xl tabular-nums md:text-6xl">
+          <span className="text-6xl tabular-nums md:text-7xl">
             <CountUp value={patients * rate} prefix="$" />
           </span>
           <span className="text-base font-medium text-[color:var(--color-ink-700)] dark:text-[color:var(--dk-body-ink)]">
@@ -123,10 +120,10 @@ function RatePill({
         aria-label={`${label}, CPT ${note}, ${value} per patient`}
         className="peer sr-only"
       />
-      <span className="block rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center transition-[border-color,background-color,box-shadow] duration-200 hover:border-[color:var(--step-line)] peer-checked:border-[color:var(--step-accent)] peer-checked:bg-[color:var(--color-brand-50)] peer-checked:shadow-[inset_0_0_0_1px_var(--step-accent)] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[color:var(--step-accent)] dark:border-white/10 dark:bg-white/5 dark:peer-checked:bg-white/10">
+      <span className="block rounded-xl border border-[color:var(--color-brand-100)] bg-[color:var(--color-surface-50)] p-3 text-center transition-[border-color,background-color,box-shadow] duration-200 hover:border-[color:var(--step-line)] peer-checked:border-[color:var(--color-gold-500)] peer-checked:bg-[color:var(--color-gold-100)] peer-checked:shadow-[inset_0_0_0_1px_var(--color-gold-500)] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[color:var(--step-accent)] dark:border-white/10 dark:bg-white/5 dark:peer-checked:border-[color:var(--dk-accent)] dark:peer-checked:bg-white/10 dark:peer-checked:shadow-[inset_0_0_0_1px_var(--dk-accent)]">
         <span className="block text-xs font-semibold text-[color:var(--color-brand-700)] dark:text-[color:var(--dk-ring)]">{label}</span>
         <span className="mt-1 block font-serif text-lg font-semibold text-[color:var(--color-brand-900)] dark:text-[color:var(--dk-ink)]">{value}</span>
-        <span className="mt-0.5 block font-mono text-xs text-[color:var(--color-ink-700)] dark:text-[color:var(--dk-body-ink)]">{note}</span>
+        <span className="mt-0.5 block text-xs tabular-nums text-[color:var(--color-ink-700)] dark:text-[color:var(--dk-body-ink)]">{note}</span>
       </span>
     </label>
   );

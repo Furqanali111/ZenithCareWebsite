@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { track } from "@/components/conversion-tracking";
 import { Button } from "@/components/ui/button";
@@ -119,7 +120,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-xl border border-border bg-surface-tint p-8 text-center"
+        className="animate-in fade-in zoom-in-95 rounded-xl border border-border bg-surface-tint p-8 text-center duration-300 motion-reduce:animate-none"
       >
         <h3 className="font-serif text-xl font-semibold text-brand-ink">
           Thanks, your message is in.
@@ -339,7 +340,14 @@ export function ContactForm() {
           </Button>
         ) : (
           <Button type="submit" size="lg" disabled={isSubmitting}>
-            {isSubmitting ? "Sending…" : "Send message"}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                Sending…
+              </>
+            ) : (
+              "Send message"
+            )}
           </Button>
         )}
       </div>

@@ -256,11 +256,8 @@ export default async function WhoWeServePage({
                 {c.example.panel}-patient {label.toLowerCase()} panel with
                 roughly {Math.round(c.example.enrollmentRate * 100)}% of
                 eligible patients enrolled, at the{" "}
-                <span className="font-mono">CPT 99490</span> base rate.
-                Complex-CCM add-ons (
-                <span className="font-mono">99439</span> /{" "}
-                <span className="font-mono">99487</span> /{" "}
-                <span className="font-mono">99489</span>) lift the figure
+                CPT 99490 base rate. Complex-CCM add-ons (99439 / 99487 /
+                99489) lift the figure
                 for patients with higher clinical complexity.
                 {c.example.note ? ` ${c.example.note}` : ""}
               </p>
