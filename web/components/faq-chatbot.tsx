@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, MessageCircle, X } from "lucide-react";
 import { track } from "@/components/conversion-tracking";
+import { FaqAnswer } from "@/components/faq-answer";
 import { Button } from "@/components/ui/button";
 import type { FaqItem } from "@/lib/faq";
 
@@ -136,14 +137,21 @@ export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
               <p className="chat-rise text-sm font-semibold text-brand-ink" style={{ "--i": 0 } as React.CSSProperties}>
                 {item.question}
               </p>
-              <p className="chat-rise rounded-xl bg-surface-tint p-3 text-sm leading-relaxed text-body-ink" style={{ "--i": 1 } as React.CSSProperties}>
-                {item.answer}
+              {/* Links inside the answer navigate away, so close the panel with them. */}
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+              <p
+                className="chat-rise rounded-xl bg-surface-tint p-3 text-sm leading-relaxed text-body-ink"
+                style={{ "--i": 1 } as React.CSSProperties}
+                onClick={(e) => {
+                  if ((e.target as Element).closest("a")) toggle(false);
+                }}
+              >
+                <FaqAnswer text={item.answer} />
               </p>
               <div className="chat-rise sticky -bottom-4 -mx-4 flex flex-wrap items-center gap-x-3 border-t border-border bg-card px-4 pb-3 pt-3" style={{ "--i": 2 } as React.CSSProperties}>
                 <Button
                   asChild
-                  size="lg"
-                  className="bg-[color:var(--color-gold-500)] text-[color:var(--color-brand-900)] hover:bg-[color:var(--color-gold-500)]/90"
+                  className="h-11 bg-[color:var(--color-gold-500)] px-5 text-sm font-semibold text-[color:var(--color-brand-900)] shadow-[var(--shadow-lift)] hover:bg-[color:var(--color-gold-500)]/90"
                 >
                   <Link href="/contact" onClick={() => { track("chatbot_book_click"); toggle(false); }}>
                     Book a 15-minute call
