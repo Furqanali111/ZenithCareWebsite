@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, MessageCircle, X } from "lucide-react";
 import { track } from "@/components/conversion-tracking";
@@ -26,7 +27,11 @@ const quiet =
  * typed into it. Answers come from content/faq.json via the layout.
  */
 export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
-  const [open, setOpen] = useState(false);
+  // Open state is tied to the page it was opened on, so it closes by itself
+  // once navigation lands (and stays visible while a slow page loads).
+  const pathname = usePathname();
+  const [openAt, setOpenAt] = useState<string | null>(null);
+  const open = openAt === pathname;
   const [view, setView] = useState<View>({ kind: "topics" });
   const fab = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -39,7 +44,7 @@ export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
   );
 
   function toggle(next: boolean) {
-    setOpen(next);
+    setOpenAt(next ? pathname : null);
     if (next) {
       track("chatbot_open");
       requestAnimationFrame(() => panel.current?.focus());
@@ -137,13 +142,9 @@ export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
               <p className="chat-rise text-sm font-semibold text-brand-ink" style={{ "--i": 0 } as React.CSSProperties}>
                 {item.question}
               </p>
-              {/* Links inside the answer navigate away, so close the panel with them. */}
               <p
                 className="chat-rise rounded-xl bg-surface-tint p-3 text-sm leading-relaxed text-body-ink"
                 style={{ "--i": 1 } as React.CSSProperties}
-                onClick={(e) => {
-                  if ((e.target as Element).closest("a")) toggle(false);
-                }}
               >
                 <FaqAnswer text={item.answer} />
               </p>
@@ -152,11 +153,11 @@ export function FaqChatbot({ items }: { items: readonly FaqItem[] }) {
                   asChild
                   className="h-11 bg-[color:var(--color-gold-500)] px-5 text-sm font-semibold text-[color:var(--color-brand-900)] shadow-[var(--shadow-lift)] hover:bg-[color:var(--color-gold-500)]/90"
                 >
-                  <Link href="/contact" onClick={() => { track("chatbot_book_click"); toggle(false); }}>
+                  <Link href="/contact" onClick={() => track("chatbot_book_click")}>
                     Book a 15-minute call
                   </Link>
                 </Button>
-                <Link href="/faq" className={quiet} onClick={() => toggle(false)}>
+                <Link href="/faq" className={quiet}>
                   Read the full FAQ
                 </Link>
                 <button type="button" className={quiet} onClick={() => go({ kind: "questions", category: item.category })}>
