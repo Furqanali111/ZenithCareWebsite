@@ -5,6 +5,8 @@ import { servicesByCategory, categoryMeta } from "@/lib/services";
 import { ContactEmailLink } from "@/components/contact-email-link";
 import { getServiceContacts } from "@/lib/service-contact";
 import { CookieSettingsButton } from "@/components/cookie-consent";
+import { CPT_BASE } from "@/lib/cpt-codes";
+import { DENIAL_BASE } from "@/lib/denial-codes";
 
 type Item = { label: string; href: string };
 
@@ -27,6 +29,9 @@ const QUICK_LINKS: Item[] = [
 const RESOURCE_LINKS: Item[] = [
   { label: "Blog / Articles", href: "/resources" },
   { label: "ROI Calculator", href: "/roi-calculator" },
+  // Sitewide links to the two reference hubs, so their code pages get crawled.
+  { label: "CPT Codes Guide", href: CPT_BASE },
+  { label: "Denial Codes Guide", href: DENIAL_BASE },
   { label: "FAQs", href: "/faq" },
 ];
 
