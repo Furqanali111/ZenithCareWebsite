@@ -58,6 +58,7 @@ Non-code work the user owns. **Full step-by-step runbook** (sign-up URLs, which 
 - [ ] Google Workspace or Zoho Mail set up for `ali@zenithcaresolutions.com` + role aliases (`privacy@`, `legal@`, `compliance@`, `accessibility@`, `security@`)
 - [ ] LinkedIn Company Page published with logo and cover image
 - [ ] Google Search Console + Bing Webmaster Tools ownership verified
+- [ ] **GitHub App + `KEYSTATIC_*` env vars for the blog editor** — `/keystatic` answers 404 in production until these exist. Steps in `WebSiteDoc/Project/16-keystatic-cms.md`.
 
 ## 5. Time-based reminders
 

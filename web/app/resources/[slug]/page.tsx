@@ -16,7 +16,7 @@ import { FaqSection } from "@/components/faq-section";
 import { Sources, SOURCES } from "@/components/sources";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
-import { getAllPosts, getPostBySlug, getPostSlugs } from "@/content/posts";
+import { getAllPosts, getPostBody, getPostBySlug, getPostSlugs } from "@/content/posts";
 import { reviewer, site } from "@/lib/site";
 import { SERVICE_TAGS, getService } from "@/lib/services";
 import type { Post } from "@/content/posts";
@@ -57,7 +57,7 @@ export default async function PostPage({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const { Component } = post;
+  const Component = await getPostBody(post.slug);
 
   return (
     <>
