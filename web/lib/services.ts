@@ -409,7 +409,7 @@ const RPM_SERVICES: Service[] = [
     ],
     metaTitle: "Transitional Care Management (TCM)",
     metaDescription:
-      "Staffed TCM support for U.S. practices, not software. Our clinical staff handle post-discharge outreach, medication reconciliation and visit scheduling inside your EHR.",
+      "Staffed TCM support for U.S. practices, not software. Our staff handle post-discharge outreach, medication reconciliation and visit scheduling inside your EHR.",
     serviceType: "Transitional Care Management",
     emailSubject: "TCM Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about Transitional Care Management.",
@@ -734,7 +734,7 @@ const STAFFING_SERVICES: Service[] = [
     ],
     metaTitle: "Remote Medical Receptionists",
     metaDescription:
-      "Remote medical receptionists for U.S. practices. Answer calls, route messages and handle patient intake professionally, working inside your phone and EHR systems.",
+      "Remote medical receptionists for U.S. practices. Answer calls, route messages and handle patient intake professionally, inside your phone and EHR systems.",
     serviceType: "Medical Receptionist Staffing",
     emailSubject: "Medical Receptionist Inquiry",
     whatsappMessage: "Hi Zenith, I'd like to learn about your Medical Receptionist service.",

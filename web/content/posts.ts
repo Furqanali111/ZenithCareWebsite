@@ -1,64 +1,12 @@
+import fs from "node:fs";
+import path from "node:path";
+import matter from "gray-matter";
 import type { ComponentType } from "react";
-import Cpt99490_2026, {
-  frontmatter as cpt99490Fm,
-} from "./posts/cpt-99490-2026.mdx";
-import InHouseVsOutsourced, {
-  frontmatter as inHouseFm,
-} from "./posts/in-house-vs-outsourced-ccm.mdx";
-import HipaaChecklist, {
-  frontmatter as hipaaFm,
-} from "./posts/hipaa-checklist-outsourced-ccm.mdx";
-import CcmVsRpmVsPcm, {
-  frontmatter as ccmVsRpmVsPcmFm,
-} from "./posts/ccm-vs-rpm-vs-pcm.mdx";
-import HowCcmBillingWorks, {
-  frontmatter as howCcmBillingWorksFm,
-} from "./posts/how-ccm-billing-works.mdx";
-import CcmConsentRequirements, {
-  frontmatter as ccmConsentFm,
-} from "./posts/ccm-consent-requirements.mdx";
-import Cpt99439Vs99490, {
-  frontmatter as cpt99439Fm,
-} from "./posts/cpt-99439-vs-99490.mdx";
-import CcmTimeTracking, {
-  frontmatter as ccmTimeTrackingFm,
-} from "./posts/ccm-time-tracking-requirements.mdx";
-import MedicalBillingOutsourcingGuide, {
-  frontmatter as billingOutsourcingFm,
-} from "./posts/medical-billing-outsourcing-guide.mdx";
-import RpmSetupGuide, {
-  frontmatter as rpmSetupFm,
-} from "./posts/rpm-setup-guide.mdx";
-import VirtualMedicalStaffingBenefits, {
-  frontmatter as virtualStaffingFm,
-} from "./posts/virtual-medical-staffing-benefits.mdx";
-import TransitionalCareManagementGuide, {
-  frontmatter as tcmGuideFm,
-} from "./posts/transitional-care-management-guide.mdx";
-import ProviderCredentialingGuide, {
-  frontmatter as credentialingGuideFm,
-} from "./posts/provider-credentialing-guide.mdx";
-import ReduceClaimDenials, {
-  frontmatter as claimDenialsFm,
-} from "./posts/reduce-claim-denials.mdx";
-import Cpt99490DocChecklist, {
-  frontmatter as cpt99490DocChecklistFm,
-} from "./posts/cpt-99490-documentation-checklist.mdx";
-import Cpt99426Pcm, {
-  frontmatter as cpt99426PcmFm,
-} from "./posts/cpt-99426-99427-pcm-time-requirements.mdx";
-import HowToChooseCcmVendor, {
-  frontmatter as chooseVendorFm,
-} from "./posts/how-to-choose-a-ccm-vendor.mdx";
-import Cpt99487Complex, {
-  frontmatter as cpt99487Fm,
-} from "./posts/cpt-99487-99489-complex-ccm.mdx";
 
 /**
- * The one-sentence rule: every blog post is listed here as a static
- * import. New post = new .mdx file + a new row in POSTS. Next 16 Cache
- * Components mode rejects empty / dynamic generateStaticParams, so this
- * explicit registry is what feeds the dynamic route and the sitemap.
+ * Every blog post is a file in content/posts/<slug>.mdx with YAML frontmatter.
+ * Keystatic (/keystatic) edits these files, so the list is read from the folder:
+ * a new post needs no code change. The slug is the file name.
  */
 
 export type PostFrontmatter = {
@@ -77,64 +25,61 @@ export type PostFrontmatter = {
   coverImage?: string; // local /public path, e.g. "/resources/<slug>.jpg"
   /** Optional visible FAQ block + FAQPage JSON-LD. Answers must restate the article. */
   faqs?: { question: string; answer: string }[];
+  /** Drafts are saved in the repo but never listed, routed or put in the sitemap. */
+  draft?: boolean;
 };
 
-export type Post = PostFrontmatter & {
-  Component: ComponentType;
-};
+export type Post = PostFrontmatter;
 
-// Order here doesn't matter, getAllPosts() sorts by date desc.
-const POSTS: Post[] = [
-  { ...(cpt99490Fm as PostFrontmatter), Component: Cpt99490_2026 },
-  { ...(inHouseFm as PostFrontmatter), Component: InHouseVsOutsourced },
-  { ...(hipaaFm as PostFrontmatter), Component: HipaaChecklist },
-  { ...(ccmVsRpmVsPcmFm as PostFrontmatter), Component: CcmVsRpmVsPcm },
-  { ...(howCcmBillingWorksFm as PostFrontmatter), Component: HowCcmBillingWorks },
-  { ...(ccmConsentFm as PostFrontmatter), Component: CcmConsentRequirements },
-  { ...(cpt99439Fm as PostFrontmatter), Component: Cpt99439Vs99490 },
-  { ...(ccmTimeTrackingFm as PostFrontmatter), Component: CcmTimeTracking },
-  { ...(billingOutsourcingFm as PostFrontmatter), Component: MedicalBillingOutsourcingGuide },
-  { ...(rpmSetupFm as PostFrontmatter), Component: RpmSetupGuide },
-  { ...(virtualStaffingFm as PostFrontmatter), Component: VirtualMedicalStaffingBenefits },
-  { ...(tcmGuideFm as PostFrontmatter), Component: TransitionalCareManagementGuide },
-  { ...(credentialingGuideFm as PostFrontmatter), Component: ProviderCredentialingGuide },
-  { ...(claimDenialsFm as PostFrontmatter), Component: ReduceClaimDenials },
-  { ...(cpt99490DocChecklistFm as PostFrontmatter), Component: Cpt99490DocChecklist },
-  { ...(cpt99426PcmFm as PostFrontmatter), Component: Cpt99426Pcm },
-  { ...(chooseVendorFm as PostFrontmatter), Component: HowToChooseCcmVendor },
-  { ...(cpt99487Fm as PostFrontmatter), Component: Cpt99487Complex },
-];
+const DIR = path.join(process.cwd(), "content/posts");
+
+// Unquoted YAML dates (what Keystatic writes) parse to Date objects.
+const day = (v: unknown) =>
+  v instanceof Date ? v.toISOString().slice(0, 10) : String(v ?? "");
+
+function loadPosts(): Post[] {
+  const posts = fs
+    .readdirSync(DIR)
+    .filter((f) => f.endsWith(".mdx"))
+    .map((file) => {
+      const { data } = matter(fs.readFileSync(path.join(DIR, file), "utf8"));
+      return {
+        ...data,
+        slug: file.slice(0, -".mdx".length),
+        publishedAt: day(data.publishedAt),
+        updatedAt: day(data.updatedAt) || day(data.publishedAt),
+        tags: data.tags ?? [],
+      } as Post;
+    })
+    .filter((p) => !p.draft);
+
+  // Throws in BOTH dev AND prod: bad frontmatter must fail the build, not ship.
+  for (const p of posts) {
+    if (!p.title) throw new Error(`posts: empty title on ${p.slug}`);
+    if (!p.description) throw new Error(`posts: empty description on ${p.slug}`);
+    for (const d of [p.publishedAt, p.updatedAt]) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) {
+        throw new Error(`posts: date "${d}" on ${p.slug} must look like 2026-10-11`);
+      }
+    }
+  }
+  return posts;
+}
 
 /** All posts, newest first by publishedAt. */
 export function getAllPosts(): readonly Post[] {
-  return [...POSTS].sort((a, b) =>
-    b.publishedAt.localeCompare(a.publishedAt),
-  );
+  return loadPosts().sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
 export function getPostBySlug(slug: string): Post | undefined {
-  return POSTS.find((p) => p.slug === slug);
+  return loadPosts().find((p) => p.slug === slug);
 }
 
 export function getPostSlugs(): readonly string[] {
-  return POSTS.map((p) => p.slug);
+  return loadPosts().map((p) => p.slug);
 }
 
-/* -------------------------------------------------------------------------- */
-/* Server-side load-time validation, throws loudly in BOTH dev AND prod.     */
-/* The whole point is to fail the build on bad frontmatter; a dev-only guard  */
-/* would silently pass broken content to production (same bug the FAQ loader  */
-/* had before PR #4).                                                         */
-/* -------------------------------------------------------------------------- */
-if (typeof window === "undefined") {
-  const seen = new Set<string>();
-  for (const p of POSTS) {
-    if (!p.slug) throw new Error(`posts: missing slug on ${p.title}`);
-    if (seen.has(p.slug)) throw new Error(`posts: duplicate slug "${p.slug}"`);
-    if (!p.title) throw new Error(`posts: empty title on ${p.slug}`);
-    if (!p.description) throw new Error(`posts: empty description on ${p.slug}`);
-    if (!p.publishedAt) throw new Error(`posts: missing publishedAt on ${p.slug}`);
-    if (!p.Component) throw new Error(`posts: missing Component on ${p.slug}`);
-    seen.add(p.slug);
-  }
+/** The compiled MDX body. Call only with a slug from getPostBySlug (no path input). */
+export async function getPostBody(slug: string): Promise<ComponentType> {
+  return (await import(`./posts/${slug}.mdx`)).default;
 }

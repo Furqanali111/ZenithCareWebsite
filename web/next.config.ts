@@ -28,9 +28,10 @@ const scriptSrc = isDev
 // Hosts the browser is allowed to send fetch/XHR/beacon to.
 // - formspree.io: contact form submissions
 // - calendly.com: inline widget telemetry
+// - api.github.com: Keystatic editor (/keystatic) reads and writes the repo
 // - google-analytics / googletagmanager: GA4 beacons
 const connectSrc =
-  "'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com";
+  "'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com https://api.github.com";
 
 // Hosts allowed to embed as <iframe>. Calendly serves its booking widget
 // from calendly.com as an iframe inside the inline-widget container.
@@ -42,7 +43,8 @@ const frameSrc = "https://calendly.com";
 const formAction = "'self' https://formspree.io";
 
 // Image hosts (Calendly serves favicons / avatars from calendly.com).
-const imgSrc = "'self' data: blob: https://*.calendly.com";
+const imgSrc =
+  "'self' data: blob: https://*.calendly.com https://avatars.githubusercontent.com";
 
 const securityHeaders = [
   {
@@ -121,6 +123,12 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // The Keystatic editor routes client-side; a hard refresh on a deep URL must
+  // still load the one static /keystatic page (a catch-all route breaks the build
+  // because the site chrome reads the pathname).
+  async rewrites() {
+    return [{ source: "/keystatic/:path+", destination: "/keystatic" }];
+  },
   async headers() {
     return [
       {
@@ -174,7 +182,10 @@ const nextConfig: NextConfig = {
   },
 };
 
-// remark-gfm renders the pipe tables in posts. Turbopack needs plugins by name.
-const withMDX = createMDX({ options: { remarkPlugins: ["remark-gfm"] } });
+// remark-gfm renders the pipe tables in posts; remark-frontmatter drops the YAML
+// block Keystatic writes. Turbopack needs plugins by name.
+const withMDX = createMDX({
+  options: { remarkPlugins: ["remark-gfm", "remark-frontmatter"] },
+});
 
 export default withMDX(nextConfig);
