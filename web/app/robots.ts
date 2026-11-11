@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
   const base = site.url.replace(/\/$/, "").replace(/^https?:\/\/www\./, "https://");
 
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/keystatic", "/api/keystatic"] }],
     sitemap: `${base}/sitemap.xml`,
   };
 }
