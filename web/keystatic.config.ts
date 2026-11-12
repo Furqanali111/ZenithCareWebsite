@@ -1,4 +1,5 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
+import * as technicalSeo from "./keystatic/technical-seo";
 
 /**
  * Blog editor at /keystatic. Edits content/posts/*.mdx in the git repo.
@@ -17,6 +18,7 @@ export default config({
           pathPrefix: "web",
         },
   collections: {
+    ...technicalSeo.collections,
     posts: collection({
       label: "Blog posts",
       path: "content/posts/*",
@@ -103,6 +105,7 @@ export default config({
     }),
   },
   singletons: {
+    ...technicalSeo.singletons,
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",

@@ -140,7 +140,7 @@ export default async function PostPage({
         </div>
       </article>
 
-      {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" /> : null}
+      {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" path={`/resources/${post.slug}`} /> : null}
 
       <Sources links={SOURCES.care} />
 

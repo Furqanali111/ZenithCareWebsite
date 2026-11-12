@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { crumbLabel } from "@/lib/seo";
 
 export type BreadcrumbItem = { name: string; path: string };
 
@@ -28,14 +29,14 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
               )}
               {isLast ? (
                 <span aria-current="page" className="truncate font-medium text-ink-strong">
-                  {item.name}
+                  {crumbLabel(item.path, item.name)}
                 </span>
               ) : (
                 <Link
                   href={item.path}
                   className="truncate transition-colors hover:text-brand-accent"
                 >
-                  {item.name}
+                  {crumbLabel(item.path, item.name)}
                 </Link>
               )}
             </li>
