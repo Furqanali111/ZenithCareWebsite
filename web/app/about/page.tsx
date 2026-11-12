@@ -13,6 +13,7 @@ import { BulletedListItem } from "@/components/bulleted-list";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { site } from "@/lib/site";
+import about from "@/content/about.json";
 import {
   categoryMeta,
   servicesByCategory,
@@ -28,66 +29,8 @@ export const metadata: Metadata = pageMetadata({
   path: PATH,
 });
 
-const PILLARS = [
-  {
-    name: "Clinical understanding",
-    line: "People who understand the work of care.",
-    detail: "Care coordination supported by trained healthcare professionals.",
-  },
-  {
-    name: "Practice control",
-    line: "Your workflow. Your oversight.",
-    detail: "Support designed around the practice's systems and agreed responsibilities.",
-  },
-  {
-    name: "Connected operations",
-    line: "Care, revenue and staffing with shared priorities.",
-    detail: "Support across three service lines through one relationship.",
-  },
-  {
-    name: "Clear responsibility",
-    line: "Know who owns the next step.",
-    detail: "A commitment to clear roles and practical communication.",
-  },
-];
-
-const STEPS = [
-  {
-    title: "Discover your priorities",
-    body: "We start with a conversation about where your team needs support and which workflows matter most.",
-  },
-  {
-    title: "Agree scope and access",
-    body: "We write down what we will do, what your team keeps, and the system access each role needs. A signed BAA comes before any access to patient information.",
-  },
-  {
-    title: "Carry out the work",
-    body: "Our team works within your EHR or care-management platform, to the scope you agreed.",
-  },
-  {
-    title: "Review together",
-    body: "We review progress with you and adjust, so you always know what is done and what needs attention.",
-  },
-];
-
-const WHY = [
-  {
-    title: "Who does the work",
-    body: "Trained team members assigned to defined roles, so you know who is responsible for each task.",
-  },
-  {
-    title: "Where it is recorded",
-    body: "Inside your EHR or care-management platform, where your team already looks.",
-  },
-  {
-    title: "How you review it",
-    body: "Reporting that fits your practice, with a cadence we agree with you at the start.",
-  },
-  {
-    title: "Who answers your questions",
-    body: "A point of contact agreed up front, with a clear route for raising issues.",
-  },
-];
+// Page text lives in content/about.json (edited in /keystatic).
+const { pillars: PILLARS, steps: STEPS, why: WHY } = about;
 
 const CATEGORY_ORDER: ServiceCategory[] = ["rpm", "rcm", "staffing"];
 
@@ -120,10 +63,7 @@ export default function AboutPage() {
         }
         primaryCta={{ label: "Book a 15-minute call", href: "/contact" }}
       >
-        <p>
-          Care management, revenue cycle support and virtual staffing,
-          coordinated within your practice&rsquo;s existing workflow.
-        </p>
+        <p>{about.heroLead}</p>
       </PageHero>
 
       {/* 2. Who we are + team message */}
@@ -131,65 +71,34 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="max-w-3xl">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-              Who we are
+              {about.whoHeading}
             </h2>
             <p className="mt-6 text-base leading-relaxed text-body-ink md:text-lg">
-              Zenith Care Solutions supports U.S. healthcare practices with the
-              clinical coordination and operational work behind patient care.
-              We bring care management, revenue cycle support and virtual
-              staffing into one service relationship, with work carried out
-              within the practice&rsquo;s systems. Your practice retains
-              clinical oversight and its billing relationship while our team
-              supports the work around them.
+              {about.whoBody}
             </p>
           </Reveal>
 
           <Reveal className="mt-14 grid gap-6 md:grid-cols-3">
             <Statement icon={Target} label="Our mission">
-              To help practices make more room for patient care through
-              coordinated clinical and operational support.
+              {about.mission}
             </Statement>
             <Statement icon={Eye} label="Our vision">
-              A future in which every practice can access the support it needs
-              to serve patients and run well.
+              {about.vision}
             </Statement>
             <Statement icon={Handshake} label="Our promise">
-              Support that fits your practice. Responsibilities your team
-              understands.
+              {about.promise}
             </Statement>
           </Reveal>
 
           <Reveal className="mt-16 grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-14">
             <div>
               <h3 className="font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-                The work behind care deserves care, too.
+                {about.beliefHeading}
               </h3>
               <div className="mt-6 space-y-5 text-base leading-relaxed text-body-ink">
-                <p>
-                  Every follow-up, every claim and every handoff is part of how
-                  a practice serves its patients. We believe these
-                  responsibilities deserve clear ownership and consistent
-                  attention.
-                </p>
-                <p>
-                  At Zenith Care Solutions, we bring care management, revenue
-                  cycle support and virtual staffing together around the needs
-                  of your practice. Our role is to support the work between
-                  visits and behind the scenes, within the systems your team
-                  uses.
-                </p>
-                <p>
-                  Your practice retains clinical oversight and the billing
-                  relationship. Our commitment is to listen before we
-                  recommend, make responsibilities clear and keep
-                  communication practical. Whether you need help with a care
-                  program, revenue operations or a remote role, the goal is the
-                  same: support that fits the way your practice works.
-                </p>
-                <p>
-                  We want your team to know who is doing the work, what needs
-                  attention and how to move forward together.
-                </p>
+                {about.beliefParagraphs.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
               </div>
               <p className="mt-6 font-serif text-base font-semibold text-brand-ink">
                 The Zenith Care Solutions Team
@@ -198,10 +107,7 @@ export default function AboutPage() {
 
             <figure className="spotlight-edge flex flex-col justify-center rounded-2xl border border-border bg-card p-8 md:p-10">
               <blockquote className="font-serif text-xl font-semibold leading-snug tracking-tight text-brand-ink md:text-2xl">
-                <p>
-                  &ldquo;The work behind care deserves the same attention as
-                  the care itself.&rdquo;
-                </p>
+                <p>{`\u201c${about.quote}\u201d`}</p>
               </blockquote>
               <figcaption className="mt-6 text-sm text-body-ink">
                 The Zenith Care Solutions Team
@@ -220,37 +126,16 @@ export default function AboutPage() {
                 A message from Zenith
               </p>
               <h2 className="mt-3 font-serif text-2xl font-semibold tracking-tight text-brand-ink md:text-3xl">
-                We built Zenith so your team can get back to patients.
+                {about.messageHeading}
               </h2>
               <p className="mt-8 font-serif text-base font-semibold text-brand-ink">
                 The Zenith Care Solutions Team
               </p>
             </div>
             <div className="space-y-5 text-base leading-relaxed text-body-ink md:text-lg">
-              <p>
-                Practices carry more work around patient care than they have
-                people to do it. Follow-ups slip, claims wait and phones go
-                unanswered, while the people who should be with patients are
-                buried in coordination and paperwork.
-              </p>
-              <p>
-                Zenith exists to take that weight off your team. Care
-                management, revenue cycle support and virtual staffing are
-                different kinds of work, but we hold them to one standard:
-                clear ownership, work done inside your systems, and a practice
-                that always knows where things stand.
-              </p>
-              <p>
-                We will never ask you to give up control. Your practice keeps
-                clinical oversight and its billing relationship. Our job is to
-                do the work reliably, explain it plainly and make it easy for
-                you to see what is done and what needs attention.
-              </p>
-              <p>
-                If follow-ups, claims or staffing are stretching your team,
-                talk to us. We will tell you honestly whether Zenith is the
-                right fit.
-              </p>
+              {about.messageParagraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
             </div>
           </Reveal>
         </div>
@@ -260,20 +145,12 @@ export default function AboutPage() {
       <section className="section-rhythm">
         <div className="mx-auto grid max-w-[90rem] gap-8 px-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-14">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            The work around patient care adds up.
+            {about.challengeHeading}
           </h2>
           <div className="space-y-5 text-base leading-relaxed text-body-ink md:text-lg">
-            <p>
-              Between visits, patients need follow-up. Behind the scenes,
-              claims need submitting, payers need chasing, and calls, schedules
-              and records need someone&rsquo;s attention.
-            </p>
-            <p>
-              Each task is small. Together they compete with the time your team
-              has for patients, and when ownership is unclear, things wait.
-              Who is following up, who owns this claim, who is covering the
-              phones?
-            </p>
+            {about.challengeParagraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
           </div>
         </div>
       </section>
@@ -282,7 +159,7 @@ export default function AboutPage() {
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            What guides our work
+            {about.pillarsHeading}
           </h2>
           <Reveal className="mt-10 grid gap-6 md:grid-cols-2">
             {PILLARS.map((p) => (
@@ -309,7 +186,7 @@ export default function AboutPage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            What we do for your practice
+            {about.servicesHeading}
           </h2>
           <Reveal className="mt-10 grid gap-6 lg:grid-cols-3">
             {CATEGORY_ORDER.map((cat) => {
@@ -350,10 +227,10 @@ export default function AboutPage() {
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
         <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            How we work
+            {about.stepsHeading}
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-body-ink md:text-lg">
-            Four steps, agreed with you before the work begins.
+            {about.stepsLead}
           </p>
           <Reveal>
             <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -385,7 +262,7 @@ export default function AboutPage() {
       <section className="section-rhythm">
         <div className="mx-auto max-w-[90rem] px-6">
           <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            Why practices work with Zenith
+            {about.whyHeading}
           </h2>
           <Reveal className="mt-10 grid gap-x-14 gap-y-10 md:grid-cols-2">
             {WHY.map((w) => (
@@ -407,22 +284,15 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[90rem] px-6">
           <Reveal className="rounded-2xl border border-border bg-card p-8 md:p-12">
             <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-              Trust and safeguards
+              {about.trustHeading}
             </h2>
             <p className="mt-6 max-w-3xl text-base leading-relaxed text-body-ink md:text-lg">
-              Zenith signs a Business Associate Agreement (BAA) before access to
-              patient information, and staff work within the practice&rsquo;s
-              EHR or care-management platform.
+              {about.trustBody}
             </p>
             <ul className="mt-6 max-w-3xl space-y-3 text-base text-body-ink">
-              <BulletedListItem>
-                Your practice retains clinical oversight and its billing
-                relationship.
-              </BulletedListItem>
-              <BulletedListItem>
-                Access, scope and responsibilities are agreed with you before
-                the work starts.
-              </BulletedListItem>
+              {about.trustBullets.map((b) => (
+                <BulletedListItem key={b}>{b}</BulletedListItem>
+              ))}
             </ul>
             <p className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-base">
               <Link
@@ -475,11 +345,10 @@ export default function AboutPage() {
       <section>
         <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-24">
           <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-            Let&rsquo;s talk about the work your practice needs covered.
+            {about.ctaHeading}
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
-            Tell us where your team needs support. We&rsquo;ll discuss the
-            scope, responsibilities and fit.
+            {about.ctaBody}
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <Button asChild size="lg">

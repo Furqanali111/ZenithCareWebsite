@@ -1,4 +1,5 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
+import * as editablePages from "./keystatic/editable-pages";
 
 /**
  * Blog editor at /keystatic. Edits content/posts/*.mdx in the git repo.
@@ -17,6 +18,7 @@ export default config({
           pathPrefix: "web",
         },
   collections: {
+    ...editablePages.collections,
     posts: collection({
       label: "Blog posts",
       path: "content/posts/*",
@@ -103,6 +105,7 @@ export default config({
     }),
   },
   singletons: {
+    ...editablePages.singletons,
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",

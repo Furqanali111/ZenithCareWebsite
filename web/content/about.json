@@ -1,0 +1,99 @@
+{
+  "heroLead": "Care management, revenue cycle support and virtual staffing, coordinated within your practice’s existing workflow.",
+  "whoHeading": "Who we are",
+  "whoBody": "Zenith Care Solutions supports U.S. healthcare practices with the clinical coordination and operational work behind patient care. We bring care management, revenue cycle support and virtual staffing into one service relationship, with work carried out within the practice’s systems. Your practice retains clinical oversight and its billing relationship while our team supports the work around them.",
+  "mission": "To help practices make more room for patient care through coordinated clinical and operational support.",
+  "vision": "A future in which every practice can access the support it needs to serve patients and run well.",
+  "promise": "Support that fits your practice. Responsibilities your team understands.",
+  "beliefHeading": "The work behind care deserves care, too.",
+  "beliefParagraphs": [
+    "Every follow-up, every claim and every handoff is part of how a practice serves its patients. We believe these responsibilities deserve clear ownership and consistent attention.",
+    "At Zenith Care Solutions, we bring care management, revenue cycle support and virtual staffing together around the needs of your practice. Our role is to support the work between visits and behind the scenes, within the systems your team uses.",
+    "Your practice retains clinical oversight and the billing relationship. Our commitment is to listen before we recommend, make responsibilities clear and keep communication practical. Whether you need help with a care program, revenue operations or a remote role, the goal is the same: support that fits the way your practice works.",
+    "We want your team to know who is doing the work, what needs attention and how to move forward together."
+  ],
+  "quote": "The work behind care deserves the same attention as the care itself.",
+  "messageHeading": "We built Zenith so your team can get back to patients.",
+  "messageParagraphs": [
+    "Practices carry more work around patient care than they have people to do it. Follow-ups slip, claims wait and phones go unanswered, while the people who should be with patients are buried in coordination and paperwork.",
+    "Zenith exists to take that weight off your team. Care management, revenue cycle support and virtual staffing are different kinds of work, but we hold them to one standard: clear ownership, work done inside your systems, and a practice that always knows where things stand.",
+    "We will never ask you to give up control. Your practice keeps clinical oversight and its billing relationship. Our job is to do the work reliably, explain it plainly and make it easy for you to see what is done and what needs attention.",
+    "If follow-ups, claims or staffing are stretching your team, talk to us. We will tell you honestly whether Zenith is the right fit."
+  ],
+  "challengeHeading": "The work around patient care adds up.",
+  "challengeParagraphs": [
+    "Between visits, patients need follow-up. Behind the scenes, claims need submitting, payers need chasing, and calls, schedules and records need someone’s attention.",
+    "Each task is small. Together they compete with the time your team has for patients, and when ownership is unclear, things wait. Who is following up, who owns this claim, who is covering the phones?"
+  ],
+  "pillarsHeading": "What guides our work",
+  "pillars": [
+    {
+      "name": "Clinical understanding",
+      "line": "People who understand the work of care.",
+      "detail": "Care coordination supported by trained healthcare professionals."
+    },
+    {
+      "name": "Practice control",
+      "line": "Your workflow. Your oversight.",
+      "detail": "Support designed around the practice's systems and agreed responsibilities."
+    },
+    {
+      "name": "Connected operations",
+      "line": "Care, revenue and staffing with shared priorities.",
+      "detail": "Support across three service lines through one relationship."
+    },
+    {
+      "name": "Clear responsibility",
+      "line": "Know who owns the next step.",
+      "detail": "A commitment to clear roles and practical communication."
+    }
+  ],
+  "servicesHeading": "What we do for your practice",
+  "stepsHeading": "How we work",
+  "stepsLead": "Four steps, agreed with you before the work begins.",
+  "steps": [
+    {
+      "title": "Discover your priorities",
+      "body": "We start with a conversation about where your team needs support and which workflows matter most."
+    },
+    {
+      "title": "Agree scope and access",
+      "body": "We write down what we will do, what your team keeps, and the system access each role needs. A signed BAA comes before any access to patient information."
+    },
+    {
+      "title": "Carry out the work",
+      "body": "Our team works within your EHR or care-management platform, to the scope you agreed."
+    },
+    {
+      "title": "Review together",
+      "body": "We review progress with you and adjust, so you always know what is done and what needs attention."
+    }
+  ],
+  "whyHeading": "Why practices work with Zenith",
+  "why": [
+    {
+      "title": "Who does the work",
+      "body": "Trained team members assigned to defined roles, so you know who is responsible for each task."
+    },
+    {
+      "title": "Where it is recorded",
+      "body": "Inside your EHR or care-management platform, where your team already looks."
+    },
+    {
+      "title": "How you review it",
+      "body": "Reporting that fits your practice, with a cadence we agree with you at the start."
+    },
+    {
+      "title": "Who answers your questions",
+      "body": "A point of contact agreed up front, with a clear route for raising issues."
+    }
+  ],
+  "trustHeading": "Trust and safeguards",
+  "trustBody": "Zenith signs a Business Associate Agreement (BAA) before access to patient information, and staff work within the practice’s EHR or care-management platform.",
+  "trustBullets": [
+    "Your practice retains clinical oversight and its billing relationship.",
+    "Access, scope and responsibilities are agreed with you before the work starts."
+  ],
+  "ctaHeading": "Let’s talk about the work your practice needs covered.",
+  "ctaBody": "Tell us where your team needs support. We’ll discuss the scope, responsibilities and fit."
+}
