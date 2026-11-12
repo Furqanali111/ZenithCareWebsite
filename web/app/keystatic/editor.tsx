@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import KeystaticApp from "./keystatic";
+import BranchGuard from "./branch-guard";
 
 // The editor is browser-only (it reads the URL and window): render it only in the
 // browser so the build never tries to prerender it. While it is open, hide the
@@ -17,6 +18,7 @@ export default function Editor() {
     <>
       <style>{`body > header, body > footer, body > aside, body > div[class*="fixed"] { display: none !important; }`}</style>
       <KeystaticApp />
+      <BranchGuard />
     </>
   );
 }
