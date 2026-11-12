@@ -212,6 +212,7 @@ export default async function DenialCodePage({
       <FaqSection
         heading={`${d.code}: common questions`}
         idPrefix={`denial-${d.slug}-faq`}
+        path={denialPath(d.slug)}
         items={d.faqs}
       />
 

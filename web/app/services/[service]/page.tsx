@@ -302,6 +302,7 @@ export default async function ServicePage({
       <FaqSection
         heading={`${s.name}: common questions`}
         idPrefix={`${s.slug}-faq`}
+        path={`/services/${s.slug}`}
         items={s.faqs}
         tone="surface"
       />
