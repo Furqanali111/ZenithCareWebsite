@@ -2,6 +2,18 @@ import type { Metadata } from "next";
 import { site, founders } from "./site";
 import pageSeoFile from "@/content/page-seo.json";
 import serviceSeoFile from "@/content/page-seo-services.json";
+import structuredFile from "@/content/structured-data.json";
+import breadcrumbFile from "@/content/breadcrumb-labels.json";
+
+// Editor settings from /keystatic: FAQPage schema switched off by path, shorter
+// breadcrumb labels by path, extra Organization fields. Empty JSON arrays infer as
+// never[], so the files get their real shape here.
+const structured: { faqSchemaOff: string[]; organizationPhone: string; organizationSameAs: string[] } = structuredFile;
+const crumbFile: { labels: { path: string; label: string }[] } = breadcrumbFile;
+const faqOff = new Set(structured.faqSchemaOff);
+const crumbLabels = new Map(crumbFile.labels.map((l) => [l.path, l.label]));
+export const isFaqOff = (path: string) => faqOff.has(path);
+export const crumbLabel = (path: string, name: string) => crumbLabels.get(path) ?? name;
 
 type SeoEntry = {
   title: string;
@@ -130,7 +142,7 @@ export function organizationLd(): JsonLd {
     url: site.url,
     logo: abs("/logo.png"),
     description: site.tagline,
-    sameAs: [site.linkedin, site.facebook, site.instagram],
+    sameAs: [site.linkedin, site.facebook, site.instagram, ...structured.organizationSameAs],
     // Same @ids the /about page gives each founder.
     founder: founders.map((f) => ref(personId(f.initials))),
     // Services Zenith offers, surfaced so search + AI engines can map the
@@ -153,6 +165,7 @@ export function organizationLd(): JsonLd {
     contactPoint: {
       "@type": "ContactPoint",
       email: site.email,
+      ...(structured.organizationPhone && { telephone: structured.organizationPhone }),
       url: `${site.url}/contact`,
       contactType: "sales",
       areaServed: "US",
@@ -225,7 +238,8 @@ export function webPageLd({
     publisher: ref(ORG_ID),
     ...(breadcrumb && { breadcrumb: ref(`${abs(path)}#breadcrumb`) }),
     ...(about && { about: ref(about) }),
-    ...(mainEntity && { mainEntity: ref(mainEntity) }),
+    // No dangling link to a FAQ node the editor turned off.
+    ...(mainEntity && !(mainEntity === faqId(path) && faqOff.has(path)) && { mainEntity: ref(mainEntity) }),
     ...(reviewedBy && { reviewedBy: ref(reviewedBy) }),
     ...(datePublished && { datePublished: withTz(datePublished) }),
     ...(dateModified && { dateModified: withTz(dateModified) }),
@@ -373,7 +387,8 @@ export function faqPageLd(
   items: { question: string; answer: string }[],
   /** Page path; gives the FAQ an @id the page's WebPage can reference. */
   path?: string,
-): JsonLd {
+): JsonLd | null {
+  if (path && faqOff.has(path)) return null;
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -391,8 +406,9 @@ export function faqPageLd(
 }
 
 export function breadcrumbLd(
-  items: { name: string; path: string }[],
+  rawItems: { name: string; path: string }[],
 ): JsonLd {
+  const items = rawItems.map((it) => ({ ...it, name: crumbLabel(it.path, it.name) }));
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -410,14 +426,17 @@ export function breadcrumbLd(
  * <JsonLd>, tiny server-component renderer. Use once per page per schema.
  * ------------------------------------------------------------------------ */
 
-export function JsonLd({ data }: { data: JsonLd | JsonLd[] }) {
+export function JsonLd({ data }: { data: JsonLd | null | (JsonLd | null)[] }) {
+  // A null node (FAQ schema turned off in the CMS) is skipped.
+  const nodes = Array.isArray(data) ? data.filter(Boolean) : data;
+  if (!nodes) return null;
   return (
     <script
       type="application/ld+json"
       // JSON.stringify is safe; keys/values are not user input.
       // Escape "<" so content containing "</script>" cannot break out.
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+        __html: JSON.stringify(nodes).replace(/</g, "\\u003c"),
       }}
     />
   );

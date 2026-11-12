@@ -1,4 +1,8 @@
 import { site } from "@/lib/site";
+import llmsFile from "@/content/llms-txt.json";
+
+// Empty JSON arrays infer as never[], so give the file its real shape.
+const llms: { summary: string; extraLinks: { title: string; url: string; description: string }[] } = llmsFile;
 import { services } from "@/lib/services";
 import { getAllPosts } from "@/content/posts";
 import { CPT_BASE, cptCodes, cptPath } from "@/lib/cpt-codes";
@@ -18,12 +22,28 @@ const DENIAL_PAGES = denialCodes
   .map((d) => `- [${d.code} denial: ${d.shortTitle}](${site.url}${denialPath(d.slug)})`)
   .join("\n");
 
+// Summary and extra links edited in /keystatic (content/llms-txt.json). Empty means
+// the built-in summary and no extra section.
+const SUMMARY =
+  llms.summary.replace(/\s+/g, " ").trim() ||
+  "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate. We provide trained clinical and administrative staff; the physician practice remains the billing provider.";
+
+const EXTRA_LINKS = llms.extraLinks
+  .map((l) => {
+    if (!/^(\/|https:\/\/)\S*$/.test(l.url)) throw new Error(`content/llms-txt.json: invalid URL "${l.url}"`);
+    const href = l.url.startsWith("/") ? `${site.url}${l.url}` : l.url;
+    const desc = l.description.replace(/\s+/g, " ").trim();
+    return `- [${l.title.replace(/[\[\]]/g, "")}](${href})${desc ? `: ${desc}` : ""}`;
+  })
+  .join("\n");
+const EXTRA = EXTRA_LINKS ? `\n## Additional pages\n\n${EXTRA_LINKS}\n` : "";
+
 // Static chrome of the file, everything above the auto-generated article
 // list. Lives inline so a copy edit is one file to touch; promote to a
 // Markdown template if this ever grows past ~2× its current size.
 const HEADER = `# ${site.name}
 
-> Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate. We provide trained clinical and administrative staff; the physician practice remains the billing provider.
+> ${SUMMARY}
 
 ## About
 
@@ -66,7 +86,7 @@ ${DENIAL_PAGES}
 - [HIPAA Statement](${site.url}/hipaa-statement)
 - [Accessibility](${site.url}/accessibility)
 - [Security and regulatory status](${site.url}/security)
-
+${EXTRA}
 ## Articles
 `;
 

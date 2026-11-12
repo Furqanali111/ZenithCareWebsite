@@ -149,9 +149,13 @@ export default async function PostPage({
         </div>
       </article>
 
+<<<<<<< HEAD
       <SeriesLinks post={post} />
 
       {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" /> : null}
+=======
+      {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" path={`/resources/${post.slug}`} /> : null}
+>>>>>>> feature/cms-technical-seo
 
       <Sources
         links={

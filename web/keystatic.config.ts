@@ -1,6 +1,7 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
 import { collections as searchCollections, singletons as searchSingletons, ogFields, noindexField } from "./keystatic/search-appearance";
 import * as blog from "./keystatic/blog-content";
+import * as technicalSeo from "./keystatic/technical-seo";
 
 // Shared field builders for the CPT and denial code pages.
 const textList = (label: string, item: string) =>
@@ -57,6 +58,7 @@ export default config({
         },
   collections: {
     ...searchCollections,
+    ...technicalSeo.collections,
     posts: collection({
       label: "Blog posts",
       path: "content/posts/*",
@@ -293,36 +295,9 @@ export default config({
     ...blog.collections,
   },
   singletons: {
-    // content/redirects.json: old address -> new address, applied by next.config.ts.
-    redirects: singleton({
-      label: "Redirects",
-      path: "content/redirects",
-      format: "json",
-      schema: {
-        items: fields.array(
-          fields.object({
-            from: fields.text({
-              label: "Old address",
-              description: "Starts with /, for example /resources/old-post-name. No wildcards.",
-              validation: { isRequired: true, pattern: { regex: /^\/[A-Za-z0-9\-_/.]*$/, message: "Start with / and use letters, numbers, dashes, slashes" } },
-            }),
-            to: fields.text({
-              label: "New address",
-              description: "A path like /resources/new-post-name, or a full https:// address.",
-              validation: { isRequired: true },
-            }),
-            permanent: fields.checkbox({
-              label: "Permanent (301)",
-              description: "Leave ticked for a renamed page. Untick only for a temporary move.",
-              defaultValue: true,
-            }),
-          }),
-          { label: "Redirects", itemLabel: (props) => `${props.fields.from.value} -> ${props.fields.to.value}` },
-        ),
-      },
-    }),
     ...searchSingletons,
     ...blog.singletons,
+    ...technicalSeo.singletons,
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",
