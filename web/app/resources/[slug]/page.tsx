@@ -45,6 +45,7 @@ export async function generateMetadata({
     description: post.description,
     path: `/resources/${post.slug}`,
     noindex: post.noindex,
+    canonical: post.canonicalUrl,
   });
 }
 
@@ -80,6 +81,8 @@ export default async function PostPage({
             publishedAt: post.publishedAt,
             updatedAt: post.updatedAt,
             author: { name: site.name, url: site.url },
+            about: post.about,
+            mentions: post.mentions,
             ...(post.coverImage ? { image: new URL(post.coverImage, site.url).toString() } : {}),
           }),
           breadcrumbLd([

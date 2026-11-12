@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/hipaa-compliance",
     title: "HIPAA Compliance",
     subtitle: "Our security posture, BAA process, and data protection commitments.",
     badge: "COMPLIANCE",

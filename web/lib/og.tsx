@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { site } from "./site";
+import { ogText } from "./seo";
 
 /**
  * Shared Open Graph image generator. Every per-page `opengraph-image.tsx`
@@ -19,9 +20,12 @@ type OgInput = {
   subtitle?: string;
   /** Overrides the bottom-left domain line. */
   badge?: string;
+  /** Page path; lets the editor override title and subtitle in /keystatic. */
+  path?: string;
 };
 
-export function ogImage({ title, subtitle, badge }: OgInput) {
+export function ogImage({ badge, path, ...text }: OgInput) {
+  const { title, subtitle } = path ? ogText(path, text.title, text.subtitle) : text;
   return new ImageResponse(
     (
       <div

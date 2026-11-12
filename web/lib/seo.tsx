@@ -1,12 +1,31 @@
 import type { Metadata } from "next";
 import { site, founders } from "./site";
 import pageSeoFile from "@/content/page-seo.json";
+import serviceSeoFile from "@/content/page-seo-services.json";
 
-// Titles and descriptions edited in /keystatic (content/page-seo.json). They win over
-// the text passed in code, which is only the fallback for pages with no entry.
-const seoByPath = new Map<string, { title: string; description: string }>(
-  pageSeoFile.pages.map((p) => [p.path, p]),
+type SeoEntry = {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogSubtitle?: string;
+  noindex?: boolean;
+};
+
+// Titles and descriptions edited in /keystatic (content/page-seo.json and
+// content/page-seo-services.json). They win over the text passed in code, which is only
+// the fallback for pages with no entry.
+const seoByPath = new Map<string, SeoEntry>(
+  [...pageSeoFile.pages, ...serviceSeoFile.pages].map((p: SeoEntry & { path: string }) => [p.path, p]),
 );
+
+/** True when the editor ticked "Hide from Google" for this path. Used by the sitemap too. */
+export const isNoindexed = (path: string) => !!seoByPath.get(path)?.noindex;
+
+/** Share-card text for a path: the editor's override if set, else the code default. */
+export const ogText = (path: string, title: string, subtitle?: string) => {
+  const e = seoByPath.get(path);
+  return { title: e?.ogTitle || title, subtitle: e?.ogSubtitle || subtitle };
+};
 
 /* --------------------------------------------------------------------------
  * Per-page <Metadata>
@@ -19,6 +38,8 @@ type PageMetadataInput = {
   path?: string;
   /** Prevent indexing (used for drafts, 404). */
   noindex?: boolean;
+  /** Overrides the canonical URL (absolute). Posts only. */
+  canonical?: string | null;
   /** Use the root /opengraph-image. Needed only for pages with no opengraph-image file of their own. */
   rootOgImage?: boolean;
 };
@@ -32,6 +53,7 @@ export function pageMetadata({
   description: codeDescription,
   path,
   noindex = false,
+  canonical,
   rootOgImage = false,
 }: PageMetadataInput): Metadata {
   // Only a call that names its path can be edited. The 404 pages pass none (it would
@@ -52,7 +74,7 @@ export function pageMetadata({
     // re-appending the brand, which doubled it (fullTitle already has it).
     title: { absolute: fullTitle },
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: canonical || url },
     openGraph: {
       type: "website",
       url,
@@ -68,7 +90,7 @@ export function pageMetadata({
       description,
       ...(images && { images }),
     },
-    robots: noindex ? { index: false, follow: false } : undefined,
+    robots: noindex || edited?.noindex ? { index: false, follow: false } : undefined,
   };
 }
 
@@ -302,6 +324,8 @@ type ArticleLdInput = {
   updatedAt?: string;
   author: { name: string; url?: string };
   image?: string;
+  about?: { name: string; url?: string | null }[];
+  mentions?: { name: string; url?: string | null }[];
 };
 
 // Google wants a timezone on Article dates; frontmatter has date-only values.
@@ -316,6 +340,8 @@ export function articleLd({
   updatedAt,
   author,
   image,
+  about,
+  mentions,
 }: ArticleLdInput): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -332,8 +358,16 @@ export function articleLd({
     publisher: ref(ORG_ID),
     mainEntityOfPage: ref(pageId(`/resources/${slug}`)),
     ...(image ? { image } : {}),
+    ...(about?.length && { about: about.map(thing) }),
+    ...(mentions?.length && { mentions: mentions.map(thing) }),
   };
 }
+
+const thing = (e: { name: string; url?: string | null }) => ({
+  "@type": "Thing",
+  name: e.name,
+  ...(e.url && { sameAs: e.url }),
+});
 
 export function faqPageLd(
   items: { question: string; answer: string }[],

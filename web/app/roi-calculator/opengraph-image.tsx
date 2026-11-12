@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/roi-calculator",
     title: "CCM Revenue Calculator",
     subtitle: "Estimate Medicare reimbursement for your chronic care management panel.",
     badge: "INTERACTIVE TOOL",

@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/faq",
     title: "Frequently Asked Questions",
     subtitle: "Common questions about remote care management, billing, and compliance.",
   });
