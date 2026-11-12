@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "indexnow": "node scripts/submit-indexnow.mjs"
+    "indexnow": "node scripts/submit-indexnow.mjs",
+    "links:report": "node scripts/links-report.mjs"
   },
   "dependencies": {
     "@keystatic/core": "^0.6.9",

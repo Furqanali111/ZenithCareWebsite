@@ -1,5 +1,6 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
 import { collections as searchCollections, singletons as searchSingletons, ogFields, noindexField } from "./keystatic/search-appearance";
+import * as blog from "./keystatic/blog-content";
 
 // Shared field builders for the CPT and denial code pages.
 const textList = (label: string, item: string) =>
@@ -142,6 +143,28 @@ export default config({
         }),
         about: entityList("About (schema)", "The main topics of the article, for example Chronic Care Management. Added to the Article structured data."),
         mentions: entityList("Mentions (schema)", "Other named things the article discusses, for example CMS or HIPAA. Added to the Article structured data."),
+        publishAt: fields.date({
+          label: "Publish on (optional)",
+          description: "A future date hides the post until that day. It goes live on the first site rebuild on or after it (see 16c-cms-blog-content.md).",
+        }),
+        related: fields.array(fields.relationship({ label: "Post", collection: "posts" }), {
+          label: "Related posts (optional)",
+          description: "Hand-picked posts shown first under Related reading. The rest are filled by shared tags.",
+          itemLabel: (props) => props.value ?? "Pick a post",
+        }),
+        series: fields.text({ label: "Series name (optional)", description: "Posts with the same series name link to each other." }),
+        seriesOrder: fields.integer({ label: "Position in series", validation: { min: 1 } }),
+        sources: fields.array(
+          fields.object({
+            label: fields.text({ label: "Label", validation: { isRequired: true } }),
+            url: fields.url({ label: "URL", validation: { isRequired: true } }),
+          }),
+          {
+            label: "Sources (optional)",
+            description: "Replaces the default CMS source links under the post when filled.",
+            itemLabel: (props) => props.fields.label.value,
+          },
+        ),
         draft: fields.checkbox({
           label: "Draft",
           description: "Drafts are saved but never shown on the site or in the sitemap.",
@@ -149,6 +172,7 @@ export default config({
         }),
         body: fields.mdx({
           label: "Body",
+          components: blog.bodyComponents,
           options: {
             image: {
               directory: "public/resources/body",
@@ -266,6 +290,7 @@ export default config({
         faqs: faqList(),
       },
     }),
+    ...blog.collections,
   },
   singletons: {
     // content/redirects.json: old address -> new address, applied by next.config.ts.
@@ -297,6 +322,7 @@ export default config({
       },
     }),
     ...searchSingletons,
+    ...blog.singletons,
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",

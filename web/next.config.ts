@@ -102,6 +102,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // Build day for scheduled posts (publishAt). Prerender refuses new Date(), so read it here.
+  env: { BUILD_DATE: new Date().toISOString().slice(0, 10) },
   // Inline the (small) stylesheet so it stops blocking first paint on mobile.
   experimental: { inlineCss: true },
   // Hide the Next.js dev-tools indicator (dev-only; never rendered in prod).

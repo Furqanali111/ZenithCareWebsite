@@ -16,7 +16,8 @@ import { FaqSection } from "@/components/faq-section";
 import { Sources, SOURCES } from "@/components/sources";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
-import { getAllPosts, getPostBody, getPostBySlug, getPostSlugs } from "@/content/posts";
+import { getAllPosts, getPostBody, getPostBySlug, getPostHeadings, getPostSlugs, getSeriesPosts } from "@/content/posts";
+import { Toc } from "@/components/post-blocks";
 import { reviewer, site } from "@/lib/site";
 import { SERVICE_TAGS, getService } from "@/lib/services";
 import type { Post } from "@/content/posts";
@@ -140,13 +141,25 @@ export default async function PostPage({
             [&_strong]:text-ink-strong
             [&_a]:text-brand-accent hover:[&_a]:text-brand-ink"
         >
-          <Component />
+          <Component
+            components={{
+              Toc: (p: { title?: string }) => <Toc title={p.title} items={getPostHeadings(post.slug)} />,
+            }}
+          />
         </div>
       </article>
 
+      <SeriesLinks post={post} />
+
       {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" /> : null}
 
-      <Sources links={SOURCES.care} />
+      <Sources
+        links={
+          post.sources?.length
+            ? post.sources.flatMap((s) => (s.url ? [{ label: s.label, href: s.url }] : []))
+            : SOURCES.care
+        }
+      />
 
       {/* ─── Author bio ─────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
@@ -202,14 +215,42 @@ export default async function PostPage({
 
 /* -------------------------------------------------------------------------- */
 
+function SeriesLinks({ post }: { post: Post }) {
+  const all = getSeriesPosts(post);
+  if (all.length < 2) return null;
+  return (
+    <nav aria-label="In this series" className="mx-auto max-w-3xl px-6 pb-12">
+      <p className="font-serif text-lg font-semibold text-brand-ink">In this series: {post.series}</p>
+      <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm">
+        {all.map((p) => (
+          <li key={p.slug}>
+            {p.slug === post.slug ? (
+              <span aria-current="page" className="font-medium text-brand-ink">{p.title}</span>
+            ) : (
+              <Link href={`/resources/${p.slug}`} className="text-brand-accent hover:underline">{p.title}</Link>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
 function RelatedArticles({ post }: { post: Post }) {
   // Rank siblings by shared tags (newest wins ties) so links spread across the
   // library instead of always pointing at the same two newest posts.
   const shared = (p: Post) => p.tags.filter((t) => post.tags.includes(t)).length;
-  const related = getAllPosts()
-    .filter((p) => p.slug !== post.slug)
-    .sort((a, b) => shared(b) - shared(a))
-    .slice(0, 3);
+  // Hand-picked posts (editor field) come first; tag ranking fills the rest.
+  const picked = (post.related ?? []).flatMap((s) => {
+    const p = s && s !== post.slug ? getPostBySlug(s) : undefined;
+    return p ? [p] : [];
+  });
+  const related = [
+    ...picked,
+    ...getAllPosts()
+      .filter((p) => p.slug !== post.slug && !picked.includes(p))
+      .sort((a, b) => shared(b) - shared(a)),
+  ].slice(0, 3);
   // Parent service page: first service whose tags this post carries.
   const serviceSlug = Object.keys(SERVICE_TAGS).find((s) =>
     SERVICE_TAGS[s].some((t) => post.tags.includes(t)),
