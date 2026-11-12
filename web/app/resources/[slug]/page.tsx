@@ -102,50 +102,53 @@ export default async function PostPage({
         ]}
       />
 
-      <article className="px-6 pt-8 pb-16 md:pt-12 md:pb-20">
-        {/* Text stays in a 3xl column (readable line length); only the cover image is wider. */}
-        <header className="mx-auto max-w-3xl">
-          <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-            <span className="text-brand-accent">
-              {post.category}
-            </span>
-            <span>{post.readingMinutes} min read</span>
-          </div>
-          <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
-            {post.title}
-          </h1>
-          <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
-            {post.description}
-          </p>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Reviewed by {reviewer.name}, PharmD, co-founder of {site.name}.
-          </p>
-        </header>
+      <article className="mx-auto max-w-7xl px-6 pt-8 pb-16 md:pt-12 md:pb-20">
+        <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-16">
+          <div className="mx-auto max-w-4xl xl:max-w-none">
+            <header>
+              <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                <span className="text-brand-accent">{post.category}</span>
+                <span>{post.readingMinutes} min read</span>
+              </div>
+              <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-brand-ink md:text-5xl">
+                {post.title}
+              </h1>
+              <p className="mt-5 text-base leading-relaxed text-body-ink md:text-lg">
+                {post.description}
+              </p>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Reviewed by {reviewer.name}, PharmD, co-founder of {site.name}.
+              </p>
+            </header>
 
-        {post.coverImage ? (
-          <div className="mx-auto mt-10 max-w-5xl">
-            <BrandFigure
-              src={post.coverImage}
-              alt={post.coverAlt || post.title}
-              className="aspect-[16/8]"
-              sizes="(min-width: 1024px) 1024px, 100vw"
-              priority
-            />
-          </div>
-        ) : null}
+            {post.coverImage ? (
+              <div className="mt-10">
+                <BrandFigure
+                  src={post.coverImage}
+                  alt={post.coverAlt || post.title}
+                  className="aspect-[16/8]"
+                  sizes="(min-width: 1280px) 880px, (min-width: 896px) 832px, 100vw"
+                  priority
+                />
+              </div>
+            ) : null}
 
-        <div
-          className="prose prose-neutral dark:prose-invert mx-auto mt-12 max-w-3xl
-            [&_h2]:font-serif [&_h2]:text-brand-ink [&_h2]:tracking-tight
-            [&_h3]:font-serif [&_h3]:text-brand-ink [&_h3]:tracking-tight
-            [&_strong]:text-ink-strong
-            [&_a]:text-brand-accent hover:[&_a]:text-brand-ink"
-        >
-          <Component
-            components={{
-              Toc: (p: { title?: string }) => <Toc title={p.title} items={getPostHeadings(post.slug)} />,
-            }}
-          />
+            <div
+              className="prose prose-neutral dark:prose-invert mt-12 max-w-none
+                [&_h2]:scroll-mt-24 [&_h2]:font-serif [&_h2]:text-brand-ink [&_h2]:tracking-tight
+                [&_h3]:font-serif [&_h3]:text-brand-ink [&_h3]:tracking-tight
+                [&_strong]:text-ink-strong
+                [&_a]:text-brand-accent hover:[&_a]:text-brand-ink"
+            >
+              <Component
+                components={{
+                  Toc: (p: { title?: string }) => <Toc title={p.title} items={getPostHeadings(post.slug)} />,
+                }}
+              />
+            </div>
+          </div>
+
+          <PostSidebar post={post} />
         </div>
       </article>
 
@@ -233,6 +236,56 @@ function SeriesLinks({ post }: { post: Post }) {
         ))}
       </ol>
     </nav>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+
+/** Right column: numbered summary of the H2 headings, then the newest other posts. */
+function PostSidebar({ post }: { post: Post }) {
+  const headings = getPostHeadings(post.slug);
+  const recent = getAllPosts().filter((p) => p.slug !== post.slug).slice(0, 3);
+  return (
+    <aside className="mx-auto mt-14 max-w-4xl xl:mt-0 xl:max-w-none">
+      <div className="space-y-10 xl:sticky xl:top-24">
+        {headings.length > 0 ? (
+          <nav aria-label="Summary">
+            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Summary</p>
+            <ol className="mt-4 space-y-3 border-l border-border pl-4">
+              {headings.map((h, i) => (
+                <li key={h.id} className="flex gap-3 text-sm leading-snug">
+                  <span className="tabular-nums text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+                  <a href={`#${h.id}`} className="text-body-ink hover:text-brand-accent">
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        ) : null}
+        {recent.length > 0 ? (
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Recent posts</p>
+            <ul className="mt-4 space-y-3">
+              {recent.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={`/resources/${p.slug}`}
+                    className="group block rounded-xl border border-border/70 bg-surface-tint p-4 transition-colors hover:border-brand-accent/50"
+                  >
+                    <p className="text-xs text-brand-accent">{p.category}</p>
+                    <p className="mt-2 font-serif text-base font-semibold leading-snug text-brand-ink group-hover:text-brand-accent">
+                      {p.title}
+                    </p>
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{p.description}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </div>
+    </aside>
   );
 }
 
