@@ -28,10 +28,11 @@ const scriptSrc = isDev
 // Hosts the browser is allowed to send fetch/XHR/beacon to.
 // - formspree.io: contact form submissions
 // - calendly.com: inline widget telemetry
-// - api.github.com: Keystatic editor (/keystatic) reads and writes the repo
+// - api.github.com, raw.githubusercontent.com: Keystatic editor (/keystatic) reads
+//   and writes the repo (it loads file contents of a public repo from raw.*)
 // - google-analytics / googletagmanager: GA4 beacons
 const connectSrc =
-  "'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com https://api.github.com";
+  "'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com https://api.github.com https://raw.githubusercontent.com";
 
 // Hosts allowed to embed as <iframe>. Calendly serves its booking widget
 // from calendly.com as an iframe inside the inline-widget container.
@@ -120,6 +121,19 @@ const nextConfig: NextConfig = {
         has: [{ type: "host", value: "www.thezcs.com" }],
         destination: "https://thezcs.com/:path*",
         permanent: true, // 308 — preserves POST method; same effect as 301 for GET/HEAD
+      },
+      // Post covers moved to the layout Keystatic's image field uses. The old URLs were
+      // live in og:image and Article schema, so keep them working. Only the .webp covers
+      // and the one moved .jpg: the three leftover .jpg files still serve as they are.
+      {
+        source: "/resources/:slug([a-z0-9-]+).webp",
+        destination: "/resources/:slug/coverImage.webp",
+        permanent: true,
+      },
+      {
+        source: "/resources/cpt-99487-99489-complex-ccm.jpg",
+        destination: "/resources/cpt-99487-99489-complex-ccm/coverImage.jpg",
+        permanent: true,
       },
     ];
   },

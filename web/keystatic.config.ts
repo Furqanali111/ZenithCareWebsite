@@ -63,12 +63,13 @@ export default config({
           label: "Reading time (minutes)",
           validation: { isRequired: true, min: 1 },
         }),
-        // Plain text on purpose: Keystatic's image field rewrites the stored path and
-        // dropped the existing values on save. The page uses the title as alt text.
-        coverImage: fields.text({
-          label: "Cover image path",
-          description: "A file in /public, e.g. /resources/my-post.webp. Leave blank for none.",
-          validation: { pattern: { regex: /^\/[\w./-]+$/, message: "Start with / and use a path like /resources/my-post.webp" } },
+        // Keystatic saves the file as public/resources/<slug>/coverImage.<ext> and
+        // stores /resources/<slug>/coverImage.<ext>. The page uses the title as alt text.
+        coverImage: fields.image({
+          label: "Cover image",
+          description: "Upload a landscape .webp or .jpg about 1280 px wide, under 200 KB. The page crops it to a wide banner.",
+          directory: "public/resources",
+          publicPath: "/resources/",
         }),
         faqs: fields.array(
           fields.object({

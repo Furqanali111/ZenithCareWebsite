@@ -35,7 +35,8 @@ Not yet verified against a real GitHub App: the login flow, saving to a branch, 
 - The URL slug is the file name. Changing it changes the post's URL, so add a redirect in `web/next.config.ts` first.
 - SEO title 60 characters or fewer, meta description 160 or fewer (the editor enforces both).
 - "Draft" posts are saved but never listed, routed, or put in the sitemap.
-- Cover image is a path to a file already in `web/public/` (for example `/resources/my-post.webp`). Keystatic's image field dropped existing values on save, so it is a plain text field. Add the image file through a PR. Images dropped into the body upload to `public/resources/body/`.
+- Cover image is uploaded in the editor. Keystatic saves it as `web/public/resources/<slug>/coverImage.<ext>` and stores `/resources/<slug>/coverImage.<ext>` in the post. Use a landscape `.webp` or `.jpg` about 1280 px wide and under 200 KB; the page crops it to a wide banner. The 18 existing covers were moved to this layout. Images dropped into the body upload to `public/resources/body/<slug>/`.
+- After changing a slug, check the PR diff: the cover image folder `public/resources/<slug>/` should have moved with it. This has not been tested.
 - No patient information in any post.
 
 ## Known quirks
