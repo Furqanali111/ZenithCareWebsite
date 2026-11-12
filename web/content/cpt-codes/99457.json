@@ -1,0 +1,36 @@
+{
+  "code": "99457",
+  "order": 130,
+  "program": "rpm",
+  "shortTitle": "RPM management, 20 min",
+  "metaDescription": "CPT 99457 explained: RPM treatment management with 20 minutes of live interactive contact. Documentation, who can perform it and the 2026 rate.",
+  "summary": "Monthly RPM management time: at least 20 minutes of review of readings and care management, including live two-way contact with the patient or caregiver.",
+  "time": "20 minutes per calendar month with interactive communication",
+  "performer": "Clinical staff under direction, or the practitioner",
+  "frequency": "Once per patient per month for the base unit",
+  "rate": "~$52",
+  "requirements": [
+    "At least one real-time two-way contact with the patient or caregiver in the month",
+    "A time log showing management minutes",
+    "A note linking the readings to the actions taken"
+  ],
+  "pitfalls": [
+    "Counting only automated alerts, with no live contact",
+    "Logging time without recording what changed in the plan"
+  ],
+  "pairsWith": [
+    "99458",
+    "99454"
+  ],
+  "conflicts": "Not reported in the same month as the shorter-time code 99470.",
+  "faqs": [
+    {
+      "question": "Does a text message count as interactive communication?",
+      "answer": "The contact must be real-time and two-way. Confirm what your MAC accepts before relying on messages."
+    },
+    {
+      "question": "Can clinical staff perform the 99457 time?",
+      "answer": "Yes, clinical staff under the practitioner's direction can, which is how Zenith staff support RPM programs."
+    }
+  ]
+}

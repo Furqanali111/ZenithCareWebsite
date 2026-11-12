@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as non-covered charges. X12 requires at least one remark code with it, and the 835 may include a Healthcare Policy Identification Segment (loop 2110, REF). The remark code is the main clue to why the charge is not covered.",
+  "code": "CO-96",
+  "shortTitle": "Non-covered charge",
+  "metaDescription": "CO-96 denial explained: the charge is not covered by the plan. How to read the remark code, check the benefit and decide between appeal and write-off.",
+  "summary": "The payer says the service or charge is not a covered benefit under the patient's plan.",
+  "causes": [
+    "The plan excludes the service",
+    "The service is covered only under certain conditions that were not met",
+    "The wrong plan or benefit was checked at registration"
+  ],
+  "fixes": [
+    "Read the remark code and check the patient's actual benefits",
+    "If coverage should apply, appeal with the policy language and records",
+    "If the service is excluded and you are in network, follow your contract for what the patient can be billed"
+  ],
+  "prevention": [
+    "Verify benefits for the specific service before it is done",
+    "Where a service may be excluded, discuss cost with the patient first"
+  ],
+  "related": [
+    "co-50",
+    "co-197",
+    "co-45"
+  ],
+  "faqs": [
+    {
+      "question": "Is CO-96 different from CO-50?",
+      "answer": "Yes. CO-96 means the plan does not cover the service at all. CO-50 means the plan covers it in general but the payer found it not medically necessary here."
+    },
+    {
+      "question": "Can the patient be billed for a CO-96 service?",
+      "answer": "It depends on your contract, the payer's rules and whether the patient was told in advance. Check before billing the patient."
+    }
+  ]
+}

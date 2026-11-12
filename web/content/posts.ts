@@ -23,6 +23,10 @@ export type PostFrontmatter = {
   tags: string[];
   readingMinutes: number;
   coverImage?: string; // local /public path, e.g. "/resources/<slug>.jpg"
+  /** Alt text for the cover image; the title is used when blank. */
+  coverAlt?: string;
+  /** Kept out of Google (robots noindex) and the sitemap, but still reachable by URL. */
+  noindex?: boolean;
   /** Optional visible FAQ block + FAQPage JSON-LD. Answers must restate the article. */
   faqs?: { question: string; answer: string }[];
   /** Drafts are saved in the repo but never listed, routed or put in the sitemap. */

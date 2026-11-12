@@ -1,0 +1,42 @@
+{
+  "remit": "X12 defines this reason as an expired time limit for filing. For Original Medicare fee-for-service, 42 CFR 424.44 sets the limit at the end of one calendar year after the date of service. Other payers set their own limits.",
+  "extraSources": [
+    {
+      "label": "42 CFR 424.44, time limits for filing claims",
+      "href": "https://www.law.cornell.edu/cfr/text/42/424.44"
+    }
+  ],
+  "code": "CO-29",
+  "shortTitle": "Timely filing expired",
+  "metaDescription": "CO-29 denial explained: the time limit for filing has expired. What proof helps an appeal, how filing limits differ by payer, and how to prevent it.",
+  "summary": "The payer says the claim reached it after the filing deadline.",
+  "causes": [
+    "The claim was submitted late",
+    "An earlier submission was rejected and never fixed",
+    "The practice did not track filing limits for each payer"
+  ],
+  "fixes": [
+    "Gather proof of timely filing, such as a clearinghouse acceptance report or earlier payer response",
+    "Appeal with that proof, following the payer's appeal process",
+    "If no proof exists, ask your billing lead whether any adjustment is allowed under your contract"
+  ],
+  "prevention": [
+    "Track filing limits by payer; Medicare generally allows 12 months from the date of service, and other payers vary",
+    "Work rejections the same day so claims are not lost"
+  ],
+  "related": [
+    "co-16",
+    "co-18",
+    "co-109"
+  ],
+  "faqs": [
+    {
+      "question": "What is the Medicare timely filing limit?",
+      "answer": "Medicare generally requires claims within 12 months of the date of service. Commercial payers set their own limits, often shorter."
+    },
+    {
+      "question": "Can a CO-29 denial be overturned?",
+      "answer": "Sometimes, with proof the claim was filed on time or that a payer error caused the delay. Without proof, it is hard to win."
+    }
+  ]
+}

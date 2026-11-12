@@ -1,0 +1,37 @@
+{
+  "code": "99487",
+  "order": 30,
+  "program": "ccm",
+  "shortTitle": "Complex CCM, first 60 min",
+  "metaDescription": "CPT 99487 explained: complex CCM for patients needing 60 minutes of clinical staff time and moderate to high decision-making. Rules, rate and audit gaps.",
+  "summary": "Complex CCM covers a higher-intensity month: at least 60 minutes of clinical staff time, moderate or high complexity medical decision-making, and a care plan that is established or substantially revised.",
+  "time": "60 minutes of clinical staff time per calendar month",
+  "performer": "Clinical staff under the billing practitioner's direction",
+  "frequency": "Once per patient per calendar month, by one practitioner",
+  "rate": "{ccm:99487}",
+  "requirements": [
+    "Two or more chronic conditions expected to last at least 12 months or until death, with significant risk of decline",
+    "Moderate or high complexity medical decision-making documented by the practitioner",
+    "Establishment or substantial revision of the comprehensive care plan that month",
+    "Documented consent and a time log reaching 60 minutes"
+  ],
+  "pitfalls": [
+    "Using 99487 when the care plan was not actually revised that month",
+    "No documented decision-making level to support the code",
+    "Billing 99487 and 99490 together for the same patient and month"
+  ],
+  "pairsWith": [
+    "99489"
+  ],
+  "conflicts": "Used instead of 99490 for the same patient and month, not alongside it.",
+  "faqs": [
+    {
+      "question": "When should a practice use 99487 instead of 99490?",
+      "answer": "When the month needed at least 60 minutes of staff time and the practitioner's decision-making and care plan changes were moderate to high complexity. Otherwise the base code applies."
+    },
+    {
+      "question": "Does the complex code pay more than the base code?",
+      "answer": "Yes, roughly double the base rate nationally. Actual amounts vary by locality and payer."
+    }
+  ]
+}

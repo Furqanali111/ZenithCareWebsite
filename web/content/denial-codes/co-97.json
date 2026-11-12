@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as a benefit that is included in the payment or allowance for another service or procedure that has already been adjudicated. The 835 may include a Healthcare Policy Identification Segment (loop 2110, REF) pointing to the payer policy.",
+  "code": "CO-97",
+  "shortTitle": "Bundled service",
+  "metaDescription": "CO-97 denial explained: the payment is included in the allowance for another service. How bundling edits work, when a modifier helps, and prevention tips.",
+  "summary": "The payer says this service is already included in the payment for another service billed the same day.",
+  "causes": [
+    "A bundling edit treats the two services as one",
+    "A separate, distinct service was billed without the modifier that shows it",
+    "The services really are meant to be paid together"
+  ],
+  "fixes": [
+    "Check the payer's bundling edits for the two codes",
+    "If the services were truly separate, submit a corrected claim with the right modifier and notes that support it",
+    "If they were not, accept the bundling and adjust off the balance"
+  ],
+  "prevention": [
+    "Check bundling edits for common code pairs before billing",
+    "Document separate, distinct services clearly so the modifier is supportable"
+  ],
+  "related": [
+    "co-4",
+    "co-45",
+    "co-18"
+  ],
+  "faqs": [
+    {
+      "question": "Can a modifier always override CO-97?",
+      "answer": "No. A modifier helps only when the chart shows the services were truly distinct. Using one to avoid a bundling edit is a compliance risk."
+    },
+    {
+      "question": "Is CO-97 a denial?",
+      "answer": "It is a reduction because the service is considered included in another payment. Whether to challenge it depends on whether the services were separate."
+    }
+  ]
+}

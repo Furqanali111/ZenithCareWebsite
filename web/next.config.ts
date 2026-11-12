@@ -1,5 +1,23 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import fs from "node:fs";
+import path from "node:path";
+
+/** Redirects edited at /keystatic (content/redirects.json). Only plain paths are allowed so a
+ *  typo cannot become a route pattern; a bad entry fails the build instead of shipping. */
+function editorRedirects() {
+  const file = path.join(process.cwd(), "content/redirects.json");
+  const { items } = JSON.parse(fs.readFileSync(file, "utf8")) as {
+    items: { from: string; to: string; permanent: boolean }[];
+  };
+  const plain = /^\/[A-Za-z0-9\-_/.]*$/;
+  return items.map(({ from, to, permanent }) => {
+    if (!plain.test(from) || !(plain.test(to) || /^https:\/\/[^\s]+$/.test(to)) || from === to) {
+      throw new Error(`redirects.json: bad redirect "${from}" -> "${to}"`);
+    }
+    return { source: from, destination: to, permanent };
+  });
+}
 
 /**
  * Security headers applied to every response.
@@ -135,6 +153,7 @@ const nextConfig: NextConfig = {
         destination: "/resources/cpt-99487-99489-complex-ccm/coverImage.jpg",
         permanent: true,
       },
+      ...editorRedirects(),
     ];
   },
   // The Keystatic editor routes client-side; a hard refresh on a deep URL must

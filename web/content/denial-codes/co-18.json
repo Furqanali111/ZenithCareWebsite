@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as an exact duplicate of a claim or service. X12 limits it to group code OA, except where state workers' compensation rules require CO, so check which group code your payer actually sent.",
+  "code": "CO-18",
+  "shortTitle": "Duplicate claim",
+  "metaDescription": "CO-18 denial explained: the payer sees an exact duplicate claim or service. How to check the original claim, what not to resubmit, and how to prevent it.",
+  "summary": "The payer says this claim or service duplicates one it already received.",
+  "causes": [
+    "The same claim was submitted twice, for example after a slow acknowledgement",
+    "Staff resubmitted instead of checking the status of the first claim",
+    "A genuine repeat service was billed without anything to tell it apart"
+  ],
+  "fixes": [
+    "Look up the first claim; it may already be paid or in process",
+    "If it was paid, post the payment and do nothing further",
+    "For a genuine repeat service, correct the claim with the appropriate modifier and documentation"
+  ],
+  "prevention": [
+    "Check claim status before resubmitting",
+    "Set a rule for how long to wait before any follow-up on an unacknowledged claim"
+  ],
+  "related": [
+    "co-16",
+    "co-4",
+    "co-109"
+  ],
+  "faqs": [
+    {
+      "question": "Should I resubmit a CO-18 claim?",
+      "answer": "Not until you have checked the original. Most CO-18 denials mean the first claim is already paid or processing."
+    },
+    {
+      "question": "How do I avoid CO-18 when a service really was repeated?",
+      "answer": "Use the modifier your payer requires for a repeat service and make sure the chart supports a second, separate service."
+    }
+  ]
+}

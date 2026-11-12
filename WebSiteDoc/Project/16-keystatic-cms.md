@@ -49,6 +49,15 @@ The editor sidebar also has two items under "Singletons" (single files, not list
 - These change the page's title tag, meta description and the social sharing text (og:title, og:description, twitter). They do not change the name inside the page's structured data, the social preview image, or the visible headings.
 - Not covered: blog post titles (edit the post itself), the individual CPT code, denial code, service and specialty pages (their text comes from code), and the headings and paragraphs on the pages themselves. Those still need a developer.
 
+## Post extras, redirects, CPT and denial code pages
+
+- **Post fields**: "Cover image alt text" (blank reuses the title) and "Hide from Google (noindex)" (robots noindex plus left out of the sitemap, still reachable by URL). Each post and code page has a preview link to the live page (live only after the PR is merged; in dev it opens localhost).
+- **Redirects** (singleton): edits `web/content/redirects.json`, read by `next.config.ts`. Use it when a post slug or page address changes. Old and new address must be plain paths (no wildcards); the new address may also be a full `https://` link. A bad entry fails the build on purpose.
+- **CPT code pages** and **Denial code pages** (collections): one JSON file per code in `web/content/cpt-codes/` and `web/content/denial-codes/`. The file name is the page URL, so never rename a code once published (add a redirect if you must). The build still fails on a thin entry: CPT needs 3+ requirements, 2+ pitfalls, 2+ FAQs; denial needs 3+ causes, 3+ fixes, 2+ prevention, 2+ FAQs; meta description 140 to 160 characters; full page title 60 or fewer; "often billed with" and "related" must point to codes that exist.
+- In a CPT "Rate text", `{ccm:99490}` expands to the rate in `web/lib/roi.ts` so CCM figures cannot drift. Other rates are plain text.
+- Claims hygiene still applies: paraphrase, never copy AMA or X12 text, and keep rates as "2026 Medicare national averages". Have the clinical reviewer read any change to a CPT or denial page.
+- Not done: a per-post reviewer field (only one reviewer exists), reusable body blocks, image upload size checks.
+
 ## Known quirks
 
 - Saving rewrites some formatting: curly quotes instead of `&rsquo;`, `*` bullets instead of `-`, tables re-aligned, `~` escaped as `\~`. The rendered page is the same. Always read the PR diff.

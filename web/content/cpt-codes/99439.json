@@ -1,0 +1,36 @@
+{
+  "code": "99439",
+  "order": 20,
+  "program": "ccm",
+  "shortTitle": "CCM add-on, extra 20 min",
+  "metaDescription": "CPT 99439 explained: the CCM add-on for each extra 20 minutes of clinical staff time. Monthly limit, documentation, 2026 rate and pairing rules.",
+  "summary": "An add-on code reported with 99490 for each additional 20 minutes of clinical staff time in the same month. It lifts revenue on patients who need more than the base amount of coordination.",
+  "time": "Each additional 20 minutes beyond the first 20",
+  "performer": "Clinical staff under the billing practitioner's direction",
+  "frequency": "Add-on to 99490; CMS caps the number of units per month",
+  "rate": "{ccm:99439}",
+  "requirements": [
+    "99490 already met for the same patient and month",
+    "A running time log that shows the minutes beyond the first 20",
+    "The same consent and care plan that support 99490",
+    "Notes showing the extra time was real care coordination, not duplicate effort"
+  ],
+  "pitfalls": [
+    "Reporting 99439 without 99490 on the claim",
+    "Exceeding the monthly unit cap",
+    "Adding time with no note describing what the staff member did"
+  ],
+  "pairsWith": [
+    "99490"
+  ],
+  "faqs": [
+    {
+      "question": "Can 99439 be billed on its own?",
+      "answer": "No. It is an add-on and is only reported together with 99490 for the same patient and month."
+    },
+    {
+      "question": "How many units of 99439 can a practice bill per month?",
+      "answer": "CMS limits the number of units per patient per month. Check the current Physician Fee Schedule before relying on any unit count."
+    }
+  ]
+}

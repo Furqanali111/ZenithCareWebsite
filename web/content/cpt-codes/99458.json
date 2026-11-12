@@ -1,0 +1,45 @@
+{
+  "code": "99458",
+  "order": 140,
+  "cmsSource": {
+    "label": "CMS MLN901705, Telehealth & Remote Monitoring (December 2025)",
+    "href": "https://www.cms.gov/files/document/mln901705-telehealth-remote-monitoring.pdf"
+  },
+  "cmsFacts": [
+    "CMS says only physicians and non-physician practitioners who are eligible to bill evaluation and management services can bill remote monitoring, and that auxiliary personnel can provide it under the general supervision of the billing practitioner.",
+    "CMS says only 1 practitioner can bill remote monitoring per patient in a 30-day period, and that remote physiologic monitoring and remote therapeutic monitoring cannot be billed together.",
+    "CMS says patient consent is required at the time RPM services are provided.",
+    "CMS says the 2 to 15 or 16 plus day data-collection requirement does not apply to the treatment management codes 98980, 98981, 99457 and 99458.",
+    "CMS says the device must meet the FDA definition of a medical device, and the data must be collected electronically and uploaded automatically to a secure location the billing practitioner can use for analysis."
+  ],
+  "program": "rpm",
+  "shortTitle": "RPM add-on, extra 20 min",
+  "metaDescription": "CPT 99458 explained: the RPM add-on for each additional 20 minutes of management time. Pairing with 99457, documentation and billing limits.",
+  "summary": "An add-on reported with 99457 for each additional 20 minutes of management time in the same month.",
+  "time": "Each additional 20 minutes beyond the first 20",
+  "performer": "Clinical staff under direction, or the practitioner",
+  "frequency": "Add-on to 99457; monthly limits apply",
+  "rate": "Varies by locality",
+  "requirements": [
+    "99457 supported for the same patient and month",
+    "Time log showing minutes beyond the first 20",
+    "Notes showing the added time was interactive management"
+  ],
+  "pitfalls": [
+    "Reporting 99458 without 99457",
+    "Rounding up an incomplete 20-minute block"
+  ],
+  "pairsWith": [
+    "99457"
+  ],
+  "faqs": [
+    {
+      "question": "Is 99458 a separate stand-alone service?",
+      "answer": "No. It only attaches to 99457 for the same patient and month."
+    },
+    {
+      "question": "What changed for short management time in 2026?",
+      "answer": "A newer code, 99470, covers the first 10 minutes and cannot be billed with 99457. Check current rules to see which code fits each patient's month."
+    }
+  ]
+}

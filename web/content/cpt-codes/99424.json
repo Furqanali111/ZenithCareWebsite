@@ -1,0 +1,36 @@
+{
+  "code": "99424",
+  "order": 70,
+  "program": "pcm",
+  "shortTitle": "PCM by physician, 30 min",
+  "metaDescription": "CPT 99424 explained: Principal Care Management for one serious condition, with 30 minutes of physician time. Eligibility, documentation and 2026 rate.",
+  "summary": "Monthly management of one serious, high-risk condition when the physician or qualified practitioner personally spends at least 30 minutes in the month.",
+  "time": "30 minutes of practitioner time per calendar month",
+  "performer": "The physician or other qualified practitioner personally",
+  "frequency": "Once per patient per month",
+  "rate": "~$88",
+  "requirements": [
+    "One complex chronic condition expected to last at least 3 months, with significant risk of hospitalization, decline or death",
+    "A disease-specific care plan developed, monitored or revised",
+    "An initiating visit for new patients, or patients not seen within the past year, to explain PCM and get consent",
+    "Documented consent and a practitioner time log"
+  ],
+  "pitfalls": [
+    "Using PCM for a patient with several conditions that fit CCM better",
+    "Billing PCM and CCM for the same patient, month and practitioner"
+  ],
+  "pairsWith": [
+    "99425"
+  ],
+  "conflicts": "Not reported with CCM for the same patient and month by the same practitioner, and not in the same month as the staff-time PCM codes 99426 and 99427.",
+  "faqs": [
+    {
+      "question": "How is PCM different from CCM?",
+      "answer": "CCM is for two or more chronic conditions. PCM is for one complex, high-risk condition that needs focused management."
+    },
+    {
+      "question": "Can a specialist bill PCM while the PCP bills CCM?",
+      "answer": "Yes, different practitioners can bill each for different needs, as long as the rules for each code are met and documented."
+    }
+  ]
+}

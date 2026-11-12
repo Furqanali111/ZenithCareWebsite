@@ -1,0 +1,36 @@
+{
+  "code": "99491",
+  "order": 50,
+  "program": "ccm",
+  "shortTitle": "CCM by the physician",
+  "metaDescription": "CPT 99491 explained: CCM time personally performed by a physician or qualified practitioner. Time threshold, rules, pairing with 99437 and 2026 rate.",
+  "summary": "CCM reported when the physician or other qualified practitioner personally spends at least 30 minutes in the month on care management, instead of clinical staff time.",
+  "time": "30 minutes personally performed by the practitioner per month",
+  "performer": "The physician or other qualified practitioner personally",
+  "frequency": "Once per patient per calendar month",
+  "rate": "{ccm:99491}",
+  "requirements": [
+    "Two or more chronic conditions expected to last at least 12 months or until death, with significant risk of decline",
+    "Practitioner time only; clinical staff minutes do not count toward this code",
+    "Documented consent and a comprehensive care plan",
+    "A time log attributing the 30 minutes to the practitioner"
+  ],
+  "pitfalls": [
+    "Counting staff time toward the practitioner's 30 minutes",
+    "Billing 99491 and 99490 for the same patient in the same month"
+  ],
+  "pairsWith": [
+    "99437"
+  ],
+  "conflicts": "Not reported in the same month as 99490 or 99487 by the same practitioner.",
+  "faqs": [
+    {
+      "question": "Why do most practices bill 99490 rather than 99491?",
+      "answer": "99490 uses clinical staff time, which scales without taking practitioner hours. 99491 requires the practitioner's own time, so it suits low-volume cases."
+    },
+    {
+      "question": "Can staff minutes count toward 99491?",
+      "answer": "No. Only the physician's or qualified practitioner's own time counts for this code."
+    }
+  ]
+}
