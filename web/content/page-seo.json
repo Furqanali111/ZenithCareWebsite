@@ -1,0 +1,134 @@
+{
+  "pages": [
+    {
+      "path": "/",
+      "title": "Outsourced CCM, Billing & Staffing",
+      "description": "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider."
+    },
+    {
+      "path": "/about",
+      "title": "About Our Team and Service Model",
+      "description": "Zenith Care Solutions brings care management, revenue cycle support and virtual staffing to U.S. practices, coordinated within your existing workflow."
+    },
+    {
+      "path": "/accessibility",
+      "title": "Accessibility Statement",
+      "description": "Zenith Care Solutions' commitment to WCAG 2.1 AA accessibility, what we do, how to report an issue, and how we handle third-party embeds."
+    },
+    {
+      "path": "/complaints",
+      "title": "Complaints and Disputes",
+      "description": "How to report a problem with Zenith Care Solutions, who reviews it, and the steps and timelines we follow to resolve complaints and billing disputes."
+    },
+    {
+      "path": "/contact",
+      "title": "Book a Call or Contact Us",
+      "description": "Reach us by WhatsApp, email, our contact form, or book a 15-minute call. Do not submit patient information through this site."
+    },
+    {
+      "path": "/cookies",
+      "title": "Cookie Policy",
+      "description": "Which cookies Zenith Care Solutions uses on this website and why, plus how to accept, reject or change your cookie choice at any time."
+    },
+    {
+      "path": "/data-request",
+      "title": "Data Access and Deletion Requests",
+      "description": "How to ask Zenith Care Solutions to access, correct or delete the personal information you gave us through this website."
+    },
+    {
+      "path": "/faq",
+      "title": "CCM, Billing & Staffing FAQ",
+      "description": "Common questions about Chronic Care Management, Medicare billing, HIPAA posture, and working with Zenith Care Solutions."
+    },
+    {
+      "path": "/hipaa-compliance",
+      "title": "HIPAA Compliance",
+      "description": "How Zenith operates as a HIPAA Business Associate: signed BAA with every client, work inside your EHR, encrypted communications only."
+    },
+    {
+      "path": "/hipaa-statement",
+      "title": "HIPAA Statement",
+      "description": "Zenith Care Solutions' formal HIPAA Business Associate posture, BAAs, safeguards, Minimum Necessary, breach notification."
+    },
+    {
+      "path": "/how-it-works",
+      "title": "How Remote Care Management Works",
+      "description": "What Zenith Care Solutions sells, who it serves, how a practice orders, how the work is delivered and how payment works."
+    },
+    {
+      "path": "/pricing",
+      "title": "Pricing and Billing Model",
+      "description": "How Zenith Care Solutions prices care management, revenue cycle management and virtual staffing, what is included, and how billing works."
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy Policy",
+      "description": "How Zenith Care Solutions handles information collected through this website, what we collect, what we don't, and your rights."
+    },
+    {
+      "path": "/refund-policy",
+      "title": "Refund and Cancellation Policy",
+      "description": "When a practice can cancel a Zenith Care Solutions service, how written notice works, and when a pro-rata refund is available for unused service time."
+    },
+    {
+      "path": "/resources",
+      "title": "CCM, Billing & Staffing Guides",
+      "description": "Practical guides on Chronic Care Management, CPT billing, RPM, credentialing, claim denials and virtual medical staffing for U.S. physician practices."
+    },
+    {
+      "path": "/roi-calculator",
+      "title": "CCM ROI Calculator",
+      "description": "Estimate monthly CCM Medicare reimbursement for your practice based on panel size and enrollment rate. Runs client-side."
+    },
+    {
+      "path": "/security",
+      "title": "Security and Data Protection",
+      "description": "How this website protects visitors, what data it collects (none that is PHI), and the regulatory status of Zenith Care Solutions."
+    },
+    {
+      "path": "/service-delivery",
+      "title": "Service Delivery Policy",
+      "description": "When and how Zenith Care Solutions starts and delivers its services to your practice: onboarding steps, working hours, reporting cadence and support."
+    },
+    {
+      "path": "/services",
+      "title": "Care, Billing & Staffing Services",
+      "description": "Care management, revenue cycle and virtual staffing for U.S. practices. CCM, RPM, billing, coding, scribes, schedulers and more."
+    },
+    {
+      "path": "/services/care-management",
+      "title": "Care Management Programs",
+      "description": "CCM, PCM, RPM, RTM and TCM services for U.S. physician practices. Monthly clinical coordination inside your EHR; you stay the billing provider."
+    },
+    {
+      "path": "/services/care-management/cpt-codes",
+      "title": "Care Management CPT Codes Guide",
+      "description": "Plain-English guide to the Medicare CPT codes behind CCM, PCM, RPM, RTM and TCM: time thresholds, documentation, 2026 rates and common billing mistakes."
+    },
+    {
+      "path": "/services/revenue-cycle-management",
+      "title": "Revenue Cycle Management Services",
+      "description": "Medical billing, coding, credentialing and AR follow-up services for U.S. physician practices. Inside your PM system, more claims collected."
+    },
+    {
+      "path": "/services/revenue-cycle-management/denial-codes",
+      "title": "Claim Denial Codes Explained",
+      "description": "Plain-English guide to common claim denial codes (CO-16, CO-18, CO-29, CO-50, CO-97 and more): what they mean, how to fix them and how to prevent them."
+    },
+    {
+      "path": "/services/virtual-staffing",
+      "title": "Virtual Medical Staffing Services",
+      "description": "Remote medical scribes, schedulers, receptionists, coordinators and virtual assistants for U.S. physician practices. Inside your systems under a BAA."
+    },
+    {
+      "path": "/terms",
+      "title": "Terms of Service",
+      "description": "Terms of use for the Zenith Care Solutions website: access, permitted use, intellectual property, disclaimers and limits of liability. Please read before use."
+    },
+    {
+      "path": "/who-we-serve",
+      "title": "Who We Serve",
+      "description": "Zenith supports U.S. primary care, internal medicine and geriatric practices with remote care management, revenue cycle services and virtual staffing."
+    }
+  ]
+}
