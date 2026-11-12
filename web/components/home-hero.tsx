@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroLedger } from "@/components/hero-ledger";
 import { ANCHOR_MONTHLY, ANCHOR_PATIENTS } from "@/lib/roi";
+import home from "@/content/home.json";
 
 /**
  * Homepage hero, theme-reactive. Light mode is an airy "Soft Structuralism"
@@ -38,9 +39,7 @@ export function HomeHero() {
           </h1>
 
           <p className="reveal-up reveal-up-3 mt-7 max-w-lg text-base leading-relaxed text-body-ink md:text-lg">
-            Zenith Care Solutions provides trained clinical and administrative
-            staff who work inside your EHR, under one BAA. Your practice stays
-            the billing provider. You keep the revenue.
+            {home.heroLead}
           </p>
 
           <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">

@@ -69,17 +69,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...denialCodes.map((d) => denialPath(d.slug)),
   ];
 
-<<<<<<< HEAD
-  const pages: MetadataRoute.Sitemap = paths.filter((p) => !isNoindexed(p)).map((p) => ({
-    url: p === "/" ? BASE : `${BASE}${p}`,
-    ...(p.startsWith("/services") && { lastModified: new Date(CONTENT_UPDATED) }),
-  }));
-
-  const posts: MetadataRoute.Sitemap = getAllPosts().filter((p) => !p.noindex).map((p) => ({
-    url: `${BASE}/resources/${p.slug}`,
-    lastModified: new Date(p.updatedAt),
-  }));
-=======
   const postPaths = getAllPosts().map((p) => `/resources/${p.slug}`);
 
   // Editor settings (content/sitemap-controls.json). A path that is not a real
@@ -99,7 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   };
 
   const pages: MetadataRoute.Sitemap = paths
-    .filter((p) => !excluded.has(p))
+    .filter((p) => !excluded.has(p) && !isNoindexed(p))
     .map((p) => ({
       url: p === "/" ? BASE : `${BASE}${p}`,
       ...(p.startsWith("/services") && { lastModified: new Date(CONTENT_UPDATED) }),
@@ -107,13 +96,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
   const posts: MetadataRoute.Sitemap = getAllPosts()
-    .filter((p) => !excluded.has(`/resources/${p.slug}`))
+    .filter((p) => !p.noindex && !excluded.has(`/resources/${p.slug}`))
     .map((p) => ({
       url: `${BASE}/resources/${p.slug}`,
       lastModified: new Date(p.updatedAt),
       ...tuning(`/resources/${p.slug}`),
     }));
->>>>>>> feature/cms-technical-seo
 
   return [...pages, ...posts];
 }

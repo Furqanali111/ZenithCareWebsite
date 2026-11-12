@@ -2,6 +2,7 @@ import { collection, config, fields, singleton } from "@keystatic/core";
 import { collections as searchCollections, singletons as searchSingletons, ogFields, noindexField } from "./keystatic/search-appearance";
 import * as blog from "./keystatic/blog-content";
 import * as technicalSeo from "./keystatic/technical-seo";
+import * as editablePages from "./keystatic/editable-pages";
 
 // Shared field builders for the CPT and denial code pages.
 const textList = (label: string, item: string) =>
@@ -59,6 +60,7 @@ export default config({
   collections: {
     ...searchCollections,
     ...technicalSeo.collections,
+    ...editablePages.collections,
     posts: collection({
       label: "Blog posts",
       path: "content/posts/*",
@@ -298,6 +300,7 @@ export default config({
     ...searchSingletons,
     ...blog.singletons,
     ...technicalSeo.singletons,
+    ...editablePages.singletons,
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",
