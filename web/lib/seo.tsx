@@ -1,12 +1,43 @@
 import type { Metadata } from "next";
 import { site, founders } from "./site";
 import pageSeoFile from "@/content/page-seo.json";
+import serviceSeoFile from "@/content/page-seo-services.json";
+import structuredFile from "@/content/structured-data.json";
+import breadcrumbFile from "@/content/breadcrumb-labels.json";
 
-// Titles and descriptions edited in /keystatic (content/page-seo.json). They win over
-// the text passed in code, which is only the fallback for pages with no entry.
-const seoByPath = new Map<string, { title: string; description: string }>(
-  pageSeoFile.pages.map((p) => [p.path, p]),
+// Editor settings from /keystatic: FAQPage schema switched off by path, shorter
+// breadcrumb labels by path, extra Organization fields. Empty JSON arrays infer as
+// never[], so the files get their real shape here.
+const structured: { faqSchemaOff: string[]; organizationPhone: string; organizationSameAs: string[] } = structuredFile;
+const crumbFile: { labels: { path: string; label: string }[] } = breadcrumbFile;
+const faqOff = new Set(structured.faqSchemaOff);
+const crumbLabels = new Map(crumbFile.labels.map((l) => [l.path, l.label]));
+export const isFaqOff = (path: string) => faqOff.has(path);
+export const crumbLabel = (path: string, name: string) => crumbLabels.get(path) ?? name;
+
+type SeoEntry = {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogSubtitle?: string;
+  noindex?: boolean;
+};
+
+// Titles and descriptions edited in /keystatic (content/page-seo.json and
+// content/page-seo-services.json). They win over the text passed in code, which is only
+// the fallback for pages with no entry.
+const seoByPath = new Map<string, SeoEntry>(
+  [...pageSeoFile.pages, ...serviceSeoFile.pages].map((p: SeoEntry & { path: string }) => [p.path, p]),
 );
+
+/** True when the editor ticked "Hide from Google" for this path. Used by the sitemap too. */
+export const isNoindexed = (path: string) => !!seoByPath.get(path)?.noindex;
+
+/** Share-card text for a path: the editor's override if set, else the code default. */
+export const ogText = (path: string, title: string, subtitle?: string) => {
+  const e = seoByPath.get(path);
+  return { title: e?.ogTitle || title, subtitle: e?.ogSubtitle || subtitle };
+};
 
 /* --------------------------------------------------------------------------
  * Per-page <Metadata>
@@ -19,6 +50,8 @@ type PageMetadataInput = {
   path?: string;
   /** Prevent indexing (used for drafts, 404). */
   noindex?: boolean;
+  /** Overrides the canonical URL (absolute). Posts only. */
+  canonical?: string | null;
   /** Use the root /opengraph-image. Needed only for pages with no opengraph-image file of their own. */
   rootOgImage?: boolean;
 };
@@ -32,6 +65,7 @@ export function pageMetadata({
   description: codeDescription,
   path,
   noindex = false,
+  canonical,
   rootOgImage = false,
 }: PageMetadataInput): Metadata {
   // Only a call that names its path can be edited. The 404 pages pass none (it would
@@ -52,7 +86,7 @@ export function pageMetadata({
     // re-appending the brand, which doubled it (fullTitle already has it).
     title: { absolute: fullTitle },
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: canonical || url },
     openGraph: {
       type: "website",
       url,
@@ -68,7 +102,7 @@ export function pageMetadata({
       description,
       ...(images && { images }),
     },
-    robots: noindex ? { index: false, follow: false } : undefined,
+    robots: noindex || edited?.noindex ? { index: false, follow: false } : undefined,
   };
 }
 
@@ -108,7 +142,7 @@ export function organizationLd(): JsonLd {
     url: site.url,
     logo: abs("/logo.png"),
     description: site.tagline,
-    sameAs: [site.linkedin, site.facebook, site.instagram],
+    sameAs: [site.linkedin, site.facebook, site.instagram, ...structured.organizationSameAs],
     // Same @ids the /about page gives each founder.
     founder: founders.map((f) => ref(personId(f.initials))),
     // Services Zenith offers, surfaced so search + AI engines can map the
@@ -131,6 +165,7 @@ export function organizationLd(): JsonLd {
     contactPoint: {
       "@type": "ContactPoint",
       email: site.email,
+      ...(structured.organizationPhone && { telephone: structured.organizationPhone }),
       url: `${site.url}/contact`,
       contactType: "sales",
       areaServed: "US",
@@ -203,7 +238,8 @@ export function webPageLd({
     publisher: ref(ORG_ID),
     ...(breadcrumb && { breadcrumb: ref(`${abs(path)}#breadcrumb`) }),
     ...(about && { about: ref(about) }),
-    ...(mainEntity && { mainEntity: ref(mainEntity) }),
+    // No dangling link to a FAQ node the editor turned off.
+    ...(mainEntity && !(mainEntity === faqId(path) && faqOff.has(path)) && { mainEntity: ref(mainEntity) }),
     ...(reviewedBy && { reviewedBy: ref(reviewedBy) }),
     ...(datePublished && { datePublished: withTz(datePublished) }),
     ...(dateModified && { dateModified: withTz(dateModified) }),
@@ -302,6 +338,8 @@ type ArticleLdInput = {
   updatedAt?: string;
   author: { name: string; url?: string };
   image?: string;
+  about?: { name: string; url?: string | null }[];
+  mentions?: { name: string; url?: string | null }[];
 };
 
 // Google wants a timezone on Article dates; frontmatter has date-only values.
@@ -316,6 +354,8 @@ export function articleLd({
   updatedAt,
   author,
   image,
+  about,
+  mentions,
 }: ArticleLdInput): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -332,14 +372,23 @@ export function articleLd({
     publisher: ref(ORG_ID),
     mainEntityOfPage: ref(pageId(`/resources/${slug}`)),
     ...(image ? { image } : {}),
+    ...(about?.length && { about: about.map(thing) }),
+    ...(mentions?.length && { mentions: mentions.map(thing) }),
   };
 }
+
+const thing = (e: { name: string; url?: string | null }) => ({
+  "@type": "Thing",
+  name: e.name,
+  ...(e.url && { sameAs: e.url }),
+});
 
 export function faqPageLd(
   items: { question: string; answer: string }[],
   /** Page path; gives the FAQ an @id the page's WebPage can reference. */
   path?: string,
-): JsonLd {
+): JsonLd | null {
+  if (path && faqOff.has(path)) return null;
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -357,8 +406,9 @@ export function faqPageLd(
 }
 
 export function breadcrumbLd(
-  items: { name: string; path: string }[],
+  rawItems: { name: string; path: string }[],
 ): JsonLd {
+  const items = rawItems.map((it) => ({ ...it, name: crumbLabel(it.path, it.name) }));
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -376,14 +426,17 @@ export function breadcrumbLd(
  * <JsonLd>, tiny server-component renderer. Use once per page per schema.
  * ------------------------------------------------------------------------ */
 
-export function JsonLd({ data }: { data: JsonLd | JsonLd[] }) {
+export function JsonLd({ data }: { data: JsonLd | null | (JsonLd | null)[] }) {
+  // A null node (FAQ schema turned off in the CMS) is skipped.
+  const nodes = Array.isArray(data) ? data.filter(Boolean) : data;
+  if (!nodes) return null;
   return (
     <script
       type="application/ld+json"
       // JSON.stringify is safe; keys/values are not user input.
       // Escape "<" so content containing "</script>" cannot break out.
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+        __html: JSON.stringify(nodes).replace(/</g, "\\u003c"),
       }}
     />
   );

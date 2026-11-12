@@ -33,6 +33,7 @@ import { HomeHero } from "@/components/home-hero";
 import { Reveal } from "@/components/reveal";
 import { TrustStrip } from "@/components/trust-strip";
 import { getAllPosts } from "@/content/posts";
+import home from "@/content/home.json";
 import {
   ANCHOR_MONTHLY,
   ANCHOR_PATIENTS,
@@ -59,83 +60,32 @@ const WHO_WE_SERVE = [
     label: "Primary Care",
     href: "/who-we-serve/primary-care",
     icon: <Stethoscope className="size-5" aria-hidden="true" />,
-    pain: "High patient volumes, limited staff, and Medicare programs your panel qualifies for but no one has time to run.",
+    pain: home.whoPains.primaryCare,
   },
   {
     label: "Internal Medicine",
     href: "/who-we-serve/internal-medicine",
     icon: <HeartPulse className="size-5" aria-hidden="true" />,
-    pain: "Complex chronic patients who need monthly coordination to stay out of the ER.",
+    pain: home.whoPains.internalMedicine,
   },
   {
     label: "Geriatrics",
     href: "/who-we-serve/geriatrics",
     icon: <UserCog className="size-5" aria-hidden="true" />,
-    pain: "Patients with five or more conditions, polypharmacy, and post-discharge risk.",
+    pain: home.whoPains.geriatrics,
   },
 ];
 
-const HOME_STEPS = [
-  {
-    number: "01",
-    title: "Identify & enroll",
-    body: "We find patients in your panel with two or more chronic conditions on Medicare Part B, confirm eligibility, and obtain documented consent.",
-  },
-  {
-    number: "02",
-    title: "Deliver monthly care coordination",
-    body: "Each month our clinical team spends 20+ minutes per patient on calls, medication reconciliation, specialist follow-up, and care-plan documentation, inside your EHR.",
-  },
-  {
-    number: "03",
-    title: "You bill, we invoice",
-    body: "Your practice bills Medicare for CPT 99490 and relevant add-ons (99439 / 99487 / 99489). Zenith invoices you for the clinical labor. Monthly, predictable.",
-  },
-] as const;
+// Steps, differentiators and FAQ text live in content/home.json (edited in /keystatic).
+const HOME_STEPS = home.steps.map((step, i) => ({
+  number: String(i + 1).padStart(2, "0"),
+  ...step,
+}));
 
-// Why Zenith differentiators.
-const WHY_ZENITH = [
-  {
-    title: "Staff, not software",
-    body: "We provide trained clinical and administrative professionals, not a platform. No new system to learn.",
-  },
-  {
-    title: "Inside your EHR",
-    body: "All documentation lives in your system. No PHI exported, no data migration.",
-  },
-  {
-    title: "You bill, we invoice",
-    body: "Your practice bills Medicare and payers. Zenith invoices you monthly for the labor.",
-  },
-  {
-    title: "One BAA, one partner",
-    body: "A single Business Associate Agreement covers every service line. One vendor, one relationship.",
-  },
-];
+const WHY_ZENITH = home.why;
 
 // Homepage FAQ items, also fed to FAQPage JSON-LD.
-const HOME_FAQ = [
-  {
-    question: "What services does Zenith provide?",
-    answer:
-      "Zenith Care Solutions provides three service lines: care management (CCM, PCM, RPM, RTM, TCM), revenue cycle management (billing, coding, credentialing, AR follow-up), and virtual staffing (scribes, schedulers, receptionists, coordinators). All work is done inside your EHR under a signed BAA.",
-  },
-  {
-    question: "Does Zenith bill Medicare or my patients?",
-    answer:
-      "No. Your practice remains the billing provider and bills Medicare or commercial payers under its own credentials. Zenith invoices your practice for the clinical and administrative labor at a flat monthly rate.",
-  },
-  {
-    question: "How long does onboarding take?",
-    answer:
-      "Typically three to six weeks from the signed agreement, depending on panel size and EHR complexity. We set up inside your EHR and practice management system, sign a BAA, and confirm workflows before going live.",
-  },
-  {
-    question: "What EHR systems do you work with?",
-    answer:
-      "We work inside most major EHR and practice management systems. Specific compatibility is confirmed during the discovery call.",
-  },
-];
+const HOME_FAQ = home.faqs;
 
 export const metadata: Metadata = pageMetadata({
   title: "Outsourced CCM, Billing & Staffing",
@@ -187,11 +137,11 @@ export default function HomePage() {
           <Reveal>
             <header className="max-w-2xl">
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                Three service lines. One operational partner.
+                {home.servicesHeading}
               </h2>
               <ScrollRevealText
                 className="mt-5 text-xl leading-relaxed text-body-ink md:text-2xl"
-                text="Everything a practice needs to capture unbilled revenue and recover staff hours, under one BAA. Take one line or all three."
+                text={home.servicesLead}
               />
             </header>
           </Reveal>
@@ -207,11 +157,10 @@ export default function HomePage() {
             <Reveal>
               <header className="max-w-2xl">
                 <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                  Support for the practices we serve.
+                  {home.whoHeading}
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-body-ink">
-                  Every specialty has its own patient mix and operational
-                  bottleneck. We tailor scope accordingly.
+                  {home.whoLead}
                 </p>
               </header>
             </Reveal>
@@ -254,7 +203,7 @@ export default function HomePage() {
       <section>
         <div className="mx-auto max-w-[90rem] px-6">
           <ScrollSteps
-            heading="Three steps. Your practice stays the billing provider."
+            heading={home.stepsHeading}
             steps={HOME_STEPS}
           />
         </div>
@@ -323,7 +272,7 @@ export default function HomePage() {
           <div>
             <Reveal>
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                Why Zenith.
+                {home.whyHeading}
               </h2>
             </Reveal>
             <ol className="mt-10 space-y-9">
@@ -352,13 +301,10 @@ export default function HomePage() {
           <div className="mx-auto max-w-[90rem] px-6">
             <Reveal className="max-w-3xl">
               <h2 className="mt-5 font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                We built Zenith so your team can get back to patients.
+                {home.aboutHeading}
               </h2>
               <p className="mt-5 text-base leading-relaxed text-body-ink">
-                Zenith Care Solutions supports U.S. practices with the clinical
-                coordination and operational work behind patient care. Your
-                practice keeps clinical oversight and its billing relationship
-                while our team supports the work around it.
+                {home.aboutBody}
               </p>
             </Reveal>
             <p className="mt-10 text-sm">
@@ -380,7 +326,7 @@ export default function HomePage() {
             <Reveal>
               <header className="text-center">
                 <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-                  Frequently asked questions.
+                  {home.faqHeading}
                 </h2>
               </header>
             </Reveal>
@@ -417,12 +363,10 @@ export default function HomePage() {
           <Reveal>
           <div className="rounded-2xl border border-border/70 bg-card px-8 py-14 text-center md:px-14 md:py-20">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">
-              Ready to find out if we are a fit?
+              {home.ctaHeading}
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
-              Fifteen minutes. We confirm your eligible patient count or scope
-              the role, walk through the numbers, and tell you honestly whether
-              Zenith is the right partner.
+              {home.ctaBody}
             </p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="h-11 px-6 text-sm">

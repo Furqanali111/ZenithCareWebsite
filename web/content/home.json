@@ -1,0 +1,69 @@
+{
+  "heroLead": "Zenith Care Solutions provides trained clinical and administrative staff who work inside your EHR, under one BAA. Your practice stays the billing provider. You keep the revenue.",
+  "servicesHeading": "Three service lines. One operational partner.",
+  "servicesLead": "Everything a practice needs to capture unbilled revenue and recover staff hours, under one BAA. Take one line or all three.",
+  "whoHeading": "Support for the practices we serve.",
+  "whoLead": "Every specialty has its own patient mix and operational bottleneck. We tailor scope accordingly.",
+  "whoPains": {
+    "primaryCare": "High patient volumes, limited staff, and Medicare programs your panel qualifies for but no one has time to run.",
+    "internalMedicine": "Complex chronic patients who need monthly coordination to stay out of the ER.",
+    "geriatrics": "Patients with five or more conditions, polypharmacy, and post-discharge risk."
+  },
+  "stepsHeading": "Three steps. Your practice stays the billing provider.",
+  "steps": [
+    {
+      "title": "Identify & enroll",
+      "body": "We find patients in your panel with two or more chronic conditions on Medicare Part B, confirm eligibility, and obtain documented consent."
+    },
+    {
+      "title": "Deliver monthly care coordination",
+      "body": "Each month our clinical team spends 20+ minutes per patient on calls, medication reconciliation, specialist follow-up, and care-plan documentation, inside your EHR."
+    },
+    {
+      "title": "You bill, we invoice",
+      "body": "Your practice bills Medicare for CPT 99490 and relevant add-ons (99439 / 99487 / 99489). Zenith invoices you for the clinical labor. Monthly, predictable."
+    }
+  ],
+  "whyHeading": "Why Zenith.",
+  "why": [
+    {
+      "title": "Staff, not software",
+      "body": "We provide trained clinical and administrative professionals, not a platform. No new system to learn."
+    },
+    {
+      "title": "Inside your EHR",
+      "body": "All documentation lives in your system. No PHI exported, no data migration."
+    },
+    {
+      "title": "You bill, we invoice",
+      "body": "Your practice bills Medicare and payers. Zenith invoices you monthly for the labor."
+    },
+    {
+      "title": "One BAA, one partner",
+      "body": "A single Business Associate Agreement covers every service line. One vendor, one relationship."
+    }
+  ],
+  "aboutHeading": "We built Zenith so your team can get back to patients.",
+  "aboutBody": "Zenith Care Solutions supports U.S. practices with the clinical coordination and operational work behind patient care. Your practice keeps clinical oversight and its billing relationship while our team supports the work around it.",
+  "faqHeading": "Frequently asked questions.",
+  "faqs": [
+    {
+      "question": "What services does Zenith provide?",
+      "answer": "Zenith Care Solutions provides three service lines: care management (CCM, PCM, RPM, RTM, TCM), revenue cycle management (billing, coding, credentialing, AR follow-up), and virtual staffing (scribes, schedulers, receptionists, coordinators). All work is done inside your EHR under a signed BAA."
+    },
+    {
+      "question": "Does Zenith bill Medicare or my patients?",
+      "answer": "No. Your practice remains the billing provider and bills Medicare or commercial payers under its own credentials. Zenith invoices your practice for the clinical and administrative labor at a flat monthly rate."
+    },
+    {
+      "question": "How long does onboarding take?",
+      "answer": "Typically three to six weeks from the signed agreement, depending on panel size and EHR complexity. We set up inside your EHR and practice management system, sign a BAA, and confirm workflows before going live."
+    },
+    {
+      "question": "What EHR systems do you work with?",
+      "answer": "We work inside most major EHR and practice management systems. Specific compatibility is confirmed during the discovery call."
+    }
+  ],
+  "ctaHeading": "Ready to find out if we are a fit?",
+  "ctaBody": "Fifteen minutes. We confirm your eligible patient count or scope the role, walk through the numbers, and tell you honestly whether Zenith is the right partner."
+}

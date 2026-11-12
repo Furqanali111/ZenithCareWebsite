@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pageMetadata, JsonLd, breadcrumbLd } from "@/lib/seo";
 import { BrandFigure } from "@/components/brand-figure";
 import { getAllPosts } from "@/content/posts";
+import categoryIntros from "@/content/category-intros.json";
 
 const PATH = "/resources";
 
@@ -15,6 +16,9 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ResourcesPage() {
   const posts = getAllPosts();
+  // Only categories that still have a published post, so a stale intro never shows.
+  const live = new Set(posts.map((p) => p.category));
+  const intros = (categoryIntros.items as { category: string; intro: string }[]).filter((c) => live.has(c.category));
 
   return (
     <>
@@ -42,6 +46,19 @@ export default function ResourcesPage() {
           </p>
         </div>
       </section>
+
+      {intros.length > 0 ? (
+        <section className="mx-auto max-w-[90rem] px-6 pb-10">
+          <dl className="grid max-w-4xl gap-6 sm:grid-cols-2">
+            {intros.map((c) => (
+              <div key={c.category}>
+                <dt className="font-serif text-lg font-semibold text-brand-ink">{c.category}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-body-ink">{c.intro}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ) : null}
 
       <section className="mx-auto max-w-[90rem] px-6 pb-20 md:pb-28">
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

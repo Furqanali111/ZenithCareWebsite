@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/services/virtual-staffing",
     title: "Virtual Staffing",
     subtitle: "Medical scribes, schedulers, receptionists, and care coordinators on demand.",
   });

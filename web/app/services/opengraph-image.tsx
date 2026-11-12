@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/services",
     title: "Our Services",
     subtitle: "Care management, revenue cycle management, and virtual staffing for U.S. practices.",
   });

@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { JsonLd, faqPageLd } from "@/lib/seo";
+import { JsonLd, faqPageLd, isFaqOff } from "@/lib/seo";
 import { FaqAnswer } from "@/components/faq-answer";
 
 export type FaqEntry = { question: string; answer: string };
@@ -32,7 +32,10 @@ export function FaqSection({
   items,
   idPrefix,
   tone = "default",
+  path,
 }: {
+  /** Page path, so the CMS can switch this page's FAQPage schema off. */
+  path?: string;
   heading?: string;
   id?: string;
   items: FaqEntry[];
@@ -51,7 +54,7 @@ export function FaqSection({
     >
       <div className="section-rhythm">
         <div className="mx-auto max-w-3xl px-6">
-          <JsonLd data={faqPageLd(items)} />
+          <JsonLd data={path && isFaqOff(path) ? null : faqPageLd(items)} />
           <h2
             id={`${id}-heading`}
             className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl"
