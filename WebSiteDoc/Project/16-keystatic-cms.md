@@ -30,6 +30,11 @@ Not yet verified against a real GitHub App: the login flow, saving to a branch, 
 2. Edit and save. Click "Create pull request".
 3. Check the Vercel preview on the PR, then squash-merge. Merging is the publish step.
 
+The editor adds a small helper on top of Keystatic (`web/app/keystatic/branch-guard.tsx`, production only):
+- On `develop`, `deployment-branch` or `main`, a Save click (or Ctrl/Cmd+S) is stopped and a popup says to create a branch first. This is a reminder only; the real block is GitHub branch protection on `develop`.
+- On any other branch, a pill at the bottom right shows "Create pull request" (opens GitHub's compare page against `develop`). Once a PR is open it shows "PR #N is open" with a link. Every later Save adds a commit to that branch, which updates the PR; no new PR is needed.
+- It cannot change Keystatic's own toolbar buttons. It was tested with a faked branch address in dev, not with a real GitHub login.
+
 ## Field rules
 
 - The URL slug is the file name. Changing it changes the post's URL, so add a redirect in `web/next.config.ts` first.
