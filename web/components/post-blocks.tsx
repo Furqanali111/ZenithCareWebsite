@@ -9,8 +9,8 @@ export function Callout({ tone, children }: { tone?: string; children: ReactNode
   const warn = tone === "warning";
   return (
     <aside
-      className={`not-prose my-8 rounded-xl border-l-4 px-5 py-4 text-base leading-relaxed text-body-ink [&_p]:my-2 ${
-        warn ? "border-amber-500 bg-amber-50 dark:bg-amber-950/30" : "border-brand-accent bg-surface-tint"
+      className={`not-prose my-8 rounded-xl border px-5 py-4 text-base leading-relaxed text-body-ink [&_p]:my-2 ${
+        warn ? "border-amber-500/50 bg-amber-50 dark:bg-amber-950/30" : "border-brand-accent/40 bg-surface-tint"
       }`}
     >
       {children}
