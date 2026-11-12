@@ -1,4 +1,5 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
+import * as blog from "./keystatic/blog-content";
 
 /**
  * Blog editor at /keystatic. Edits content/posts/*.mdx in the git repo.
@@ -85,6 +86,28 @@ export default config({
             itemLabel: (props) => props.fields.question.value,
           },
         ),
+        publishAt: fields.date({
+          label: "Publish on (optional)",
+          description: "A future date hides the post until that day. It goes live on the first site rebuild on or after it (see 16c-cms-blog-content.md).",
+        }),
+        related: fields.array(fields.relationship({ label: "Post", collection: "posts" }), {
+          label: "Related posts (optional)",
+          description: "Hand-picked posts shown first under Related reading. The rest are filled by shared tags.",
+          itemLabel: (props) => props.value ?? "Pick a post",
+        }),
+        series: fields.text({ label: "Series name (optional)", description: "Posts with the same series name link to each other." }),
+        seriesOrder: fields.integer({ label: "Position in series", validation: { min: 1 } }),
+        sources: fields.array(
+          fields.object({
+            label: fields.text({ label: "Label", validation: { isRequired: true } }),
+            url: fields.url({ label: "URL", validation: { isRequired: true } }),
+          }),
+          {
+            label: "Sources (optional)",
+            description: "Replaces the default CMS source links under the post when filled.",
+            itemLabel: (props) => props.fields.label.value,
+          },
+        ),
         draft: fields.checkbox({
           label: "Draft",
           description: "Drafts are saved but never shown on the site or in the sitemap.",
@@ -92,6 +115,7 @@ export default config({
         }),
         body: fields.mdx({
           label: "Body",
+          components: blog.bodyComponents,
           options: {
             image: {
               directory: "public/resources/body",
@@ -101,8 +125,10 @@ export default config({
         }),
       },
     }),
+    ...blog.collections,
   },
   singletons: {
+    ...blog.singletons,
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",
