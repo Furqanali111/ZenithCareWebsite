@@ -1,0 +1,36 @@
+{
+  "code": "98977",
+  "order": 170,
+  "program": "rtm",
+  "shortTitle": "RTM musculoskeletal",
+  "metaDescription": "CPT 98977 explained: the RTM device supply code for musculoskeletal monitoring and its 16-day data rule. Documentation, limits, 2026 rate and mistakes.",
+  "summary": "The monthly device-supply code for musculoskeletal monitoring such as exercise adherence and pain or range-of-motion tracking. It requires data on at least 16 days in a 30-day period.",
+  "time": "At least 16 days of data in a 30-day period",
+  "performer": "Device supplied and data collected; no staff time threshold",
+  "frequency": "Once per 30-day period per patient",
+  "rate": "~$40 per month",
+  "requirements": [
+    "Setup already documented (98975) and an active RTM order",
+    "A data log showing the days with musculoskeletal data",
+    "Consent on file"
+  ],
+  "pitfalls": [
+    "Billing with fewer than 16 data days when a shorter-window code applies",
+    "Using it for physiologic vitals that belong under RPM"
+  ],
+  "pairsWith": [
+    "98975",
+    "98980"
+  ],
+  "conflicts": "The 2026 short-window musculoskeletal supply code 98985 covers 2 to 15 days; it is not reported together with this code for the same period.",
+  "faqs": [
+    {
+      "question": "Which practices commonly use CPT 98977?",
+      "answer": "Orthopedics, physical therapy, PM&R and pain management practices, where recovery depends on work done at home between visits."
+    },
+    {
+      "question": "Can therapists bill RTM?",
+      "answer": "Yes. Unlike RPM, therapists can bill RTM, but the service needs a therapy plan of care and the GP, GO or GN modifier. Incident-to staff rules differ for therapists, so confirm payer and state rules."
+    }
+  ]
+}

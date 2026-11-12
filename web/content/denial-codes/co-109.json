@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as a claim or service not covered by this payer or contractor, with the instruction that you must send it to the correct payer or contractor.",
+  "code": "CO-109",
+  "shortTitle": "Wrong payer",
+  "metaDescription": "CO-109 denial explained: the claim is not covered by this payer, send it to the correct one. How to find the right payer and resubmit before time runs out.",
+  "summary": "The payer says the claim belongs to a different payer or contractor.",
+  "causes": [
+    "The patient's plan changed to a different payer",
+    "A managed care plan is responsible rather than the original program",
+    "The claim was sent to the wrong payer ID or contractor"
+  ],
+  "fixes": [
+    "Run eligibility to confirm who is responsible for the date of service",
+    "Send the claim to the correct payer with their payer ID",
+    "Watch the filing clock; resubmitting late can lead to a CO-29 denial"
+  ],
+  "prevention": [
+    "Re-verify coverage at each visit, especially for Medicare Advantage patients",
+    "Keep payer IDs in your system up to date"
+  ],
+  "related": [
+    "co-22",
+    "co-27",
+    "co-29"
+  ],
+  "faqs": [
+    {
+      "question": "How is CO-109 different from CO-22?",
+      "answer": "CO-109 says the claim should go to another payer or contractor. CO-22 says another payer may be primary under coordination of benefits."
+    },
+    {
+      "question": "Does the original payer forward the claim?",
+      "answer": "Do not count on it. Plan to resubmit to the correct payer yourself."
+    }
+  ]
+}

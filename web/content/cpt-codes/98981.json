@@ -1,0 +1,45 @@
+{
+  "code": "98981",
+  "order": 190,
+  "cmsSource": {
+    "label": "CMS MLN901705, Telehealth & Remote Monitoring (December 2025)",
+    "href": "https://www.cms.gov/files/document/mln901705-telehealth-remote-monitoring.pdf"
+  },
+  "cmsFacts": [
+    "CMS says remote therapeutic monitoring (RTM) captures non-physiological data, which can be self-reported, tied to a therapeutic treatment, such as musculoskeletal or respiratory data, and can monitor treatment adherence and response.",
+    "CMS says remote physiologic monitoring requires an established patient relationship, but RTM does not.",
+    "CMS says only 1 practitioner can bill remote monitoring per patient in a 30-day period, and that RTM and remote physiologic monitoring cannot be billed together.",
+    "CMS says the 2 to 15 or 16 plus day data-collection requirement does not apply to the treatment management codes 98980, 98981, 99457 and 99458.",
+    "CMS says only practitioners eligible to bill evaluation and management services can bill remote monitoring, and that auxiliary personnel can provide it under the general supervision of the billing practitioner."
+  ],
+  "program": "rtm",
+  "shortTitle": "RTM add-on, extra 20 min",
+  "metaDescription": "CPT 98981 explained: the RTM add-on for each additional 20 minutes of treatment management time. Pairing with 98980, documentation and billing mistakes.",
+  "summary": "An add-on reported with 98980 for each additional 20 minutes of treatment management time in the same month.",
+  "time": "Each additional 20 minutes beyond the first 20",
+  "performer": "The billing practitioner or therapist, or staff under general supervision where incident-to billing applies",
+  "frequency": "Add-on to 98980; monthly limits apply",
+  "rate": "Varies by locality",
+  "requirements": [
+    "98980 supported for the same patient and month",
+    "Time log showing minutes beyond the first 20",
+    "Notes showing the added time was real treatment management"
+  ],
+  "pitfalls": [
+    "Reporting 98981 without 98980",
+    "Rounding up an incomplete 20-minute block"
+  ],
+  "pairsWith": [
+    "98980"
+  ],
+  "faqs": [
+    {
+      "question": "Can 98981 be billed on its own?",
+      "answer": "No. It is an add-on and attaches only to 98980 for the same patient and month."
+    },
+    {
+      "question": "Is there a monthly limit on 98981?",
+      "answer": "Monthly unit limits apply. Confirm the current count in the Physician Fee Schedule."
+    }
+  ]
+}

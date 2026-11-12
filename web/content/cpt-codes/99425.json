@@ -1,0 +1,44 @@
+{
+  "code": "99425",
+  "order": 80,
+  "cmsSource": {
+    "label": "CMS MLN909188, Chronic Care Management Services (June 2025)",
+    "href": "https://www.cms.gov/files/document/chroniccaremanagement.pdf"
+  },
+  "cmsFacts": [
+    "CMS describes principal care management (PCM) as focused on a single high-risk chronic condition expected to last at least 3 months that puts the patient at significant risk of hospitalization, acute exacerbation or decompensation, functional decline, or death.",
+    "CMS says PCM can be provided monthly if the patient needs it, and that another initial visit is required after 1 year to continue the services.",
+    "CMS says PCM of less than 30 minutes in a calendar month cannot be billed.",
+    "CMS lists the PCM codes as 99424, 99425, 99426 and 99427."
+  ],
+  "program": "pcm",
+  "shortTitle": "PCM add-on by physician",
+  "metaDescription": "CPT 99425 explained: the PCM add-on for each additional 30 minutes of physician time. When it applies, documentation and the 2026 national rate.",
+  "summary": "An add-on reported with 99424 for each additional 30 minutes of practitioner time on the single qualifying condition.",
+  "time": "Each additional 30 minutes of practitioner time",
+  "performer": "The physician or other qualified practitioner personally",
+  "frequency": "Add-on to 99424; monthly unit limits apply",
+  "rate": "~$61",
+  "requirements": [
+    "99424 supported for the same patient and month",
+    "Time log showing minutes beyond the first 30",
+    "Care plan and consent already on file"
+  ],
+  "pitfalls": [
+    "Reporting 99425 with the clinical staff code 99426",
+    "Exceeding the monthly add-on limit"
+  ],
+  "pairsWith": [
+    "99424"
+  ],
+  "faqs": [
+    {
+      "question": "Does 99425 attach to 99426?",
+      "answer": "No. 99425 goes with 99424. The staff-time add-on is 99427."
+    },
+    {
+      "question": "Is there a monthly limit on 99425?",
+      "answer": "Monthly unit limits apply. Confirm the current count in the Physician Fee Schedule."
+    }
+  ]
+}

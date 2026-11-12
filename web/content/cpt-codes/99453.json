@@ -1,0 +1,36 @@
+{
+  "code": "99453",
+  "order": 110,
+  "program": "rpm",
+  "shortTitle": "RPM device setup",
+  "metaDescription": "CPT 99453 explained: the one-time RPM setup and patient education code. What counts, documentation, how often it can be billed and the 2026 rate.",
+  "summary": "The one-time RPM code for setting up the monitoring device and teaching the patient how to use it.",
+  "time": "Setup and education, no monthly minute threshold",
+  "performer": "Clinical staff or the practitioner",
+  "frequency": "Typically once per episode of care; confirm with your MAC",
+  "rate": "~$20",
+  "requirements": [
+    "A practitioner order for remote monitoring and an established relationship with the patient",
+    "Documented patient consent",
+    "Record that the device was set up and the patient was taught to use it",
+    "A device that meets the FDA definition of a medical device"
+  ],
+  "pitfalls": [
+    "Billing setup again for a patient already within an episode of care",
+    "Billing without a documented order or consent"
+  ],
+  "pairsWith": [
+    "99454",
+    "99457"
+  ],
+  "faqs": [
+    {
+      "question": "Can 99453 be billed every month?",
+      "answer": "No. It is a setup code, usually reported once per episode of care, not monthly."
+    },
+    {
+      "question": "Does the patient need to be in the office for 99453?",
+      "answer": "Setup and education can happen in person or remotely, but both must be documented in the record."
+    }
+  ]
+}

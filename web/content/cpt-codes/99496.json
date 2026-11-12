@@ -1,0 +1,36 @@
+{
+  "code": "99496",
+  "order": 210,
+  "program": "tcm",
+  "shortTitle": "TCM, 7-day visit",
+  "metaDescription": "CPT 99496 explained: Transitional Care Management with high complexity and a visit within 7 days of discharge. Deadlines, rules and 2026 rate.",
+  "summary": "The higher TCM code: high-complexity decision-making and a face-to-face visit within 7 days of discharge.",
+  "time": "Contact within 2 business days; visit within 7 days",
+  "performer": "Practitioner for the visit; clinical staff for outreach",
+  "frequency": "Once per patient in the 30 days after discharge",
+  "rate": "~$299",
+  "requirements": [
+    "Interactive contact within 2 business days of discharge",
+    "A face-to-face visit within 7 calendar days",
+    "High complexity decision-making documented",
+    "Medication reconciliation on or before the visit date"
+  ],
+  "pitfalls": [
+    "Using 99496 when the visit actually happened on day 8 to 14",
+    "Weak documentation of high-complexity decision-making"
+  ],
+  "pairsWith": [
+    "99495"
+  ],
+  "conflicts": "Only one TCM code is reported per patient per 30-day period.",
+  "faqs": [
+    {
+      "question": "Which TCM code applies if the visit is on day 10?",
+      "answer": "99496 requires a visit within 7 days. A day 10 visit fits 99495, provided the other requirements are met."
+    },
+    {
+      "question": "Is 99496 paid more than 99495?",
+      "answer": "Yes. It reflects higher complexity and a tighter timeline, with a higher national rate. Actual amounts vary by locality."
+    }
+  ]
+}

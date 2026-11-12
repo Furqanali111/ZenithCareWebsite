@@ -44,6 +44,7 @@ export async function generateMetadata({
     title: post.metaTitle ?? post.title,
     description: post.description,
     path: `/resources/${post.slug}`,
+    noindex: post.noindex,
   });
 }
 
@@ -121,7 +122,7 @@ export default async function PostPage({
           <div className="mx-auto mt-10 max-w-5xl">
             <BrandFigure
               src={post.coverImage}
-              alt={post.title}
+              alt={post.coverAlt || post.title}
               className="aspect-[16/8]"
               sizes="(min-width: 1024px) 1024px, 100vw"
               priority

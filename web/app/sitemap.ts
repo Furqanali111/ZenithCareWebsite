@@ -67,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...(p.startsWith("/services") && { lastModified: new Date(CONTENT_UPDATED) }),
   }));
 
-  const posts: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
+  const posts: MetadataRoute.Sitemap = getAllPosts().filter((p) => !p.noindex).map((p) => ({
     url: `${BASE}/resources/${p.slug}`,
     lastModified: new Date(p.updatedAt),
   }));

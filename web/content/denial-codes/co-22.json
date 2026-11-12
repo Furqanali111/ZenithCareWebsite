@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as care that may be covered by another payer under coordination of benefits.",
+  "code": "CO-22",
+  "shortTitle": "Other payer primary",
+  "metaDescription": "CO-22 denial explained: the care may be covered by another payer under coordination of benefits. How to verify coverage order and rebill the right payer.",
+  "summary": "The payer believes another insurer should pay first under coordination of benefits.",
+  "causes": [
+    "The patient has more than one plan and the order on file is wrong",
+    "The patient's other coverage changed and was not updated",
+    "Medicare is secondary to an employer plan and the claim went to Medicare first"
+  ],
+  "fixes": [
+    "Verify all active coverage and the correct order of payers",
+    "Update the registration and send the claim to the primary payer first",
+    "Bill the secondary payer with the primary payer's remittance attached"
+  ],
+  "prevention": [
+    "Ask every patient about other coverage at each visit",
+    "Run an eligibility check that returns coordination of benefits data"
+  ],
+  "related": [
+    "co-27",
+    "co-109",
+    "co-16"
+  ],
+  "faqs": [
+    {
+      "question": "Who decides which payer is primary?",
+      "answer": "Coordination of benefits rules decide it, not the practice. When in doubt, verify with both payers and the patient."
+    },
+    {
+      "question": "Can the practice just bill the patient for CO-22?",
+      "answer": "Not before checking coverage. A CO-22 denial usually means another payer is responsible, and the contractual amounts differ by payer."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as a diagnosis that is inconsistent with the procedure. As with CO-4, the 835 may include a Healthcare Policy Identification Segment (loop 2110, REF) pointing to the payer policy behind the edit.",
+  "code": "CO-11",
+  "shortTitle": "Diagnosis mismatch",
+  "metaDescription": "CO-11 denial explained: the diagnosis is inconsistent with the procedure billed. Common causes, how to fix the claim or appeal, and how to prevent it.",
+  "summary": "The payer says the diagnosis code on the claim does not support the procedure billed.",
+  "causes": [
+    "The diagnosis pointer on the claim line points to the wrong code",
+    "The diagnosis is valid but not one the payer accepts for that service",
+    "A coding or documentation gap left out the supporting diagnosis"
+  ],
+  "fixes": [
+    "Compare the chart, the diagnosis codes and the line-level pointers",
+    "Correct the pointer or add the supported diagnosis, then submit a corrected claim",
+    "If the coding is right, appeal with notes showing the medical reason"
+  ],
+  "prevention": [
+    "Check payer coverage lists for diagnosis and procedure pairs before billing",
+    "Ask providers to document the reason for each service clearly"
+  ],
+  "related": [
+    "co-50",
+    "co-4",
+    "co-16"
+  ],
+  "faqs": [
+    {
+      "question": "Is CO-11 the same as a medical necessity denial?",
+      "answer": "They are related but not the same. CO-11 is about the diagnosis and procedure not matching on the claim. CO-50 is the payer saying the service was not medically necessary."
+    },
+    {
+      "question": "Can a coder fix CO-11 without the provider?",
+      "answer": "Often a pointer error can be corrected from the chart. If the diagnosis itself is missing, the provider may need to clarify the documentation."
+    }
+  ]
+}

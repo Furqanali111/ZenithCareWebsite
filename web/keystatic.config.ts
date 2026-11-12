@@ -1,5 +1,32 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
 
+// Shared field builders for the CPT and denial code pages.
+const textList = (label: string, item: string) =>
+  fields.array(fields.text({ label: item, multiline: true, validation: { isRequired: true } }), {
+    label,
+    itemLabel: (props) => props.value.slice(0, 60),
+  });
+const faqList = () =>
+  fields.array(
+    fields.object({
+      question: fields.text({ label: "Question", validation: { isRequired: true } }),
+      answer: fields.text({ label: "Answer", multiline: true, validation: { isRequired: true } }),
+    }),
+    { label: "FAQs (at least 2)", itemLabel: (props) => props.fields.question.value },
+  );
+const sourceLink = (required: boolean) =>
+  fields.object({
+    label: fields.text({ label: "Link text", validation: { isRequired: required } }),
+    href: fields.url({ label: "Link address", validation: { isRequired: required } }),
+  });
+const metaDescription = () =>
+  fields.text({
+    label: "Meta description",
+    description: "Shown in Google. The build fails unless it is 140 to 160 characters.",
+    multiline: true,
+    validation: { isRequired: true, length: { min: 140, max: 160 } },
+  });
+
 /**
  * Blog editor at /keystatic. Edits content/posts/*.mdx in the git repo.
  * - `next dev`: reads and writes local files, no login.
@@ -23,6 +50,8 @@ export default config({
       slugField: "title",
       format: { contentField: "body" },
       entryLayout: "content",
+      // Opens the live page: same address in dev and on thezcs.com (live once the PR is merged).
+      previewUrl: "/resources/{slug}",
       schema: {
         // The slug (URL) is editable separately from the H1 title.
         title: fields.slug({
@@ -71,6 +100,10 @@ export default config({
           directory: "public/resources",
           publicPath: "/resources/",
         }),
+        coverAlt: fields.text({
+          label: "Cover image alt text",
+          description: "Describes the image for screen readers and Google Images. Leave blank to reuse the title.",
+        }),
         faqs: fields.array(
           fields.object({
             question: fields.text({ label: "Question", validation: { isRequired: true } }),
@@ -85,6 +118,11 @@ export default config({
             itemLabel: (props) => props.fields.question.value,
           },
         ),
+        noindex: fields.checkbox({
+          label: "Hide from Google (noindex)",
+          description: "The post stays reachable by its URL but is left out of search results and the sitemap.",
+          defaultValue: false,
+        }),
         draft: fields.checkbox({
           label: "Draft",
           description: "Drafts are saved but never shown on the site or in the sitemap.",
@@ -101,8 +139,144 @@ export default config({
         }),
       },
     }),
+    // content/cpt-codes/<code>.json: one page per code under /services/care-management/cpt-codes.
+    cptCodes: collection({
+      label: "CPT code pages",
+      path: "content/cpt-codes/*",
+      slugField: "code",
+      format: "json",
+      previewUrl: "/services/care-management/cpt-codes/{slug}",
+      schema: {
+        code: fields.slug({
+          name: {
+            label: "CPT code",
+            description: "Five digits. It is the page URL, so do not change it once published.",
+            validation: { isRequired: true, pattern: { regex: /^\d{5}$/, message: "Five digits" } },
+          },
+          slug: { label: "URL slug" },
+        }),
+        order: fields.integer({
+          label: "Sort order",
+          description: "Lower numbers come first in lists and on the home page.",
+          validation: { isRequired: true, min: 1 },
+        }),
+        program: fields.select({
+          label: "Program",
+          options: [
+            { label: "Chronic Care Management", value: "ccm" },
+            { label: "Principal Care Management", value: "pcm" },
+            { label: "Remote Patient Monitoring", value: "rpm" },
+            { label: "Remote Therapeutic Monitoring", value: "rtm" },
+            { label: "Transitional Care Management", value: "tcm" },
+          ],
+          defaultValue: "ccm",
+        }),
+        shortTitle: fields.text({
+          label: "Short title",
+          description: "Page title is 'CPT <code>: <this> | Zenith Care Solutions'. The build fails above 60 characters in total, so keep this to about 25.",
+          validation: { isRequired: true },
+        }),
+        metaDescription: metaDescription(),
+        summary: fields.text({ label: "Summary", multiline: true, validation: { isRequired: true } }),
+        time: fields.text({ label: "Time threshold", validation: { isRequired: true } }),
+        performer: fields.text({ label: "Who can perform it", multiline: true, validation: { isRequired: true } }),
+        frequency: fields.text({ label: "Frequency", multiline: true, validation: { isRequired: true } }),
+        rate: fields.text({
+          label: "Rate text",
+          description: "Type {ccm:99490} to insert the rate kept in the ROI calculator so CCM figures stay in sync. Other rates are plain text.",
+          validation: { isRequired: true },
+        }),
+        requirements: textList("Requirements (at least 3)", "Requirement"),
+        pitfalls: textList("Common pitfalls (at least 2)", "Pitfall"),
+        pairsWith: fields.array(
+          fields.text({
+            label: "CPT code",
+            validation: { isRequired: true, pattern: { regex: /^\d{5}$/, message: "Five digits" } },
+          }),
+          { label: "Often billed with (codes that have a page here)", itemLabel: (props) => props.value },
+        ),
+        conflicts: fields.text({ label: "Cannot be billed with (optional)", multiline: true }),
+        cmsFacts: textList("CMS facts (optional, shown with the source link below)", "Fact"),
+        cmsSource: sourceLink(false),
+        faqs: faqList(),
+      },
+    }),
+    // content/denial-codes/<slug>.json: one page per code under /services/revenue-cycle-management/denial-codes.
+    denialCodes: collection({
+      label: "Denial code pages",
+      path: "content/denial-codes/*",
+      slugField: "code",
+      format: "json",
+      previewUrl: "/services/revenue-cycle-management/denial-codes/{slug}",
+      schema: {
+        code: fields.slug({
+          name: {
+            label: "Denial code",
+            description: "For example CO-16. The lowercase form (co-16) is the page URL, so do not change it once published.",
+            validation: { isRequired: true, pattern: { regex: /^[A-Z]{2}-\d+$/, message: "Two capital letters, a dash and a number, like CO-16" } },
+          },
+          slug: { label: "URL slug" },
+        }),
+        shortTitle: fields.text({
+          label: "Short title",
+          description: "Page title is '<code> Denial: <this> | Zenith Care Solutions'. The build fails above 60 characters in total, so keep this to about 20.",
+          validation: { isRequired: true },
+        }),
+        metaDescription: metaDescription(),
+        summary: fields.text({ label: "Summary", multiline: true, validation: { isRequired: true } }),
+        remit: fields.text({ label: "What the remittance says (optional)", multiline: true }),
+        routine: fields.checkbox({
+          label: "Routine adjustment, not a real denial",
+          defaultValue: false,
+        }),
+        causes: textList("Common causes (at least 3)", "Cause"),
+        fixes: textList("How to fix (at least 3)", "Fix"),
+        prevention: textList("Prevention (at least 2)", "Step"),
+        related: fields.array(
+          fields.text({
+            label: "Denial code page",
+            description: "The lowercase URL slug, for example co-16.",
+            validation: { isRequired: true, pattern: { regex: /^[a-z]{2}-\d+$/, message: "Like co-16" } },
+          }),
+          { label: "Related denial codes", itemLabel: (props) => props.value },
+        ),
+        extraSources: fields.array(sourceLink(true), {
+          label: "Extra source links (optional)",
+          itemLabel: (props) => props.fields.label.value,
+        }),
+        faqs: faqList(),
+      },
+    }),
   },
   singletons: {
+    // content/redirects.json: old address -> new address, applied by next.config.ts.
+    redirects: singleton({
+      label: "Redirects",
+      path: "content/redirects",
+      format: "json",
+      schema: {
+        items: fields.array(
+          fields.object({
+            from: fields.text({
+              label: "Old address",
+              description: "Starts with /, for example /resources/old-post-name. No wildcards.",
+              validation: { isRequired: true, pattern: { regex: /^\/[A-Za-z0-9\-_/.]*$/, message: "Start with / and use letters, numbers, dashes, slashes" } },
+            }),
+            to: fields.text({
+              label: "New address",
+              description: "A path like /resources/new-post-name, or a full https:// address.",
+              validation: { isRequired: true },
+            }),
+            permanent: fields.checkbox({
+              label: "Permanent (301)",
+              description: "Leave ticked for a renamed page. Untick only for a temporary move.",
+              defaultValue: true,
+            }),
+          }),
+          { label: "Redirects", itemLabel: (props) => `${props.fields.from.value} -> ${props.fields.to.value}` },
+        ),
+      },
+    }),
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",

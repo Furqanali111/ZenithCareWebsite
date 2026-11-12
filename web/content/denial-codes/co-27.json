@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as expenses incurred after coverage terminated.",
+  "code": "CO-27",
+  "shortTitle": "Coverage had ended",
+  "metaDescription": "CO-27 denial explained: expenses incurred after coverage terminated. How to check eligibility on the date of service, rebill the right payer and prevent it.",
+  "summary": "The payer says the patient's coverage had ended before the date of service.",
+  "causes": [
+    "Eligibility was not checked for the date of service",
+    "The patient changed or lost insurance and did not tell the office",
+    "A plan year or enrollment period changed"
+  ],
+  "fixes": [
+    "Run an eligibility check for the exact date of service",
+    "If the patient had other coverage, bill that payer",
+    "If there was no coverage, follow your financial policy for patient balances"
+  ],
+  "prevention": [
+    "Verify eligibility before each visit, not just at the first one",
+    "Ask patients to report any plan change before they arrive"
+  ],
+  "related": [
+    "co-22",
+    "co-109",
+    "co-197"
+  ],
+  "faqs": [
+    {
+      "question": "How early should eligibility be checked?",
+      "answer": "Before the visit and again on the date of service where the schedule allows. Coverage can change between booking and arrival."
+    },
+    {
+      "question": "Can CO-27 be appealed?",
+      "answer": "Only if the payer's records are wrong. Proof of active coverage on the date of service is what an appeal needs."
+    }
+  ]
+}

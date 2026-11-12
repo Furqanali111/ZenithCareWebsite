@@ -1,0 +1,36 @@
+{
+  "code": "CO-45",
+  "shortTitle": "Above fee schedule",
+  "metaDescription": "CO-45 explained: the charge exceeds the fee schedule or contracted amount. Why this is usually a normal write-off, not a denial, and when to check it.",
+  "summary": "The billed charge was higher than the payer's allowed amount, so the difference is written off as a contractual adjustment.",
+  "routine": true,
+  "causes": [
+    "Your billed charge is above the payer's fee schedule or contract rate",
+    "The payer paid the allowed amount, which is normal for an in-network claim",
+    "A rare cause: the fee schedule or contract rate on file is out of date"
+  ],
+  "fixes": [
+    "For most claims, post the adjustment as a contractual write-off and move on",
+    "Compare the allowed amount to your contract; if it is lower than agreed, treat it as an underpayment and dispute it",
+    "Do not bill the patient for the CO-45 amount when you are in network"
+  ],
+  "prevention": [
+    "Keep contract rates loaded in your billing system",
+    "Review payments against expected amounts so underpayments surface early"
+  ],
+  "related": [
+    "co-97",
+    "co-50",
+    "co-96"
+  ],
+  "faqs": [
+    {
+      "question": "Is CO-45 a denial?",
+      "answer": "Usually no. It is a routine contractual adjustment on a paid claim. It only becomes a problem if the allowed amount is below your contract."
+    },
+    {
+      "question": "Can the patient be billed the CO-45 amount?",
+      "answer": "Generally not for in-network claims, because the adjustment is a contractual obligation. Check your payer contract and state rules."
+    }
+  ]
+}
