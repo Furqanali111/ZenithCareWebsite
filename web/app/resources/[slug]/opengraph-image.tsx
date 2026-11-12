@@ -19,8 +19,8 @@ export default async function OpenGraphImage({
   if (!post) return ogImage({ title: "Post Not Found" });
 
   return ogImage({
-    title: post.title,
-    subtitle: post.description,
+    title: post.ogTitle || post.title,
+    subtitle: post.ogSubtitle || post.description,
     badge: "RESOURCES",
   });
 }

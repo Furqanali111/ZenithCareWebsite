@@ -1,0 +1,38 @@
+{
+  "code": "99495",
+  "order": 200,
+  "program": "tcm",
+  "shortTitle": "TCM, 14-day visit",
+  "metaDescription": "CPT 99495 explained: Transitional Care Management with moderate complexity and a visit within 14 days of discharge. Deadlines, rules and 2026 rate.",
+  "summary": "Covers the 30 days after a hospital or facility discharge when decision-making is at least moderate and the face-to-face visit happens within 14 days.",
+  "time": "Contact within 2 business days; visit within 14 days",
+  "performer": "Practitioner for the visit; clinical staff for outreach",
+  "frequency": "Once per patient in the 30 days after discharge",
+  "rate": "~$220",
+  "requirements": [
+    "Interactive contact with the patient or caregiver within 2 business days of discharge",
+    "A face-to-face visit within 14 calendar days",
+    "Moderate or higher complexity decision-making documented",
+    "Medication reconciliation on or before the visit date",
+    "Review of the discharge information and needed follow-up"
+  ],
+  "pitfalls": [
+    "Missing the 2-business-day contact, which makes the episode non-billable",
+    "Visit scheduled after day 14",
+    "Two practitioners billing TCM for the same discharge"
+  ],
+  "pairsWith": [
+    "99496"
+  ],
+  "conflicts": "Only one TCM code is reported per patient per 30-day period.",
+  "faqs": [
+    {
+      "question": "What happens if the 2-business-day call is missed?",
+      "answer": "Documented attempts matter, but a missed required contact generally makes the episode unbillable. Dedicated outreach staff and tracking reduce the risk."
+    },
+    {
+      "question": "Which discharges qualify for TCM?",
+      "answer": "Discharges from an acute hospital, rehab, skilled nursing or similar facility to the community setting. Eligibility is confirmed per patient and payer."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "remit": "X12 defines this reason as non-covered services because the payer does not deem them medically necessary. The 835 may include a Healthcare Policy Identification Segment (loop 2110, REF) pointing to the policy used. For Original Medicare claims, CMS says a redetermination request is due within 120 days of receiving the initial determination, and the notice is presumed received 5 days after its date.",
+  "extraSources": [
+    {
+      "label": "CMS: first level of appeal, redetermination",
+      "href": "https://www.cms.gov/medicare/appeals-grievances/fee-for-service/first-level-appeal-redetermination-medicare-contractor"
+    }
+  ],
+  "code": "CO-50",
+  "shortTitle": "Medical necessity",
+  "metaDescription": "CO-50 denial explained: the payer says the service was not medically necessary. How to review the policy, build an appeal with records, and prevent it.",
+  "summary": "The payer decided the service was not medically necessary under its coverage policy.",
+  "causes": [
+    "Documentation does not show why the service was needed",
+    "The diagnosis does not meet the payer's coverage policy for that service",
+    "The service was done more often than the policy allows"
+  ],
+  "fixes": [
+    "Read the payer's coverage policy for the service and compare it to the chart",
+    "Appeal with the visit notes, test results and a short letter tying them to the policy",
+    "Follow the payer's appeal deadline; Medicare redetermination requests are generally due within 120 days of receiving the remittance (receipt is presumed 5 days after its date)"
+  ],
+  "prevention": [
+    "Check coverage policies for high-cost or frequent services before they are done",
+    "Train providers to document the reason, not only the result"
+  ],
+  "related": [
+    "co-11",
+    "co-96",
+    "co-197"
+  ],
+  "faqs": [
+    {
+      "question": "Should every CO-50 denial be appealed?",
+      "answer": "Not automatically. Appeal when the chart supports the service under the payer's policy. If it does not, fix documentation going forward."
+    },
+    {
+      "question": "Who writes the appeal?",
+      "answer": "A billing specialist can prepare it, but the supporting clinical notes and any medical-reason statement come from the provider."
+    }
+  ]
+}

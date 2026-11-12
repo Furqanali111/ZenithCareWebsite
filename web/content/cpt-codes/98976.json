@@ -1,0 +1,36 @@
+{
+  "code": "98976",
+  "order": 160,
+  "program": "rtm",
+  "shortTitle": "RTM respiratory supply",
+  "metaDescription": "CPT 98976 explained: the RTM device supply code for respiratory monitoring and its 16-day data rule. Documentation, limits, 2026 rate and mistakes.",
+  "summary": "The monthly device-supply code for respiratory system monitoring. It requires data on at least 16 days in a 30-day period.",
+  "time": "At least 16 days of data in a 30-day period",
+  "performer": "Device supplied and data collected; no staff time threshold",
+  "frequency": "Once per 30-day period per patient",
+  "rate": "~$47 per month",
+  "requirements": [
+    "Setup already documented (98975) and an active RTM order",
+    "A data log showing the days with respiratory data",
+    "Consent on file"
+  ],
+  "pitfalls": [
+    "Billing with fewer than 16 data days when a shorter-window code applies",
+    "Billing both a respiratory and a musculoskeletal supply code without separate support"
+  ],
+  "pairsWith": [
+    "98975",
+    "98980"
+  ],
+  "conflicts": "The 2026 short-window respiratory supply code 98984 covers 2 to 15 days; it is not reported together with this code for the same period.",
+  "faqs": [
+    {
+      "question": "What if there are fewer than 16 days of respiratory data?",
+      "answer": "The 2026 code 98984 covers 2 to 15 days of data. Your billing lead should confirm which code fits each patient's month."
+    },
+    {
+      "question": "How is RTM different from RPM?",
+      "answer": "RPM tracks physiologic readings like blood pressure. RTM tracks non-physiologic data such as therapy adherence, pain and function."
+    }
+  ]
+}

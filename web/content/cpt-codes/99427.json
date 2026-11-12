@@ -1,0 +1,34 @@
+{
+  "code": "99427",
+  "order": 100,
+  "program": "pcm",
+  "shortTitle": "PCM add-on by staff",
+  "metaDescription": "CPT 99427 explained: the PCM add-on for each extra 30 minutes of clinical staff time. Monthly limit, documentation and the 2026 national rate.",
+  "summary": "An add-on reported with 99426 for each additional 30 minutes of clinical staff time on the qualifying condition.",
+  "time": "Each additional 30 minutes of clinical staff time",
+  "performer": "Clinical staff under the billing practitioner's direction",
+  "frequency": "Add-on to 99426; up to twice per month",
+  "rate": "~$54",
+  "requirements": [
+    "99426 supported for the same patient and month",
+    "Time log showing staff minutes in 30-minute blocks beyond the first 30",
+    "Care plan and consent already on file"
+  ],
+  "pitfalls": [
+    "Reporting a block that was only partly completed",
+    "Using 99427 with the physician-time code 99424"
+  ],
+  "pairsWith": [
+    "99426"
+  ],
+  "faqs": [
+    {
+      "question": "How many times can 99427 be billed per month?",
+      "answer": "Up to twice per month with 99426. Always check the current fee schedule for changes."
+    },
+    {
+      "question": "Can 99427 be billed without 99426?",
+      "answer": "No. It is an add-on and requires 99426 for the same patient and month."
+    }
+  ]
+}

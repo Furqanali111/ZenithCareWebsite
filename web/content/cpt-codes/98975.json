@@ -1,0 +1,39 @@
+{
+  "code": "98975",
+  "order": 150,
+  "program": "rtm",
+  "shortTitle": "RTM device setup",
+  "metaDescription": "CPT 98975 explained: the one-time Remote Therapeutic Monitoring setup and patient education code. Requirements, billing limits, 2026 rate and mistakes.",
+  "summary": "The one-time RTM code for setting up the monitoring tool and teaching the patient how to use it for therapy, respiratory or pain tracking.",
+  "time": "Setup and education, no monthly minute threshold",
+  "performer": "The billing practitioner or therapist, or staff under general supervision where incident-to billing applies",
+  "frequency": "Typically once per episode of care; confirm with your MAC",
+  "rate": "~$22",
+  "requirements": [
+    "An order or plan from the billing practitioner for remote therapeutic monitoring",
+    "Documented patient consent",
+    "A device or software that meets the FDA definition of a medical device",
+    "For therapist-billed RTM, a therapy plan of care and the GP, GO or GN modifier",
+    "A record that setup was done and the patient was taught to use the tool"
+  ],
+  "pitfalls": [
+    "Billing setup again for a patient already inside an episode of care",
+    "Using an app that does not meet the device definition",
+    "No documented order or consent"
+  ],
+  "pairsWith": [
+    "98976",
+    "98977",
+    "98980"
+  ],
+  "faqs": [
+    {
+      "question": "Can 98975 be billed every month?",
+      "answer": "No. It is a setup code, usually reported once per episode of care, not monthly."
+    },
+    {
+      "question": "Is RTM software something Zenith sells?",
+      "answer": "No. Zenith supplies clinical staff who review the data and contact patients. The monitoring tool is separate, and we confirm the setup with you during scoping."
+    }
+  ]
+}

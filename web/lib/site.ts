@@ -1,6 +1,12 @@
 /**
  * Site-wide constants. Edit here; propagates everywhere.
+ *
+ * Contact details, social links, tagline, footer text and founder intros are
+ * edited in /keystatic (content/site.json). Where a NEXT_PUBLIC_* env var also
+ * exists, the env var wins when it is set (even to ""); the JSON is the value
+ * used otherwise. To hand a value to the CMS, remove its env var.
  */
+import siteFile from "@/content/site.json";
 
 export const site = {
   name: "Zenith Care Solutions",
@@ -8,32 +14,28 @@ export const site = {
   // Virtual mailing address (mail forwarding), not a physical office: never
   // label it "office" or "headquarters", and keep it out of PostalAddress schema.
   // The Wyoming registered agent address is intentionally not on the site.
-  mailingAddress: "30 N Gould St, Suite #70349, Sheridan, WY 82801, USA",
+  mailingAddress: siteFile.mailingAddress,
   // Filing ID and formation date are intentionally not published on the site.
   formation: {
     state: "Wyoming",
   },
   // Empty until the IRS issues the EIN; every consumer renders it only when set.
   ein: process.env.NEXT_PUBLIC_EIN ?? "",
-  tagline:
-    "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
+  tagline: siteFile.tagline,
   url:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://thezcs.com",
-  email:
-    process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@thezcs.com",
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
-  calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? siteFile.email,
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? siteFile.whatsappNumber,
+  calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? siteFile.calendlyUrl,
   // Footer contact block. Phone stays empty until a real line exists (no
   // placeholder number); hours is a plain business fact, override via env.
-  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "",
-  hours: process.env.NEXT_PUBLIC_BUSINESS_HOURS ?? "Mon to Fri, 9:00 AM to 6:00 PM EST",
-  linkedin: "https://www.linkedin.com/company/the-zenith-care-solutions/",
-  facebook:
-    process.env.NEXT_PUBLIC_FACEBOOK_URL ??
-    "https://www.facebook.com/profile.php?id=61595852378826",
-  instagram:
-    process.env.NEXT_PUBLIC_INSTAGRAM_URL ??
-    "https://www.instagram.com/zenithcaresolutions/",
+  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? siteFile.phone,
+  hours: process.env.NEXT_PUBLIC_BUSINESS_HOURS ?? siteFile.hours,
+  linkedin: siteFile.linkedin,
+  facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? siteFile.facebook,
+  instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? siteFile.instagram,
+  footerBlurb: siteFile.footerBlurb,
+  footerDisclaimer: siteFile.footerDisclaimer,
   locale: "en_US",
 } as const;
 
@@ -56,6 +58,9 @@ export const founder = {
 } as const;
 
 /** Founders with the one-line intros used on the homepage and blog bylines. */
+const introOf = (name: string) =>
+  siteFile.founders.find((f) => f.name === name)?.intro ?? "";
+
 export const founders: readonly {
   name: string;
   initials: string;
@@ -68,16 +73,14 @@ export const founders: readonly {
     name: founder.name,
     initials: founder.initials,
     title: "Founder",
-    intro:
-      "Software engineer who has shipped for multiple customers, bringing the same reliability to your practice’s daily work.",
+    intro: introOf(founder.name),
   },
   {
     name: "Muhammad Usman",
     initials: "MU",
     title: "Co-founder",
     credential: "PharmD",
-    intro:
-      "Doctor of Pharmacy (PharmD) and entrepreneur, turning ambitious ideas into meaningful results.",
+    intro: introOf("Muhammad Usman"),
   },
 ];
 

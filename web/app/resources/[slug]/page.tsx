@@ -16,7 +16,8 @@ import { FaqSection } from "@/components/faq-section";
 import { Sources, SOURCES } from "@/components/sources";
 import { FounderMonogram } from "@/components/founder-monogram";
 import { Button } from "@/components/ui/button";
-import { getAllPosts, getPostBody, getPostBySlug, getPostSlugs } from "@/content/posts";
+import { getAllPosts, getPostBody, getPostBySlug, getPostHeadings, getPostSlugs, getSeriesPosts } from "@/content/posts";
+import { Toc } from "@/components/post-blocks";
 import { reviewer, site } from "@/lib/site";
 import { SERVICE_TAGS, getService } from "@/lib/services";
 import type { Post } from "@/content/posts";
@@ -44,6 +45,8 @@ export async function generateMetadata({
     title: post.metaTitle ?? post.title,
     description: post.description,
     path: `/resources/${post.slug}`,
+    noindex: post.noindex,
+    canonical: post.canonicalUrl,
   });
 }
 
@@ -79,6 +82,8 @@ export default async function PostPage({
             publishedAt: post.publishedAt,
             updatedAt: post.updatedAt,
             author: { name: site.name, url: site.url },
+            about: post.about,
+            mentions: post.mentions,
             ...(post.coverImage ? { image: new URL(post.coverImage, site.url).toString() } : {}),
           }),
           breadcrumbLd([
@@ -97,8 +102,9 @@ export default async function PostPage({
         ]}
       />
 
-      <article className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-20">
-        <header>
+      <article className="px-6 pt-8 pb-16 md:pt-12 md:pb-20">
+        {/* Text stays in a 3xl column (readable line length); only the cover image is wider. */}
+        <header className="mx-auto max-w-3xl">
           <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             <span className="text-brand-accent">
               {post.category}
@@ -117,29 +123,43 @@ export default async function PostPage({
         </header>
 
         {post.coverImage ? (
-          <BrandFigure
-            src={post.coverImage}
-            alt={post.title}
-            className="mt-10 aspect-[16/8]"
-            sizes="(min-width: 768px) 720px, 100vw"
-            priority
-          />
+          <div className="mx-auto mt-10 max-w-5xl">
+            <BrandFigure
+              src={post.coverImage}
+              alt={post.coverAlt || post.title}
+              className="aspect-[16/8]"
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              priority
+            />
+          </div>
         ) : null}
 
         <div
-          className="prose prose-neutral dark:prose-invert mt-12 max-w-none
+          className="prose prose-neutral dark:prose-invert mx-auto mt-12 max-w-3xl
             [&_h2]:font-serif [&_h2]:text-brand-ink [&_h2]:tracking-tight
             [&_h3]:font-serif [&_h3]:text-brand-ink [&_h3]:tracking-tight
             [&_strong]:text-ink-strong
             [&_a]:text-brand-accent hover:[&_a]:text-brand-ink"
         >
-          <Component />
+          <Component
+            components={{
+              Toc: (p: { title?: string }) => <Toc title={p.title} items={getPostHeadings(post.slug)} />,
+            }}
+          />
         </div>
       </article>
 
-      {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" /> : null}
+      <SeriesLinks post={post} />
 
-      <Sources links={SOURCES.care} />
+      {post.faqs ? <FaqSection id="post-faq" items={post.faqs} tone="surface" path={`/resources/${post.slug}`} /> : null}
+
+      <Sources
+        links={
+          post.sources?.length
+            ? post.sources.flatMap((s) => (s.url ? [{ label: s.label, href: s.url }] : []))
+            : SOURCES.care
+        }
+      />
 
       {/* ─── Author bio ─────────────────────────────────────────────── */}
       <section className="border-t border-border/60 bg-surface-tint">
@@ -195,14 +215,42 @@ export default async function PostPage({
 
 /* -------------------------------------------------------------------------- */
 
+function SeriesLinks({ post }: { post: Post }) {
+  const all = getSeriesPosts(post);
+  if (all.length < 2) return null;
+  return (
+    <nav aria-label="In this series" className="mx-auto max-w-3xl px-6 pb-12">
+      <p className="font-serif text-lg font-semibold text-brand-ink">In this series: {post.series}</p>
+      <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm">
+        {all.map((p) => (
+          <li key={p.slug}>
+            {p.slug === post.slug ? (
+              <span aria-current="page" className="font-medium text-brand-ink">{p.title}</span>
+            ) : (
+              <Link href={`/resources/${p.slug}`} className="text-brand-accent hover:underline">{p.title}</Link>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
 function RelatedArticles({ post }: { post: Post }) {
   // Rank siblings by shared tags (newest wins ties) so links spread across the
   // library instead of always pointing at the same two newest posts.
   const shared = (p: Post) => p.tags.filter((t) => post.tags.includes(t)).length;
-  const related = getAllPosts()
-    .filter((p) => p.slug !== post.slug)
-    .sort((a, b) => shared(b) - shared(a))
-    .slice(0, 3);
+  // Hand-picked posts (editor field) come first; tag ranking fills the rest.
+  const picked = (post.related ?? []).flatMap((s) => {
+    const p = s && s !== post.slug ? getPostBySlug(s) : undefined;
+    return p ? [p] : [];
+  });
+  const related = [
+    ...picked,
+    ...getAllPosts()
+      .filter((p) => p.slug !== post.slug && !picked.includes(p))
+      .sort((a, b) => shared(b) - shared(a)),
+  ].slice(0, 3);
   // Parent service page: first service whose tags this post carries.
   const serviceSlug = Object.keys(SERVICE_TAGS).find((s) =>
     SERVICE_TAGS[s].some((t) => post.tags.includes(t)),

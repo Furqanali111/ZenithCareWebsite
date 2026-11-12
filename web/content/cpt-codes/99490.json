@@ -1,0 +1,43 @@
+{
+  "code": "99490",
+  "order": 10,
+  "program": "ccm",
+  "shortTitle": "CCM, first 20 minutes",
+  "metaDescription": "CPT 99490 explained: the base monthly CCM code. Time threshold, documentation, consent, who can perform it, the 2026 rate and common audit gaps.",
+  "summary": "The base monthly Chronic Care Management code. It pays for the first 20 minutes of clinical staff time spent coordinating care for a patient with two or more chronic conditions, under the billing practitioner's direction.",
+  "time": "20 minutes of clinical staff time per calendar month",
+  "performer": "Clinical staff under the billing practitioner's direction",
+  "frequency": "Once per patient per calendar month, by one practitioner",
+  "rate": "{ccm:99490}",
+  "requirements": [
+    "Two or more chronic conditions expected to last at least 12 months or until death, with significant risk of decline",
+    "Documented patient consent (verbal or written) covering cost sharing and the right to stop",
+    "A comprehensive care plan in the record, shared with the patient or caregiver",
+    "A time log showing minutes, who performed them and what was done",
+    "24/7 access to the care team and continuity with a designated team member"
+  ],
+  "pitfalls": [
+    "Billing before the 20-minute threshold is reached; minutes do not roll into next month",
+    "Missing or undated consent, the most common audit gap",
+    "Two practitioners billing CCM for the same patient in the same month",
+    "Counting time that was already part of a separately billed visit"
+  ],
+  "pairsWith": [
+    "99439"
+  ],
+  "conflicts": "Not reported in the same month as 99487 or 99491 by the same practitioner for the same patient.",
+  "faqs": [
+    {
+      "question": "What is the minimum time to bill CPT 99490?",
+      "answer": "Twenty minutes of qualifying clinical staff time in the calendar month. Anything under that is not reportable and does not carry over."
+    },
+    {
+      "question": "Can the same patient be billed 99490 by two practices?",
+      "answer": "No. Only one practitioner can bill CCM for a patient in a given month, so confirm no other practice is already billing before you enroll."
+    },
+    {
+      "question": "Does Zenith bill 99490 to Medicare?",
+      "answer": "No. Your practice bills the code. Zenith supplies the clinical staff time and invoices your practice for the labor."
+    }
+  ]
+}

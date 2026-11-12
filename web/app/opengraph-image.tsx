@@ -7,6 +7,7 @@ export const contentType = ogContentType;
 /** Default OG card. Pages override with their own opengraph-image.tsx. */
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/",
     title: "Care Management, RCM & Virtual Staffing",
     subtitle: "Remote clinical services for U.S. practices. HIPAA Business Associate.",
   });

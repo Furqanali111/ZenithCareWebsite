@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import { readFileSync } from "node:fs";
 
 /**
  * Security headers applied to every response.
@@ -28,10 +29,11 @@ const scriptSrc = isDev
 // Hosts the browser is allowed to send fetch/XHR/beacon to.
 // - formspree.io: contact form submissions
 // - calendly.com: inline widget telemetry
-// - api.github.com: Keystatic editor (/keystatic) reads and writes the repo
+// - api.github.com, raw.githubusercontent.com: Keystatic editor (/keystatic) reads
+//   and writes the repo (it loads file contents of a public repo from raw.*)
 // - google-analytics / googletagmanager: GA4 beacons
 const connectSrc =
-  "'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com https://api.github.com";
+  "'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://formspree.io https://calendly.com https://api.github.com https://raw.githubusercontent.com";
 
 // Hosts allowed to embed as <iframe>. Calendly serves its booking widget
 // from calendly.com as an iframe inside the inline-widget container.
@@ -80,9 +82,50 @@ const securityHeaders = [
   },
 ];
 
+/**
+ * Redirects edited in /keystatic (content/redirects.json). A bad entry throws, so the
+ * build fails instead of shipping a broken or looping redirect.
+ * Whole-section rules use Next's `:path*`, which also matches the section root itself.
+ */
+type EditorRule = { from: string; to: string; permanent: boolean };
+function editorRedirects() {
+  const file = JSON.parse(readFileSync("content/redirects.json", "utf8")) as {
+    exact: EditorRule[];
+    prefix: EditorRule[];
+  };
+  const safeFrom = /^\/[A-Za-z0-9._~/-]*$/;
+  // The editor and the site's own routes must stay reachable.
+  const reserved = /^\/(keystatic|api|_next)(\/|$)/;
+  const seen = new Set<string>();
+  const rules = [
+    ...file.exact.map((r) => ({ ...r, kind: "exact" })),
+    ...file.prefix.map((r) => ({ ...r, kind: "prefix" })),
+  ];
+  return rules.map(({ from, to, permanent, kind }) => {
+    const where = `content/redirects.json ${kind} "${from}" to "${to}"`;
+    const prefix = kind === "prefix";
+    if (!safeFrom.test(from) || reserved.test(from) || (prefix && (from === "/" || from.endsWith("/")))) {
+      throw new Error(`${where}: invalid old path`);
+    }
+    const external = /^https:\/\/[^\s*:]+\S*$/.test(to);
+    if (!external && !safeFrom.test(to)) throw new Error(`${where}: invalid new URL`);
+    if (!external && (to === from || (prefix && (to + "/").startsWith(from + "/")))) {
+      throw new Error(`${where}: redirect loops back onto itself`);
+    }
+    if (prefix && !external && (to === "/" || to.endsWith("/"))) throw new Error(`${where}: new path must not end with /`);
+    if (seen.has(from)) throw new Error(`${where}: old path used twice`);
+    seen.add(from);
+    return prefix
+      ? { source: `${from}/:path*`, destination: `${to}/:path*`, permanent }
+      : { source: from, destination: to, permanent };
+  });
+}
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // Build day for scheduled posts (publishAt). Prerender refuses new Date(), so read it here.
+  env: { BUILD_DATE: new Date().toISOString().slice(0, 10) },
   // Inline the (small) stylesheet so it stops blocking first paint on mobile.
   experimental: { inlineCss: true },
   // Hide the Next.js dev-tools indicator (dev-only; never rendered in prod).
@@ -121,6 +164,20 @@ const nextConfig: NextConfig = {
         destination: "https://thezcs.com/:path*",
         permanent: true, // 308 — preserves POST method; same effect as 301 for GET/HEAD
       },
+      // Post covers moved to the layout Keystatic's image field uses. The old URLs were
+      // live in og:image and Article schema, so keep them working. Only the .webp covers
+      // and the one moved .jpg: the three leftover .jpg files still serve as they are.
+      {
+        source: "/resources/:slug([a-z0-9-]+).webp",
+        destination: "/resources/:slug/coverImage.webp",
+        permanent: true,
+      },
+      {
+        source: "/resources/cpt-99487-99489-complex-ccm.jpg",
+        destination: "/resources/cpt-99487-99489-complex-ccm/coverImage.jpg",
+        permanent: true,
+      },
+      ...editorRedirects(),
     ];
   },
   // The Keystatic editor routes client-side; a hard refresh on a deep URL must

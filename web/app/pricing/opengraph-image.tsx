@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/pricing",
     title: "Pricing and Billing Model",
     subtitle: "How each service line is priced, what is included and how billing works.",
   });

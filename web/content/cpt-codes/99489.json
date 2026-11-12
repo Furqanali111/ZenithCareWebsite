@@ -1,0 +1,34 @@
+{
+  "code": "99489",
+  "order": 40,
+  "program": "ccm",
+  "shortTitle": "Complex CCM add-on",
+  "metaDescription": "CPT 99489 explained: the add-on to complex CCM for each additional 30 minutes of clinical staff time. Pairing rules, documentation and 2026 rate.",
+  "summary": "An add-on reported with 99487 for each additional 30 minutes of clinical staff time beyond the first 60 in a month.",
+  "time": "Each additional 30 minutes beyond the first 60",
+  "performer": "Clinical staff under the billing practitioner's direction",
+  "frequency": "Add-on to 99487 only",
+  "rate": "{ccm:99489}",
+  "requirements": [
+    "99487 supported for the same patient and month",
+    "Time log showing minutes beyond the first 60, in 30-minute blocks",
+    "Care plan and consent documentation already supporting 99487"
+  ],
+  "pitfalls": [
+    "Reporting 99489 with 99490 instead of 99487",
+    "Rounding up to a full 30-minute block that was not reached"
+  ],
+  "pairsWith": [
+    "99487"
+  ],
+  "faqs": [
+    {
+      "question": "Is 99489 billed per 20 minutes like 99439?",
+      "answer": "No. 99489 counts in 30-minute blocks beyond the first 60 minutes, and only with 99487."
+    },
+    {
+      "question": "Can I bill 99489 on a month with 99490?",
+      "answer": "No. 99489 only attaches to 99487. A month billed with the base code uses 99439 for extra time instead."
+    }
+  ]
+}

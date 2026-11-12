@@ -1,0 +1,36 @@
+{
+  "code": "99426",
+  "order": 90,
+  "program": "pcm",
+  "shortTitle": "PCM by staff, 30 min",
+  "metaDescription": "CPT 99426 explained: Principal Care Management with 30 minutes of clinical staff time. Eligibility, documentation, 2026 rate and billing rules.",
+  "summary": "Monthly management of one serious condition delivered by clinical staff under the practitioner's direction, starting at 30 minutes.",
+  "time": "30 minutes of clinical staff time per calendar month",
+  "performer": "Clinical staff under the billing practitioner's direction",
+  "frequency": "Once per patient per month",
+  "rate": "~$68",
+  "requirements": [
+    "One complex chronic condition expected to last at least 3 months, with significant risk of decline",
+    "A disease-specific care plan on file",
+    "An initiating visit for new patients, or patients not seen within the past year, to explain PCM and get consent",
+    "Documented consent and a staff time log reaching 30 minutes"
+  ],
+  "pitfalls": [
+    "Reporting fewer than 30 minutes",
+    "Billing 99426 alongside CCM for the same patient and month"
+  ],
+  "pairsWith": [
+    "99427"
+  ],
+  "conflicts": "Not reported with CCM for the same patient and month by the same practitioner, and not in the same month as the physician-time PCM codes 99424 and 99425.",
+  "faqs": [
+    {
+      "question": "What is the minimum time for CPT 99426?",
+      "answer": "Thirty minutes of clinical staff time in the calendar month. Under 30 minutes is not reportable."
+    },
+    {
+      "question": "Who performs the time for 99426?",
+      "answer": "Clinical staff under the practitioner's direction. This is the code Zenith's staff time supports, with your practice as the billing provider."
+    }
+  ]
+}

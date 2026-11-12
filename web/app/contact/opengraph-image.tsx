@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/contact",
     title: "Book a Discovery Call",
     subtitle: "15 minutes to see how remote care management fits your practice.",
     badge: "FREE CONSULTATION",

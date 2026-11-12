@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as a claim or service that lacks information or has a submission or billing error. X12 says it should not be used for claim attachments or other documentation, and that at least one remark code (an NCPDP reject reason code or a non-ALERT remittance advice remark code) must accompany it. That remark code tells you which piece of information is missing.",
+  "code": "CO-16",
+  "shortTitle": "Missing information",
+  "metaDescription": "CO-16 denial explained: the claim lacks information or has a submission error. What the remark code tells you, how to correct and resubmit, and prevention.",
+  "summary": "The claim is missing information or has a billing or submission error, so the payer could not process it.",
+  "causes": [
+    "A required field is blank or wrong, such as an ID, date or provider number",
+    "Patient demographics do not match the payer's records",
+    "A referring or rendering provider detail is missing"
+  ],
+  "fixes": [
+    "Read the remark code (RARC) on the remittance; it names what is missing",
+    "Correct the claim and resubmit it as a corrected or new claim, not as an appeal",
+    "Confirm the fix with the payer if the remark code is unclear"
+  ],
+  "prevention": [
+    "Verify patient and insurance data at check-in",
+    "Use a claim scrubber that blocks submissions with empty required fields"
+  ],
+  "related": [
+    "co-4",
+    "co-18",
+    "co-109"
+  ],
+  "faqs": [
+    {
+      "question": "Why does CO-16 always come with a second code?",
+      "answer": "CO-16 is broad. The remark code (RARC) on the same line tells you which piece of information is missing, so always read both."
+    },
+    {
+      "question": "Is a CO-16 claim counted as denied?",
+      "answer": "Many payers treat these as rejections to be fixed and resubmitted. Check your payer's rules, because the filing clock keeps running."
+    }
+  ]
+}

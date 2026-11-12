@@ -1,0 +1,36 @@
+{
+  "code": "99454",
+  "order": 120,
+  "program": "rpm",
+  "shortTitle": "RPM device supply",
+  "metaDescription": "CPT 99454 explained: the RPM device supply code and its 16-day data rule, plus the newer 2 to 15 day option. Documentation, limits and 2026 rate.",
+  "summary": "The monthly RPM device-supply code. It requires that the device transmitted readings on at least 16 days in a 30-day period.",
+  "time": "At least 16 days of transmitted readings in 30 days",
+  "performer": "Device supplied and data transmitted; no staff time threshold",
+  "frequency": "Once per 30-day period per patient",
+  "rate": "~$52 per month",
+  "requirements": [
+    "A device that automatically transmits or records readings",
+    "A data log showing the days with readings",
+    "Consent and a practitioner order already on file"
+  ],
+  "pitfalls": [
+    "Billing with fewer than 16 data days when no alternative code applies",
+    "Billing two devices without checking the current supply rules"
+  ],
+  "pairsWith": [
+    "99453",
+    "99457"
+  ],
+  "conflicts": "Not reported together with the newer 2 to 15 day supply code 99445 for the same period.",
+  "faqs": [
+    {
+      "question": "What if a patient has fewer than 16 days of readings?",
+      "answer": "A newer 2026 code, 99445, covers 2 to 15 days of data. Your billing lead should confirm which code applies for each patient."
+    },
+    {
+      "question": "Does Zenith supply the devices?",
+      "answer": "Device arrangements vary by practice. Zenith staff review the readings; we confirm the device setup with you during scoping."
+    }
+  ]
+}

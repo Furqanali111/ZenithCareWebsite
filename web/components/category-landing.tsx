@@ -113,6 +113,7 @@ export function CategoryLanding({ category }: { category: ServiceCategory }) {
       <FaqSection
         heading={`${label}: common questions`}
         idPrefix={`${category}-category-faq`}
+        path={c.path}
         items={c.faqs}
       />
 

@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as precertification, authorization, notification or pre-treatment approval being absent.",
+  "code": "CO-197",
+  "shortTitle": "Authorization missing",
+  "metaDescription": "CO-197 denial explained: precertification, authorization or notification was absent. How to request a retro authorization, appeal, and prevent it up front.",
+  "summary": "The payer denied the claim because a required prior authorization or notification was not obtained.",
+  "causes": [
+    "Authorization was not requested before the service",
+    "The authorization was requested but the number did not reach the claim",
+    "The authorization had expired or did not cover the service billed"
+  ],
+  "fixes": [
+    "Check whether an authorization exists and matches the service and dates",
+    "If it exists, correct the claim with the number and resubmit",
+    "If not, ask the payer whether a retroactive authorization or an appeal is allowed"
+  ],
+  "prevention": [
+    "Keep a list of services that need authorization by payer",
+    "Block scheduling for those services until the authorization is on file"
+  ],
+  "related": [
+    "co-50",
+    "co-96",
+    "co-27"
+  ],
+  "faqs": [
+    {
+      "question": "Can a CO-197 denial be reversed after the service?",
+      "answer": "Sometimes. Some payers allow retroactive authorization in limited cases. Many do not, so prevention matters most."
+    },
+    {
+      "question": "Who should track authorizations?",
+      "answer": "A named person on the front-end team. Zenith's care coordinators can handle authorization requests and follow-up inside your EHR."
+    }
+  ]
+}

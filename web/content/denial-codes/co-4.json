@@ -1,0 +1,36 @@
+{
+  "remit": "X12 defines this reason as a procedure code that does not fit the modifier used. When the payer sends one, the 835 remittance can carry a pointer to the payer's policy in the Healthcare Policy Identification Segment (loop 2110, REF), which is the first place to look for the edit that fired.",
+  "code": "CO-4",
+  "shortTitle": "Modifier issue",
+  "metaDescription": "CO-4 denial explained: the procedure code does not match the modifier used or a required modifier is missing. Causes, how to fix and resubmit, prevention.",
+  "summary": "The payer says the procedure code is inconsistent with the modifier on the claim, or a modifier the code needs is missing.",
+  "causes": [
+    "A required modifier was left off the line",
+    "A modifier was added that does not apply to that procedure code",
+    "Modifier order or placement does not meet the payer's edit"
+  ],
+  "fixes": [
+    "Check the original claim line against the chart and the payer's modifier policy",
+    "Correct the modifier and submit a corrected claim, not an appeal",
+    "If the modifier was right, call the payer and ask which edit fired"
+  ],
+  "prevention": [
+    "Run claims through a scrubber with current modifier edits",
+    "Keep a payer-specific modifier cheat sheet for your common services"
+  ],
+  "related": [
+    "co-16",
+    "co-11",
+    "co-97"
+  ],
+  "faqs": [
+    {
+      "question": "Is CO-4 an appeal or a corrected claim?",
+      "answer": "Usually a corrected claim. The problem is a coding error on the claim itself, so fix the modifier and resubmit within the payer's filing limit."
+    },
+    {
+      "question": "Does CO-4 mean the service will not be paid?",
+      "answer": "No. It means the claim as submitted could not be paid. Once the modifier is right, the service is often payable."
+    }
+  ]
+}

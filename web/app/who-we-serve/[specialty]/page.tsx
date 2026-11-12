@@ -22,6 +22,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { specialties, specialtyLabel, type Specialty } from "@/lib/site";
 import { getService, categoryMeta } from "@/lib/services";
 import { CPT_RATES, formatUsd } from "@/lib/roi";
+import specialtiesFile from "@/content/specialties.json";
 
 type Params = { specialty: string };
 
@@ -286,6 +287,7 @@ export default async function WhoWeServePage({
       <FaqSection
         heading={`Zenith for ${label.toLowerCase()} practices: common questions`}
         idPrefix={`${specialty}-faq`}
+        path={`/who-we-serve/${specialty}`}
         tone="surface"
         items={c.faqs}
       />
@@ -412,155 +414,23 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
     metaTitle: "Services for Primary Care",
     metaDescription:
       "CCM, RPM, TCM, billing and virtual staffing for U.S. primary care practices. Zenith supplies the staff; your practice stays the billing provider.",
-    heroHeadline:
-      "Primary care practices have the broadest fit across Zenith's programs.",
-    heroLead:
-      "From Chronic Care Management to remote monitoring, transitional care, revenue-cycle support, and virtual staffing, a primary care practice is eligible for more of Zenith's service line than almost any other specialty. CCM is usually the biggest single revenue lever; the rest compound it.",
-    whyHeadline: "Why CCM pays for itself in a primary care practice.",
-    whyParagraphs: [
-      "The eligibility bar, two or more chronic conditions expected to last twelve months, is cleared by a large fraction of any established primary-care panel. We routinely see 25-40% of a panel qualify once we actually run the list against the diagnoses.",
-      "Zenith’s clinical team does the monthly outreach, documentation, and time tracking inside your EHR so your MAs and front-desk team stay focused on visits. Your practice bills the CPT codes; we invoice for the clinical work.",
-    ],
-    patientMix: [
-      "Hypertension",
-      "Type 2 diabetes",
-      "Hyperlipidemia",
-      "COPD and chronic asthma",
-      "Depression and anxiety",
-      "Obesity-related comorbidities",
-      "Osteoarthritis",
-      "Early chronic kidney disease",
-    ],
-    example: {
-      panel: 1500,
-      enrollmentRate: 0.3,
-    },
-    faqs: [
-      {
-        question: "Which Zenith programs can a primary care practice run?",
-        answer:
-          "Primary care practices are typically eligible for Chronic Care Management, Principal Care Management, Remote Patient Monitoring, and Transitional Care Management, plus Revenue Cycle Management and virtual staffing, which apply to any practice. Final eligibility is confirmed per patient and per payer at the time of service.",
-      },
-      {
-        question: "How much of a primary care panel typically qualifies for CCM?",
-        answer:
-          "We routinely see 25 to 40 percent of an established primary-care panel qualify once the list is run against documented diagnoses. The bar is two or more chronic conditions expected to last at least twelve months, with the patient enrolled in Medicare Part B.",
-      },
-      {
-        question: "Which primary care conditions count toward CCM eligibility?",
-        answer:
-          "Common qualifying conditions include hypertension, Type 2 diabetes, hyperlipidemia, COPD and chronic asthma, depression and anxiety, obesity-related comorbidities, osteoarthritis, and early chronic kidney disease. Any two or more together can qualify a patient.",
-      },
-      {
-        question: "Does running CCM add work for my MAs and front-desk team?",
-        answer:
-          "No. Zenith's clinical team does the monthly outreach, documentation, and time tracking inside your EHR, so your medical assistants and front-desk staff stay focused on visits. Your practice bills the CPT codes and Zenith invoices for the clinical work.",
-      },
-    ],
+    ...specialtiesFile["primary-care"],
+    example: { panel: 1500, enrollmentRate: 0.3 },
   },
 
   "internal-medicine": {
     metaTitle: "Services for Internal Medicine",
     metaDescription:
       "CCM, RPM, TCM, billing and virtual staffing for U.S. internal medicine practices. Built for polychronic panels; your practice stays the billing provider.",
-    heroHeadline:
-      "Internal medicine fits the full care-management stack.",
-    heroLead:
-      "Polychronic, older, more complex patients map to every Medicare care-management program Zenith runs, from CCM and PCM to remote monitoring and transitional care, plus the revenue-cycle and virtual-staffing support that keeps it all moving. CCM and complex CCM are usually the largest levers.",
-    whyHeadline: "Where internal medicine really outperforms on CCM.",
-    whyParagraphs: [
-      "Internal medicine panels frequently qualify 40-50% of patients for base CCM (CPT 99490), and a meaningful subset, those with moderate-to-high medical decision-making needs, for Complex CCM (CPT 99487 / 99489), which reimburses roughly 2× the base rate per patient per month.",
-      "Zenith’s clinical team is set up for polychronic patient workflows: medication reconciliation across multiple specialists, closed-loop follow-up on hospital discharges, and documentation that reads correctly to a Medicare auditor.",
-    ],
-    patientMix: [
-      "Congestive heart failure",
-      "Chronic kidney disease",
-      "Type 2 diabetes with complications",
-      "COPD",
-      "Atrial fibrillation",
-      "Post-hospital follow-up and transitions of care",
-      "Hyperlipidemia with ASCVD",
-      "Osteoporosis",
-    ],
-    example: {
-      panel: 650,
-      enrollmentRate: 0.5,
-    },
-    faqs: [
-      {
-        question: "Which Zenith programs can an internal medicine practice run?",
-        answer:
-          "Internal medicine practices are typically eligible for Chronic Care Management, Principal Care Management, Remote Patient Monitoring, and Transitional Care Management, alongside Revenue Cycle Management and virtual staffing, which apply to any practice. Eligibility is confirmed per patient and per payer at the time of service.",
-      },
-      {
-        question:
-          "How much of an internal medicine panel qualifies for CCM?",
-        answer:
-          "Internal-medicine panels frequently qualify 40 to 50 percent of patients for base CCM (CPT 99490), and a meaningful subset for complex CCM (CPT 99487 and 99489), which reimburses roughly twice the base rate per patient per month.",
-      },
-      {
-        question: "Why do internal medicine panels perform well on CCM?",
-        answer:
-          "Internal-medicine patients are older on average and more likely to be managing three or four conditions at once. That profile maps directly to the Medicare codes that pay for Chronic Care Management and often qualifies a larger share for the higher-reimbursing complex-CCM codes.",
-      },
-      {
-        question:
-          "Which conditions are typical in an internal medicine CCM panel?",
-        answer:
-          "Congestive heart failure, chronic kidney disease, Type 2 diabetes with complications, COPD, atrial fibrillation, post-hospital transitions of care, hyperlipidemia with ASCVD, and osteoporosis are all common, and patients often carry several at once.",
-      },
-    ],
+    ...specialtiesFile["internal-medicine"],
+    example: { panel: 650, enrollmentRate: 0.5 },
   },
 
   geriatrics: {
     metaTitle: "Services for Geriatric Practices",
     metaDescription:
       "CCM, RPM, TCM, billing and virtual staffing for U.S. geriatric practices, where many Medicare patients have multiple chronic conditions.",
-    heroHeadline:
-      "Geriatric panels are built for care management.",
-    heroLead:
-      "Most geriatric patients have Medicare and several chronic conditions. That makes geriatrics the best fit for Chronic Care Management. Remote monitoring and transitional care come next. We also help with billing and virtual staffing, so a small team does not carry it all. CCM is the flagship.",
-    whyHeadline: "Geriatrics gets the highest per-panel CCM revenue in medicine.",
-    whyParagraphs: [
-      "Older patients often have memory loss, many medicines, frailty and heart disease at the same time. Many of them qualify for Complex CCM (99487 / 99489). It reimburses roughly double the base code.",
-      "Zenith’s clinical team covers what older patients need most. That means medication reviews across specialists, talking with caregivers, and follow-up on fall risk and daily-living needs. We also keep the documentation an audit requires.",
-    ],
-    patientMix: [
-      "Cognitive decline and dementia",
-      "Congestive heart failure",
-      "Chronic kidney disease",
-      "Osteoporosis and fall-risk comorbidities",
-      "Polypharmacy management",
-      "Frailty and functional decline",
-      "Atrial fibrillation",
-      "Depression and late-life anxiety",
-    ],
-    example: {
-      panel: 500,
-      enrollmentRate: 0.7,
-      note: "Geriatric panels often have many Complex CCM patients. Actual reimbursement often runs 30-50% higher than the base-code figure shown.",
-    },
-    faqs: [
-      {
-        question: "Which Zenith programs can a geriatric practice run?",
-        answer:
-          "Geriatric practices can usually run Chronic Care Management, Remote Patient Monitoring and Transitional Care Management. Revenue Cycle Management and virtual staffing fit any practice. We confirm eligibility for each patient and payer at the time of service.",
-      },
-      {
-        question: "What share of a geriatric panel qualifies for CCM?",
-        answer:
-          "More of a geriatric panel qualifies for Chronic Care Management than in any other specialty, often 60 to 80 percent. Most patients have Medicare, and most have more than one chronic condition.",
-      },
-      {
-        question: "Why does geriatrics produce the highest CCM revenue per panel?",
-        answer:
-          "Older patients often have memory loss, many medicines, frailty and heart disease at once. Many of them qualify for complex CCM (CPT 99487 and 99489). It reimburses roughly double the base code.",
-      },
-      {
-        question: "Which conditions count toward CCM in a geriatric panel?",
-        answer:
-          "Cognitive decline and dementia, congestive heart failure, chronic kidney disease, osteoporosis and fall-risk comorbidities, polypharmacy, frailty and functional decline, atrial fibrillation, and late-life depression are all common qualifying conditions.",
-      },
-    ],
+    ...specialtiesFile["geriatrics"],
+    example: { panel: 500, enrollmentRate: 0.7, note: "Geriatric panels often have many Complex CCM patients. Actual reimbursement often runs 30-50% higher than the base-code figure shown." },
   },
 };

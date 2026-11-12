@@ -6,6 +6,7 @@ export const contentType = ogContentType;
 
 export default function OpenGraphImage() {
   return ogImage({
+    path: "/who-we-serve",
     title: "Who We Serve",
     subtitle: "Primary care, internal medicine and geriatrics practices across the U.S.",
   });

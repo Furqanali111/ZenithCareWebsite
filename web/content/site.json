@@ -1,0 +1,24 @@
+{
+  "tagline": "Remote care management, revenue cycle management, and virtual medical staffing for U.S. physician practices. HIPAA Business Associate, inside your EHR.",
+  "email": "contact@thezcs.com",
+  "phone": "",
+  "whatsappNumber": "",
+  "calendlyUrl": "",
+  "hours": "Mon to Fri, 9:00 AM to 6:00 PM EST",
+  "mailingAddress": "30 N Gould St, Suite #70349, Sheridan, WY 82801, USA",
+  "linkedin": "https://www.linkedin.com/company/the-zenith-care-solutions/",
+  "facebook": "https://www.facebook.com/profile.php?id=61595852378826",
+  "instagram": "https://www.instagram.com/zenithcaresolutions/",
+  "footerBlurb": "Remote clinical staffing and care management solutions for U.S. healthcare practices.",
+  "footerDisclaimer": "Informational only, not medical, legal, billing, or compliance advice. Please do not submit patient-identifying information through this site.",
+  "founders": [
+    {
+      "name": "Furqan Ali",
+      "intro": "Software engineer who has shipped for multiple customers, bringing the same reliability to your practice’s daily work."
+    },
+    {
+      "name": "Muhammad Usman",
+      "intro": "Doctor of Pharmacy (PharmD) and entrepreneur, turning ambitious ideas into meaningful results."
+    }
+  ]
+}

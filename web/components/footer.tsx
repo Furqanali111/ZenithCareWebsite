@@ -107,8 +107,7 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-body-ink">
-              Remote clinical staffing and care management solutions for U.S.
-              healthcare practices.
+              {site.footerBlurb}
             </p>
 
             {activeSocials.length ? (
@@ -155,9 +154,7 @@ export function Footer() {
       <div className="border-t border-border">
         <div className="mx-auto max-w-[90rem] px-6 py-6">
           <p className="text-xs leading-relaxed text-muted-foreground">
-            Informational only, not medical, legal, billing, or compliance
-            advice. Please do not submit patient-identifying information through
-            this site.
+            {site.footerDisclaimer}
           </p>
           <div className="mt-4 flex flex-col gap-3 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
             <p>

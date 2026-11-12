@@ -1,0 +1,34 @@
+{
+  "code": "99437",
+  "order": 60,
+  "program": "ccm",
+  "shortTitle": "CCM add-on by physician",
+  "metaDescription": "CPT 99437 explained: the add-on to 99491 for each additional 30 minutes of physician time in CCM. Pairing rules, documentation and 2026 rate.",
+  "summary": "An add-on reported with 99491 for each additional 30 minutes the practitioner personally spends on care management that month.",
+  "time": "Each additional 30 minutes of practitioner time",
+  "performer": "The physician or other qualified practitioner personally",
+  "frequency": "Add-on to 99491 only",
+  "rate": "{ccm:99437}",
+  "requirements": [
+    "99491 supported for the same patient and month",
+    "Practitioner time log showing minutes beyond the first 30",
+    "Consent and care plan documentation in place"
+  ],
+  "pitfalls": [
+    "Reporting 99437 with 99490 or 99487",
+    "Adding staff minutes to the practitioner's total"
+  ],
+  "pairsWith": [
+    "99491"
+  ],
+  "faqs": [
+    {
+      "question": "Can 99437 be billed without 99491?",
+      "answer": "No. It is an add-on to 99491 and cannot stand alone."
+    },
+    {
+      "question": "Do staff minutes count toward 99437?",
+      "answer": "No. Only the practitioner's own time counts."
+    }
+  ]
+}

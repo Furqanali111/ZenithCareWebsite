@@ -1,0 +1,37 @@
+{
+  "code": "98980",
+  "order": 180,
+  "program": "rtm",
+  "shortTitle": "RTM management, 20 min",
+  "metaDescription": "CPT 98980 explained: RTM treatment management with 20 minutes of time and one live interactive contact. Documentation, rate and common billing mistakes.",
+  "summary": "Monthly RTM management time: at least 20 minutes of reviewing data and managing treatment, including one real-time two-way contact with the patient or caregiver.",
+  "time": "20 minutes per calendar month with interactive communication",
+  "performer": "The billing practitioner or therapist, or staff under general supervision where incident-to billing applies",
+  "frequency": "Once per patient per month for the base unit",
+  "rate": "Varies by locality",
+  "requirements": [
+    "At least one real-time two-way contact with the patient or caregiver in the month",
+    "A time log showing the management minutes",
+    "A note linking the data to the changes made to the treatment plan"
+  ],
+  "pitfalls": [
+    "Counting automated reminders as interactive contact",
+    "Logging time with no record of what changed in the plan"
+  ],
+  "pairsWith": [
+    "98981",
+    "98976",
+    "98977"
+  ],
+  "conflicts": "Not reported in the same month as 98979, the 2026 code for the first 10 minutes of management.",
+  "faqs": [
+    {
+      "question": "Does an automated message count as interactive communication?",
+      "answer": "No. The contact must be real-time and two-way with the patient or caregiver."
+    },
+    {
+      "question": "Can clinical staff perform the 98980 time?",
+      "answer": "Since 2023, CMS allows general supervision for RTM where incident-to billing applies, such as physician, NP and PA practices. Therapist practices generally cannot use incident-to, so the therapist or a supervised assistant must furnish it."
+    }
+  ]
+}
