@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site, specialties, CONTENT_UPDATED } from "@/lib/site";
 import { getServiceSlugs } from "@/lib/services";
+import { isNoindexed } from "@/lib/seo";
 import { getAllPosts } from "@/content/posts";
 import { CPT_BASE, cptCodes, cptPath } from "@/lib/cpt-codes";
 import { DENIAL_BASE, denialCodes, denialPath } from "@/lib/denial-codes";
@@ -62,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...denialCodes.map((d) => denialPath(d.slug)),
   ];
 
-  const pages: MetadataRoute.Sitemap = paths.map((p) => ({
+  const pages: MetadataRoute.Sitemap = paths.filter((p) => !isNoindexed(p)).map((p) => ({
     url: p === "/" ? BASE : `${BASE}${p}`,
     ...(p.startsWith("/services") && { lastModified: new Date(CONTENT_UPDATED) }),
   }));

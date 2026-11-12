@@ -27,6 +27,14 @@ export type PostFrontmatter = {
   faqs?: { question: string; answer: string }[];
   /** Drafts are saved in the repo but never listed, routed or put in the sitemap. */
   draft?: boolean;
+  /** Share-card text overrides (generated Open Graph image). */
+  ogTitle?: string;
+  ogSubtitle?: string;
+  /** Keystatic's url field saves null when empty. */
+  canonicalUrl?: string | null;
+  /** schema.org about / mentions entities for the Article JSON-LD. */
+  about?: { name: string; url?: string | null }[];
+  mentions?: { name: string; url?: string | null }[];
 };
 
 export type Post = PostFrontmatter;

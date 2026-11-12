@@ -27,6 +27,7 @@ export default async function OpenGraphImage({
   }
   const label = specialtyLabel[specialty as Specialty];
   return ogImage({
+    path: `/who-we-serve/${specialty}`,
     title: TITLES[specialty as Specialty],
     subtitle: `Care management, RCM, and virtual staffing tailored for ${label.toLowerCase()}.`,
   });

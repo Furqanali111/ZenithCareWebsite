@@ -1,4 +1,5 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
+import { collections as searchCollections, singletons as searchSingletons, ogFields, noindexField } from "./keystatic/search-appearance";
 
 /**
  * Blog editor at /keystatic. Edits content/posts/*.mdx in the git repo.
@@ -6,6 +7,16 @@ import { collection, config, fields, singleton } from "@keystatic/core";
  * - Production: GitHub login. Saves go to a branch and open a PR (never push to develop).
  * Setup + env vars: WebSiteDoc/Project/16-keystatic-cms.md
  */
+// Optional schema.org entity list: a name plus an optional reference URL (Wikipedia, cms.gov).
+const entityList = (label: string, description: string) =>
+  fields.array(
+    fields.object({
+      name: fields.text({ label: "Name", validation: { isRequired: true } }),
+      url: fields.url({ label: "Reference URL (optional)" }),
+    }),
+    { label, description, itemLabel: (props) => props.fields.name.value },
+  );
+
 export default config({
   storage:
     process.env.NODE_ENV === "development"
@@ -17,6 +28,7 @@ export default config({
           pathPrefix: "web",
         },
   collections: {
+    ...searchCollections,
     posts: collection({
       label: "Blog posts",
       path: "content/posts/*",
@@ -85,6 +97,13 @@ export default config({
             itemLabel: (props) => props.fields.question.value,
           },
         ),
+        ...ogFields,
+        canonicalUrl: fields.url({
+          label: "Canonical URL (optional)",
+          description: "Only set this if the same article is published elsewhere and that copy should rank. Leave blank to use this page's own address.",
+        }),
+        about: entityList("About (schema)", "The main topics of the article, for example Chronic Care Management. Added to the Article structured data."),
+        mentions: entityList("Mentions (schema)", "Other named things the article discusses, for example CMS or HIPAA. Added to the Article structured data."),
         draft: fields.checkbox({
           label: "Draft",
           description: "Drafts are saved but never shown on the site or in the sitemap.",
@@ -103,6 +122,7 @@ export default config({
     }),
   },
   singletons: {
+    ...searchSingletons,
     // content/faq.json: feeds /faq, the FAQ chatbot and the FAQPage schema.
     faq: singleton({
       label: "FAQ",
@@ -168,6 +188,9 @@ export default config({
               multiline: true,
               validation: { isRequired: true, length: { max: 160 } },
             }),
+            ogTitle: ogFields.ogTitle,
+            ogSubtitle: ogFields.ogSubtitle,
+            noindex: noindexField,
           }),
           {
             label: "Pages",

@@ -20,6 +20,7 @@ export default async function OpenGraphImage({
 
   const cat = categoryMeta[s.category];
   return ogImage({
+    path: `/services/${s.slug}`,
     title: s.metaTitle,
     badge: cat.label.toUpperCase(),
   });

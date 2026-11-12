@@ -1,0 +1,89 @@
+{
+  "pages": [
+    {
+      "path": "/services/chronic-care-management",
+      "title": "Chronic Care Management Services",
+      "description": "CCM services for U.S. physician practices. Monthly coordination, care plans, and CPT 99490 documentation inside your EHR. You stay the billing provider."
+    },
+    {
+      "path": "/services/principal-care-management",
+      "title": "Principal Care Management Services",
+      "description": "Remote PCM for U.S. practices. Monthly care management for patients with one serious, high-risk condition, delivered by clinical staff inside your EHR."
+    },
+    {
+      "path": "/services/remote-patient-monitoring",
+      "title": "Remote Patient Monitoring Services",
+      "description": "RPM services for U.S. physician practices. Device setup, daily data review and patient outreach by clinical staff inside your EHR."
+    },
+    {
+      "path": "/services/remote-therapeutic-monitoring",
+      "title": "Remote Therapeutic Monitoring (RTM)",
+      "description": "Staffed RTM support for U.S. practices, not software. Our clinical staff review therapy adherence, pain and function data between visits, inside your EHR."
+    },
+    {
+      "path": "/services/transitional-care-management",
+      "title": "Transitional Care Management (TCM)",
+      "description": "Staffed TCM support for U.S. practices, not software. Our staff handle post-discharge outreach, medication reconciliation and visit scheduling inside your EHR."
+    },
+    {
+      "path": "/services/medical-billing",
+      "title": "Outsourced Medical Billing Services",
+      "description": "Medical billing services for U.S. physician practices. Clean claims, payment posting and denial management inside your PM system."
+    },
+    {
+      "path": "/services/medical-coding",
+      "title": "Outsourced Medical Coding Services",
+      "description": "Remote medical coding for U.S. practices. ICD-10, CPT and E/M coding from charts inside your EHR with compliance review."
+    },
+    {
+      "path": "/services/provider-credentialing",
+      "title": "Provider Credentialing Services",
+      "description": "Remote provider credentialing and payer enrollment for U.S. practices. CAQH upkeep and revalidation from start to approval."
+    },
+    {
+      "path": "/services/accounts-receivable",
+      "title": "Medical AR Follow-Up Services",
+      "description": "Remote AR follow-up for U.S. practices. Work aged claims, denials, appeals and unpaid balances to recover revenue you have earned."
+    },
+    {
+      "path": "/services/medical-scribe",
+      "title": "Remote Medical Scribes",
+      "description": "Remote medical scribes for U.S. practices. Real-time or same-day note drafting inside your EHR so providers finish charts sooner."
+    },
+    {
+      "path": "/services/medical-scheduler",
+      "title": "Remote Medical Schedulers",
+      "description": "Remote medical schedulers for U.S. practices. Fill the calendar, reduce no-shows and manage cancellations and reminders inside your own scheduling system."
+    },
+    {
+      "path": "/services/medical-receptionist",
+      "title": "Remote Medical Receptionists",
+      "description": "Remote medical receptionists for U.S. practices. Answer calls, route messages and handle patient intake professionally, inside your phone and EHR systems."
+    },
+    {
+      "path": "/services/patient-care-coordinator",
+      "title": "Patient Care Coordinators",
+      "description": "Remote patient care coordinators for U.S. practices. Pre-visit prep, referral tracking, prior authorizations and inbox triage handled inside your EHR."
+    },
+    {
+      "path": "/services/virtual-assistant",
+      "title": "Medical Virtual Assistants",
+      "description": "Remote virtual assistants for U.S. medical practices. Inbox management, data entry, records requests and routine office tasks so your front desk can focus."
+    },
+    {
+      "path": "/who-we-serve/primary-care",
+      "title": "Services for Primary Care",
+      "description": "CCM, RPM, TCM, billing and virtual staffing for U.S. primary care practices. Zenith supplies the staff; your practice stays the billing provider."
+    },
+    {
+      "path": "/who-we-serve/internal-medicine",
+      "title": "Services for Internal Medicine",
+      "description": "CCM, RPM, TCM, billing and virtual staffing for U.S. internal medicine practices. Built for polychronic panels; your practice stays the billing provider."
+    },
+    {
+      "path": "/who-we-serve/geriatrics",
+      "title": "Services for Geriatric Practices",
+      "description": "CCM, RPM, TCM, billing and virtual staffing for U.S. geriatric practices, where many Medicare patients have multiple chronic conditions."
+    }
+  ]
+}
