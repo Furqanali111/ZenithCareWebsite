@@ -97,8 +97,9 @@ export default async function PostPage({
         ]}
       />
 
-      <article className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-20">
-        <header>
+      <article className="px-6 pt-8 pb-16 md:pt-12 md:pb-20">
+        {/* Text stays in a 3xl column (readable line length); only the cover image is wider. */}
+        <header className="mx-auto max-w-3xl">
           <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             <span className="text-brand-accent">
               {post.category}
@@ -117,17 +118,19 @@ export default async function PostPage({
         </header>
 
         {post.coverImage ? (
-          <BrandFigure
-            src={post.coverImage}
-            alt={post.title}
-            className="mt-10 aspect-[16/8]"
-            sizes="(min-width: 768px) 720px, 100vw"
-            priority
-          />
+          <div className="mx-auto mt-10 max-w-5xl">
+            <BrandFigure
+              src={post.coverImage}
+              alt={post.title}
+              className="aspect-[16/8]"
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              priority
+            />
+          </div>
         ) : null}
 
         <div
-          className="prose prose-neutral dark:prose-invert mt-12 max-w-none
+          className="prose prose-neutral dark:prose-invert mx-auto mt-12 max-w-3xl
             [&_h2]:font-serif [&_h2]:text-brand-ink [&_h2]:tracking-tight
             [&_h3]:font-serif [&_h3]:text-brand-ink [&_h3]:tracking-tight
             [&_strong]:text-ink-strong
