@@ -253,6 +253,7 @@ export default async function CptCodePage({
       <FaqSection
         heading={`CPT ${c.code}: common questions`}
         idPrefix={`cpt-${c.code}-faq`}
+        path={cptPath(c.code)}
         items={c.faqs}
         tone="surface"
       />

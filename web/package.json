@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "indexnow": "node scripts/submit-indexnow.mjs",
-    "links:report": "node scripts/links-report.mjs"
+    "links:report": "node scripts/links-report.mjs",
+    "content:report": "node scripts/content-report.mjs"
   },
   "dependencies": {
     "@keystatic/core": "^0.6.9",

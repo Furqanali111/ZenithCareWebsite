@@ -126,7 +126,7 @@ export const singletons = {
     path: "content/structured-data",
     format: "json",
     schema: {
-      faqSchemaOff: pathList("Pages with FAQPage schema turned off", "The FAQ stays visible on the page. Only the schema markup is removed. Works for home, /faq and blog posts."),
+      faqSchemaOff: pathList("Pages with FAQPage schema turned off", "The FAQ stays visible on the page. Only the schema markup is removed. Works on every page that shows a FAQ."),
       organizationPhone: fields.text({
         label: "Organization phone",
         description: "Optional, added to the Organization schema as a sales contact. Use international format, for example +1 555 123 4567. Leave blank to omit.",

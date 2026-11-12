@@ -287,6 +287,7 @@ export default async function WhoWeServePage({
       <FaqSection
         heading={`Zenith for ${label.toLowerCase()} practices: common questions`}
         idPrefix={`${specialty}-faq`}
+        path={`/who-we-serve/${specialty}`}
         tone="surface"
         items={c.faqs}
       />
