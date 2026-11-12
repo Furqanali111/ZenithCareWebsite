@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { site, founders } from "./site";
+import pageSeoFile from "@/content/page-seo.json";
+
+// Titles and descriptions edited in /keystatic (content/page-seo.json). They win over
+// the text passed in code, which is only the fallback for pages with no entry.
+const seoByPath = new Map<string, { title: string; description: string }>(
+  pageSeoFile.pages.map((p) => [p.path, p]),
+);
 
 /* --------------------------------------------------------------------------
  * Per-page <Metadata>
@@ -21,13 +28,18 @@ type PageMetadataInput = {
  * Keep title ≤ 60 chars, description 140-160 chars.
  */
 export function pageMetadata({
-  title,
-  description,
-  path = "/",
+  title: codeTitle,
+  description: codeDescription,
+  path,
   noindex = false,
   rootOgImage = false,
 }: PageMetadataInput): Metadata {
-  const url = new URL(path, site.url).toString();
+  // Only a call that names its path can be edited. The 404 pages pass none (it would
+  // default to "/") and must not pick up the home page's text.
+  const edited = path === undefined ? undefined : seoByPath.get(path);
+  const title = edited?.title || codeTitle;
+  const description = edited?.description || codeDescription;
+  const url = new URL(path ?? "/", site.url).toString();
   const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
   // A page-level openGraph object drops the root file-based image, so pages
   // without their own opengraph-image file would ship no social preview.

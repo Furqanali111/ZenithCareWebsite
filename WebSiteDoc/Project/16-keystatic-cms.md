@@ -39,6 +39,16 @@ Not yet verified against a real GitHub App: the login flow, saving to a branch, 
 - After changing a slug, check the PR diff: the cover image folder `public/resources/<slug>/` should have moved with it. This has not been tested.
 - No patient information in any post.
 
+## FAQ and page titles
+
+The editor sidebar also has two items under "Singletons" (single files, not lists):
+
+- **FAQ** edits `web/content/faq.json` (24 questions). It feeds `/faq`, the chatbot and the FAQPage schema. Each question needs a unique ID (lowercase words joined by dashes). A duplicate ID or an empty question or answer fails the build, on purpose. Do not change an ID once published.
+- **Page titles and descriptions** edits `web/content/page-seo.json`: the Google title and meta description of the 26 main pages (home, about, pricing, FAQ, contact, resources, the service category pages, the legal pages and so on), matched by URL path. Keep the title to 36 characters or fewer: the site name is added after it and the whole title should stay under 60. Description 160 or fewer. Do not change the "Page URL path" of an entry.
+- These values win over the text written in the page's code. That code text is only a fallback, so editing it has no effect while an entry exists.
+- These change the page's title tag, meta description and the social sharing text (og:title, og:description, twitter). They do not change the name inside the page's structured data, the social preview image, or the visible headings.
+- Not covered: blog post titles (edit the post itself), the individual CPT code, denial code, service and specialty pages (their text comes from code), and the headings and paragraphs on the pages themselves. Those still need a developer.
+
 ## Known quirks
 
 - Saving rewrites some formatting: curly quotes instead of `&rsquo;`, `*` bullets instead of `-`, tables re-aligned, `~` escaped as `\~`. The rendered page is the same. Always read the PR diff.
