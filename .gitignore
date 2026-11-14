@@ -78,3 +78,6 @@ graphify-out/
 
 .playwright-mcp
 thezcs.com-audit/
+
+# Claude worktrees
+.claude/worktrees/

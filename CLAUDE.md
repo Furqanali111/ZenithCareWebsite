@@ -59,7 +59,7 @@ Hard rule: **never store client PHI or client production data in this repo.** Ea
 - **Styling**: Tailwind CSS + shadcn/ui
 - **Content**: MDX for blog/resources + plain JSON for chatbot script
 - **Hosting**: Vercel (free tier)
-- **Backend**: **NONE.** No API routes, no database, no server-side secrets at launch.
+- **Backend**: no database and no server-side secrets at launch. The only API route is `web/app/api/keystatic` (blog editor, answers 404 unless its GitHub App secrets are set).
 - **Booking**: Calendly embed (off-site)
 - **Contracts**: email + e-sign (Dropbox Sign free tier or signed PDF). Off-site.
 - **Payments**: Stripe Invoicing / PayPal / bank transfer. Sent per-client via email. Off-site. No `/pay` page on the site.

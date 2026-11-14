@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MobileMenu } from "@/components/mobile-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { NavDropdown, NavLink } from "@/components/nav-client";
 import { nav, site } from "@/lib/site";
 import { services, servicesByCategory, categoryMeta, type ServiceCategory } from "@/lib/services";
 
@@ -23,7 +25,8 @@ export function Nav() {
         >
           {/* Color logo on the light header; white variant when the header
               turns dark (bg-background is cyan-ink in dark mode). */}
-          <img
+          <Image
+            priority
             src="/logo.webp"
             alt={site.name}
             width={211}
@@ -43,13 +46,13 @@ export function Nav() {
           <ServicesMegaMenu />
           <NavGroup label="Who We Serve" items={nav.whoWeServe} />
           {nav.main.map((item) => (
-            <Link
+            <NavLink
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
+              className="text-sm font-medium text-body-ink transition-colors hover:text-brand-accent aria-[current=page]:text-brand-accent aria-[current=page]:underline aria-[current=page]:underline-offset-4"
             >
               {item.label}
-            </Link>
+            </NavLink>
           ))}
           <div className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
           <ThemeToggle />
@@ -83,46 +86,22 @@ type Item = { label: string; href: string };
  */
 function ServicesMegaMenu() {
   return (
-    <div className="group relative">
-      {/* Clickable, goes to the /services overview; hover/focus still opens the
-          mega-menu (the panel is a group-hover sibling). */}
-      <Link
-        href="/services"
-        className="inline-flex items-center gap-1 text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
-      >
-        Services
-        <svg
-          aria-hidden="true"
-          className="size-3.5 transition-transform group-hover:rotate-180"
-          viewBox="0 0 12 12"
-          fill="none"
-        >
-          <path
-            d="M3 4.5L6 7.5L9 4.5"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </Link>
-      {/* Wide 3-column panel. Anchored at the trigger then shifted left so its
-          left edge lands on the nav's content edge, gives roomy columns that
-          hold the full service names on one line, and keeps the panel on-screen
-          at every width down to the lg breakpoint (the shift is the fixed
-          distance from the nav's left edge to the Services trigger).
-          shortcut: 286px assumes the current wordmark width; retune if it changes. */}
-      <div
-        role="menu"
-        className="invisible absolute left-0 top-full z-50 w-[min(94vw,60rem)] -translate-x-[286px] pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
-      >
-        <div className="grid grid-cols-1 gap-x-5 gap-y-6 rounded-xl border border-border bg-card p-4 shadow-lg shadow-[color:var(--color-brand-900)]/15 sm:grid-cols-3 dark:bg-[color:var(--color-brand-800)]">
-          <MegaColumn category="rpm" />
-          <MegaColumn category="rcm" />
-          <MegaColumn category="staffing" />
-        </div>
+    /* Trigger is a link to the /services overview; hover, click or focus opens
+       the panel. Wide 3-column panel, anchored at the trigger then shifted left
+       so its left edge lands on the nav's content edge and stays on-screen down
+       to the lg breakpoint.
+       shortcut: 286px assumes the current wordmark width; retune if it changes. */
+    <NavDropdown
+      label="Services"
+      href="/services"
+      panelClassName="absolute left-0 top-full z-50 w-[min(94vw,60rem)] -translate-x-[286px] pt-3 transition"
+    >
+      <div className="grid grid-cols-1 gap-x-5 gap-y-6 rounded-xl border border-border bg-card p-4 shadow-lg shadow-[color:var(--color-brand-900)]/15 sm:grid-cols-3 dark:bg-[color:var(--color-brand-800)]">
+        <MegaColumn category="rpm" />
+        <MegaColumn category="rcm" />
+        <MegaColumn category="staffing" />
       </div>
-    </div>
+    </NavDropdown>
   );
 }
 
@@ -132,9 +111,8 @@ function MegaColumn({ category }: { category: ServiceCategory }) {
   return (
     <div>
       {/* Clickable category header that goes to the matching section on the overview. */}
-      <Link
+      <NavLink
         href={meta.href}
-        role="menuitem"
         className="group/cat block rounded-lg px-3 py-1.5 transition-colors hover:bg-[color:var(--color-brand-50)] dark:hover:bg-white/10"
       >
         <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-accent">
@@ -143,17 +121,16 @@ function MegaColumn({ category }: { category: ServiceCategory }) {
         <span className="mt-1 block text-xs leading-relaxed text-muted-foreground line-clamp-2">
           {meta.blurb}
         </span>
-      </Link>
+      </NavLink>
       <div className="mt-1">
         {items.map((s) => (
-          <Link
+          <NavLink
             key={s.slug}
             href={`/services/${s.slug}`}
-            role="menuitem"
             className="block rounded-lg px-3 py-1.5 text-sm text-ink-strong transition-colors hover:bg-[color:var(--color-brand-50)] hover:text-brand-accent dark:hover:bg-white/10"
           >
             {s.name}
-          </Link>
+          </NavLink>
         ))}
       </div>
     </div>
@@ -168,56 +145,33 @@ function NavGroup({ label, items }: { label: string; items: readonly Item[] }) {
   if (items.length === 1) {
     const only = items[0];
     return (
-      <Link
+      <NavLink
         href={only.href}
         className="text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
       >
         {label}
-      </Link>
+      </NavLink>
     );
   }
+  /* `pt-3` on the panel wrapper (not margin on the card) keeps the cursor-hit
+     area continuous between trigger and card; `mt-3` left a 12px dead-zone
+     that closed the menu. */
   return (
-    <div className="group relative">
-      <span
-        tabIndex={0}
-        className="inline-flex cursor-default items-center gap-1 text-sm font-medium text-body-ink transition-colors hover:text-brand-accent"
-      >
-        {label}
-        <svg
-          aria-hidden="true"
-          className="size-3.5 transition-transform group-hover:rotate-180"
-          viewBox="0 0 12 12"
-          fill="none"
-        >
-          <path
-            d="M3 4.5L6 7.5L9 4.5"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      {/* Dropdown panel. `pt-3` on the OUTER wrapper (not margin on the card)
-          keeps the cursor-hit area continuous between trigger and card, 
-          `mt-3` previously left a 12px dead-zone that closed the menu. */}
-      <div
-        role="menu"
-        className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
-      >
-        <div className="rounded-xl border border-border bg-card p-2 shadow-lg shadow-[color:var(--color-brand-900)]/15 dark:bg-[color:var(--color-brand-800)]">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              role="menuitem"
-              className="block rounded-lg px-3 py-2 text-sm text-ink-strong hover:bg-[color:var(--color-brand-50)] hover:text-brand-accent dark:hover:bg-white/10"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
+    <NavDropdown
+      label={label}
+      panelClassName="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3 transition"
+    >
+      <div className="rounded-xl border border-border bg-card p-2 shadow-lg shadow-[color:var(--color-brand-900)]/15 dark:bg-[color:var(--color-brand-800)]">
+        {items.map((item) => (
+          <NavLink
+            key={item.href}
+            href={item.href}
+            className="block rounded-lg px-3 py-2 text-sm text-ink-strong hover:bg-[color:var(--color-brand-50)] hover:text-brand-accent dark:hover:bg-white/10"
+          >
+            {item.label}
+          </NavLink>
+        ))}
       </div>
-    </div>
+    </NavDropdown>
   );
 }

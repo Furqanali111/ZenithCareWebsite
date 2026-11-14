@@ -64,7 +64,7 @@ export function ContactForm() {
   }
   // Enter inside a field moves to the next step instead of submitting early.
   function onKeyDown(e: KeyboardEvent<HTMLFormElement>) {
-    if (e.key === "Enter" && step < STEPS.length - 1 && (e.target as HTMLElement).tagName === "INPUT") {
+    if (e.key === "Enter" && !e.nativeEvent.isComposing && step < STEPS.length - 1 && (e.target as HTMLElement).tagName === "INPUT") {
       e.preventDefault();
       next();
     }
@@ -87,8 +87,10 @@ export function ContactForm() {
     const form = ev.currentTarget;
     const data = new FormData(form);
 
-    const message = String(data.get("message") ?? "");
-    const phi = findPhi(message);
+    // Scan every text field, not only the message: PHI can be pasted anywhere.
+    const phi = findPhi(
+      [...data.values()].filter((v) => typeof v === "string").join("\n"),
+    );
     if (phi) {
       setStatus({ kind: "phi", pattern: phi.pattern });
       return;
@@ -147,6 +149,15 @@ export function ContactForm() {
       aria-describedby="contact-no-phi"
     >
       {/* Hidden metadata so Furqan can route by source + see a readable subject */}
+      {/* Formspree spam trap: bots fill it, people never see it. */}
+      <input
+        type="text"
+        name="_gotcha"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
       <input type="hidden" name="source" value="zenith-website-v1" />
       <input
         type="hidden"
