@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MobileMenu } from "@/components/mobile-menu";
@@ -23,7 +24,8 @@ export function Nav() {
         >
           {/* Color logo on the light header; white variant when the header
               turns dark (bg-background is cyan-ink in dark mode). */}
-          <img
+          <Image
+            priority
             src="/logo.webp"
             alt={site.name}
             width={211}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail, Clock, CalendarCheck } from "lucide-react";
 import { site, socials } from "@/lib/site";
@@ -98,7 +99,7 @@ export function Footer() {
               aria-label={`${site.name}, Home`}
             >
               {/* Color logo on the light footer; white when the footer is dark. */}
-              <img
+              <Image
                 src="/logo.webp"
                 alt={site.name}
                 width={258}
