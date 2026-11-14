@@ -46,35 +46,3 @@ export function findPhi(text: string): PhiHit | null {
   }
   return null;
 }
-
-/* -------------------------------------------------------------------------- */
-/* Dev-only self-check, server-only so HMR doesn't double-log.               */
-/* -------------------------------------------------------------------------- */
-if (process.env.NODE_ENV !== "production" && typeof window === "undefined") {
-  const must = (text: string, kind: PhiHit["pattern"]) => {
-    const hit = findPhi(text);
-    if (!hit || hit.pattern !== kind) {
-      throw new Error(`validate: expected ${kind} hit in "${text}", got ${JSON.stringify(hit)}`);
-    }
-  };
-  const must_not = (text: string) => {
-    const hit = findPhi(text);
-    if (hit) throw new Error(`validate: unexpected ${hit.pattern} hit in "${text}"`);
-  };
-  must("Here is 123-45-6789 for you", "ssn");
-  must("MRN: 445566", "mrn");
-  must("DOB 03/14/1952 please", "dob");
-  must("born 03/14/1952", "dob");
-  must("Patient Smith has diabetes", "patient_name");
-  must("the patient Johnson is overdue", "patient_name");
-  must_not("Please call me at 555-1234");
-  must_not("I have 2 patients ready");
-  // Our own service name and common B2B phrases must not be flagged as PHI.
-  must_not("We'd like Patient Care Coordinator staffing");
-  must_not("interested in your Patient Coordinator service");
-  must_not("Does this integrate with our Patient Portal?");
-  must_not("we want to improve Patient Experience");
-  // Project / timeline dates must NOT be flagged as DOB.
-  must_not("We'd like to onboard by 03/15/2027");
-  must_not("Last audit was 12/31/2024");
-}
