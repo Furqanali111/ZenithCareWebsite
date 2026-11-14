@@ -64,7 +64,7 @@ export function ContactForm() {
   }
   // Enter inside a field moves to the next step instead of submitting early.
   function onKeyDown(e: KeyboardEvent<HTMLFormElement>) {
-    if (e.key === "Enter" && step < STEPS.length - 1 && (e.target as HTMLElement).tagName === "INPUT") {
+    if (e.key === "Enter" && !e.nativeEvent.isComposing && step < STEPS.length - 1 && (e.target as HTMLElement).tagName === "INPUT") {
       e.preventDefault();
       next();
     }
