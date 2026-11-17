@@ -1,3 +1,5 @@
+import { cacheLife } from "next/cache";
+
 /**
  * Saves an inline SEO change the way the editor (/keystatic) saves: onto a branch, then a pull request
  * against develop. Never touches develop. Uses the signed-in editor's own GitHub token, so GitHub
@@ -66,13 +68,16 @@ export async function commitToEditBranch(token: string, file: string, message: s
   return pr.ok && typeof pr.data.html_url === "string" ? pr.data.html_url : compare;
 }
 
-/** Open dashboard pull requests with their commit messages (see pendingLabels). Reads only. */
-export async function pendingEdits(token: string | undefined): Promise<{ url: string; login: string; messages: string[] }[]> {
+export type PendingPr = { url: string; login: string; messages: string[] };
+
+/** Open dashboard pull requests with their commit messages (see pendingLabels). null when GitHub could not be read. */
+async function fetchPending(token?: string): Promise<PendingPr[] | null> {
   const headers: Record<string, string> = { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
   if (token) headers.Authorization = `Bearer ${token}`;
   const get = async (path: string) => {
     const res = await fetch(`https://api.github.com${path}`, { headers, cache: "no-store", signal: AbortSignal.timeout(8000) });
-    return res.ok ? ((await res.json()) as Record<string, unknown>[]) : [];
+    if (!res.ok) throw new Error(`GitHub ${res.status}`); // also the rate limit: an empty list would look like "nothing pending"
+    return (await res.json()) as Record<string, unknown>[];
   };
   try {
     const prs = (await get(`/repos/${REPO}/pulls?state=open&base=${BASE}&per_page=30`)).filter((p) => String((p.head as { ref: string }).ref).startsWith("feature/seo-edits-"));
@@ -84,6 +89,16 @@ export async function pendingEdits(token: string | undefined): Promise<{ url: st
       })),
     );
   } catch {
-    return []; // pending badges are a convenience: no network, no badges
+    return null;
   }
 }
+
+// Without a GitHub sign-in the calls use GitHub's 60 an hour per address, which Vercel shares, so that
+// answer is cached for a minute. A signed-in person has 5000 an hour and always sees fresh data.
+async function pendingPublic() {
+  "use cache";
+  cacheLife("minutes");
+  return fetchPending();
+}
+
+export const pendingEdits = (token: string | undefined) => (token ? fetchPending(token) : pendingPublic());

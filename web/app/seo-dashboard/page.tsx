@@ -119,7 +119,7 @@ async function Dashboard() {
     githubWriter(token),
   ]);
   const pending = new Map<string, { url: string; login: string }>();
-  for (const pr of open) for (const label of pendingLabels(pr.messages)) pending.set(label, { url: pr.url, login: pr.login });
+  for (const pr of open ?? []) for (const label of pendingLabels(pr.messages)) pending.set(label, { url: pr.url, login: pr.login });
 
   const { rows: all, unread } = rows(bodies, { sitemap, pending, search: search.pages });
   return (
@@ -130,6 +130,7 @@ async function Dashboard() {
       hasSearch={!!search.pages}
       searchError={search.error}
       unread={unread}
+      pendingUnavailable={open === null}
       signedInAs={signedInAs}
     />
   );

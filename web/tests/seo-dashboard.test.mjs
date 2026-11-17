@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  parseSitemap, internalLinks, redirectChains, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows,
+  parseSitemap, internalLinks, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows,
 } from "../lib/seo-site-checks.ts";
 
 const HOST = "thezcs.com";
@@ -18,12 +18,6 @@ test("sitemap: keeps own-host paths, drops others, trims slashes", () => {
 test("links: internal only, no images, query and hash stripped", () => {
   const md = "[a](/a?x=1#y) [b](https://thezcs.com/b/) [ext](https://other.com/c) ![img](/pic) [m](mailto:x@y.z) [h](#top) <a href=\"/c\">c</a>";
   assert.deepEqual(internalLinks(md, HOST).sort(), ["/a", "/b", "/c"]);
-});
-
-test("redirect chains and loops are reported", () => {
-  const r = redirectChains([{ from: "/a", to: "/b" }, { from: "/b", to: "/c" }, { from: "/x", to: "/y" }]);
-  assert.deepEqual(r, ["/a -> /b -> /c"]);
-  assert.ok(redirectChains([{ from: "/a", to: "/b" }, { from: "/b", to: "/a" }]).some((s) => s.endsWith("(loop)")));
 });
 
 test("duplicates: title, description and keyword, noindex pages ignored", () => {

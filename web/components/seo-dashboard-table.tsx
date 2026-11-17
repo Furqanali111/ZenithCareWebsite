@@ -42,6 +42,8 @@ type Props = {
   searchError?: string;
   /** Pages that were not analysed from their text. */
   unread: number;
+  /** GitHub could not be read, so "Edit in a pull request" badges may be missing. */
+  pendingUnavailable?: boolean;
   signedInAs: string | null;
 };
 
@@ -127,7 +129,7 @@ type Saved = Record<string, { url: string; login: string }>;
 type BulkState = Record<string, { kind: "saving" } | { kind: "ok"; text: string } | { kind: "error"; text: string }>;
 const BULK_MAX = 25;
 
-export function SeoDashboardTable({ rows, host, history, hasSearch, searchError, unread, signedInAs }: Props) {
+export function SeoDashboardTable({ rows, host, history, hasSearch, searchError, unread, pendingUnavailable, signedInAs }: Props) {
   const [q, setQ] = useState("");
   const [kind, setKind] = useState("all");
   const [filter, setFilter] = useState("all");
@@ -135,6 +137,8 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
   const [bulk, setBulk] = useState(false);
   const [saved, setSaved] = useState<Saved>({});
   const [drafts, setDrafts] = useState<Record<string, EditValues>>({});
+  // What a row holds after a save: the server data on this page is old until the next deploy.
+  const [base, setBase] = useState<Record<string, EditValues>>({});
   const [bulkState, setBulkState] = useState<BulkState>({});
   const [snap, setSnap] = useState<{ kind: "idle" | "saving" } | { kind: "ok"; url?: string; text: string } | { kind: "error"; text: string }>({ kind: "idle" });
 
@@ -146,8 +150,11 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
       .sort(SORTS[sort].cmp);
   }, [withPending, q, kind, filter, sort]);
 
-  const draftOf = (r: DashRow) => drafts[r.key] ?? r.initial;
-  const changed = shown.filter((r) => JSON.stringify(draftOf(r)) !== JSON.stringify(r.initial));
+  const baseOf = (r: DashRow) => base[r.key] ?? r.initial;
+  const draftOf = (r: DashRow) => drafts[r.key] ?? baseOf(r);
+  // Every edited row, also the ones a filter hides now, so Save never skips an edit you can no longer see.
+  const changed = withPending.filter((r) => JSON.stringify(draftOf(r)) !== JSON.stringify(baseOf(r)));
+  const changedHidden = changed.filter((r) => !shown.includes(r)).length;
   const errorOf = (r: DashRow) => {
     const v = validateEdit({ target: r.target, values: draftOf(r) });
     return v.ok ? null : v.error;
@@ -194,6 +201,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         const data = await post({ target: r.target, values: draftOf(r) });
         setBulkState((s) => ({ ...s, [r.key]: { kind: "ok", text: data.url ? "Saved to a pull request" : (data.message ?? "Saved") } }));
         if (data.url) setSaved((s) => ({ ...s, [r.key]: { url: data.url as string, login: signedInAs ?? "you" } }));
+        setBase((b) => ({ ...b, [r.key]: draftOf(r) }));
         setDrafts((d) => Object.fromEntries(Object.entries(d).filter(([k]) => k !== r.key)));
       } catch (e) {
         const text = e instanceof Error ? e.message : "Save failed.";
@@ -251,6 +259,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         Page text is read from the live site and refreshes every few minutes. Post text comes from the content files.
         {unread > 0 && ` ${unread} pages could not be read, so only their title, description and keyword were checked.`}
         {hasSearch ? " Search numbers are from Google Search Console, last 28 days." : searchError ? ` Search Console is set up but failed: ${searchError}` : " Search Console is not connected, so there are no click or ranking numbers."}
+        {pendingUnavailable && " Could not check GitHub for edits waiting in pull requests (the rate limit may be used up), so those badges are missing. Sign in at /keystatic to avoid this."}
         {signedInAs && ` Signed in as ${signedInAs}.`}
       </p>
 
@@ -295,6 +304,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
             </Button>
             <p className="text-xs text-muted-foreground">
               Only the rows listed below are edited. At most {BULK_MAX} per click, one commit each, all in your own pull request.
+              {changedHidden > 0 && ` ${changedHidden} edited row${changedHidden > 1 ? "s are" : " is"} hidden by the filter and will be saved too.`}
               {changed.length > BULK_MAX && ` ${changed.length - BULK_MAX} more wait for the next click.`}
             </p>
           </div>
@@ -313,7 +323,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
               <tbody className="divide-y">
                 {shown.map((r) => {
                   const d = draftOf(r);
-                  const dirty = JSON.stringify(d) !== JSON.stringify(r.initial);
+                  const dirty = JSON.stringify(d) !== JSON.stringify(baseOf(r));
                   const err = dirty ? errorOf(r) : null;
                   const st = bulkState[r.key];
                   const set = (patch: Partial<EditValues>) => setDrafts((all) => ({ ...all, [r.key]: { ...draftOf(r), ...patch } }));
@@ -367,7 +377,15 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                       <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Google, mobile</p>
                       <Snippet r={r} host={host} mobile />
                     </div>
-                    <SeoQuickEdit target={r.target} initial={r.initial} onSaved={(url) => setSaved((s) => ({ ...s, [r.key]: { url, login: signedInAs ?? "you" } }))} />
+                    <SeoQuickEdit
+                      key={JSON.stringify(baseOf(r))}
+                      target={r.target}
+                      initial={baseOf(r)}
+                      onSaved={(url, values) => {
+                        setBase((b) => ({ ...b, [r.key]: values }));
+                        if (url) setSaved((s) => ({ ...s, [r.key]: { url, login: signedInAs ?? "you" } }));
+                      }}
+                    />
                     <a href={r.edit} className="inline-block text-sm underline underline-offset-2">
                       Open the full editor (all fields, social card, schema){r.kind === "Page" ? `. Find ${r.path} in the list.` : ""}
                     </a>

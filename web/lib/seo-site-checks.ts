@@ -3,6 +3,8 @@
  * tests can run them. The per-page score lives in seo-analysis.ts. Doc: WebSiteDoc/Project/16g-cms-seo-dashboard.md
  */
 
+import { LINK } from "./seo-analysis.ts"; // the .ts extension lets the node tests load this file
+
 export type CheckRow = {
   path: string;
   kind: "Post" | "Page";
@@ -59,29 +61,9 @@ export function internalLinks(text: string, host: string): string[] {
     if (!href.startsWith("/")) return; // relative links are not used on this site
     found.add(trimSlash(href.split(/[?#]/)[0]));
   };
-  for (const m of text.matchAll(/(?<!!)\[[^\]]*\]\(([^)\s]+)[^)]*\)/g)) add(m[1]);
+  for (const m of text.matchAll(LINK)) add(m[1]);
   for (const m of text.matchAll(/<a\b[^>]*\shref="([^"]+)"/gi)) add(m[1]);
   return [...found];
-}
-
-/** Redirect chains (a to b to c) and loops, as "a -> b -> c" strings. */
-export function redirectChains(redirects: { from: string; to: string }[]): string[] {
-  const next = new Map(redirects.map((r) => [trimSlash(r.from), trimSlash(r.to)]));
-  const out: string[] = [];
-  for (const start of next.keys()) {
-    const seen = [start];
-    let cur = next.get(start);
-    while (cur) {
-      if (seen.includes(cur)) {
-        out.push(`${[...seen, cur].join(" -> ")} (loop)`);
-        break;
-      }
-      seen.push(cur);
-      cur = next.get(cur);
-    }
-    if (seen.length > 2 && !out.some((o) => o.startsWith(seen[0]))) out.push(seen.join(" -> "));
-  }
-  return out;
 }
 
 export type SiteIssue = { level: "fix" | "warn"; code: string; text: string };
