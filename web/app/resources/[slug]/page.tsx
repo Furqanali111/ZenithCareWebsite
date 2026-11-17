@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { getAllPosts, getPostBody, getPostBySlug, getPostHeadings, getPostSlugs, getSeriesPosts } from "@/content/posts";
 import { Toc } from "@/components/post-blocks";
 import { reviewer, site } from "@/lib/site";
+import { parseCustomJsonLd } from "@/lib/custom-jsonld";
 import { SERVICE_TAGS, getService } from "@/lib/services";
 import type { Post } from "@/content/posts";
 
@@ -47,6 +48,12 @@ export async function generateMetadata({
     path: `/resources/${post.slug}`,
     noindex: post.noindex,
     canonical: post.canonicalUrl,
+    extra: {
+      nofollow: post.nofollow,
+      socialTitle: post.socialTitle,
+      socialDescription: post.socialDescription,
+      socialImage: post.socialImage,
+    },
   });
 }
 
@@ -84,6 +91,7 @@ export default async function PostPage({
             author: { name: site.name, url: site.url },
             about: post.about,
             mentions: post.mentions,
+            type: post.schemaType,
             ...(post.coverImage ? { image: new URL(post.coverImage, site.url).toString() } : {}),
           }),
           breadcrumbLd([
@@ -91,6 +99,7 @@ export default async function PostPage({
             { name: "Resources", path: "/resources" },
             { name: post.title, path: `/resources/${post.slug}` },
           ]),
+          ...parseCustomJsonLd(post.customJsonLd ?? "", `post ${post.slug}`),
         ]}
       />
 

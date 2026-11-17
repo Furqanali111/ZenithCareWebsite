@@ -28,7 +28,69 @@ export const noindexField = fields.checkbox({
   defaultValue: false,
 });
 
-const seoItem = fields.object({
+// Focus keyword, nofollow and the social-card text and image override. Shared by posts and pages.
+// The keyword feeds the SEO dashboard score only; it is never printed on the page.
+export const seoExtraFields = {
+  focusKeyword: fields.text({
+    label: "Focus keyword",
+    description: "The main phrase this page should rank for, for example chronic care management billing. Used by the SEO dashboard (/seo-dashboard) to score the page.",
+  }),
+  keywordSynonyms: fields.array(fields.text({ label: "Synonym or variation", validation: { isRequired: true } }), {
+    label: "Keyword synonyms and variations (optional)",
+    description: "Other ways to say the focus keyword, for example CCM billing or chronic care management billing. The dashboard checks accept any of them. Plurals and endings such as -ing and -ed are matched already.",
+    itemLabel: (props) => props.value,
+  }),
+  nofollow: fields.checkbox({
+    label: "Do not follow links (nofollow)",
+    description: "Tick to ask Google not to follow the links on this page. Leave unticked for normal pages.",
+    defaultValue: false,
+  }),
+  socialTitle: fields.text({
+    label: "Social title (optional)",
+    description: "Title in LinkedIn, Facebook and X link cards. Leave blank to reuse the SEO title.",
+    validation: { length: { max: 90 } },
+  }),
+  socialDescription: fields.text({
+    label: "Social description (optional)",
+    description: "Text in link cards. Leave blank to reuse the meta description. 200 characters or fewer.",
+    multiline: true,
+    validation: { length: { max: 200 } },
+  }),
+  socialImage: fields.image({
+    label: "Social sharing image (optional)",
+    description: "A 1200 x 630 px .jpg or .webp under 300 KB. Leave empty to keep the generated share card.",
+    directory: "public/social",
+    publicPath: "/social/",
+  }),
+};
+
+// Any schema.org type the page types below do not cover. Checked again when the site builds
+// (lib/custom-jsonld.ts), so invalid JSON fails the build instead of shipping.
+export const customJsonLdField = fields.text({
+  label: "Custom structured data (advanced)",
+  description:
+    'Paste JSON-LD for any other schema.org type (Event, HowTo, VideoObject, Product...). One object like {"@type": "Event", ...} or a list of them. "@context" is added for you. Leave empty for none.',
+  multiline: true,
+  validation: { pattern: { regex: /^\s*([[{][\s\S]*[\]}])?\s*$/, message: "Must be JSON that starts with { or [" } },
+});
+
+const pageSchemaType = fields.select({
+  label: "Page type (schema)",
+  description: "The main schema.org type of this page. Automatic keeps what the site already uses. FAQPage needs a visible FAQ on the page.",
+  options: [
+    { label: "Automatic (recommended)", value: "default" },
+    { label: "WebPage", value: "WebPage" },
+    { label: "AboutPage", value: "AboutPage" },
+    { label: "ContactPage", value: "ContactPage" },
+    { label: "CollectionPage", value: "CollectionPage" },
+    { label: "ItemPage", value: "ItemPage" },
+    { label: "ProfilePage", value: "ProfilePage" },
+    { label: "FAQPage", value: "FAQPage" },
+  ],
+  defaultValue: "default",
+});
+
+export const seoItem = fields.object({
   path: fields.text({
     label: "Page URL path",
     description: "Picks which page the text applies to. Do not change it.",
@@ -47,7 +109,70 @@ const seoItem = fields.object({
   }),
   ...ogFields,
   noindex: noindexField,
+  ...seoExtraFields,
+  canonicalUrl: fields.url({
+    label: "Canonical URL (optional)",
+    description: "Only set this if another address should rank instead of this page. Leave blank to use this page's own address.",
+  }),
+  schemaType: pageSchemaType,
+  customJsonLd: customJsonLdField,
 });
+
+// content/global-seo.json: site-wide defaults, read by lib/seo.tsx.
+// content/robots.json: extra robots.txt rules, read by app/robots.txt/route.ts.
+export const globalSingletons = {
+  globalSeo: singleton({
+    label: "Global SEO settings",
+    path: "content/global-seo",
+    format: "json",
+    schema: {
+      titleTemplate: fields.text({
+        label: "Page title template",
+        description: "How every page title is built. %title% is the page's SEO title and %site% is the site name. Default: %title% | %site%. The whole title should stay under 60 characters.",
+        defaultValue: "%title% | %site%",
+        validation: { isRequired: true, pattern: { regex: /^(?=.*%title%)[^%]*(%(title|site)%[^%]*)+$/, message: "Must contain %title%. Only %title% and %site% may appear between % signs." } },
+      }),
+      defaultDescription: fields.text({
+        label: "Default meta description",
+        description: "Used only when a page has no description of its own. 140 to 160 characters.",
+        multiline: true,
+        validation: { length: { max: 160 } },
+      }),
+      defaultSocialImage: fields.image({
+        label: "Default social sharing image",
+        description: "A 1200 x 630 px .jpg or .webp. Used on pages that have no share card of their own.",
+        directory: "public/social",
+        publicPath: "/social/",
+      }),
+      logo: fields.image({
+        label: "Website logo (for Google)",
+        description: "A square .png of at least 112 x 112 px. Used in the Organization schema. Leave empty to keep /logo.png.",
+        directory: "public/social",
+        publicPath: "/social/",
+      }),
+    },
+  }),
+  robotsTxt: singleton({
+    label: "Robots.txt",
+    path: "content/robots",
+    format: "json",
+    schema: {
+      content: fields.text({
+        label: "robots.txt text",
+        description:
+          "The whole file, served at /robots.txt. Allowed lines: User-agent, Allow, Disallow, Sitemap, Crawl-delay and # comments. Disallow: / (the whole site), blocking AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot), and removing the /keystatic and /api/keystatic rules are refused. A Sitemap line is added if missing. Checked again when the site builds.",
+        multiline: true,
+        validation: {
+          isRequired: true,
+          pattern: {
+            regex: /^(?=[\s\S]*^Disallow:\s*\/keystatic\s*$)(?=[\s\S]*^Disallow:\s*\/api\/keystatic\s*$)(?![\s\S]*^Disallow:\s*\/\s*$)[\s\S]*$/m,
+            message: "Keep Disallow: /keystatic and Disallow: /api/keystatic, and never use Disallow: / on its own.",
+          },
+        },
+      }),
+    },
+  }),
+};
 
 export const collections = {};
 
