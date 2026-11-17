@@ -123,8 +123,6 @@ function editorRedirects() {
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
-  // The scheduled-post cron reads the post files at runtime, so Vercel must ship them with that function.
-  outputFileTracingIncludes: { "/api/publish-scheduled": ["./content/posts/**"] },
   partialPrefetching: true,
   // Build day for scheduled posts (publishAt). Prerender refuses new Date(), so read it here.
   env: { BUILD_DATE: new Date().toISOString().slice(0, 10) },
