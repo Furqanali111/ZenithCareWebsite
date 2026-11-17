@@ -22,6 +22,9 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-11-18: `feature/seo-dashboard-v2`
+SEO dashboard upgrade. Filters, sorting, search and CSV export; edit in a table (bulk save to the editor's own pull request); pending-edit badges from open pull requests; site-wide checks (duplicate titles, descriptions and keywords, broken and redirected internal links, missing alt text, sitemap and canonical gaps); optional Google Search Console numbers; a manual score-history chart; and GitHub sign-in as a second way in, so access is named per person. A live typing preview in the Keystatic editor is deferred. Doc: `16g-cms-seo-dashboard.md`.
+
 ### 2026-11-17: `feature/seo-fields-and-dashboard`
 SEO tooling for the SEO team. New fields (focus keyword, synonyms, nofollow, social card, page canonical, page schema type, custom JSON-LD), global SEO settings, a guarded full-text robots.txt editor, a password-protected `/seo-dashboard` (score, readability, link suggestions, Google preview, quick edit saved to a PR), and a workflow that adds a 301 when a post is renamed. Doc: `WebSiteDoc/Project/16g-cms-seo-dashboard.md`. Needs `SEO_DASHBOARD_PASSWORD` set in Vercel.
 
