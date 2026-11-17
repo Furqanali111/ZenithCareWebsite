@@ -1,6 +1,7 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
 import { collections as searchCollections, singletons as searchSingletons, globalSingletons, seoExtraFields, seoItem, ogFields, customJsonLdField } from "./keystatic/search-appearance";
 import * as blog from "./keystatic/blog-content";
+import { googlePreview } from "./keystatic/google-preview";
 import * as technicalSeo from "./keystatic/technical-seo";
 import * as editablePages from "./keystatic/editable-pages";
 
@@ -89,6 +90,8 @@ export default config({
           multiline: true,
           validation: { isRequired: true, length: { max: 160 } },
         }),
+        // Shows the search result and title checks while you type. Stores nothing.
+        googlePreview: googlePreview("post"),
         publishedAt: fields.date({
           label: "Published",
           validation: { isRequired: true },

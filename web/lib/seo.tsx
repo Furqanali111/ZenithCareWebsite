@@ -6,13 +6,13 @@ import structuredFile from "@/content/structured-data.json";
 import breadcrumbFile from "@/content/breadcrumb-labels.json";
 import globalFile from "@/content/global-seo.json";
 import { parseCustomJsonLd } from "./custom-jsonld";
+import { applyTitleTemplate } from "./google-snippet";
 
 // Site-wide defaults edited in /keystatic ("Global SEO settings"). Empty image fields save null.
 const globalSeo: { titleTemplate: string; defaultDescription: string; defaultSocialImage: string | null; logo: string | null } = globalFile;
 
 /** The <title> for a page: the editor's template with the page title and site name filled in. */
-export const fullTitle = (title: string) =>
-  title === site.name ? title : globalSeo.titleTemplate.replaceAll("%title%", title).replaceAll("%site%", site.name);
+export const fullTitle = (title: string) => applyTitleTemplate(globalSeo.titleTemplate, title, site.name);
 
 // Editor settings from /keystatic: FAQPage schema switched off by path, shorter
 // breadcrumb labels by path, extra Organization fields. Empty JSON arrays infer as
