@@ -4,13 +4,16 @@
  * The route that saves it is app/api/seo-edit/route.ts. Doc: WebSiteDoc/Project/16g-cms-seo-dashboard.md
  */
 
-export type EditValues = { title: string; description: string; focusKeyword: string; noindex: boolean };
+export type EditValues = { title: string; description: string; focusKeyword: string; noindex: boolean; synonyms: string };
 export type EditTarget =
   | { kind: "post"; slug: string }
   | { kind: "page"; singleton: "pageSeo" | "serviceSeo"; path: string };
 export type Edit = { target: EditTarget; values: EditValues };
 
 // Same limits the editor enforces: a post's SEO title is 60 characters, a page's is 36 (the site name is added).
+/** "a, b" to ["a", "b"]. */
+export const synonymList = (s = "") => s.split(",").map((x) => x.trim()).filter(Boolean);
+
 export const LIMITS = { postTitle: 60, pageTitle: 36, description: 160, keyword: 100 };
 
 export function validateEdit(raw: unknown): { ok: true; edit: Edit } | { ok: false; error: string } {
@@ -23,10 +26,12 @@ export function validateEdit(raw: unknown): { ok: true; edit: Edit } | { ok: fal
   const title = text(v.title);
   const description = text(v.description);
   const focusKeyword = text(v.focusKeyword);
-  if (title === null || description === null || focusKeyword === null || typeof v.noindex !== "boolean") return bad("Values have the wrong shape.");
+  const synonyms = text(v.synonyms ?? "");
+  if (title === null || description === null || focusKeyword === null || synonyms === null || typeof v.noindex !== "boolean") return bad("Values have the wrong shape.");
   if (description.length < 1 || description.length > LIMITS.description) return bad(`Meta description must be 1 to ${LIMITS.description} characters.`);
   if (focusKeyword.length > LIMITS.keyword) return bad(`Focus keyword must be ${LIMITS.keyword} characters or fewer.`);
-  const values = { title, description, focusKeyword, noindex: v.noindex };
+  if (synonyms.length > 400) return bad("Synonyms must be 400 characters or fewer.");
+  const values = { title, description, focusKeyword, noindex: v.noindex, synonyms };
 
   if (t.kind === "post") {
     if (typeof t.slug !== "string" || !/^[a-z0-9][a-z0-9-]{0,119}$/.test(t.slug)) return bad("Bad post address.");
@@ -52,14 +57,19 @@ const eolOf = (text: string) => (text.includes("\r\n") ? "\r\n" : "\n");
  * Sets or removes top-level keys in a post's YAML frontmatter and leaves every other line alone.
  * A string is written as a JSON string (valid YAML), a boolean as true or false. null removes the key.
  */
-export function patchFrontmatter(text: string, changes: Record<string, string | boolean | null>): string {
+export function patchFrontmatter(text: string, changes: Record<string, string | boolean | string[] | null>): string {
   const eol = eolOf(text);
   const lines = text.split(/\r?\n/);
   const end = lines[0] === "---" ? lines.indexOf("---", 1) : -1;
   if (end < 0) throw new Error("Post has no frontmatter.");
   const fm = lines.slice(1, end);
   for (const [key, value] of Object.entries(changes)) {
-    const block = value === null ? [] : [`${key}: ${typeof value === "boolean" ? value : JSON.stringify(value)}`];
+    const block =
+      value === null || (Array.isArray(value) && !value.length)
+        ? []
+        : Array.isArray(value)
+          ? [`${key}:`, ...value.map((x) => `  - ${JSON.stringify(x)}`)]
+          : [`${key}: ${typeof value === "boolean" ? value : JSON.stringify(value)}`];
     const i = fm.findIndex((l) => l.startsWith(`${key}:`));
     if (i < 0) fm.push(...block);
     else {
@@ -83,6 +93,9 @@ export function patchPageSeo(jsonText: string, path: string, v: EditValues): str
   else delete e.focusKeyword;
   if (v.noindex) e.noindex = true;
   else if ("noindex" in e) e.noindex = false;
+  const syn = synonymList(v.synonyms);
+  if (syn.length) e.keywordSynonyms = syn;
+  else delete e.keywordSynonyms;
   return JSON.stringify(data, null, 2).replace(/\n/g, eol) + eol;
 }
 
@@ -94,5 +107,6 @@ export function applyEdit(fileText: string, edit: Edit): string {
     description: v.description,
     focusKeyword: v.focusKeyword || null,
     noindex: v.noindex ? true : null,
+    keywordSynonyms: synonymList(v.synonyms),
   });
 }

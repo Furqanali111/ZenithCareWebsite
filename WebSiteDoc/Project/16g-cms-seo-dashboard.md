@@ -68,7 +68,9 @@ Above the list: search by name, address, title or keyword, filter by type, and a
 
 ### Edit in a table
 
-Tick **Edit in a table** to edit SEO title, meta description, focus keyword and noindex for many rows at once. Changed rows are highlighted and checked with the same rules as the editor. **Save** sends up to 25 changed rows per click, one at a time, each as one commit in your own pull request. Rows with an open dashboard pull request show an **Edit in a pull request** link, found from the commit titles of open `feature/seo-edits-*` pull requests.
+Tick **Edit in a table** to edit SEO title, meta description, focus keyword and noindex for many rows at once. Changed rows are highlighted and checked with the same rules as the editor. **Save** sends up to 50 changed rows per click as ONE commit in your own pull request (a fixed few GitHub calls, however many rows). Once that pull request is merged or closed, the next save deletes the old `feature/seo-edits-<name>` branch and cuts a fresh one from develop, so squash-merged history never comes back. A branch with commits but no pull request yet is kept.
+
+People who sign in only with the shared password see the dashboard read only. Rows for CPT and denial code pages are read only too (edit them in their own collections); their keyword is the code itself. Scoring: a page with no focus keyword fails the keyword checks. Click rate is judged against the page position. Page text is cached per page for the life of a deployment. Rows with an open dashboard pull request show an **Edit in a pull request** link, found from the commit titles of open `feature/seo-edits-*` pull requests.
 
 ### Site-wide checks
 

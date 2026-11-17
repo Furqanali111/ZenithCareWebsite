@@ -105,9 +105,12 @@ export default config({
           label: "Clinically reviewed on (optional)",
           description: "The day the clinical reviewer last checked the facts. Shown under the title.",
         }),
-        category: fields.text({
+        // A fixed list: a typo in free text would create a new category with no intro text on /resources.
+        // To add a category, add it here and in content/category-intros.json.
+        category: fields.select({
           label: "Category",
-          validation: { isRequired: true },
+          options: ["Billing & Reimbursement", "CCM Operations", "Care Management", "Compliance", "Revenue Cycle", "Virtual Staffing"].map((c) => ({ label: c, value: c })),
+          defaultValue: "CCM Operations",
         }),
         tags: fields.array(fields.text({ label: "Tag" }), {
           label: "Tags",
@@ -152,12 +155,11 @@ export default config({
         ...seoExtraFields,
         schemaType: fields.select({
           label: "Schema type",
-          description: "Article is the default. The others are more specific kinds of article and are all valid.",
+          description: "Article is the default. NewsArticle is left out on purpose: this is health guidance, not news.",
           options: [
             { label: "Article", value: "Article" },
             { label: "BlogPosting", value: "BlogPosting" },
             { label: "TechArticle", value: "TechArticle" },
-            { label: "NewsArticle", value: "NewsArticle" },
           ],
           defaultValue: "Article",
         }),

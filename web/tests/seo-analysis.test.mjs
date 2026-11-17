@@ -31,11 +31,13 @@ test("a well-optimised post scores high and passes the keyword checks", () => {
   assert.ok(r.score >= 85, `score ${r.score}`);
 });
 
-test("missing keyword fails one check and skips the rest instead of failing them", () => {
+test("missing keyword fails every keyword check, so an unoptimised page cannot outscore a tried one", () => {
   const r = analyze({ ...good, focusKeyword: "" });
   assert.equal(status(r, "kw-set"), "fail");
-  assert.equal(status(r, "kw-title"), "na");
-  assert.equal(status(r, "kw-first"), "na");
+  assert.equal(status(r, "kw-title"), "fail");
+  assert.equal(status(r, "kw-first"), "fail");
+  const tried = analyze({ ...good, focusKeyword: "unrelated phrase" });
+  assert.ok(r.score <= tried.score + 5, `${r.score} vs ${tried.score}`);
 });
 
 test("pages with text in code skip body checks", () => {

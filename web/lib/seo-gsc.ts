@@ -57,13 +57,20 @@ async function loadSearch(host: string): Promise<Record<string, PageSearch>> {
   // Search Console data lags about two days.
   const end = new Date(Date.now() - 2 * 86_400_000);
   const start = new Date(end.getTime() - 27 * 86_400_000);
-  const res = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(process.env.GSC_SITE_URL as string)}/searchAnalytics/query`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ startDate: day(start), endDate: day(end), dimensions: ["page", "query"], rowLimit: 5000 }),
-    signal: AbortSignal.timeout(25_000),
-  });
-  const data = (await res.json()) as { rows?: GscRow[]; error?: { message?: string } };
-  if (!res.ok) throw new Error(data.error?.message ?? `Search Console refused the request (${res.status}).`);
-  return foldSearchRows(data.rows ?? [], host);
+  const url = `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(process.env.GSC_SITE_URL as string)}/searchAnalytics/query`;
+  // 5000 rows is Google's cap per request: keep asking until a short page (at most 5 pages), so a growing site is not cut off.
+  const rows: GscRow[] = [];
+  for (let startRow = 0; startRow < 25_000; startRow += 5000) {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ startDate: day(start), endDate: day(end), dimensions: ["page", "query"], rowLimit: 5000, startRow }),
+      signal: AbortSignal.timeout(25_000),
+    });
+    const data = (await res.json()) as { rows?: GscRow[]; error?: { message?: string } };
+    if (!res.ok) throw new Error(data.error?.message ?? `Search Console refused the request (${res.status}).`);
+    rows.push(...(data.rows ?? []));
+    if ((data.rows?.length ?? 0) < 5000) break;
+  }
+  return foldSearchRows(rows, host);
 }

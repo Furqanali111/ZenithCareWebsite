@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  parseSitemap, internalLinks, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows,
+  parseSitemap, internalLinks, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows, expectedCtr,
 } from "../lib/seo-site-checks.ts";
 
 const HOST = "thezcs.com";
@@ -102,4 +102,27 @@ test("search data: folds queries per page, weights position by impressions, igno
 test("links: a link to a hidden page is flagged as noindex, not broken", () => {
   const m = siteIssues([row({ path: "/a", body: "[x](/b)" }), row({ path: "/b", noindex: true })], ctx({ sitemap: new Set(["/", "/a"]) }));
   assert.deepEqual(codes(m, "/a"), ["link-noindex"]);
+});
+
+test("pending labels: a batch commit names every page on its own line", () => {
+  const set = pendingLabels(["fix(seo): update SEO text for 2 pages\n\nupdate SEO text for /about\nupdate SEO text for ccm-billing","fix(seo): update SEO text for 3 pages"]);
+  assert.deepEqual([...set].sort(), ["/about", "ccm-billing"]);
+});
+
+test("links through a whole-section redirect are flagged as redirects, not broken", () => {
+  const m = siteIssues([row({ path: "/a", body: "[x](/old/page)" })], ctx({ sitemap: new Set(["/", "/a"]), prefixRedirects: [{ from: "/old", to: "/new" }] }));
+  assert.deepEqual(codes(m, "/a"), ["link-redirect"]);
+  assert.match(m.get("/a")[0].text, /\/new\/page/);
+});
+
+test("expected CTR falls with position, and two pages sharing a search are marked as competing", () => {
+  assert.ok(expectedCtr(1) > expectedCtr(4) && expectedCtr(4) > expectedCtr(14));
+  const rows = [
+    { keys: ["https://thezcs.com/a", "ccm billing"], clicks: 1, impressions: 50, position: 5 },
+    { keys: ["https://thezcs.com/b", "ccm billing"], clicks: 1, impressions: 40, position: 9 },
+    { keys: ["https://thezcs.com/b", "rare"], clicks: 0, impressions: 5, position: 9 },
+  ];
+  const f = foldSearchRows(rows, HOST);
+  assert.deepEqual(f["/a"].competes, [{ query: "ccm billing", path: "/b" }]);
+  assert.equal(f["/b"].competes.length, 1);
 });

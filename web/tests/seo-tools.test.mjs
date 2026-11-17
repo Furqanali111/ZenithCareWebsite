@@ -112,3 +112,11 @@ test("apply edit on a post writes a boolean noindex, not a string", () => {
   const edit = validateEdit({ target: { kind: "post", slug: "a" }, values: { title: "T", description: "D", focusKeyword: "", noindex: true } }).edit;
   assert.match(applyEdit(post, edit), /^noindex: true$/m);
 });
+
+test("synonyms are written as a YAML list in a post and an array on a page, and removed when empty", () => {
+  const v = { title: "T", description: "D", focusKeyword: "k", noindex: false, synonyms: "ccm billing, chronic billing" };
+  const out = applyEdit(post, validateEdit({ target: { kind: "post", slug: "a" }, values: v }).edit);
+  assert.match(out, /^keywordSynonyms:\n  - "ccm billing"\n  - "chronic billing"$/m);
+  const cleared = applyEdit(out, validateEdit({ target: { kind: "post", slug: "a" }, values: { ...v, synonyms: "" } }).edit);
+  assert.doesNotMatch(cleared, /keywordSynonyms/);
+});

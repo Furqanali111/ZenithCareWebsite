@@ -7,6 +7,8 @@ import { site } from "@/lib/site";
 import { BASE_BRANCH } from "@/lib/repo";
 import { getAllPosts, getPostText } from "@/content/posts";
 import { analyze, linkSuggestions, type LinkTarget } from "@/lib/seo-analysis";
+import { cptCodes, cptPath } from "@/lib/cpt-codes";
+import { denialCodes, denialPath } from "@/lib/denial-codes";
 import { pageBodies, sitemapPaths } from "@/lib/page-text";
 import { pendingLabels, siteIssues, type CheckRow, type HistoryEntry } from "@/lib/seo-site-checks";
 import { searchData } from "@/lib/seo-gsc";
@@ -33,6 +35,9 @@ const editHref = (kind: "posts" | "pageSeo" | "serviceSeo", slug?: string) => {
   return kind === "posts" ? `${base}/collection/posts/item/${slug}` : `${base}/singleton/${kind}`;
 };
 
+const codeEditHref = (collection: "cptCodes" | "denialCodes", slug: string) =>
+  `${process.env.NODE_ENV === "development" ? "/keystatic" : `/keystatic/branch/${BASE_BRANCH}`}/collection/${collection}/item/${slug}`;
+
 /** The address of this site as the request reached it, limited to hosts that are ours. */
 async function ownOrigin() {
   const h = await headers();
@@ -44,7 +49,7 @@ async function ownOrigin() {
 }
 
 // Empty JSON arrays infer as never[], so give the files their real shape.
-const redirects = (redirectsFile as { exact: { from: string; to: string }[]; prefix: { from: string; to: string }[] }).exact;
+const { exact: redirects, prefix: prefixRedirects } = redirectsFile as { exact: { from: string; to: string }[]; prefix: { from: string; to: string }[] };
 const history = (historyFile as { entries: HistoryEntry[] }).entries;
 
 type Extra = { sitemap: string[] | null; pending: Map<string, { url: string; login: string }>; search: Awaited<ReturnType<typeof searchData>>["pages"] };
@@ -69,7 +74,7 @@ function rows(bodies: Record<string, string | null>, extra: Extra): { rows: Dash
         score: a.score, checks: a.checks, issues: [], suggestions: linkSuggestions({ path, body, tags: p.tags }, targets),
         bodyRead: true, edit: editHref("posts", p.slug),
         target: { kind: "post" as const, slug: p.slug },
-        initial: { title: p.metaTitle ?? "", description: p.description, focusKeyword: p.focusKeyword ?? "", noindex: !!p.noindex },
+        initial: { title: p.metaTitle ?? "", description: p.description, focusKeyword: p.focusKeyword ?? "", noindex: !!p.noindex, synonyms: (p.keywordSynonyms ?? []).join(", ") },
         canonical: p.canonicalUrl ?? undefined, body,
       };
     }),
@@ -82,15 +87,30 @@ function rows(bodies: Record<string, string | null>, extra: Extra): { rows: Dash
         keyword: e.focusKeyword ?? "", noindex: !!e.noindex, nofollow: !!e.nofollow,
         score: a.score, checks: a.checks, issues: [], suggestions: [], bodyRead: body !== undefined, edit: editHref(e.singleton),
         target: { kind: "page" as const, singleton: e.singleton, path: e.path },
-        initial: { title: e.title, description: e.description, focusKeyword: e.focusKeyword ?? "", noindex: !!e.noindex },
+        initial: { title: e.title, description: e.description, focusKeyword: e.focusKeyword ?? "", noindex: !!e.noindex, synonyms: (e.keywordSynonyms ?? []).join(", ") },
         canonical: e.canonicalUrl ?? undefined, body,
+      };
+    }),
+    // CPT and denial code pages: read only here (the code in the title is their keyword), edited in their own collections.
+    ...[
+      ...cptCodes.map((c) => ({ path: cptPath(c.code), name: `CPT ${c.code}`, title: `CPT ${c.code}: ${c.shortTitle}`, description: c.metaDescription, keyword: `CPT ${c.code}`, edit: codeEditHref("cptCodes", c.code) })),
+      ...denialCodes.map((d) => ({ path: denialPath(d.slug), name: `${d.code} denial`, title: `${d.code} Denial: ${d.shortTitle}`, description: d.metaDescription, keyword: `${d.code} denial`, edit: codeEditHref("denialCodes", d.slug) })),
+    ].map((c) => {
+      const title = fullTitle(c.title);
+      const body = bodies[c.path] ?? undefined;
+      const a = analyze({ path: c.path, title, description: c.description, focusKeyword: c.keyword, body });
+      return {
+        key: c.path, kind: "Code page" as const, name: c.name, path: c.path, title, description: c.description,
+        keyword: c.keyword, noindex: false, nofollow: false,
+        score: a.score, checks: a.checks, issues: [], suggestions: [], bodyRead: body !== undefined, edit: c.edit,
+        body,
       };
     }),
   ];
 
   const issues = siteIssues(
     base.map((r): CheckRow => ({ path: r.path, kind: r.kind, title: r.title, description: r.description, keyword: r.keyword, noindex: r.noindex, canonical: r.canonical, body: r.body })),
-    { sitemap: extra.sitemap ? new Set(extra.sitemap) : null, redirects, host },
+    { sitemap: extra.sitemap ? new Set(extra.sitemap) : null, redirects, prefixRedirects, host },
   );
   const out = base.map((x): DashRow => {
     // The text and canonical were only needed for the checks: keep them out of the data sent to the browser.
@@ -100,11 +120,11 @@ function rows(bodies: Record<string, string | null>, extra: Extra): { rows: Dash
     return {
       ...(r as DashRow),
       issues: issues.get(x.path) ?? [],
-      pending: extra.pending.get(x.target.kind === "post" ? x.target.slug : x.path),
+      pending: extra.pending.get(x.target?.kind === "post" ? x.target.slug : x.path),
       search: extra.search?.[x.path],
     };
   });
-  return { rows: out, unread: out.filter((r) => r.kind === "Page" && !r.bodyRead).length };
+  return { rows: out, unread: out.filter((r) => r.kind !== "Post" && !r.bodyRead).length };
 }
 
 async function Dashboard() {
@@ -113,7 +133,7 @@ async function Dashboard() {
   const host = new URL(site.url).host;
   const token = (await cookies()).get("keystatic-gh-access-token")?.value;
   const [bodies, sitemap, open, search, signedInAs] = await Promise.all([
-    pageBodies(origin, pageSeoEntries.map((e) => e.path)),
+    pageBodies(origin, [...pageSeoEntries.map((e) => e.path), ...cptCodes.map((c) => cptPath(c.code)), ...denialCodes.map((d) => denialPath(d.slug))]),
     sitemapPaths(origin, host),
     pendingEdits(token),
     searchData(host),
@@ -133,6 +153,8 @@ async function Dashboard() {
       unread={unread}
       pendingUnavailable={open === null}
       signedInAs={signedInAs}
+      canSave={process.env.NODE_ENV === "development" || !!signedInAs}
+      titleParts={fullTitle("\u0000").split("\u0000") as [string, string]}
     />
   );
 }

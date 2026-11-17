@@ -7,7 +7,7 @@ import { LINK } from "./seo-analysis.ts"; // the .ts extension lets the node tes
 
 export type CheckRow = {
   path: string;
-  kind: "Post" | "Page";
+  kind: "Post" | "Page" | "Code page";
   title: string;
   description: string;
   keyword: string;
@@ -22,6 +22,8 @@ export type SiteContext = {
   /** Paths in the live sitemap. null when the sitemap could not be read: the checks that need it are skipped. */
   sitemap: Set<string> | null;
   redirects: { from: string; to: string }[];
+  /** Whole-section redirects: /old/a goes to /new/a. */
+  prefixRedirects?: { from: string; to: string }[];
   /** The site's own host, for example thezcs.com. */
   host: string;
 };
@@ -92,11 +94,17 @@ export function siteIssues(rows: CheckRow[], ctx: SiteContext): Map<string, Site
 
   const hidden = new Set(rows.filter((r) => r.noindex).map((r) => trimSlash(r.path)));
   const redirected = new Map(ctx.redirects.map((r) => [trimSlash(r.from), trimSlash(r.to)]));
+  const moved = (target: string) => {
+    if (redirected.has(target)) return redirected.get(target);
+    const p = (ctx.prefixRedirects ?? []).find((x) => target === trimSlash(x.from) || target.startsWith(`${trimSlash(x.from)}/`));
+    return p && trimSlash(p.to) + target.slice(trimSlash(p.from).length);
+  };
   for (const r of rows) {
     if (r.body) {
       for (const target of internalLinks(r.body, ctx.host)) {
         if (target === r.path || /\.[a-z0-9]{2,5}$/i.test(target)) continue; // files (pdf, images, xml) are not sitemap pages
-        if (redirected.has(target)) add(r.path, { level: "warn", code: "link-redirect", text: `Links to ${target}, which redirects to ${redirected.get(target)}. Link straight to the new address.` });
+        const dest = moved(target);
+        if (dest) add(r.path, { level: "warn", code: "link-redirect", text: `Links to ${target}, which redirects to ${dest}. Link straight to the new address.` });
         else if (hidden.has(target)) add(r.path, { level: "warn", code: "link-noindex", text: `Links to ${target}, which is hidden from Google. Readers can open it, but the link passes no search value.` });
         else if (ctx.sitemap && !ctx.sitemap.has(target) && !/^\/(api|keystatic|_next)\b/.test(target))
           add(r.path, { level: "fix", code: "link-broken", text: `Links to ${target}, which is not in the sitemap. It may be broken, noindexed or an unlisted page.` });
@@ -133,12 +141,16 @@ export function toCsv(header: string[], rows: (string | number | boolean)[][]): 
   return [header, ...rows].map((r) => r.map(cell).join(",")).join("\r\n") + "\r\n";
 }
 
-/** Titles of open edit PRs: commit subjects are "fix(seo): update SEO text for <slug or path>". */
+/** Pages named by open edit PRs. A commit is "fix(seo): update SEO text for <x>", or a batch with one "update SEO text for <x>" line per page. */
 export function pendingLabels(commitMessages: string[]): Set<string> {
   const out = new Set<string>();
   for (const m of commitMessages) {
-    const hit = m.split("\n")[0].match(/^fix\(seo\): update SEO text for (\S+)$/);
-    if (hit) out.add(hit[1]);
+    const [subject, ...rest] = m.split("\n");
+    if (!subject.startsWith("fix(seo): update SEO text for ")) continue;
+    for (const line of [subject.replace("fix(seo): ", ""), ...rest]) {
+      const hit = line.match(/^update SEO text for (\S+)$/);
+      if (hit) out.add(hit[1]);
+    }
   }
   return out;
 }
@@ -162,7 +174,19 @@ export function validateHistoryEntry(raw: unknown): { ok: true; entry: HistoryEn
 }
 
 export type GscRow = { keys: string[]; clicks: number; impressions: number; position: number };
-export type PageSearch = { clicks: number; impressions: number; ctr: number; position: number; queries: { query: string; clicks: number; impressions: number; position: number }[] };
+export type PageSearch = {
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+  queries: { query: string; clicks: number; impressions: number; position: number }[];
+  /** Searches this page shares with another page of the site (both shown at least 20 times). */
+  competes?: { query: string; path: string }[];
+};
+
+/** Rough share of clicks a result gets at a position, so a low click rate is judged against where the page ranks. */
+export const expectedCtr = (position: number) =>
+  position <= 1.5 ? 0.28 : position <= 2.5 ? 0.15 : position <= 3.5 ? 0.1 : position <= 5.5 ? 0.06 : position <= 10.5 ? 0.025 : position <= 20.5 ? 0.008 : 0.003;
 
 /** Search Console rows with dimensions [page, query] folded into one summary per page path. */
 export function foldSearchRows(rows: GscRow[], host: string, topQueries = 5): Record<string, PageSearch> {
@@ -187,5 +211,21 @@ export function foldSearchRows(rows: GscRow[], host: string, topQueries = 5): Re
     p.position = p.impressions ? p.weighted / p.impressions : 0;
     p.queries = p.queries.sort((a, b) => b.impressions - a.impressions).slice(0, topQueries);
   }
-  return Object.fromEntries(Object.entries(out).map(([k, v]) => [k, { clicks: v.clicks, impressions: v.impressions, ctr: v.ctr, position: v.position, queries: v.queries }]));
+  // A search shown for two of our pages means they compete. Counted on all rows, before lists are cut to the top few.
+  const byQuery = new Map<string, string[]>();
+  for (const r of rows) {
+    if (r.impressions < 20) continue;
+    try {
+      const path = trimSlash(new URL(r.keys[0]).pathname);
+      byQuery.set(r.keys[1], [...(byQuery.get(r.keys[1]) ?? []), path]);
+    } catch {
+      // Not a URL: ignored.
+    }
+  }
+  return Object.fromEntries(
+    Object.entries(out).map(([k, v]) => {
+      const competes = v.queries.flatMap((q) => (byQuery.get(q.query) ?? []).filter((p) => p !== k).map((p) => ({ query: q.query, path: p }))).slice(0, 5);
+      return [k, { clicks: v.clicks, impressions: v.impressions, ctr: v.ctr, position: v.position, queries: v.queries, ...(competes.length ? { competes } : {}) }];
+    }),
+  );
 }

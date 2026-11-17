@@ -6,13 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { LIMITS, type EditTarget, type EditValues } from "@/lib/seo-edit";
+import type { Check } from "@/lib/seo-analysis";
 
 type Status = { kind: "idle" } | { kind: "saving" } | { kind: "ok"; text: string; url?: string } | { kind: "error"; text: string };
 
 /** Inline SEO edit for one row of the dashboard. Saves through /api/seo-edit. */
-export function SeoQuickEdit({ target, initial, onSaved }: { target: EditTarget; initial: EditValues; onSaved?: (pullRequestUrl: string | undefined, saved: EditValues) => void }) {
+const MARK: Record<Check["status"], string> = { pass: "Pass", warn: "Improve", fail: "Fix", na: "Skipped" };
+
+export function SeoQuickEdit({ target, initial, value: v, onChange, checks, onSaved }: { target: EditTarget; initial: EditValues; value: EditValues; onChange: (v: EditValues) => void; checks?: Check[]; onSaved?: (pullRequestUrl: string | undefined, saved: EditValues) => void }) {
   const id = useId();
-  const [v, setV] = useState(initial);
+  const setV = onChange;
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const titleMax = target.kind === "post" ? LIMITS.postTitle : LIMITS.pageTitle;
   const dirty = JSON.stringify(v) !== JSON.stringify(initial);
@@ -57,6 +60,20 @@ export function SeoQuickEdit({ target, initial, onSaved }: { target: EditTarget;
         <Label htmlFor={`${id}-k`} className="text-sm">Focus keyword</Label>
         <Input id={`${id}-k`} value={v.focusKeyword} onChange={(e) => setV({ ...v, focusKeyword: e.target.value })} />
       </div>
+      <div className="space-y-1">
+        <Label htmlFor={`${id}-s`} className="text-sm">Synonyms (separate with commas)</Label>
+        <Input id={`${id}-s`} value={v.synonyms} onChange={(e) => setV({ ...v, synonyms: e.target.value })} placeholder="ccm billing, chronic care billing" />
+      </div>
+      {checks && (
+        <ul className="space-y-0.5 text-xs" aria-label="Checks on what you typed">
+          {checks.map((c) => (
+            <li key={c.id}>
+              <span className={`font-medium ${c.status === "pass" ? "text-emerald-700" : c.status === "fail" ? "text-red-700" : "text-amber-700"}`}>{MARK[c.status]}</span> {c.label}
+              {c.status !== "pass" && <span className="text-muted-foreground">: {c.hint}</span>}
+            </li>
+          ))}
+        </ul>
+      )}
       <label className="flex items-center gap-2 text-sm">
         <input type="checkbox" checked={v.noindex} onChange={(e) => setV({ ...v, noindex: e.target.checked })} />
         Hide from Google (noindex)
