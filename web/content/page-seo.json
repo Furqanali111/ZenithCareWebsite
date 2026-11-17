@@ -13,7 +13,8 @@
     {
       "path": "/accessibility",
       "title": "Accessibility Statement",
-      "description": "Zenith Care Solutions' commitment to WCAG 2.1 AA accessibility, what we do, how to report an issue, and how we handle third-party embeds."
+      "description": "Zenith Care Solutions' commitment to WCAG 2.1 AA accessibility, what we do, how to report an issue, and how we handle third-party embeds.",
+      "focusKeyword": "Accessibility"
     },
     {
       "path": "/complaints",
