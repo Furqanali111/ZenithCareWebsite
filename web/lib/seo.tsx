@@ -4,6 +4,15 @@ import pageSeoFile from "@/content/page-seo.json";
 import serviceSeoFile from "@/content/page-seo-services.json";
 import structuredFile from "@/content/structured-data.json";
 import breadcrumbFile from "@/content/breadcrumb-labels.json";
+import globalFile from "@/content/global-seo.json";
+import { parseCustomJsonLd } from "./custom-jsonld";
+
+// Site-wide defaults edited in /keystatic ("Global SEO settings"). Empty image fields save null.
+const globalSeo: { titleTemplate: string; defaultDescription: string; defaultSocialImage: string | null; logo: string | null } = globalFile;
+
+/** The <title> for a page: the editor's template with the page title and site name filled in. */
+export const fullTitle = (title: string) =>
+  title === site.name ? title : globalSeo.titleTemplate.replaceAll("%title%", title).replaceAll("%site%", site.name);
 
 // Editor settings from /keystatic: FAQPage schema switched off by path, shorter
 // breadcrumb labels by path, extra Organization fields. Empty JSON arrays infer as
@@ -21,7 +30,21 @@ type SeoEntry = {
   ogTitle?: string;
   ogSubtitle?: string;
   noindex?: boolean;
+  focusKeyword?: string;
+  keywordSynonyms?: string[];
+  nofollow?: boolean;
+  canonicalUrl?: string | null;
+  socialTitle?: string;
+  socialDescription?: string;
+  socialImage?: string | null;
+  /** Main schema.org page type picked in the editor. "default" keeps the type the page's code uses. */
+  schemaType?: string;
+  /** Extra JSON-LD pasted in the editor, for any other schema.org type. */
+  customJsonLd?: string;
 };
+
+/** Social-card and robots fields a post carries in its own frontmatter. */
+export type SeoExtra = Pick<SeoEntry, "nofollow" | "socialTitle" | "socialDescription" | "socialImage">;
 
 // Titles and descriptions edited in /keystatic (content/page-seo.json and
 // content/page-seo-services.json). They win over the text passed in code, which is only
@@ -29,6 +52,20 @@ type SeoEntry = {
 const seoByPath = new Map<string, SeoEntry>(
   [...pageSeoFile.pages, ...serviceSeoFile.pages].map((p: SeoEntry & { path: string }) => [p.path, p]),
 );
+
+// Custom JSON-LD by page path. A bad value throws here, so it fails the build.
+const customByPath = new Map(
+  [...seoByPath].filter(([, e]) => e.customJsonLd?.trim()).map(([p, e]) => [p, parseCustomJsonLd(e.customJsonLd ?? "", `page SEO ${p}`)] as const),
+);
+
+/** Every page entry edited in /keystatic, for the SEO dashboard. */
+const inServiceFile = new Set(serviceSeoFile.pages.map((p) => p.path));
+export const pageSeoEntries = [...seoByPath].map(([path, e]) => ({
+  ...e,
+  path,
+  // Which editor singleton holds the entry, for the dashboard's Edit link.
+  singleton: inServiceFile.has(path) ? ("serviceSeo" as const) : ("pageSeo" as const),
+}));
 
 /** True when the editor ticked "Hide from Google" for this path. Used by the sitemap too. */
 export const isNoindexed = (path: string) => !!seoByPath.get(path)?.noindex;
@@ -54,6 +91,8 @@ type PageMetadataInput = {
   canonical?: string | null;
   /** Use the root /opengraph-image. Needed only for pages with no opengraph-image file of their own. */
   rootOgImage?: boolean;
+  /** Social-card and nofollow settings for pages that are not in the page SEO files (posts). */
+  extra?: SeoExtra;
 };
 
 /**
@@ -67,42 +106,48 @@ export function pageMetadata({
   noindex = false,
   canonical,
   rootOgImage = false,
+  extra,
 }: PageMetadataInput): Metadata {
   // Only a call that names its path can be edited. The 404 pages pass none (it would
   // default to "/") and must not pick up the home page's text.
   const edited = path === undefined ? undefined : seoByPath.get(path);
+  const e = edited ?? extra;
   const title = edited?.title || codeTitle;
-  const description = edited?.description || codeDescription;
+  const description = edited?.description || codeDescription || globalSeo.defaultDescription;
   const url = new URL(path ?? "/", site.url).toString();
-  const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
+  const full = fullTitle(title);
+  const socialTitle = e?.socialTitle || full;
+  const socialDescription = e?.socialDescription || description;
   // A page-level openGraph object drops the root file-based image, so pages
   // without their own opengraph-image file would ship no social preview.
-  const images = rootOgImage
-    ? [{ url: "/opengraph-image", width: 1200, height: 630, alt: site.name }]
-    : undefined;
+  // The editor's own image wins; the global default only fills pages with no card of their own.
+  const rootImage = globalSeo.defaultSocialImage
+    ? { url: globalSeo.defaultSocialImage, alt: site.name }
+    : { url: "/opengraph-image", width: 1200, height: 630, alt: site.name };
+  const images = e?.socialImage ? [{ url: e.socialImage, alt: socialTitle }] : rootOgImage ? [rootImage] : undefined;
 
   return {
     // `absolute` stops the root layout's `%s | <brand>` template from
-    // re-appending the brand, which doubled it (fullTitle already has it).
-    title: { absolute: fullTitle },
+    // re-appending the brand, which doubled it (full already has it).
+    title: { absolute: full },
     description,
-    alternates: { canonical: canonical || url },
+    alternates: { canonical: canonical || edited?.canonicalUrl || url },
     openGraph: {
       type: "website",
       url,
       siteName: site.name,
-      title: fullTitle,
-      description,
+      title: socialTitle,
+      description: socialDescription,
       locale: site.locale,
       ...(images && { images }),
     },
     twitter: {
       card: "summary_large_image",
-      title: fullTitle,
-      description,
+      title: socialTitle,
+      description: socialDescription,
       ...(images && { images }),
     },
-    robots: noindex || edited?.noindex ? { index: false, follow: false } : undefined,
+    robots: noindex || edited?.noindex ? { index: false, follow: false } : e?.nofollow ? { index: true, follow: false } : undefined,
   };
 }
 
@@ -119,6 +164,11 @@ export function pageMetadata({
 type JsonLd = Record<string, unknown>;
 
 const abs = (path: string) => new URL(path, site.url).toString();
+
+const pageTypeOverride = (path: string) => {
+  const t = seoByPath.get(path)?.schemaType;
+  return t && t !== "default" ? (t as NonNullable<WebPageLdInput["type"]>) : undefined;
+};
 
 // Stable @id helpers: every node gets one so WebPage can link its Service,
 // FAQ, breadcrumb and people into a single graph.
@@ -140,7 +190,7 @@ export function organizationLd(): JsonLd {
     name: site.name,
     legalName: site.legalName,
     url: site.url,
-    logo: abs("/logo.png"),
+    logo: abs(globalSeo.logo || "/logo.png"),
     description: site.tagline,
     sameAs: [site.linkedin, site.facebook, site.instagram, ...structured.organizationSameAs],
     // Same @ids the /about page gives each founder.
@@ -197,7 +247,7 @@ type WebPageLdInput = {
   path: string;
   name: string;
   description: string;
-  type?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage" | "FAQPage";
+  type?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage" | "FAQPage" | "ItemPage" | "ProfilePage";
   /** Set false on the home page, which has no BreadcrumbList. */
   breadcrumb?: boolean;
   /** @id of the entity the page is about (e.g. serviceId(path)). */
@@ -228,7 +278,8 @@ export function webPageLd({
 }: WebPageLdInput): JsonLd {
   return {
     "@context": "https://schema.org",
-    "@type": type,
+    // The editor's "Page type" wins over the type the page's code passes.
+    "@type": pageTypeOverride(path) ?? type,
     "@id": pageId(path),
     url: abs(path),
     name,
@@ -340,6 +391,8 @@ type ArticleLdInput = {
   image?: string;
   about?: { name: string; url?: string | null }[];
   mentions?: { name: string; url?: string | null }[];
+  /** Article by default; posts can pick a more specific Article type. */
+  type?: "Article" | "BlogPosting" | "NewsArticle" | "TechArticle";
 };
 
 // Google wants a timezone on Article dates; frontmatter has date-only values.
@@ -356,10 +409,11 @@ export function articleLd({
   image,
   about,
   mentions,
+  type = "Article",
 }: ArticleLdInput): JsonLd {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": type,
     "@id": articleId(slug),
     headline: title,
     description,
@@ -428,8 +482,12 @@ export function breadcrumbLd(
 
 export function JsonLd({ data }: { data: JsonLd | null | (JsonLd | null)[] }) {
   // A null node (FAQ schema turned off in the CMS) is skipped.
-  const nodes = Array.isArray(data) ? data.filter(Boolean) : data;
-  if (!nodes) return null;
+  const list = Array.isArray(data) ? data.filter(Boolean) : data;
+  if (!list) return null;
+  // The page's own WebPage node says which path it is, so custom JSON-LD from the editor rides along.
+  const page = [list].flat().find((n) => typeof n?.["@id"] === "string" && (n["@id"] as string).endsWith("#webpage") && typeof n.url === "string");
+  const extra = page ? (customByPath.get(new URL(page.url as string).pathname) ?? []) : [];
+  const nodes = extra.length ? [...[list].flat(), ...extra] : list;
   return (
     <script
       type="application/ld+json"

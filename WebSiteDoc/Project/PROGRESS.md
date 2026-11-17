@@ -22,6 +22,9 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-11-17: `feature/seo-fields-and-dashboard`
+SEO tooling for the SEO team. New fields (focus keyword, synonyms, nofollow, social card, page canonical, page schema type, custom JSON-LD), global SEO settings, a guarded full-text robots.txt editor, a password-protected `/seo-dashboard` (score, readability, link suggestions, Google preview, quick edit saved to a PR), and a workflow that adds a 301 when a post is renamed. Doc: `WebSiteDoc/Project/16g-cms-seo-dashboard.md`. Needs `SEO_DASHBOARD_PASSWORD` set in Vercel.
+
 ### 2026-10-25 — `feature/tighten-csp`
 CSP review. `script-src` and `style-src` keep `'unsafe-inline'`: every prerendered page has inline scripts that differ per page and the CSS is inlined, so a fixed header cannot hash them, and nonces would make every page dynamic. Tightened instead: removed the unused Vercel hosts (`va.vercel-scripts.com`, `vitals.vercel-insights.com`, `vercel.live`) and added `script-src-attr 'none'` (no inline event handlers exist). Verified on a production build with Google Analytics, the Calendly widget and the nav: no CSP violations. Also added the UptimeRobot setup to `14-go-live-accounts.md` (section 2.11) and `screen-reader-test-script.md` for the NVDA and VoiceOver pass.
 

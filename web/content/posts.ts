@@ -37,6 +37,18 @@ export type PostFrontmatter = {
   ogSubtitle?: string;
   /** Keystatic's url field saves null when empty. */
   canonicalUrl?: string | null;
+  /** Used by the SEO dashboard score only. */
+  focusKeyword?: string;
+  keywordSynonyms?: string[];
+  nofollow?: boolean;
+  /** Link-card overrides. Keystatic saves null for an empty image. */
+  socialTitle?: string;
+  socialDescription?: string;
+  socialImage?: string | null;
+  /** Article (default) or a more specific Article type in the JSON-LD. */
+  schemaType?: "Article" | "BlogPosting" | "NewsArticle" | "TechArticle";
+  /** Extra JSON-LD pasted in the editor, for any other schema.org type. */
+  customJsonLd?: string;
   /** schema.org about / mentions entities for the Article JSON-LD. */
   about?: { name: string; url?: string | null }[];
   mentions?: { name: string; url?: string | null }[];
@@ -121,6 +133,11 @@ export function getPostHeadings(slug: string): { id: string; text: string }[] {
     const text = m[1].replace(/\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/[*_`\\]/g, "").trim();
     return { id: headingId(text), text };
   });
+}
+
+/** Raw MDX text of a post, for the SEO dashboard's content checks. */
+export function getPostText(slug: string): string {
+  return matter(fs.readFileSync(path.join(DIR, `${slug}.mdx`), "utf8")).content;
 }
 
 /** The compiled MDX body. Call only with a slug from getPostBySlug (no path input). */
