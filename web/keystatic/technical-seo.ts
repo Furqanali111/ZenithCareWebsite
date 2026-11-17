@@ -40,7 +40,7 @@ export const singletons = {
           to: fields.text({
             label: "New URL",
             description: "A path like /new-page or a full https:// address.",
-            validation: { isRequired: true },
+            validation: { isRequired: true, pattern: { regex: /^(\/[^\s*:()?]*|https:\/\/\S+)$/, message: "A path starting with / (no spaces, * : ( ) or ?) or a full https:// address" } },
           }),
           permanent: fields.checkbox({ label: "Permanent (301/308)", description: "Leave on unless the move is temporary.", defaultValue: true }),
         }),
@@ -56,7 +56,7 @@ export const singletons = {
           to: fields.text({
             label: "New section path",
             description: "A path like /new-section, or a full https:// address.",
-            validation: { isRequired: true },
+            validation: { isRequired: true, pattern: { regex: /^(\/[^\s*:()?]*|https:\/\/\S+)$/, message: "A path starting with / (no spaces, * : ( ) or ?) or a full https:// address" } },
           }),
           permanent: fields.checkbox({ label: "Permanent (301/308)", defaultValue: true }),
         }),

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  parseSitemap, internalLinks, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows, expectedCtr,
+  parseSitemap, internalLinks, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows, expectedCtr, schemaTypes, snapshotOf, foldPageRows,
 } from "../lib/seo-site-checks.ts";
 
 const HOST = "thezcs.com";
@@ -125,4 +125,38 @@ test("expected CTR falls with position, and two pages sharing a search are marke
   const f = foldSearchRows(rows, HOST);
   assert.deepEqual(f["/a"].competes, [{ query: "ccm billing", path: "/b" }]);
   assert.equal(f["/b"].competes.length, 1);
+});
+
+test("orphan: a live page nothing links to is flagged, menu links count, and an unread page switches the check off", () => {
+  const rows = [
+    row({ path: "/", links: ["/a"] }),
+    row({ path: "/a", links: ["/"] }),
+    row({ path: "/lonely", links: ["/"] }),
+    row({ path: "/hidden", noindex: true, links: [] }),
+  ];
+  const m = siteIssues(rows, ctx({ sitemap: null }));
+  assert.deepEqual(codes(m, "/lonely"), ["orphan"]);
+  assert.deepEqual(codes(m, "/a"), []);
+  assert.deepEqual(codes(m, "/hidden"), []); // hidden pages are not expected to be linked
+  const unread = siteIssues([...rows.slice(0, 3), row({ path: "/x" })], ctx({ sitemap: null }));
+  assert.deepEqual(codes(unread, "/lonely"), []);
+});
+
+test("schema types are read from every JSON-LD block, nested and in @graph", () => {
+  const html = `<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization"},{"@type":["WebPage","FAQPage"],"mainEntity":[{"@type":"Question"}]}]}</script><script type="application/ld+json">{bad</script>`;
+  assert.deepEqual(schemaTypes(html).sort(), ["(invalid JSON-LD)", "FAQPage", "Organization", "Question", "WebPage"]);
+  assert.deepEqual(schemaTypes("<p>none</p>"), []);
+});
+
+test("snapshots carry every page score, and a bad page map is refused", () => {
+  const s = snapshotOf([{ path: "/a", score: 80, keyword: "k", description: "d" }, { path: "/b", score: 40, keyword: "", description: "" }], "2026-11-23");
+  assert.deepEqual([s.average, s.rows, s.noKeyword, s.noDescription, s.pages["/b"]], [60, 2, 1, 1, 40]);
+  assert.equal(validateHistoryEntry(s).ok, true);
+  assert.equal(validateHistoryEntry({ ...s, pages: { "../x": 5 } }).ok, false);
+  assert.equal(validateHistoryEntry({ ...s, pages: { "/a": 101 } }).ok, false);
+});
+
+test("previous period totals are folded per page path", () => {
+  const f = foldPageRows([{ keys: ["https://thezcs.com/a/"], clicks: 3, impressions: 90, position: 8 }, { keys: ["https://other.com/a"], clicks: 9, impressions: 9, position: 1 }], HOST);
+  assert.deepEqual(f, { "/a": { clicks: 3, impressions: 90, position: 8 } });
 });

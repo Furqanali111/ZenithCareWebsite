@@ -16,6 +16,8 @@ export type CheckRow = {
   canonical?: string;
   /** Page text as markdown, when it could be read. */
   body?: string;
+  /** Internal links found anywhere on the live page, menu and footer included. Only for pages read from the site. */
+  links?: string[];
 };
 
 export type SiteContext = {
@@ -129,7 +131,38 @@ export function siteIssues(rows: CheckRow[], ctx: SiteContext): Map<string, Site
       else if (path !== trimSlash(r.path)) add(r.path, { level: "warn", code: "canonical-other", text: `Canonical points to ${path}, so Google will index that page instead of this one.` });
     }
   }
+
+  // Orphans: a live page no other page links to. Only judged when every page was read, because one unread page
+  // could hold the missing link. The menu and footer count (they are in `links`), so this finds pages left out of them.
+  const live = rows.filter((r) => !r.noindex);
+  const readable = rows.every((r) => r.kind === "Post" ? r.body !== undefined : r.links !== undefined);
+  if (readable) {
+    const inbound = new Set<string>();
+    for (const o of rows) for (const t of [...(o.body ? internalLinks(o.body, ctx.host) : []), ...(o.links ?? [])]) if (t !== trimSlash(o.path)) inbound.add(t);
+    for (const r of live) if (r.path !== "/" && !inbound.has(trimSlash(r.path))) add(r.path, { level: "warn", code: "orphan", text: "No other page links here. Link to it from a related page or the menu, so visitors and Google can find it." });
+  }
   return issues;
+}
+
+/** Schema.org types in the JSON-LD blocks of an HTML page, for example ["Organization", "FAQPage"]. */
+export function schemaTypes(html: string): string[] {
+  const found = new Set<string>();
+  const walk = (v: unknown) => {
+    if (Array.isArray(v)) v.forEach(walk);
+    else if (v && typeof v === "object") {
+      const o = v as Record<string, unknown>;
+      for (const t of [o["@type"]].flat()) if (typeof t === "string") found.add(t);
+      Object.values(o).forEach(walk);
+    }
+  };
+  for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      walk(JSON.parse(m[1]));
+    } catch {
+      found.add("(invalid JSON-LD)");
+    }
+  }
+  return [...found];
 }
 
 /** Spreadsheet-safe CSV: quotes everything and defuses cells a spreadsheet would run as a formula. */
@@ -155,7 +188,27 @@ export function pendingLabels(commitMessages: string[]): Set<string> {
   return out;
 }
 
-export type HistoryEntry = { date: string; average: number; rows: number; noKeyword: number; noDescription: number };
+export type HistoryEntry = {
+  date: string;
+  average: number;
+  rows: number;
+  noKeyword: number;
+  noDescription: number;
+  /** Score of every page by path on that day, so a drop can be traced to a page. Optional: older entries have none. */
+  pages?: Record<string, number>;
+};
+
+/** The snapshot of the current rows: what the weekly job and the Record button both save. */
+export function snapshotOf(rows: { path: string; score: number; keyword: string; description: string }[], date: string): HistoryEntry {
+  return {
+    date,
+    average: rows.length ? Math.round(rows.reduce((t, r) => t + r.score, 0) / rows.length) : 0,
+    rows: rows.length,
+    noKeyword: rows.filter((r) => !r.keyword).length,
+    noDescription: rows.filter((r) => !r.description).length,
+    pages: Object.fromEntries(rows.map((r) => [r.path, r.score])),
+  };
+}
 
 /** Adds one snapshot to the history file text. The same day is replaced, the list is capped. */
 export function appendHistory(jsonText: string, entry: HistoryEntry, keep = 156): string {
@@ -170,7 +223,14 @@ export function validateHistoryEntry(raw: unknown): { ok: true; entry: HistoryEn
   const n = (x: unknown) => typeof x === "number" && Number.isInteger(x) && x >= 0 && x <= 100000;
   if (!e || typeof e.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(e.date) || !n(e.average) || (e.average as number) > 100 || !n(e.rows) || !n(e.noKeyword) || !n(e.noDescription))
     return { ok: false, error: "Bad snapshot." };
-  return { ok: true, entry: { date: e.date, average: e.average as number, rows: e.rows as number, noKeyword: e.noKeyword as number, noDescription: e.noDescription as number } };
+  const entry: HistoryEntry = { date: e.date, average: e.average as number, rows: e.rows as number, noKeyword: e.noKeyword as number, noDescription: e.noDescription as number };
+  if (e.pages !== undefined) {
+    const p = e.pages as Record<string, unknown>;
+    const ok = p && typeof p === "object" && !Array.isArray(p) && Object.entries(p).length <= 500 && Object.entries(p).every(([k, v]) => /^\/[a-z0-9/-]*$/.test(k) && n(v) && (v as number) <= 100);
+    if (!ok) return { ok: false, error: "Bad snapshot." };
+    entry.pages = p as Record<string, number>;
+  }
+  return { ok: true, entry };
 }
 
 export type GscRow = { keys: string[]; clicks: number; impressions: number; position: number };
@@ -180,6 +240,8 @@ export type PageSearch = {
   ctr: number;
   position: number;
   queries: { query: string; clicks: number; impressions: number; position: number }[];
+  /** The 28 days before, for the change arrows. */
+  prev?: { clicks: number; impressions: number; position: number };
   /** Searches this page shares with another page of the site (both shown at least 20 times). */
   competes?: { query: string; path: string }[];
 };
@@ -189,7 +251,7 @@ export const expectedCtr = (position: number) =>
   position <= 1.5 ? 0.28 : position <= 2.5 ? 0.15 : position <= 3.5 ? 0.1 : position <= 5.5 ? 0.06 : position <= 10.5 ? 0.025 : position <= 20.5 ? 0.008 : 0.003;
 
 /** Search Console rows with dimensions [page, query] folded into one summary per page path. */
-export function foldSearchRows(rows: GscRow[], host: string, topQueries = 5): Record<string, PageSearch> {
+export function foldSearchRows(rows: GscRow[], host: string, topQueries = 10): Record<string, PageSearch> {
   const out: Record<string, PageSearch & { weighted: number }> = {};
   for (const r of rows) {
     let path: string;
@@ -229,3 +291,28 @@ export function foldSearchRows(rows: GscRow[], host: string, topQueries = 5): Re
     }),
   );
 }
+
+/** Per-page totals (dimension: page) folded by path, for the period before the one on screen. */
+export function foldPageRows(rows: GscRow[], host: string): Record<string, { clicks: number; impressions: number; position: number }> {
+  const out: Record<string, { clicks: number; impressions: number; position: number }> = {};
+  for (const r of rows) {
+    try {
+      const u = new URL(r.keys[0]);
+      if (u.host.replace(/^www\./, "") !== host.replace(/^www\./, "")) continue;
+      out[trimSlash(u.pathname)] = { clicks: r.clicks, impressions: r.impressions, position: r.position };
+    } catch {
+      // Not a URL: ignored.
+    }
+  }
+  return out;
+}
+
+export type IndexStatus = { verdict: string; state: string; lastCrawl?: string };
+
+export type Vitals = { lcp?: number; inp?: number; cls?: number };
+
+/** Rating thresholds from web.dev: good, needs improvement, poor. */
+export const vitalRating = (metric: keyof Vitals, v: number) => {
+  const [good, poor] = { lcp: [2500, 4000], inp: [200, 500], cls: [0.1, 0.25] }[metric];
+  return v <= good ? "good" : v <= poor ? "needs work" : "poor";
+};

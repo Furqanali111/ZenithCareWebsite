@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SeoQuickEdit } from "@/components/seo-quick-edit";
 import { LIMITS, synonymList, validateEdit, type EditTarget, type EditValues } from "@/lib/seo-edit";
-import { expectedCtr, toCsv, type HistoryEntry, type PageSearch, type SiteIssue } from "@/lib/seo-site-checks";
+import { expectedCtr, snapshotOf, toCsv, vitalRating, type HistoryEntry, type IndexStatus, type PageSearch, type SiteIssue, type Vitals } from "@/lib/seo-site-checks";
 import { analyze, type Check } from "@/lib/seo-analysis";
 
 /** One post or page, with everything the dashboard shows. Built on the server, so it must stay plain data. */
@@ -32,6 +32,14 @@ export type DashRow = {
   /** An open pull request already holds an edit for this row. */
   pending?: { url: string; login: string };
   search?: PageSearch;
+  /** Draft or scheduled post: scored before it goes live. */
+  status?: "Draft" | "Scheduled";
+  /** Schema.org types found in the page's structured data (pages read from the live site). */
+  schema?: string[];
+  /** Google's own index verdict from Search Console. */
+  index?: IndexStatus;
+  /** Score minus the score in the last weekly snapshot. */
+  delta?: number;
 };
 
 type Props = {
@@ -46,6 +54,14 @@ type Props = {
   /** GitHub could not be read, so "Edit in a pull request" badges may be missing. */
   pendingUnavailable?: boolean;
   signedInAs: string | null;
+  /** Google index status (URL Inspection) is available. */
+  hasIndex: boolean;
+  indexError?: string;
+  /** Pages whose Google index status was not read yet on this load (it fills in as you reload). */
+  indexMissing: number;
+  /** Site-wide Core Web Vitals from real visitors, when CRUX_API_KEY is set. */
+  vitals: Vitals | null;
+  vitalsNote?: string;
   /** The viewer can save edits (signed in with GitHub, or local dev). Password-only viewers read only. */
   canSave: boolean;
   /** The text before and after a page title in the <title>, from the title template. */
@@ -53,14 +69,15 @@ type Props = {
 };
 
 const descStatus = (d: string) => (!d ? "Missing" : d.length < 140 ? "Too short" : d.length > 160 ? "Too long" : "Good");
-const indexStatus = (r: DashRow) => (r.noindex ? "Noindex" : r.nofollow ? "Index, nofollow" : "Indexed");
+const indexStatus = (r: DashRow) => (r.status ?? (r.noindex ? "Noindex" : r.nofollow ? "Index, nofollow" : "Indexed"));
+const arrow = (d?: number) => (d === undefined || d === 0 ? "" : d > 0 ? ` ▲${d}` : ` ▼${-d}`);
 const scoreLabel = (s: number) => (s >= 80 ? "Good" : s >= 50 ? "Needs work" : "Poor");
 const scoreTone = (s: number) => (s >= 80 ? "bg-emerald-100 text-emerald-900" : s >= 50 ? "bg-amber-100 text-amber-900" : "bg-red-100 text-red-900");
 const checkMark: Record<Check["status"], string> = { pass: "Pass", warn: "Improve", fail: "Fix", na: "Skipped" };
 // Judged against where the page ranks: a low click rate at position 14 is normal, at position 3 it is not.
 const lowCtr = (r: DashRow) => !!r.search && r.search.impressions >= 100 && r.search.ctr < expectedCtr(r.search.position) / 2;
 
-const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; needsSearch?: boolean }> = {
+const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; needsSearch?: boolean; needsIndex?: boolean }> = {
   all: { label: "All", test: () => true },
   poor: { label: "Score under 80", test: (r) => r.score < 80 },
   keyword: { label: "No focus keyword", test: (r) => !r.keyword },
@@ -70,6 +87,11 @@ const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; ne
   site: { label: "Link, sitemap or canonical problem", test: (r) => r.issues.some((i) => !i.code.startsWith("dup-")) },
   stale: { label: "Out of date (a year or more)", test: (r) => r.checks.some((c) => c.id === "fresh" && c.status !== "pass") },
   pageTwo: { label: "On page two (position 11 to 20)", test: (r) => !!r.search && r.search.impressions >= 20 && r.search.position > 10 && r.search.position <= 20, needsSearch: true },
+  unpublished: { label: "Drafts and scheduled posts", test: (r) => !!r.status },
+  orphan: { label: "Orphan page (no other page links to it)", test: (r) => r.issues.some((i) => i.code === "orphan") },
+  dropped: { label: "Score dropped since the last snapshot", test: (r) => (r.delta ?? 0) < 0 },
+  notIndexed: { label: "Google has not indexed it", test: (r) => !!r.index && r.index.verdict !== "PASS" && !r.noindex && !r.status, needsIndex: true },
+  nodata: { label: "No structured data", test: (r) => !!r.schema && r.schema.length === 0 && !r.noindex },
   compete: { label: "Competes with another page for a search", test: (r) => !!r.search?.competes?.length, needsSearch: true },
   pending: { label: "Edit waiting in a pull request", test: (r) => !!r.pending },
   ctr: { label: "Seen often, fewer clicks than its position suggests", test: lowCtr, needsSearch: true },
@@ -139,7 +161,7 @@ type BulkState = Record<string, { kind: "saving" } | { kind: "ok"; text: string 
 const BULK_MAX = 50;
 const NO_VALUES: EditValues = { title: "", description: "", focusKeyword: "", noindex: false, synonyms: "" };
 
-export function SeoDashboardTable({ rows, host, history, hasSearch, searchError, unread, pendingUnavailable, signedInAs, canSave, titleParts }: Props) {
+export function SeoDashboardTable({ rows, host, history, hasSearch, searchError, unread, pendingUnavailable, signedInAs, canSave, titleParts, hasIndex, indexError, indexMissing, vitals, vitalsNote }: Props) {
   const [q, setQ] = useState("");
   const [kind, setKind] = useState("all");
   const [filter, setFilter] = useState("all");
@@ -235,7 +257,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
   async function recordSnapshot() {
     setSnap({ kind: "saving" });
     try {
-      const data = await post({ snapshot: { date: new Date().toISOString().slice(0, 10), average: avg, rows: rows.length, noKeyword: stats.noKeyword, noDescription: stats.noDescription } });
+      const data = await post({ snapshot: snapshotOf(rows.filter((r) => !r.status), new Date().toISOString().slice(0, 10)) });
       setSnap({ kind: "ok", url: data.url, text: data.url ? "Saved to a pull request. It shows here after merge and deploy." : (data.message ?? "Saved.") });
     } catch (e) {
       setSnap({ kind: "error", text: e instanceof Error ? e.message : "Save failed." });
@@ -260,6 +282,21 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         ))}
       </dl>
 
+      <div className="mt-4 rounded-lg border bg-card p-4 text-sm">
+        <h2 className="mb-1 text-sm font-medium">Core Web Vitals (real visitors, phones, whole site)</h2>
+        {vitals ? (
+          <dl className="flex flex-wrap gap-x-8 gap-y-1 tabular-nums">
+            {([["lcp", "Largest Contentful Paint", (v: number) => `${(v / 1000).toFixed(1)} s`], ["inp", "Interaction to Next Paint", (v: number) => `${v} ms`], ["cls", "Layout shift", (v: number) => v.toFixed(2)]] as const).map(([k, label, fmt]) =>
+              vitals[k] === undefined ? null : (
+                <div key={k}><dt className="text-xs text-muted-foreground">{label}</dt><dd>{fmt(vitals[k] as number)} <span className="text-xs text-muted-foreground">({vitalRating(k, vitals[k] as number)})</span></dd></div>
+              ),
+            )}
+          </dl>
+        ) : (
+          <p className="text-xs text-muted-foreground">{vitalsNote ?? "Not connected. Set CRUX_API_KEY (a free Google Cloud API key) to see them."}</p>
+        )}
+      </div>
+
       <div className="mt-4 grid gap-4 rounded-lg border bg-card p-4 sm:grid-cols-[auto_1fr] sm:items-start">
         <div>
           <h2 className="mb-1 text-sm font-medium">Average score over time</h2>
@@ -280,6 +317,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         Page text is read from the live site and refreshes every few minutes. Post text comes from the content files.
         {unread > 0 && ` ${unread} pages could not be read, so only their title, description and keyword were checked.`}
         {hasSearch ? " Search numbers are from Google Search Console, last 28 days." : searchError ? ` Search Console is set up but failed: ${searchError}` : " Search Console is not connected, so there are no click or ranking numbers."}
+        {hasIndex ? ` Index status is Google's own answer, refreshed daily.${indexMissing ? ` ${indexMissing} pages are still being read from Google: reload in a minute.` : ""}` : indexError ? ` Index status failed: ${indexError}` : ""}
         {pendingUnavailable && " Could not check GitHub for edits waiting in pull requests (the rate limit may be used up), so those badges are missing. Sign in at /keystatic to avoid this."}
         {signedInAs && ` Signed in as ${signedInAs}.`}
         {!canSave && " You are viewing with the shared password, so this page is read only. To edit, sign in at /keystatic with a GitHub account that can write to the repo."}
@@ -302,7 +340,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         <label className="grid gap-1 text-xs text-muted-foreground">
           Show
           <select className={select} value={filter} onChange={(e) => setFilter(e.target.value)}>
-            {Object.entries(FILTERS).filter(([, f]) => !f.needsSearch || hasSearch).map(([id, f]) => <option key={id} value={id}>{f.label}</option>)}
+            {Object.entries(FILTERS).filter(([, f]) => (!f.needsSearch || hasSearch) && (!f.needsIndex || hasIndex)).map(([id, f]) => <option key={id} value={id}>{f.label}</option>)}
           </select>
         </label>
         <label className="grid gap-1 text-xs text-muted-foreground">
@@ -388,7 +426,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                     </span>
                   </span>
                   <span className="order-last col-span-2 truncate text-sm text-muted-foreground md:order-none md:col-span-1">{r.keyword || "No focus keyword"}</span>
-                  <span className={`justify-self-end rounded-full px-2.5 py-0.5 text-sm font-medium tabular-nums md:justify-self-start ${scoreTone(r.score)}`}>{r.score} {scoreLabel(r.score)}</span>
+                  <span className={`justify-self-end rounded-full px-2.5 py-0.5 text-sm font-medium tabular-nums md:justify-self-start ${scoreTone(r.score)}`}>{r.score} {scoreLabel(r.score)}{arrow(r.delta)}<span className="sr-only">{r.delta ? ` (${r.delta > 0 ? "up" : "down"} ${Math.abs(r.delta)} since the last snapshot)` : ""}</span></span>
                   <span className="hidden text-sm md:block">{descStatus(r.description)}</span>
                   <span className="hidden text-sm md:block">{indexStatus(r)}</span>
                 </summary>
@@ -421,6 +459,13 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                     </a>
                   </div>
                   <div className="space-y-4 text-sm">
+                    {(r.index || r.schema) && (
+                      <div>
+                        <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Google and structured data</h3>
+                        {r.index && <p>Index status: <span className="font-medium">{r.index.state || r.index.verdict}</span>{r.index.lastCrawl ? `, last crawled ${r.index.lastCrawl}` : ""}.</p>}
+                        {r.schema && <p>Structured data: {r.schema.length ? r.schema.join(", ") : <span className="text-amber-700">none found</span>}.</p>}
+                      </div>
+                    )}
                     {r.issues.length > 0 && (
                       <div>
                         <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Across the site</h3>
@@ -437,6 +482,13 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                     {r.search && (
                       <div>
                         <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Searches that found this page (28 days)</h3>
+                        {r.search.prev && (
+                          <p className="mb-2 text-xs tabular-nums text-muted-foreground">
+                            Before that: {r.search.prev.clicks} clicks, {r.search.prev.impressions} impressions, position {r.search.prev.position.toFixed(1)}.
+                            Now {r.search.clicks - r.search.prev.clicks >= 0 ? "+" : ""}{r.search.clicks - r.search.prev.clicks} clicks, {r.search.impressions - r.search.prev.impressions >= 0 ? "+" : ""}{r.search.impressions - r.search.prev.impressions} impressions
+                            (position {r.search.position <= r.search.prev.position ? "better" : "worse"} by {Math.abs(r.search.position - r.search.prev.position).toFixed(1)}).
+                          </p>
+                        )}
                         <table className="w-full text-left text-xs tabular-nums">
                           <thead><tr><th className="pr-2 font-medium">Search</th><th className="pr-2 font-medium">Clicks</th><th className="pr-2 font-medium">Shown</th><th className="font-medium">Position</th></tr></thead>
                           <tbody>

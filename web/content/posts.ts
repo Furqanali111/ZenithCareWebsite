@@ -72,24 +72,32 @@ const DIR = path.join(process.cwd(), "content/posts");
 const day = (v: unknown) =>
   v instanceof Date ? v.toISOString().slice(0, 10) : String(v ?? "");
 
-function loadPosts(): Post[] {
+/** Every post file, drafts and scheduled posts included. `status` says which are live. */
+function readPosts(): (Post & { status: "Published" | "Draft" | "Scheduled" })[] {
   const today = process.env.BUILD_DATE ?? ""; // set in next.config.ts; empty hides nothing
-  const posts = fs
+  return fs
     .readdirSync(DIR)
     .filter((f) => f.endsWith(".mdx"))
     .map((file) => {
-      const { data } = matter(fs.readFileSync(path.join(DIR, file), "utf8"));
+      const { data, content } = matter(fs.readFileSync(path.join(DIR, file), "utf8"));
+      const scheduled = !!(today && data.publishAt && day(data.publishAt) > today);
       return {
         ...data,
+        // Worked out from the text (about 220 words a minute), so nobody types it and it never goes stale.
+        readingMinutes: Math.max(1, Math.round(content.split(/\s+/).filter(Boolean).length / 220)),
+        status: data.draft ? "Draft" : scheduled ? "Scheduled" : "Published",
         slug: file.slice(0, -".mdx".length),
         publishedAt: day(data.publishedAt),
         updatedAt: day(data.updatedAt) || day(data.publishedAt),
         tags: data.tags ?? [],
         publishAt: data.publishAt ? day(data.publishAt) : undefined,
         reviewedAt: data.reviewedAt ? day(data.reviewedAt) : undefined,
-      } as Post;
-    })
-    .filter((p) => !p.draft && !(today && p.publishAt && p.publishAt > today));
+      } as Post & { status: "Published" | "Draft" | "Scheduled" };
+    });
+}
+
+function loadPosts(): Post[] {
+  const posts = readPosts().filter((p) => p.status === "Published");
 
   // Throws in BOTH dev AND prod: bad frontmatter must fail the build, not ship.
   for (const p of posts) {
@@ -103,6 +111,9 @@ function loadPosts(): Post[] {
   }
   return posts;
 }
+
+/** For the SEO dashboard only: live posts plus drafts and scheduled ones, so they can be scored before they go live. */
+export const getDashboardPosts = () => readPosts().sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
 /** All posts, newest first by publishedAt. */
 export function getAllPosts(): readonly Post[] {

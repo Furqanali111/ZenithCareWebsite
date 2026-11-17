@@ -27,4 +27,4 @@ export async function proxy(req: NextRequest) {
   return res;
 }
 
-export const config = { matcher: ["/seo-dashboard", "/api/seo-edit"] };
+export const config = { matcher: ["/seo-dashboard", "/api/seo-edit", "/api/seo-snapshot"] };

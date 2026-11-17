@@ -129,6 +129,20 @@ Run it by hand after committing: `cd web && node --experimental-strip-types --no
 
 Limits: rename detection needs the file to stay at least 50% similar. A slug change with a big rewrite in the same commit shows as delete plus add, so the deleted-post warning appears and the redirect is added by hand. Pull requests from forks are skipped.
 
+## Added after the first review
+
+- **Drafts and scheduled posts** are listed (status shown, filter "Drafts and scheduled posts") and scored before they go live. They are checked like hidden pages, so a link to one is flagged.
+- **Orphan pages:** a live page that no other page links to. The menu and footer count as links (read from the full page). The check switches itself off when any page could not be read.
+- **Structured data:** the schema.org types found on each page, and a filter for pages with none.
+- **Google index status** (URL Inspection API, refreshed daily, needs the same Search Console setup): filter "Google has not indexed it".
+- **Search Console depth:** the 28 days before are shown next to the current 28, ten searches per page, results paged past 5000 rows, and pages that share a search are flagged.
+- **Core Web Vitals** from real visitors (CrUX API) for the whole site on phones. Needs `CRUX_API_KEY`. A small site may have no data yet.
+- **Weekly snapshot:** `.github/workflows/seo-snapshot.yml` reads `/api/seo-snapshot` every Monday and opens a pull request that adds the scores, including every page's score, to `content/seo-history.json`. Row arrows show the change since the last snapshot. Needs the secret `SEO_DASHBOARD_PASSWORD`, the variable `SITE_URL`, and the repo setting "Allow GitHub Actions to create and approve pull requests". Merge the PR to add the point.
+- **Preview button** in the editor opens the saved branch on its Vercel preview (`/preview`, set `PREVIEW_URL_TEMPLATE`). Without it, it opens the live page.
+- **Last updated date** is set to today by `.github/workflows/post-dates.yml` when a pull request changes a post's text and the date was left alone. Reading time is worked out from the text. Tags must be lowercase with dashes. Category is a fixed list. The page path in the page SEO list is read only on existing entries.
+
+Still not built: a searchable list for the page SEO entries (Keystatic arrays have none), Core Web Vitals per page, and checks that read the rich text live in the editor.
+
 ## Not built, and why
 
 Share this list with the SEO team.
