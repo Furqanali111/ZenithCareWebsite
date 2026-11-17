@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  parseSitemap, internalLinks, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows,
+  parseSitemap, internalLinks, siteIssues, toCsv, pendingLabels, appendHistory, validateHistoryEntry, foldSearchRows, expectedCtr, schemaTypes, snapshotOf, foldPageRows,
 } from "../lib/seo-site-checks.ts";
 
 const HOST = "thezcs.com";
@@ -97,4 +97,66 @@ test("search data: folds queries per page, weights position by impressions, igno
   assert.equal(f["/a"].position, 6);
   assert.equal(f["/a"].ctr, 0.01);
   assert.deepEqual(f["/a"].queries.map((q) => q.query), ["ccm"]);
+});
+
+test("links: a link to a hidden page is flagged as noindex, not broken", () => {
+  const m = siteIssues([row({ path: "/a", body: "[x](/b)" }), row({ path: "/b", noindex: true })], ctx({ sitemap: new Set(["/", "/a"]) }));
+  assert.deepEqual(codes(m, "/a"), ["link-noindex"]);
+});
+
+test("pending labels: a batch commit names every page on its own line", () => {
+  const set = pendingLabels(["fix(seo): update SEO text for 2 pages\n\nupdate SEO text for /about\nupdate SEO text for ccm-billing","fix(seo): update SEO text for 3 pages"]);
+  assert.deepEqual([...set].sort(), ["/about", "ccm-billing"]);
+});
+
+test("links through a whole-section redirect are flagged as redirects, not broken", () => {
+  const m = siteIssues([row({ path: "/a", body: "[x](/old/page)" })], ctx({ sitemap: new Set(["/", "/a"]), prefixRedirects: [{ from: "/old", to: "/new" }] }));
+  assert.deepEqual(codes(m, "/a"), ["link-redirect"]);
+  assert.match(m.get("/a")[0].text, /\/new\/page/);
+});
+
+test("expected CTR falls with position, and two pages sharing a search are marked as competing", () => {
+  assert.ok(expectedCtr(1) > expectedCtr(4) && expectedCtr(4) > expectedCtr(14));
+  const rows = [
+    { keys: ["https://thezcs.com/a", "ccm billing"], clicks: 1, impressions: 50, position: 5 },
+    { keys: ["https://thezcs.com/b", "ccm billing"], clicks: 1, impressions: 40, position: 9 },
+    { keys: ["https://thezcs.com/b", "rare"], clicks: 0, impressions: 5, position: 9 },
+  ];
+  const f = foldSearchRows(rows, HOST);
+  assert.deepEqual(f["/a"].competes, [{ query: "ccm billing", path: "/b" }]);
+  assert.equal(f["/b"].competes.length, 1);
+});
+
+test("orphan: a live page nothing links to is flagged, menu links count, and an unread page switches the check off", () => {
+  const rows = [
+    row({ path: "/", links: ["/a"] }),
+    row({ path: "/a", links: ["/"] }),
+    row({ path: "/lonely", links: ["/"] }),
+    row({ path: "/hidden", noindex: true, links: [] }),
+  ];
+  const m = siteIssues(rows, ctx({ sitemap: null }));
+  assert.deepEqual(codes(m, "/lonely"), ["orphan"]);
+  assert.deepEqual(codes(m, "/a"), []);
+  assert.deepEqual(codes(m, "/hidden"), []); // hidden pages are not expected to be linked
+  const unread = siteIssues([...rows.slice(0, 3), row({ path: "/x" })], ctx({ sitemap: null }));
+  assert.deepEqual(codes(unread, "/lonely"), []);
+});
+
+test("schema types are read from every JSON-LD block, nested and in @graph", () => {
+  const html = `<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization"},{"@type":["WebPage","FAQPage"],"mainEntity":[{"@type":"Question"}]}]}</script><script type="application/ld+json">{bad</script>`;
+  assert.deepEqual(schemaTypes(html).sort(), ["(invalid JSON-LD)", "FAQPage", "Organization", "Question", "WebPage"]);
+  assert.deepEqual(schemaTypes("<p>none</p>"), []);
+});
+
+test("snapshots carry every page score, and a bad page map is refused", () => {
+  const s = snapshotOf([{ path: "/a", score: 80, keyword: "k", description: "d" }, { path: "/b", score: 40, keyword: "", description: "" }], "2026-11-23");
+  assert.deepEqual([s.average, s.rows, s.noKeyword, s.noDescription, s.pages["/b"]], [60, 2, 1, 1, 40]);
+  assert.equal(validateHistoryEntry(s).ok, true);
+  assert.equal(validateHistoryEntry({ ...s, pages: { "../x": 5 } }).ok, false);
+  assert.equal(validateHistoryEntry({ ...s, pages: { "/a": 101 } }).ok, false);
+});
+
+test("previous period totals are folded per page path", () => {
+  const f = foldPageRows([{ keys: ["https://thezcs.com/a/"], clicks: 3, impressions: 90, position: 8 }, { keys: ["https://other.com/a"], clicks: 9, impressions: 9, position: 1 }], HOST);
+  assert.deepEqual(f, { "/a": { clicks: 3, impressions: 90, position: 8 } });
 });

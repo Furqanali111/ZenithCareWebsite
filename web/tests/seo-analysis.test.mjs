@@ -31,11 +31,13 @@ test("a well-optimised post scores high and passes the keyword checks", () => {
   assert.ok(r.score >= 85, `score ${r.score}`);
 });
 
-test("missing keyword fails one check and skips the rest instead of failing them", () => {
+test("missing keyword fails every keyword check, so an unoptimised page cannot outscore a tried one", () => {
   const r = analyze({ ...good, focusKeyword: "" });
   assert.equal(status(r, "kw-set"), "fail");
-  assert.equal(status(r, "kw-title"), "na");
-  assert.equal(status(r, "kw-first"), "na");
+  assert.equal(status(r, "kw-title"), "fail");
+  assert.equal(status(r, "kw-first"), "fail");
+  const tried = analyze({ ...good, focusKeyword: "unrelated phrase" });
+  assert.ok(r.score <= tried.score + 5, `${r.score} vs ${tried.score}`);
 });
 
 test("pages with text in code skip body checks", () => {
@@ -93,4 +95,13 @@ test("link suggestions skip pages already linked and rank keyword mentions first
   const s = linkSuggestions({ path: "/resources/self", body, tags: ["ccm", "billing"] }, others);
   assert.deepEqual(s.map((x) => x.path), ["/resources/rpm", "/resources/ccm"]);
   assert.match(s[0].reason, /remote patient monitoring/);
+});
+
+test("freshness: old content fails, recent passes, density and reading ease do not change the score", () => {
+  const old = analyze({ ...good, updatedAt: "2020-01-01" });
+  assert.equal(status(old, "fresh"), "fail");
+  assert.equal(status(analyze({ ...good, updatedAt: new Date().toISOString().slice(0, 10) }), "fresh"), "pass");
+  const stuffed = analyze({ ...good, body: good.body + "\n\n" + "CCM billing ".repeat(200) });
+  assert.equal(stuffed.checks.find((c) => c.id === "kw-usage").weight, 0);
+  assert.equal(stuffed.checks.find((c) => c.id === "read-ease").weight, 0);
 });

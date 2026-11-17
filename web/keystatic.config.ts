@@ -1,8 +1,10 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
 import { collections as searchCollections, singletons as searchSingletons, globalSingletons, seoExtraFields, seoItem, ogFields, customJsonLdField } from "./keystatic/search-appearance";
 import * as blog from "./keystatic/blog-content";
+import { googlePreview } from "./keystatic/google-preview";
 import * as technicalSeo from "./keystatic/technical-seo";
 import * as editablePages from "./keystatic/editable-pages";
+import { REPO } from "./lib/repo";
 
 // Shared field builders for the CPT and denial code pages.
 const textList = (label: string, item: string) =>
@@ -53,7 +55,7 @@ export default config({
       ? { kind: "local" }
       : {
           kind: "github",
-          repo: "Furqanali111/ZenithCareWebsite",
+          repo: REPO as `${string}/${string}`,
           // The Next app lives in web/ inside the repo.
           pathPrefix: "web",
         },
@@ -67,8 +69,8 @@ export default config({
       slugField: "title",
       format: { contentField: "body" },
       entryLayout: "content",
-      // Opens the live page: same address in dev and on thezcs.com (live once the PR is merged).
-      previewUrl: "/resources/{slug}",
+      // Opens the page on the branch's Vercel preview (app/preview/route.ts), so an unmerged edit can be seen. Falls back to the live address.
+      previewUrl: "/preview?branch={branch}&to=/resources/{slug}",
       schema: {
         // The slug (URL) is editable separately from the H1 title.
         title: fields.slug({
@@ -80,34 +82,41 @@ export default config({
         }),
         metaTitle: fields.text({
           label: "SEO title",
-          description: "Shown in Google. Aim for 60 characters or fewer. Leave blank to reuse the H1.",
+          description: "Shown in Google, with the site name added after it. Keep it to 36 characters or fewer so the whole title stays under 60. Leave blank to reuse the H1 (the dashboard checks the whole title).",
           validation: { length: { max: 60 } },
         }),
         description: fields.text({
           label: "Meta description",
-          description: "Shown in Google and at the top of the post. 160 characters or fewer.",
+          description: "Shown in Google and at the top of the post. Aim for 140 to 160 characters (the dashboard checks this). Longer than 160 is refused.",
           multiline: true,
           validation: { isRequired: true, length: { max: 160 } },
         }),
+        // Shows the search result and title checks while you type. Stores nothing.
+        googlePreview: googlePreview("post"),
         publishedAt: fields.date({
           label: "Published",
           validation: { isRequired: true },
         }),
         updatedAt: fields.date({
           label: "Last updated",
+          description: "Set to today automatically when a pull request changes the post text (.github/workflows/post-dates.yml). Set it by hand only to override.",
           validation: { isRequired: true },
         }),
-        category: fields.text({
+        reviewedAt: fields.date({
+          label: "Clinically reviewed on (optional)",
+          description: "The day the clinical reviewer last checked the facts. Shown under the title.",
+        }),
+        // A fixed list: a typo in free text would create a new category with no intro text on /resources.
+        // To add a category, add it here and in content/category-intros.json.
+        category: fields.select({
           label: "Category",
-          validation: { isRequired: true },
+          options: ["Billing & Reimbursement", "CCM Operations", "Care Management", "Compliance", "Revenue Cycle", "Virtual Staffing"].map((c) => ({ label: c, value: c })),
+          defaultValue: "CCM Operations",
         }),
-        tags: fields.array(fields.text({ label: "Tag" }), {
+        // Lowercase with dashes (cpt-99490, medical-billing): "CCM", "ccm" and "Ccm" would be three different tags.
+        tags: fields.array(fields.text({ label: "Tag", validation: { pattern: { regex: /^[a-z0-9]+(-[a-z0-9]+)*$/, message: "Lowercase letters, numbers and single dashes, like medical-billing" } } }), {
           label: "Tags",
           itemLabel: (props) => props.value,
-        }),
-        readingMinutes: fields.integer({
-          label: "Reading time (minutes)",
-          validation: { isRequired: true, min: 1 },
         }),
         // Keystatic saves the file as public/resources/<slug>/coverImage.<ext> and
         // stores /resources/<slug>/coverImage.<ext>. The page uses the title as alt text.
@@ -144,12 +153,11 @@ export default config({
         ...seoExtraFields,
         schemaType: fields.select({
           label: "Schema type",
-          description: "Article is the default. The others are more specific kinds of article and are all valid.",
+          description: "Article is the default. NewsArticle is left out on purpose: this is health guidance, not news.",
           options: [
             { label: "Article", value: "Article" },
             { label: "BlogPosting", value: "BlogPosting" },
             { label: "TechArticle", value: "TechArticle" },
-            { label: "NewsArticle", value: "NewsArticle" },
           ],
           defaultValue: "Article",
         }),
@@ -205,7 +213,7 @@ export default config({
       path: "content/cpt-codes/*",
       slugField: "code",
       format: "json",
-      previewUrl: "/services/care-management/cpt-codes/{slug}",
+      previewUrl: "/preview?branch={branch}&to=/services/care-management/cpt-codes/{slug}",
       schema: {
         code: fields.slug({
           name: {
@@ -267,7 +275,7 @@ export default config({
       path: "content/denial-codes/*",
       slugField: "code",
       format: "json",
-      previewUrl: "/services/revenue-cycle-management/denial-codes/{slug}",
+      previewUrl: "/preview?branch={branch}&to=/services/revenue-cycle-management/denial-codes/{slug}",
       schema: {
         code: fields.slug({
           name: {

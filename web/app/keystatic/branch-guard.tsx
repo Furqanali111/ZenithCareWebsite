@@ -8,9 +8,9 @@ import { useEffect, useRef, useState } from "react";
 // A Save on a branch just adds a commit, which updates that branch's PR. The real guard is
 // GitHub branch protection on develop; this only explains it before the editor hits it.
 // Only active when the URL has /branch/<name> (production). Local dev has no branches.
-const REPO = "Furqanali111/ZenithCareWebsite";
+import { BASE_BRANCH, REPO } from "@/lib/repo";
 const OWNER = REPO.split("/")[0];
-const SHARED = ["develop", "deployment-branch", "main"];
+const SHARED = [BASE_BRANCH, "deployment-branch", "main"];
 
 const branchOf = (pathname: string) => {
   const m = pathname.match(/\/keystatic\/branch\/([^/]+)/);
@@ -94,7 +94,7 @@ export default function BranchGuard() {
     if (!branch || shared) return;
     let live = true;
     const load = () =>
-      fetch(`https://api.github.com/repos/${REPO}/pulls?state=open&base=develop&head=${OWNER}:${encodeURIComponent(branch)}`)
+      fetch(`https://api.github.com/repos/${REPO}/pulls?state=open&base=${BASE_BRANCH}&head=${OWNER}:${encodeURIComponent(branch)}`)
         .then((r) => (r.ok ? r.json() : []))
         .then((list: Pr[]) => live && setPr(list[0] ?? null))
         .catch(() => {});
@@ -144,7 +144,7 @@ export default function BranchGuard() {
     );
   }
 
-  const compare = `https://github.com/${REPO}/compare/develop...${branch.split("/").map(encodeURIComponent).join("/")}?expand=1`;
+  const compare = `https://github.com/${REPO}/compare/${BASE_BRANCH}...${branch.split("/").map(encodeURIComponent).join("/")}?expand=1`;
   return (
     <div style={pill} role="status">
       {pr ? (
@@ -156,7 +156,7 @@ export default function BranchGuard() {
         </>
       ) : (
         <>
-          <span>Branch {branch}. Save, then open a PR into develop.</span>
+          <span>Branch {branch}. Save, then open a PR into {BASE_BRANCH}.</span>
           <a href={compare} target="_blank" rel="noreferrer" style={btn}>
             Create pull request
           </a>

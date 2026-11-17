@@ -4,14 +4,14 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SeoQuickEdit } from "@/components/seo-quick-edit";
-import { LIMITS, validateEdit, type EditTarget, type EditValues } from "@/lib/seo-edit";
-import { toCsv, type HistoryEntry, type PageSearch, type SiteIssue } from "@/lib/seo-site-checks";
-import type { Check } from "@/lib/seo-analysis";
+import { LIMITS, synonymList, validateEdit, type EditTarget, type EditValues } from "@/lib/seo-edit";
+import { expectedCtr, snapshotOf, toCsv, vitalRating, type HistoryEntry, type IndexStatus, type PageSearch, type SiteIssue, type Vitals } from "@/lib/seo-site-checks";
+import { analyze, type Check } from "@/lib/seo-analysis";
 
 /** One post or page, with everything the dashboard shows. Built on the server, so it must stay plain data. */
 export type DashRow = {
   key: string;
-  kind: "Post" | "Page";
+  kind: "Post" | "Page" | "Code page";
   name: string;
   path: string;
   title: string;
@@ -26,11 +26,20 @@ export type DashRow = {
   /** False when the page text could not be read, so only metadata was checked. */
   bodyRead: boolean;
   edit: string;
-  target: EditTarget;
-  initial: EditValues;
+  /** Missing on rows that are read only here (code pages): edited in their own editor page. */
+  target?: EditTarget;
+  initial?: EditValues;
   /** An open pull request already holds an edit for this row. */
   pending?: { url: string; login: string };
   search?: PageSearch;
+  /** Draft or scheduled post: scored before it goes live. */
+  status?: "Draft" | "Scheduled";
+  /** Schema.org types found in the page's structured data (pages read from the live site). */
+  schema?: string[];
+  /** Google's own index verdict from Search Console. */
+  index?: IndexStatus;
+  /** Score minus the score in the last weekly snapshot. */
+  delta?: number;
 };
 
 type Props = {
@@ -45,16 +54,30 @@ type Props = {
   /** GitHub could not be read, so "Edit in a pull request" badges may be missing. */
   pendingUnavailable?: boolean;
   signedInAs: string | null;
+  /** Google index status (URL Inspection) is available. */
+  hasIndex: boolean;
+  indexError?: string;
+  /** Pages whose Google index status was not read yet on this load (it fills in as you reload). */
+  indexMissing: number;
+  /** Site-wide Core Web Vitals from real visitors, when CRUX_API_KEY is set. */
+  vitals: Vitals | null;
+  vitalsNote?: string;
+  /** The viewer can save edits (signed in with GitHub, or local dev). Password-only viewers read only. */
+  canSave: boolean;
+  /** The text before and after a page title in the <title>, from the title template. */
+  titleParts: [string, string];
 };
 
 const descStatus = (d: string) => (!d ? "Missing" : d.length < 140 ? "Too short" : d.length > 160 ? "Too long" : "Good");
-const indexStatus = (r: DashRow) => (r.noindex ? "Noindex" : r.nofollow ? "Index, nofollow" : "Indexed");
+const indexStatus = (r: DashRow) => (r.status ?? (r.noindex ? "Noindex" : r.nofollow ? "Index, nofollow" : "Indexed"));
+const arrow = (d?: number) => (d === undefined || d === 0 ? "" : d > 0 ? ` ▲${d}` : ` ▼${-d}`);
 const scoreLabel = (s: number) => (s >= 80 ? "Good" : s >= 50 ? "Needs work" : "Poor");
 const scoreTone = (s: number) => (s >= 80 ? "bg-emerald-100 text-emerald-900" : s >= 50 ? "bg-amber-100 text-amber-900" : "bg-red-100 text-red-900");
 const checkMark: Record<Check["status"], string> = { pass: "Pass", warn: "Improve", fail: "Fix", na: "Skipped" };
-const lowCtr = (r: DashRow) => !!r.search && r.search.impressions >= 100 && r.search.ctr < 0.01;
+// Judged against where the page ranks: a low click rate at position 14 is normal, at position 3 it is not.
+const lowCtr = (r: DashRow) => !!r.search && r.search.impressions >= 100 && r.search.ctr < expectedCtr(r.search.position) / 2;
 
-const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; needsSearch?: boolean }> = {
+const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; needsSearch?: boolean; needsIndex?: boolean }> = {
   all: { label: "All", test: () => true },
   poor: { label: "Score under 80", test: (r) => r.score < 80 },
   keyword: { label: "No focus keyword", test: (r) => !r.keyword },
@@ -62,8 +85,16 @@ const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; ne
   noindex: { label: "Hidden from Google", test: (r) => r.noindex },
   dup: { label: "Duplicate title, description or keyword", test: (r) => r.issues.some((i) => i.code.startsWith("dup-")) },
   site: { label: "Link, sitemap or canonical problem", test: (r) => r.issues.some((i) => !i.code.startsWith("dup-")) },
+  stale: { label: "Out of date (a year or more)", test: (r) => r.checks.some((c) => c.id === "fresh" && c.status !== "pass") },
+  pageTwo: { label: "On page two (position 11 to 20)", test: (r) => !!r.search && r.search.impressions >= 20 && r.search.position > 10 && r.search.position <= 20, needsSearch: true },
+  unpublished: { label: "Drafts and scheduled posts", test: (r) => !!r.status },
+  orphan: { label: "Orphan page (no other page links to it)", test: (r) => r.issues.some((i) => i.code === "orphan") },
+  dropped: { label: "Score dropped since the last snapshot", test: (r) => (r.delta ?? 0) < 0 },
+  notIndexed: { label: "Google has not indexed it", test: (r) => !!r.index && r.index.verdict !== "PASS" && !r.noindex && !r.status, needsIndex: true },
+  nodata: { label: "No structured data", test: (r) => !!r.schema && r.schema.length === 0 && !r.noindex },
+  compete: { label: "Competes with another page for a search", test: (r) => !!r.search?.competes?.length, needsSearch: true },
   pending: { label: "Edit waiting in a pull request", test: (r) => !!r.pending },
-  ctr: { label: "Seen often, rarely clicked", test: lowCtr, needsSearch: true },
+  ctr: { label: "Seen often, fewer clicks than its position suggests", test: lowCtr, needsSearch: true },
 };
 
 const SORTS: Record<string, { label: string; cmp: (a: DashRow, b: DashRow) => number; needsSearch?: boolean }> = {
@@ -76,7 +107,7 @@ const SORTS: Record<string, { label: string; cmp: (a: DashRow, b: DashRow) => nu
 };
 
 /** Approximation of a Google result. Width and line limits are CSS, not exact pixel counts. */
-function Snippet({ r, host, mobile }: { r: DashRow; host: string; mobile?: boolean }) {
+function Snippet({ r, host, mobile }: { r: Pick<DashRow, "path" | "title" | "description">; host: string; mobile?: boolean }) {
   const crumb = r.path === "/" ? "" : ` › ${r.path.slice(1).split("/").join(" › ")}`;
   return (
     <div className={`rounded-lg border bg-white p-3 text-left font-sans text-[#202124] ${mobile ? "max-w-[360px]" : "max-w-[600px]"}`}>
@@ -127,9 +158,10 @@ function Trend({ history }: { history: HistoryEntry[] }) {
 
 type Saved = Record<string, { url: string; login: string }>;
 type BulkState = Record<string, { kind: "saving" } | { kind: "ok"; text: string } | { kind: "error"; text: string }>;
-const BULK_MAX = 25;
+const BULK_MAX = 50;
+const NO_VALUES: EditValues = { title: "", description: "", focusKeyword: "", noindex: false, synonyms: "" };
 
-export function SeoDashboardTable({ rows, host, history, hasSearch, searchError, unread, pendingUnavailable, signedInAs }: Props) {
+export function SeoDashboardTable({ rows, host, history, hasSearch, searchError, unread, pendingUnavailable, signedInAs, canSave, titleParts, hasIndex, indexError, indexMissing, vitals, vitalsNote }: Props) {
   const [q, setQ] = useState("");
   const [kind, setKind] = useState("all");
   const [filter, setFilter] = useState("all");
@@ -150,10 +182,22 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
       .sort(SORTS[sort].cmp);
   }, [withPending, q, kind, filter, sort]);
 
-  const baseOf = (r: DashRow) => base[r.key] ?? r.initial;
+  // The row as it would read after saving the draft, so the preview and checks follow what is typed.
+  const live = (r: DashRow) => {
+    const d = draftOf(r);
+    const raw = d.title || (r.kind === "Post" ? r.name : "");
+    return r.target ? { path: r.path, title: `${titleParts[0]}${raw}${titleParts[1]}`, description: d.description } : r;
+  };
+  const liveChecks = (r: DashRow) => {
+    const d = draftOf(r);
+    const l = live(r);
+    const ids = ["kw-set", "title-len", "desc-len", "kw-title", "kw-desc", "kw-url"];
+    return analyze({ path: r.path, title: l.title, description: l.description, focusKeyword: d.focusKeyword, synonyms: synonymList(d.synonyms) }).checks.filter((c) => ids.includes(c.id));
+  };
+  const baseOf = (r: DashRow) => base[r.key] ?? r.initial ?? NO_VALUES;
   const draftOf = (r: DashRow) => drafts[r.key] ?? baseOf(r);
   // Every edited row, also the ones a filter hides now, so Save never skips an edit you can no longer see.
-  const changed = withPending.filter((r) => JSON.stringify(draftOf(r)) !== JSON.stringify(baseOf(r)));
+  const changed = withPending.filter((r) => r.target && JSON.stringify(draftOf(r)) !== JSON.stringify(baseOf(r)));
   const changedHidden = changed.filter((r) => !shown.includes(r)).length;
   const errorOf = (r: DashRow) => {
     const v = validateEdit({ target: r.target, values: draftOf(r) });
@@ -193,28 +237,27 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
   }
 
   async function saveBulk() {
-    // One at a time: every save is a commit on the same branch, and parallel commits would collide.
-    for (const r of changed.slice(0, BULK_MAX)) {
-      if (errorOf(r)) continue;
-      setBulkState((s) => ({ ...s, [r.key]: { kind: "saving" } }));
-      try {
-        const data = await post({ target: r.target, values: draftOf(r) });
-        setBulkState((s) => ({ ...s, [r.key]: { kind: "ok", text: data.url ? "Saved to a pull request" : (data.message ?? "Saved") } }));
-        if (data.url) setSaved((s) => ({ ...s, [r.key]: { url: data.url as string, login: signedInAs ?? "you" } }));
-        setBase((b) => ({ ...b, [r.key]: draftOf(r) }));
-        setDrafts((d) => Object.fromEntries(Object.entries(d).filter(([k]) => k !== r.key)));
-      } catch (e) {
-        const text = e instanceof Error ? e.message : "Save failed.";
-        setBulkState((s) => ({ ...s, [r.key]: { kind: "error", text } }));
-        if (/sign in|expired/i.test(text)) break; // every later save would fail the same way
-      }
+    // One request, one commit: the server changes every file and commits once.
+    const batch = changed.filter((r) => !errorOf(r)).slice(0, BULK_MAX);
+    if (!batch.length) return;
+    setBulkState((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, { kind: "saving" as const }])) }));
+    try {
+      const data = await post({ edits: batch.map((r) => ({ target: r.target, values: draftOf(r) })) });
+      const ok = { kind: "ok" as const, text: data.url ? "Saved to a pull request" : (data.message ?? "Saved") };
+      setBulkState((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, ok])) }));
+      if (data.url) setSaved((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, { url: data.url as string, login: signedInAs ?? "you" }])) }));
+      setBase((b) => ({ ...b, ...Object.fromEntries(batch.map((r) => [r.key, draftOf(r)])) }));
+      setDrafts((d) => Object.fromEntries(Object.entries(d).filter(([k]) => !batch.some((r) => r.key === k))));
+    } catch (e) {
+      const text = e instanceof Error ? e.message : "Save failed.";
+      setBulkState((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, { kind: "error" as const, text }])) }));
     }
   }
 
   async function recordSnapshot() {
     setSnap({ kind: "saving" });
     try {
-      const data = await post({ snapshot: { date: new Date().toISOString().slice(0, 10), average: avg, rows: rows.length, noKeyword: stats.noKeyword, noDescription: stats.noDescription } });
+      const data = await post({ snapshot: snapshotOf(rows.filter((r) => !r.status), new Date().toISOString().slice(0, 10)) });
       setSnap({ kind: "ok", url: data.url, text: data.url ? "Saved to a pull request. It shows here after merge and deploy." : (data.message ?? "Saved.") });
     } catch (e) {
       setSnap({ kind: "error", text: e instanceof Error ? e.message : "Save failed." });
@@ -239,13 +282,28 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         ))}
       </dl>
 
+      <div className="mt-4 rounded-lg border bg-card p-4 text-sm">
+        <h2 className="mb-1 text-sm font-medium">Core Web Vitals (real visitors, phones, whole site)</h2>
+        {vitals ? (
+          <dl className="flex flex-wrap gap-x-8 gap-y-1 tabular-nums">
+            {([["lcp", "Largest Contentful Paint", (v: number) => `${(v / 1000).toFixed(1)} s`], ["inp", "Interaction to Next Paint", (v: number) => `${v} ms`], ["cls", "Layout shift", (v: number) => v.toFixed(2)]] as const).map(([k, label, fmt]) =>
+              vitals[k] === undefined ? null : (
+                <div key={k}><dt className="text-xs text-muted-foreground">{label}</dt><dd>{fmt(vitals[k] as number)} <span className="text-xs text-muted-foreground">({vitalRating(k, vitals[k] as number)})</span></dd></div>
+              ),
+            )}
+          </dl>
+        ) : (
+          <p className="text-xs text-muted-foreground">{vitalsNote ?? "Not connected. Set CRUX_API_KEY (a free Google Cloud API key) to see them."}</p>
+        )}
+      </div>
+
       <div className="mt-4 grid gap-4 rounded-lg border bg-card p-4 sm:grid-cols-[auto_1fr] sm:items-start">
         <div>
           <h2 className="mb-1 text-sm font-medium">Average score over time</h2>
           <Trend history={history} />
         </div>
         <div className="space-y-1 text-sm sm:justify-self-end sm:text-right">
-          <Button type="button" size="sm" variant="outline" onClick={recordSnapshot} disabled={snap.kind === "saving"}>
+          <Button type="button" size="sm" variant="outline" onClick={recordSnapshot} disabled={snap.kind === "saving" || !canSave}>
             {snap.kind === "saving" ? "Saving..." : "Record today's scores"}
           </Button>
           <p role="status" className="max-w-xs text-xs text-muted-foreground">
@@ -259,8 +317,10 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         Page text is read from the live site and refreshes every few minutes. Post text comes from the content files.
         {unread > 0 && ` ${unread} pages could not be read, so only their title, description and keyword were checked.`}
         {hasSearch ? " Search numbers are from Google Search Console, last 28 days." : searchError ? ` Search Console is set up but failed: ${searchError}` : " Search Console is not connected, so there are no click or ranking numbers."}
+        {hasIndex ? ` Index status is Google's own answer, refreshed daily.${indexMissing ? ` ${indexMissing} pages are still being read from Google: reload in a minute.` : ""}` : indexError ? ` Index status failed: ${indexError}` : ""}
         {pendingUnavailable && " Could not check GitHub for edits waiting in pull requests (the rate limit may be used up), so those badges are missing. Sign in at /keystatic to avoid this."}
         {signedInAs && ` Signed in as ${signedInAs}.`}
+        {!canSave && " You are viewing with the shared password, so this page is read only. To edit, sign in at /keystatic with a GitHub account that can write to the repo."}
       </p>
 
       <div className="mt-3 flex flex-wrap items-end gap-3">
@@ -274,12 +334,13 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
             <option value="all">Posts and pages</option>
             <option value="Post">Posts</option>
             <option value="Page">Pages</option>
+            <option value="Code page">CPT and denial code pages</option>
           </select>
         </label>
         <label className="grid gap-1 text-xs text-muted-foreground">
           Show
           <select className={select} value={filter} onChange={(e) => setFilter(e.target.value)}>
-            {Object.entries(FILTERS).filter(([, f]) => !f.needsSearch || hasSearch).map(([id, f]) => <option key={id} value={id}>{f.label}</option>)}
+            {Object.entries(FILTERS).filter(([, f]) => (!f.needsSearch || hasSearch) && (!f.needsIndex || hasIndex)).map(([id, f]) => <option key={id} value={id}>{f.label}</option>)}
           </select>
         </label>
         <label className="grid gap-1 text-xs text-muted-foreground">
@@ -288,22 +349,24 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
             {Object.entries(SORTS).filter(([, s]) => !s.needsSearch || hasSearch).map(([id, s]) => <option key={id} value={id}>{s.label}</option>)}
           </select>
         </label>
-        <label className="flex h-9 items-center gap-2 text-sm">
-          <input type="checkbox" checked={bulk} onChange={(e) => setBulk(e.target.checked)} />
-          Edit in a table
-        </label>
+        {canSave && (
+          <label className="flex h-9 items-center gap-2 text-sm">
+            <input type="checkbox" checked={bulk} onChange={(e) => setBulk(e.target.checked)} />
+            Edit in a table
+          </label>
+        )}
         <Button type="button" size="sm" variant="outline" onClick={exportCsv} disabled={!shown.length}>Download CSV</Button>
         <p className="h-9 self-end text-sm leading-9 text-muted-foreground" aria-live="polite">{shown.length} of {rows.length}</p>
       </div>
 
-      {bulk ? (
+      {bulk && canSave ? (
         <div className="mt-3">
           <div className="flex flex-wrap items-center gap-3">
             <Button type="button" size="sm" onClick={saveBulk} disabled={!changed.length || changed.some((r) => bulkState[r.key]?.kind === "saving")}>
               Save {Math.min(changed.length, BULK_MAX)} change{changed.length === 1 ? "" : "s"}
             </Button>
             <p className="text-xs text-muted-foreground">
-              Only the rows listed below are edited. At most {BULK_MAX} per click, one commit each, all in your own pull request.
+              Only the rows listed below are edited. At most {BULK_MAX} per click, saved as one commit in your own pull request.
               {changedHidden > 0 && ` ${changedHidden} edited row${changedHidden > 1 ? "s are" : " is"} hidden by the filter and will be saved too.`}
               {changed.length > BULK_MAX && ` ${changed.length - BULK_MAX} more wait for the next click.`}
             </p>
@@ -321,7 +384,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {shown.map((r) => {
+                {shown.filter((r) => r.target).map((r) => {
                   const d = draftOf(r);
                   const dirty = JSON.stringify(d) !== JSON.stringify(baseOf(r));
                   const err = dirty ? errorOf(r) : null;
@@ -363,34 +426,46 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                     </span>
                   </span>
                   <span className="order-last col-span-2 truncate text-sm text-muted-foreground md:order-none md:col-span-1">{r.keyword || "No focus keyword"}</span>
-                  <span className={`justify-self-end rounded-full px-2.5 py-0.5 text-sm font-medium tabular-nums md:justify-self-start ${scoreTone(r.score)}`}>{r.score} {scoreLabel(r.score)}</span>
+                  <span className={`justify-self-end rounded-full px-2.5 py-0.5 text-sm font-medium tabular-nums md:justify-self-start ${scoreTone(r.score)}`}>{r.score} {scoreLabel(r.score)}{arrow(r.delta)}<span className="sr-only">{r.delta ? ` (${r.delta > 0 ? "up" : "down"} ${Math.abs(r.delta)} since the last snapshot)` : ""}</span></span>
                   <span className="hidden text-sm md:block">{descStatus(r.description)}</span>
                   <span className="hidden text-sm md:block">{indexStatus(r)}</span>
                 </summary>
                 <div className="grid gap-6 border-t bg-muted/30 px-4 py-4 lg:grid-cols-2">
                   <div className="space-y-4">
                     <div>
-                      <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Google, desktop</p>
-                      <Snippet r={r} host={host} />
+                      <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Google, desktop{r.target && " (follows what you type)"}</p>
+                      <Snippet r={live(r)} host={host} />
                     </div>
                     <div>
                       <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Google, mobile</p>
-                      <Snippet r={r} host={host} mobile />
+                      <Snippet r={live(r)} host={host} mobile />
                     </div>
-                    <SeoQuickEdit
-                      key={JSON.stringify(baseOf(r))}
-                      target={r.target}
-                      initial={baseOf(r)}
-                      onSaved={(url, values) => {
-                        setBase((b) => ({ ...b, [r.key]: values }));
-                        if (url) setSaved((s) => ({ ...s, [r.key]: { url, login: signedInAs ?? "you" } }));
-                      }}
-                    />
+                    {r.target && canSave && (
+                      <SeoQuickEdit
+                        key={JSON.stringify(baseOf(r))}
+                        target={r.target}
+                        initial={baseOf(r)}
+                        value={draftOf(r)}
+                        onChange={(v) => setDrafts((all) => ({ ...all, [r.key]: v }))}
+                        checks={liveChecks(r)}
+                        onSaved={(url, values) => {
+                          setBase((b) => ({ ...b, [r.key]: values }));
+                          if (url) setSaved((s) => ({ ...s, [r.key]: { url, login: signedInAs ?? "you" } }));
+                        }}
+                      />
+                    )}
                     <a href={r.edit} className="inline-block text-sm underline underline-offset-2">
-                      Open the full editor (all fields, social card, schema){r.kind === "Page" ? `. Find ${r.path} in the list.` : ""}
+                      Open the full editor ({r.kind === "Code page" ? "all fields" : "social card, schema, canonical"}){r.kind === "Page" ? `. Find ${r.path} in the list.` : ""}
                     </a>
                   </div>
                   <div className="space-y-4 text-sm">
+                    {(r.index || r.schema) && (
+                      <div>
+                        <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Google and structured data</h3>
+                        {r.index && <p>Index status: <span className="font-medium">{r.index.state || r.index.verdict}</span>{r.index.lastCrawl ? `, last crawled ${r.index.lastCrawl}` : ""}.</p>}
+                        {r.schema && <p>Structured data: {r.schema.length ? r.schema.join(", ") : <span className="text-amber-700">none found</span>}.</p>}
+                      </div>
+                    )}
                     {r.issues.length > 0 && (
                       <div>
                         <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Across the site</h3>
@@ -407,6 +482,13 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                     {r.search && (
                       <div>
                         <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Searches that found this page (28 days)</h3>
+                        {r.search.prev && (
+                          <p className="mb-2 text-xs tabular-nums text-muted-foreground">
+                            Before that: {r.search.prev.clicks} clicks, {r.search.prev.impressions} impressions, position {r.search.prev.position.toFixed(1)}.
+                            Now {r.search.clicks - r.search.prev.clicks >= 0 ? "+" : ""}{r.search.clicks - r.search.prev.clicks} clicks, {r.search.impressions - r.search.prev.impressions >= 0 ? "+" : ""}{r.search.impressions - r.search.prev.impressions} impressions
+                            (position {r.search.position <= r.search.prev.position ? "better" : "worse"} by {Math.abs(r.search.position - r.search.prev.position).toFixed(1)}).
+                          </p>
+                        )}
                         <table className="w-full text-left text-xs tabular-nums">
                           <thead><tr><th className="pr-2 font-medium">Search</th><th className="pr-2 font-medium">Clicks</th><th className="pr-2 font-medium">Shown</th><th className="font-medium">Position</th></tr></thead>
                           <tbody>
@@ -415,6 +497,9 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                             ))}
                           </tbody>
                         </table>
+                        {r.search.competes?.map((c) => (
+                          <p key={`${c.query}-${c.path}`} className="mt-1 text-xs text-amber-700">Also shown for &ldquo;{c.query}&rdquo;: <code>{c.path}</code>. The two pages compete, so give each its own keyword or link one to the other.</p>
+                        ))}
                         {r.keyword && !r.search.queries.some((s) => s.query.toLowerCase().includes(r.keyword.toLowerCase())) && (
                           <p className="mt-1 text-xs text-amber-700">The focus keyword is not among the top searches for this page.</p>
                         )}

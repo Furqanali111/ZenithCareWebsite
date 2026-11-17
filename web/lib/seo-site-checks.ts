@@ -7,7 +7,7 @@ import { LINK } from "./seo-analysis.ts"; // the .ts extension lets the node tes
 
 export type CheckRow = {
   path: string;
-  kind: "Post" | "Page";
+  kind: "Post" | "Page" | "Code page";
   title: string;
   description: string;
   keyword: string;
@@ -16,12 +16,16 @@ export type CheckRow = {
   canonical?: string;
   /** Page text as markdown, when it could be read. */
   body?: string;
+  /** Internal links found anywhere on the live page, menu and footer included. Only for pages read from the site. */
+  links?: string[];
 };
 
 export type SiteContext = {
   /** Paths in the live sitemap. null when the sitemap could not be read: the checks that need it are skipped. */
   sitemap: Set<string> | null;
   redirects: { from: string; to: string }[];
+  /** Whole-section redirects: /old/a goes to /new/a. */
+  prefixRedirects?: { from: string; to: string }[];
   /** The site's own host, for example thezcs.com. */
   host: string;
 };
@@ -90,12 +94,20 @@ export function siteIssues(rows: CheckRow[], ctx: SiteContext): Map<string, Site
   for (const list of group((r) => r.keyword))
     for (const r of list) add(r.path, { level: "warn", code: "dup-keyword", text: `Same focus keyword as ${others(list, r)}. These pages compete for one search.` });
 
+  const hidden = new Set(rows.filter((r) => r.noindex).map((r) => trimSlash(r.path)));
   const redirected = new Map(ctx.redirects.map((r) => [trimSlash(r.from), trimSlash(r.to)]));
+  const moved = (target: string) => {
+    if (redirected.has(target)) return redirected.get(target);
+    const p = (ctx.prefixRedirects ?? []).find((x) => target === trimSlash(x.from) || target.startsWith(`${trimSlash(x.from)}/`));
+    return p && trimSlash(p.to) + target.slice(trimSlash(p.from).length);
+  };
   for (const r of rows) {
     if (r.body) {
       for (const target of internalLinks(r.body, ctx.host)) {
         if (target === r.path || /\.[a-z0-9]{2,5}$/i.test(target)) continue; // files (pdf, images, xml) are not sitemap pages
-        if (redirected.has(target)) add(r.path, { level: "warn", code: "link-redirect", text: `Links to ${target}, which redirects to ${redirected.get(target)}. Link straight to the new address.` });
+        const dest = moved(target);
+        if (dest) add(r.path, { level: "warn", code: "link-redirect", text: `Links to ${target}, which redirects to ${dest}. Link straight to the new address.` });
+        else if (hidden.has(target)) add(r.path, { level: "warn", code: "link-noindex", text: `Links to ${target}, which is hidden from Google. Readers can open it, but the link passes no search value.` });
         else if (ctx.sitemap && !ctx.sitemap.has(target) && !/^\/(api|keystatic|_next)\b/.test(target))
           add(r.path, { level: "fix", code: "link-broken", text: `Links to ${target}, which is not in the sitemap. It may be broken, noindexed or an unlisted page.` });
       }
@@ -119,7 +131,38 @@ export function siteIssues(rows: CheckRow[], ctx: SiteContext): Map<string, Site
       else if (path !== trimSlash(r.path)) add(r.path, { level: "warn", code: "canonical-other", text: `Canonical points to ${path}, so Google will index that page instead of this one.` });
     }
   }
+
+  // Orphans: a live page no other page links to. Only judged when every page was read, because one unread page
+  // could hold the missing link. The menu and footer count (they are in `links`), so this finds pages left out of them.
+  const live = rows.filter((r) => !r.noindex);
+  const readable = rows.every((r) => r.kind === "Post" ? r.body !== undefined : r.links !== undefined);
+  if (readable) {
+    const inbound = new Set<string>();
+    for (const o of rows) for (const t of [...(o.body ? internalLinks(o.body, ctx.host) : []), ...(o.links ?? [])]) if (t !== trimSlash(o.path)) inbound.add(t);
+    for (const r of live) if (r.path !== "/" && !inbound.has(trimSlash(r.path))) add(r.path, { level: "warn", code: "orphan", text: "No other page links here. Link to it from a related page or the menu, so visitors and Google can find it." });
+  }
   return issues;
+}
+
+/** Schema.org types in the JSON-LD blocks of an HTML page, for example ["Organization", "FAQPage"]. */
+export function schemaTypes(html: string): string[] {
+  const found = new Set<string>();
+  const walk = (v: unknown) => {
+    if (Array.isArray(v)) v.forEach(walk);
+    else if (v && typeof v === "object") {
+      const o = v as Record<string, unknown>;
+      for (const t of [o["@type"]].flat()) if (typeof t === "string") found.add(t);
+      Object.values(o).forEach(walk);
+    }
+  };
+  for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      walk(JSON.parse(m[1]));
+    } catch {
+      found.add("(invalid JSON-LD)");
+    }
+  }
+  return [...found];
 }
 
 /** Spreadsheet-safe CSV: quotes everything and defuses cells a spreadsheet would run as a formula. */
@@ -131,17 +174,41 @@ export function toCsv(header: string[], rows: (string | number | boolean)[][]): 
   return [header, ...rows].map((r) => r.map(cell).join(",")).join("\r\n") + "\r\n";
 }
 
-/** Titles of open edit PRs: commit subjects are "fix(seo): update SEO text for <slug or path>". */
+/** Pages named by open edit PRs. A commit is "fix(seo): update SEO text for <x>", or a batch with one "update SEO text for <x>" line per page. */
 export function pendingLabels(commitMessages: string[]): Set<string> {
   const out = new Set<string>();
   for (const m of commitMessages) {
-    const hit = m.split("\n")[0].match(/^fix\(seo\): update SEO text for (\S+)$/);
-    if (hit) out.add(hit[1]);
+    const [subject, ...rest] = m.split("\n");
+    if (!subject.startsWith("fix(seo): update SEO text for ")) continue;
+    for (const line of [subject.replace("fix(seo): ", ""), ...rest]) {
+      const hit = line.match(/^update SEO text for (\S+)$/);
+      if (hit) out.add(hit[1]);
+    }
   }
   return out;
 }
 
-export type HistoryEntry = { date: string; average: number; rows: number; noKeyword: number; noDescription: number };
+export type HistoryEntry = {
+  date: string;
+  average: number;
+  rows: number;
+  noKeyword: number;
+  noDescription: number;
+  /** Score of every page by path on that day, so a drop can be traced to a page. Optional: older entries have none. */
+  pages?: Record<string, number>;
+};
+
+/** The snapshot of the current rows: what the weekly job and the Record button both save. */
+export function snapshotOf(rows: { path: string; score: number; keyword: string; description: string }[], date: string): HistoryEntry {
+  return {
+    date,
+    average: rows.length ? Math.round(rows.reduce((t, r) => t + r.score, 0) / rows.length) : 0,
+    rows: rows.length,
+    noKeyword: rows.filter((r) => !r.keyword).length,
+    noDescription: rows.filter((r) => !r.description).length,
+    pages: Object.fromEntries(rows.map((r) => [r.path, r.score])),
+  };
+}
 
 /** Adds one snapshot to the history file text. The same day is replaced, the list is capped. */
 export function appendHistory(jsonText: string, entry: HistoryEntry, keep = 156): string {
@@ -156,14 +223,35 @@ export function validateHistoryEntry(raw: unknown): { ok: true; entry: HistoryEn
   const n = (x: unknown) => typeof x === "number" && Number.isInteger(x) && x >= 0 && x <= 100000;
   if (!e || typeof e.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(e.date) || !n(e.average) || (e.average as number) > 100 || !n(e.rows) || !n(e.noKeyword) || !n(e.noDescription))
     return { ok: false, error: "Bad snapshot." };
-  return { ok: true, entry: { date: e.date, average: e.average as number, rows: e.rows as number, noKeyword: e.noKeyword as number, noDescription: e.noDescription as number } };
+  const entry: HistoryEntry = { date: e.date, average: e.average as number, rows: e.rows as number, noKeyword: e.noKeyword as number, noDescription: e.noDescription as number };
+  if (e.pages !== undefined) {
+    const p = e.pages as Record<string, unknown>;
+    const ok = p && typeof p === "object" && !Array.isArray(p) && Object.entries(p).length <= 500 && Object.entries(p).every(([k, v]) => /^\/[a-z0-9/-]*$/.test(k) && n(v) && (v as number) <= 100);
+    if (!ok) return { ok: false, error: "Bad snapshot." };
+    entry.pages = p as Record<string, number>;
+  }
+  return { ok: true, entry };
 }
 
 export type GscRow = { keys: string[]; clicks: number; impressions: number; position: number };
-export type PageSearch = { clicks: number; impressions: number; ctr: number; position: number; queries: { query: string; clicks: number; impressions: number; position: number }[] };
+export type PageSearch = {
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+  queries: { query: string; clicks: number; impressions: number; position: number }[];
+  /** The 28 days before, for the change arrows. */
+  prev?: { clicks: number; impressions: number; position: number };
+  /** Searches this page shares with another page of the site (both shown at least 20 times). */
+  competes?: { query: string; path: string }[];
+};
+
+/** Rough share of clicks a result gets at a position, so a low click rate is judged against where the page ranks. */
+export const expectedCtr = (position: number) =>
+  position <= 1.5 ? 0.28 : position <= 2.5 ? 0.15 : position <= 3.5 ? 0.1 : position <= 5.5 ? 0.06 : position <= 10.5 ? 0.025 : position <= 20.5 ? 0.008 : 0.003;
 
 /** Search Console rows with dimensions [page, query] folded into one summary per page path. */
-export function foldSearchRows(rows: GscRow[], host: string, topQueries = 5): Record<string, PageSearch> {
+export function foldSearchRows(rows: GscRow[], host: string, topQueries = 10): Record<string, PageSearch> {
   const out: Record<string, PageSearch & { weighted: number }> = {};
   for (const r of rows) {
     let path: string;
@@ -185,5 +273,46 @@ export function foldSearchRows(rows: GscRow[], host: string, topQueries = 5): Re
     p.position = p.impressions ? p.weighted / p.impressions : 0;
     p.queries = p.queries.sort((a, b) => b.impressions - a.impressions).slice(0, topQueries);
   }
-  return Object.fromEntries(Object.entries(out).map(([k, v]) => [k, { clicks: v.clicks, impressions: v.impressions, ctr: v.ctr, position: v.position, queries: v.queries }]));
+  // A search shown for two of our pages means they compete. Counted on all rows, before lists are cut to the top few.
+  const byQuery = new Map<string, string[]>();
+  for (const r of rows) {
+    if (r.impressions < 20) continue;
+    try {
+      const path = trimSlash(new URL(r.keys[0]).pathname);
+      byQuery.set(r.keys[1], [...(byQuery.get(r.keys[1]) ?? []), path]);
+    } catch {
+      // Not a URL: ignored.
+    }
+  }
+  return Object.fromEntries(
+    Object.entries(out).map(([k, v]) => {
+      const competes = v.queries.flatMap((q) => (byQuery.get(q.query) ?? []).filter((p) => p !== k).map((p) => ({ query: q.query, path: p }))).slice(0, 5);
+      return [k, { clicks: v.clicks, impressions: v.impressions, ctr: v.ctr, position: v.position, queries: v.queries, ...(competes.length ? { competes } : {}) }];
+    }),
+  );
 }
+
+/** Per-page totals (dimension: page) folded by path, for the period before the one on screen. */
+export function foldPageRows(rows: GscRow[], host: string): Record<string, { clicks: number; impressions: number; position: number }> {
+  const out: Record<string, { clicks: number; impressions: number; position: number }> = {};
+  for (const r of rows) {
+    try {
+      const u = new URL(r.keys[0]);
+      if (u.host.replace(/^www\./, "") !== host.replace(/^www\./, "")) continue;
+      out[trimSlash(u.pathname)] = { clicks: r.clicks, impressions: r.impressions, position: r.position };
+    } catch {
+      // Not a URL: ignored.
+    }
+  }
+  return out;
+}
+
+export type IndexStatus = { verdict: string; state: string; lastCrawl?: string };
+
+export type Vitals = { lcp?: number; inp?: number; cls?: number };
+
+/** Rating thresholds from web.dev: good, needs improvement, poor. */
+export const vitalRating = (metric: keyof Vitals, v: number) => {
+  const [good, poor] = { lcp: [2500, 4000], inp: [200, 500], cls: [0.1, 0.25] }[metric];
+  return v <= good ? "good" : v <= poor ? "needs work" : "poor";
+};

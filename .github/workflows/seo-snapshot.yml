@@ -1,0 +1,51 @@
+# Every Monday: reads today's SEO scores from the live dashboard and opens a pull request that adds them
+# to web/content/seo-history.json, so the trend chart and the per-page change arrows fill themselves.
+# Needs: secret SEO_DASHBOARD_PASSWORD, variable SITE_URL (https://thezcs.com), and the repo setting
+# "Allow GitHub Actions to create and approve pull requests". Never pushes to develop.
+name: SEO snapshot
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read today's scores from the live site
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          SEO_DASHBOARD_PASSWORD: ${{ secrets.SEO_DASHBOARD_PASSWORD }}
+        run: |
+          curl --fail --silent --show-error --max-time 240 \
+            -u "snapshot:$SEO_DASHBOARD_PASSWORD" "$SITE_URL/api/seo-snapshot" -o "$RUNNER_TEMP/snapshot.json"
+      - name: Add it to the history file
+        working-directory: web
+        run: node --experimental-strip-types --no-warnings scripts/append-snapshot.mjs "$RUNNER_TEMP/snapshot.json"
+      - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then exit 0; fi
+          day=$(date -u +%F)
+          branch="feature/seo-snapshot-$day"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add web/content/seo-history.json
+          git commit -m "chore(seo): record SEO score snapshot $day"
+          git push origin "$branch"
+          gh pr create --base develop --head "$branch" \
+            --title "chore(seo): record SEO score snapshot $day" \
+            --body "Weekly SEO score snapshot from the live dashboard. Squash-merge to add it to the trend chart."

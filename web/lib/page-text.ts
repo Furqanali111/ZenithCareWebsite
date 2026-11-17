@@ -1,6 +1,6 @@
 import { cacheLife } from "next/cache";
 import { htmlToMarkdown } from "./html-to-markdown";
-import { parseSitemap } from "./seo-site-checks";
+import { internalLinks, parseSitemap, schemaTypes } from "./seo-site-checks";
 
 /** Paths listed in the live sitemap, or null when it cannot be read. Cached for a few minutes. */
 export async function sitemapPaths(origin: string, host: string): Promise<string[] | null> {
@@ -14,25 +14,32 @@ export async function sitemapPaths(origin: string, host: string): Promise<string
   }
 }
 
+// Page text only changes when a new version is deployed, so each page is cached for hours under the
+// deployment id (in dev: under the current minute). It throws on failure so a failed read is never cached.
+export type PageRead = { md: string; /** Internal links anywhere on the page, menu and footer included. */ links: string[]; /** Schema.org types in its JSON-LD. */ schema: string[] };
+
+async function readPage(origin: string, host: string, path: string, version: string): Promise<PageRead> {
+  "use cache";
+  cacheLife("hours");
+  void version;
+  const res = await fetch(origin + path, { signal: AbortSignal.timeout(20_000) });
+  if (!res.ok) throw new Error(`${path} answered ${res.status}`);
+  const html = await res.text();
+  return { md: htmlToMarkdown(html), links: internalLinks(html, host), schema: schemaTypes(html) };
+}
+
 /**
  * Rendered text of pages written in code (home, services, about...), read from the site itself so the
  * SEO dashboard can run the same checks on them as on posts. null means the page could not be read
- * (not deployed yet, protected preview, timeout). Cached for a few minutes. Call it at request time:
- * at build there is no running site to read.
+ * (not deployed yet, protected preview, timeout). Call it at request time: at build there is no running site to read.
  */
-export async function pageBodies(origin: string, paths: string[]): Promise<Record<string, string | null>> {
-  "use cache";
-  cacheLife("minutes");
-  const out: Record<string, string | null> = {};
+export async function pageBodies(origin: string, host: string, paths: string[]): Promise<Record<string, PageRead | null>> {
+  const version = process.env.VERCEL_DEPLOYMENT_ID ?? process.env.VERCEL_GIT_COMMIT_SHA ?? String(Math.floor(Date.now() / 60_000));
+  const out: Record<string, PageRead | null> = {};
   const get = async (p: string) => {
-    try {
-      const res = await fetch(origin + p, { signal: AbortSignal.timeout(25_000) });
-      out[p] = res.ok ? htmlToMarkdown(await res.text()) : null;
-    } catch {
-      out[p] = null;
-    }
+    out[p] = await readPage(origin, host, p, version).catch(() => null);
   };
-  // Six at a time, so a cold dev server or a small serverless function is not flooded.
-  for (let i = 0; i < paths.length; i += 6) await Promise.all(paths.slice(i, i + 6).map(get));
+  // Twelve at a time: faster than six, still gentle on a small serverless function or a cold dev server.
+  for (let i = 0; i < paths.length; i += 12) await Promise.all(paths.slice(i, i + 12).map(get));
   return out;
 }
