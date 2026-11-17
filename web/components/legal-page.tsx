@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 /**
@@ -41,6 +42,32 @@ export function LegalPage({
       <div className="prose prose-neutral mt-10 max-w-none text-base leading-relaxed text-body-ink [&_h2]:mt-10 [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-brand-ink [&_h2]:tracking-tight [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mt-2 [&_a]:text-brand-accent [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-brand-ink [&_strong]:font-medium [&_strong]:text-ink-strong [&_code]:text-ink-strong [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-[0.9em]">
         {children}
       </div>
+
+      <aside
+        aria-label="Related pages"
+        className="mt-14 border-t border-border pt-8 text-base text-body-ink"
+      >
+        <p className="font-serif text-lg font-semibold text-brand-ink">
+          Explore Zenith Care Solutions
+        </p>
+        <ul className="mt-3 space-y-2">
+          <li>
+            <Link className="text-brand-accent underline underline-offset-2 hover:text-brand-ink" href="/services/chronic-care-management">
+              Chronic care management for your practice
+            </Link>
+          </li>
+          <li>
+            <Link className="text-brand-accent underline underline-offset-2 hover:text-brand-ink" href="/who-we-serve/primary-care">
+              Who we serve: primary care practices
+            </Link>
+          </li>
+          <li>
+            <Link className="text-brand-accent underline underline-offset-2 hover:text-brand-ink" href="/contact">
+              Book a 15-minute discovery call
+            </Link>
+          </li>
+        </ul>
+      </aside>
     </article>
   );
 }

@@ -40,7 +40,7 @@ const has = (text: string, phrase: string) => {
   return !!p && ` ${stemmed(text)} `.includes(` ${p} `);
 };
 
-const LINK = /(?<!!)\[[^\]]*\]\(([^)\s]+)[^)]*\)/g;
+export const LINK = /(?<!!)\[[^\]]*\]\(([^)\s]+)[^)]*\)/g;
 const IMAGE = /!\[([^\]]*)\]\([^)]*\)/g;
 
 /** Plain words of a post: no code, tags, image syntax or link targets. */

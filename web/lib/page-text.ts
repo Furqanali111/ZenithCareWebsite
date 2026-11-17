@@ -1,5 +1,18 @@
 import { cacheLife } from "next/cache";
 import { htmlToMarkdown } from "./html-to-markdown";
+import { parseSitemap } from "./seo-site-checks";
+
+/** Paths listed in the live sitemap, or null when it cannot be read. Cached for a few minutes. */
+export async function sitemapPaths(origin: string, host: string): Promise<string[] | null> {
+  "use cache";
+  cacheLife("minutes");
+  try {
+    const res = await fetch(`${origin}/sitemap.xml`, { signal: AbortSignal.timeout(15_000) });
+    return res.ok ? [...parseSitemap(await res.text(), host)] : null;
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Rendered text of pages written in code (home, services, about...), read from the site itself so the
