@@ -10,7 +10,7 @@ import { LIMITS, type EditTarget, type EditValues } from "@/lib/seo-edit";
 type Status = { kind: "idle" } | { kind: "saving" } | { kind: "ok"; text: string; url?: string } | { kind: "error"; text: string };
 
 /** Inline SEO edit for one row of the dashboard. Saves through /api/seo-edit. */
-export function SeoQuickEdit({ target, initial }: { target: EditTarget; initial: EditValues }) {
+export function SeoQuickEdit({ target, initial, onSaved }: { target: EditTarget; initial: EditValues; onSaved?: (pullRequestUrl: string) => void }) {
   const id = useId();
   const [v, setV] = useState(initial);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -25,7 +25,10 @@ export function SeoQuickEdit({ target, initial }: { target: EditTarget; initial:
       const res = await fetch("/api/seo-edit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ target, values: v }) });
       const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string; url?: string; mode?: string };
       if (!res.ok) setStatus({ kind: "error", text: data.error ?? `Save failed (${res.status}).` });
-      else setStatus({ kind: "ok", text: data.mode === "pr" ? "Saved to a pull request. It goes live after review, merge and deploy." : (data.message ?? "Saved."), url: data.url });
+      else {
+        setStatus({ kind: "ok", text: data.mode === "pr" ? "Saved to a pull request. It goes live after review, merge and deploy." : (data.message ?? "Saved."), url: data.url });
+        if (data.url) onSaved?.(data.url);
+      }
     } catch {
       setStatus({ kind: "error", text: "Could not reach the server." });
     }

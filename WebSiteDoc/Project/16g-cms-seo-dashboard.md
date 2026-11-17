@@ -37,7 +37,12 @@ A Sitemap line is added when missing. A bad text fails the build, so it never go
 
 ## SEO dashboard
 
-Password protected. Set `SEO_DASHBOARD_PASSWORD` in Vercel (Production and Preview) and share it with the team. The browser asks for a user name (anything) and the password. While the variable is unset, the page returns 404 in production. Local dev is open. The gate is `web/proxy.ts`.
+Two ways in (`web/proxy.ts`):
+
+1. **GitHub sign-in.** Sign in at `/keystatic` once with a GitHub account that can write to the repo, then open `/seo-dashboard`. Access follows GitHub: remove someone from the repo and they lose the dashboard within about five minutes. The header shows who is signed in.
+2. **Shared password**, for team members with no GitHub access. Set `SEO_DASHBOARD_PASSWORD` in Vercel (Production and Preview) and share it. The browser asks for a user name (anything) and the password.
+
+While the password is unset, anyone who is not a signed-in repo writer gets 404 in production. Local dev is open.
 
 `/seo-dashboard` lists every post and every page in the page SEO files, worst score first.
 
@@ -45,6 +50,34 @@ Password protected. Set `SEO_DASHBOARD_PASSWORD` in Vercel (Production and Previ
 - Open a row for the Google desktop and mobile preview, the SEO checklist, the readability checklist, link suggestions (posts), a quick edit form, and a link to the full editor.
 - The page is rendered when opened. Post text comes from the content files. The text of pages written in code (home, services, about) is read from the live site and refreshes every few minutes. Metadata edits show on the dashboard after the next deploy.
 - The page is noindex and not in the sitemap.
+
+### Filter, sort, search, export
+
+Above the list: search by name, address, title or keyword, filter by type, and a Show menu (score under 80, no focus keyword, description problem, hidden from Google, duplicates, link/sitemap/canonical problems, edit waiting in a pull request, and when Search Console is connected, seen often but rarely clicked). Sort by score, name, title length, clicks or impressions. **Download CSV** saves exactly what is on screen, with the problems listed per row.
+
+### Edit in a table
+
+Tick **Edit in a table** to edit SEO title, meta description, focus keyword and noindex for many rows at once. Changed rows are highlighted and checked with the same rules as the editor. **Save** sends up to 25 changed rows per click, one at a time, each as one commit in your own pull request. Rows with an open dashboard pull request show an **Edit in a pull request** link, found from the commit titles of open `feature/seo-edits-*` pull requests.
+
+### Site-wide checks
+
+The per-page score cannot see problems that need other pages. These show under "Across the site" on each row and in the top tiles:
+
+- duplicate SEO title, meta description or focus keyword between indexable pages (keyword duplicates compete for one search)
+- an internal link to an address that is not in the live sitemap (possibly broken), or to an address that redirects (link straight to the new one)
+- images with no alt text in the page text
+- indexable page missing from the sitemap, or a hidden page listed in it
+- a canonical that points to another page or another site
+
+Limits: the link check uses the live sitemap as the list of valid addresses, it does not request each link. A real page that is hidden from the sitemap shows as possibly broken. Redirect chains (a to b to c) are flattened by the redirect workflow.
+
+### Search Console numbers (optional)
+
+With `GSC_CLIENT_EMAIL`, `GSC_PRIVATE_KEY` and `GSC_SITE_URL` set (steps in `web/.env.example`), each row shows clicks, impressions, average position and the top five searches over the last 28 days, and warns when the focus keyword is not among them. Read only, cached for an hour. Without them nothing breaks: the columns simply do not appear.
+
+### Score history
+
+**Record today's scores** adds the date, average score and counts to `content/seo-history.json` through a pull request, and the chart above the list draws the trend after it is merged and deployed. It is manual (weekly is enough) because the site has no database: a snapshot per deploy would need one.
 
 ### Quick edit
 
@@ -94,3 +127,6 @@ Share this list with the SEO team.
 5. **Hiding focus keywords from the public GitHub repo.** The dashboard is password protected, but the keywords are saved in the content files and the repository is public. To hide them the repository would have to be made private (Keystatic, Vercel and the workflow all work with a private repo). Until then treat focus keywords as public. They are mostly visible in titles and headings anyway.
 6. **Quick edit of every field.** Only SEO title, meta description, focus keyword and noindex. The rest is in the full editor.
 7. **Quick edit without a GitHub login.** Saving needs the same GitHub sign-in as the editor, so access stays with GitHub and every change is reviewed.
+8. **Automatic score history.** Only recorded when someone presses the button, one point per press. A point per deploy needs a database or a scheduled job.
+9. **A live request for every link.** The broken link check compares against the sitemap, it does not fetch each address, so it can miss a page that errors and flag a real page hidden from the sitemap.
+10. **Search Console without setup.** It needs a Google Cloud service account added as a user on the Search Console property. Until then the search columns stay hidden.

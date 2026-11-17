@@ -40,6 +40,7 @@ In `web/.env.local` (gitignored) for local work; set in Vercel project settings 
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics 4 (script loads only on the Production domain + env set) | set in Vercel Production (`G-P49414RXPW`) |
 | `NEXT_PUBLIC_SITE_URL` | canonical URL for OG, sitemap, JSON-LD | default is production domain; override only for staging |
 | `SEO_DASHBOARD_PASSWORD` | password for `/seo-dashboard` (`web/proxy.ts`). Unset means the page returns 404 in production | not set. Set it in Vercel (Production and Preview), then share it with the SEO team |
+| `GSC_CLIENT_EMAIL`, `GSC_PRIVATE_KEY`, `GSC_SITE_URL` | Search Console numbers on `/seo-dashboard` (`web/lib/seo-gsc.ts`). Unset means no search columns, nothing breaks | not set. Optional. See `web/.env.example` for the setup steps
 
 Additionally, the About page hardcodes a placeholder LinkedIn URL at `web/app/about/page.tsx` → `FOUNDER_LINKEDIN`. Replace with Ali&rsquo;s actual personal LinkedIn URL once confirmed; it feeds the Person JSON-LD `sameAs` and the "Ali on LinkedIn" CTA.
 | `NEXT_PUBLIC_FORMSPREE_ID` | fallback contact form (not yet built — lands in `feature/contact-page`) | not set |
