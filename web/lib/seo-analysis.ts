@@ -76,9 +76,10 @@ export function analyze(input: AnalysisInput): { score: number; checks: Check[] 
   const add = (id: string, label: string, weight: number, status: Status, hint: string) =>
     checks.push({ id, label, weight, status, hint });
 
-  // A keyword check needs a keyword; a body check needs a body. Otherwise it is skipped, not failed.
+  // No keyword fails the keyword checks (a page nobody optimised must not outscore one that was tried).
+  // A body check without a body is skipped, not failed.
   const needKw = (id: string, label: string, weight: number, test: () => [Status, string]) =>
-    kw ? add(id, label, weight, ...test()) : add(id, label, weight, "na", "Set a focus keyword first.");
+    kw ? add(id, label, weight, ...test()) : add(id, label, weight, "fail", "Set a focus keyword first.");
   const needBody = (id: string, label: string, weight: number, test: (md: string) => [Status, string]) =>
     body === undefined
       ? add(id, label, weight, "na", "This page's text lives in code, so it is not analysed.")
@@ -96,9 +97,9 @@ export function analyze(input: AnalysisInput): { score: number; checks: Check[] 
   needKw("kw-url", "Keyword in URL", 8, () => (hasAny(input.path) ? ["pass", "Found."] : ["warn", "The URL does not contain the keyword. Do not change a live URL without a redirect."]));
 
   needBody("kw-first", "Keyword in first paragraph", 10, (md) =>
-    !kw ? ["na", "Set a focus keyword first."] : hasAny(plain(firstParagraph(md))) ? ["pass", "Found."] : ["fail", "Use the keyword or a synonym in the opening paragraph."]);
+    !kw ? ["fail", "Set a focus keyword first."] : hasAny(plain(firstParagraph(md))) ? ["pass", "Found."] : ["fail", "Use the keyword or a synonym in the opening paragraph."]);
   needBody("kw-headings", "Keyword in a heading", 8, (md) =>
-    !kw ? ["na", "Set a focus keyword first."] : headings(md).some(hasAny) ? ["pass", "Found."] : ["warn", "Use the keyword or a synonym in at least one H2 or H3."]);
+    !kw ? ["fail", "Set a focus keyword first."] : headings(md).some(hasAny) ? ["pass", "Found."] : ["warn", "Use the keyword or a synonym in at least one H2 or H3."]);
   // Weight 0: density is shown for information only, so the score does not push writers toward stuffing.
   needBody("kw-usage", "Keyword usage in content", 0, (md) => {
     if (!kw) return ["na", "Set a focus keyword first."];

@@ -1,5 +1,6 @@
 import { fields, singleton } from "@keystatic/core";
 import { googlePreview } from "./google-preview";
+import { lockedPath } from "./locked-path";
 
 /**
  * Search appearance fields, shared by the "Page titles and descriptions" singleton and
@@ -92,11 +93,8 @@ const pageSchemaType = fields.select({
 });
 
 export const seoItem = fields.object({
-  path: fields.text({
-    label: "Page URL path",
-    description: "Picks which page the text applies to. Do not change it.",
-    validation: { isRequired: true, pattern: { regex: /^\/[a-z0-9/-]*$/, message: "Start with / and use lowercase letters, numbers, dashes and slashes" } },
-  }),
+  // Read only on an existing entry: changing it would point the entry at another page.
+  path: lockedPath("Page URL path"),
   title: fields.text({
     label: "SEO title",
     description: "The site name is added after it (| Zenith Care Solutions). Keep it to 36 characters or fewer so the whole title stays under 60.",
@@ -104,7 +102,7 @@ export const seoItem = fields.object({
   }),
   description: fields.text({
     label: "Meta description",
-    description: "Shown in Google results. 160 characters or fewer.",
+    description: "Shown in Google results. Aim for 140 to 160 characters (the dashboard checks this). Longer than 160 is refused.",
     multiline: true,
     validation: { isRequired: true, length: { max: 160 } },
   }),

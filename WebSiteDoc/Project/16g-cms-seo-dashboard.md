@@ -68,7 +68,9 @@ Above the list: search by name, address, title or keyword, filter by type, and a
 
 ### Edit in a table
 
-Tick **Edit in a table** to edit SEO title, meta description, focus keyword and noindex for many rows at once. Changed rows are highlighted and checked with the same rules as the editor. **Save** sends up to 25 changed rows per click, one at a time, each as one commit in your own pull request. Rows with an open dashboard pull request show an **Edit in a pull request** link, found from the commit titles of open `feature/seo-edits-*` pull requests.
+Tick **Edit in a table** to edit SEO title, meta description, focus keyword and noindex for many rows at once. Changed rows are highlighted and checked with the same rules as the editor. **Save** sends up to 50 changed rows per click as ONE commit in your own pull request (a fixed few GitHub calls, however many rows). Once that pull request is merged or closed, the next save deletes the old `feature/seo-edits-<name>` branch and cuts a fresh one from develop, so squash-merged history never comes back. A branch with commits but no pull request yet is kept.
+
+People who sign in only with the shared password see the dashboard read only. Rows for CPT and denial code pages are read only too (edit them in their own collections); their keyword is the code itself. Scoring: a page with no focus keyword fails the keyword checks. Click rate is judged against the page position. Page text is cached per page for the life of a deployment. Rows with an open dashboard pull request show an **Edit in a pull request** link, found from the commit titles of open `feature/seo-edits-*` pull requests.
 
 ### Site-wide checks
 
@@ -126,6 +128,20 @@ Pages written in code are analysed from their rendered text, so they get the sam
 Run it by hand after committing: `cd web && node --experimental-strip-types --no-warnings scripts/slug-redirects.mjs origin/develop`.
 
 Limits: rename detection needs the file to stay at least 50% similar. A slug change with a big rewrite in the same commit shows as delete plus add, so the deleted-post warning appears and the redirect is added by hand. Pull requests from forks are skipped.
+
+## Added after the first review
+
+- **Drafts and scheduled posts** are listed (status shown, filter "Drafts and scheduled posts") and scored before they go live. They are checked like hidden pages, so a link to one is flagged.
+- **Orphan pages:** a live page that no other page links to. The menu and footer count as links (read from the full page). The check switches itself off when any page could not be read.
+- **Structured data:** the schema.org types found on each page, and a filter for pages with none.
+- **Google index status** (URL Inspection API, refreshed daily, needs the same Search Console setup): filter "Google has not indexed it".
+- **Search Console depth:** the 28 days before are shown next to the current 28, ten searches per page, results paged past 5000 rows, and pages that share a search are flagged.
+- **Core Web Vitals** from real visitors (CrUX API) for the whole site on phones. Needs `CRUX_API_KEY`. A small site may have no data yet.
+- **Weekly snapshot:** `.github/workflows/seo-snapshot.yml` reads `/api/seo-snapshot` every Monday and opens a pull request that adds the scores, including every page's score, to `content/seo-history.json`. Row arrows show the change since the last snapshot. Needs the secret `SEO_DASHBOARD_PASSWORD`, the variable `SITE_URL`, and the repo setting "Allow GitHub Actions to create and approve pull requests". Merge the PR to add the point.
+- **Preview button** in the editor opens the saved branch on its Vercel preview (`/preview`, set `PREVIEW_URL_TEMPLATE`). Without it, it opens the live page.
+- **Last updated date** is set to today by `.github/workflows/post-dates.yml` when a pull request changes a post's text and the date was left alone. Reading time is worked out from the text. Tags must be lowercase with dashes. Category is a fixed list. The page path in the page SEO list is read only on existing entries.
+
+Still not built: a searchable list for the page SEO entries (Keystatic arrays have none), Core Web Vitals per page, and checks that read the rich text live in the editor.
 
 ## Not built, and why
 
