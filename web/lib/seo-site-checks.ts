@@ -90,12 +90,14 @@ export function siteIssues(rows: CheckRow[], ctx: SiteContext): Map<string, Site
   for (const list of group((r) => r.keyword))
     for (const r of list) add(r.path, { level: "warn", code: "dup-keyword", text: `Same focus keyword as ${others(list, r)}. These pages compete for one search.` });
 
+  const hidden = new Set(rows.filter((r) => r.noindex).map((r) => trimSlash(r.path)));
   const redirected = new Map(ctx.redirects.map((r) => [trimSlash(r.from), trimSlash(r.to)]));
   for (const r of rows) {
     if (r.body) {
       for (const target of internalLinks(r.body, ctx.host)) {
         if (target === r.path || /\.[a-z0-9]{2,5}$/i.test(target)) continue; // files (pdf, images, xml) are not sitemap pages
         if (redirected.has(target)) add(r.path, { level: "warn", code: "link-redirect", text: `Links to ${target}, which redirects to ${redirected.get(target)}. Link straight to the new address.` });
+        else if (hidden.has(target)) add(r.path, { level: "warn", code: "link-noindex", text: `Links to ${target}, which is hidden from Google. Readers can open it, but the link passes no search value.` });
         else if (ctx.sitemap && !ctx.sitemap.has(target) && !/^\/(api|keystatic|_next)\b/.test(target))
           add(r.path, { level: "fix", code: "link-broken", text: `Links to ${target}, which is not in the sitemap. It may be broken, noindexed or an unlisted page.` });
       }

@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import { cookies, headers } from "next/headers";
 import { pageMetadata, pageSeoEntries, fullTitle } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { BASE_BRANCH } from "@/lib/repo";
 import { getAllPosts, getPostText } from "@/content/posts";
 import { analyze, linkSuggestions, type LinkTarget } from "@/lib/seo-analysis";
 import { pageBodies, sitemapPaths } from "@/lib/page-text";
@@ -28,7 +29,7 @@ export const metadata: Metadata = pageMetadata({
 
 // Editor deep links. Production opens on develop, where the editor's own popup asks for a branch.
 const editHref = (kind: "posts" | "pageSeo" | "serviceSeo", slug?: string) => {
-  const base = process.env.NODE_ENV === "development" ? "/keystatic" : "/keystatic/branch/develop";
+  const base = process.env.NODE_ENV === "development" ? "/keystatic" : `/keystatic/branch/${BASE_BRANCH}`;
   return kind === "posts" ? `${base}/collection/posts/item/${slug}` : `${base}/singleton/${kind}`;
 };
 
@@ -61,7 +62,7 @@ function rows(bodies: Record<string, string | null>, extra: Extra): { rows: Dash
       const path = `/resources/${p.slug}`;
       const title = fullTitle(p.metaTitle || p.title);
       const body = getPostText(p.slug);
-      const a = analyze({ path, title, description: p.description, focusKeyword: p.focusKeyword, synonyms: p.keywordSynonyms, body, hasCover: !!p.coverImage, coverAlt: p.coverAlt });
+      const a = analyze({ path, title, description: p.description, focusKeyword: p.focusKeyword, synonyms: p.keywordSynonyms, body, hasCover: !!p.coverImage, coverAlt: p.coverAlt, updatedAt: p.updatedAt });
       return {
         key: path, kind: "Post" as const, name: p.title, path, title, description: p.description,
         keyword: p.focusKeyword ?? "", noindex: !!p.noindex, nofollow: !!p.nofollow,

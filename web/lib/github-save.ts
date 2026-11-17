@@ -6,8 +6,8 @@ import { cacheLife } from "next/cache";
  * decides who may write. One branch per person collects their edits into one open PR.
  * Server only. Doc: WebSiteDoc/Project/16g-cms-seo-dashboard.md
  */
-export const REPO = "Furqanali111/ZenithCareWebsite"; // same repo as keystatic.config.ts
-const BASE = "develop";
+import { BASE_BRANCH as BASE, REPO } from "./repo";
+export { REPO };
 
 export async function gh(token: string, method: string, path: string, body?: unknown) {
   const res = await fetch(`https://api.github.com${path}`, {

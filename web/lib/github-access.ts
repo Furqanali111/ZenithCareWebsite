@@ -3,7 +3,7 @@
  * GitHub account can write to this repo. Uses the editor's own GitHub token, so access is named per
  * person and follows GitHub's repo permissions. Server only. Doc: WebSiteDoc/Project/16g-cms-seo-dashboard.md
  */
-const REPO = "Furqanali111/ZenithCareWebsite"; // same repo as keystatic.config.ts and github-save.ts
+import { REPO } from "./repo";
 
 // shortcut: per-instance memory, so a cold serverless instance asks GitHub again. Fine for a team of a few.
 const cache = new Map<string, { until: number; login: string | null }>();

@@ -98,3 +98,8 @@ test("search data: folds queries per page, weights position by impressions, igno
   assert.equal(f["/a"].ctr, 0.01);
   assert.deepEqual(f["/a"].queries.map((q) => q.query), ["ccm"]);
 });
+
+test("links: a link to a hidden page is flagged as noindex, not broken", () => {
+  const m = siteIssues([row({ path: "/a", body: "[x](/b)" }), row({ path: "/b", noindex: true })], ctx({ sitemap: new Set(["/", "/a"]) }));
+  assert.deepEqual(codes(m, "/a"), ["link-noindex"]);
+});

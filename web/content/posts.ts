@@ -20,6 +20,8 @@ export type PostFrontmatter = {
   description: string;
   publishedAt: string; // ISO date
   updatedAt: string; // ISO date
+  /** Day the clinical reviewer last checked the facts, ISO date. */
+  reviewedAt?: string;
   category: string;
   tags: string[];
   readingMinutes: number;
@@ -84,6 +86,7 @@ function loadPosts(): Post[] {
         updatedAt: day(data.updatedAt) || day(data.publishedAt),
         tags: data.tags ?? [],
         publishAt: data.publishAt ? day(data.publishAt) : undefined,
+        reviewedAt: data.reviewedAt ? day(data.reviewedAt) : undefined,
       } as Post;
     })
     .filter((p) => !p.draft && !(today && p.publishAt && p.publishAt > today));

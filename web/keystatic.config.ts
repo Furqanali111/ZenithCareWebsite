@@ -4,6 +4,7 @@ import * as blog from "./keystatic/blog-content";
 import { googlePreview } from "./keystatic/google-preview";
 import * as technicalSeo from "./keystatic/technical-seo";
 import * as editablePages from "./keystatic/editable-pages";
+import { REPO } from "./lib/repo";
 
 // Shared field builders for the CPT and denial code pages.
 const textList = (label: string, item: string) =>
@@ -54,7 +55,7 @@ export default config({
       ? { kind: "local" }
       : {
           kind: "github",
-          repo: "Furqanali111/ZenithCareWebsite",
+          repo: REPO as `${string}/${string}`,
           // The Next app lives in web/ inside the repo.
           pathPrefix: "web",
         },
@@ -99,6 +100,10 @@ export default config({
         updatedAt: fields.date({
           label: "Last updated",
           validation: { isRequired: true },
+        }),
+        reviewedAt: fields.date({
+          label: "Clinically reviewed on (optional)",
+          description: "The day the clinical reviewer last checked the facts. Shown under the title.",
         }),
         category: fields.text({
           label: "Category",

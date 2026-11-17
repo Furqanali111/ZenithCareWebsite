@@ -19,6 +19,8 @@ export type AnalysisInput = {
   body?: string;
   hasCover?: boolean;
   coverAlt?: string;
+  /** ISO date the content was last updated. Adds a freshness check. */
+  updatedAt?: string;
 };
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -97,7 +99,8 @@ export function analyze(input: AnalysisInput): { score: number; checks: Check[] 
     !kw ? ["na", "Set a focus keyword first."] : hasAny(plain(firstParagraph(md))) ? ["pass", "Found."] : ["fail", "Use the keyword or a synonym in the opening paragraph."]);
   needBody("kw-headings", "Keyword in a heading", 8, (md) =>
     !kw ? ["na", "Set a focus keyword first."] : headings(md).some(hasAny) ? ["pass", "Found."] : ["warn", "Use the keyword or a synonym in at least one H2 or H3."]);
-  needBody("kw-usage", "Keyword usage in content", 8, (md) => {
+  // Weight 0: density is shown for information only, so the score does not push writers toward stuffing.
+  needBody("kw-usage", "Keyword usage in content", 0, (md) => {
     if (!kw) return ["na", "Set a focus keyword first."];
     const text = ` ${stemmed(plain(md))} `;
     const words = Math.max(text.trim().split(" ").length, 1);
@@ -133,6 +136,11 @@ export function analyze(input: AnalysisInput): { score: number; checks: Check[] 
     return imgs.length || input.hasCover ? ["pass", "All images have alt text."] : ["na", "No images."];
   });
 
+  if (input.updatedAt) {
+    const months = Math.floor((Date.now() - Date.parse(input.updatedAt)) / (30.44 * 86_400_000));
+    add("fresh", "Freshness", 4, Number.isNaN(months) ? "na" : months < 12 ? "pass" : months < 24 ? "warn" : "fail", Number.isNaN(months) ? "No valid update date." : `Last updated ${months} month${months === 1 ? "" : "s"} ago. Review code rates and rules at least yearly.`);
+  }
+
   // Readability. Ids start with "read-" so the dashboard can group them.
   const sentences = (body === undefined ? "" : prose(body)).split(/(?<=[.!?])\s+|\n+/).map((s) => s.trim()).filter((s) => wordCount(s) > 0);
   needBody("read-sentences", "Sentence length", 5, () => {
@@ -151,7 +159,8 @@ export function analyze(input: AnalysisInput): { score: number; checks: Check[] 
     const got = headings(md).length;
     return [got >= need ? "pass" : "warn", `${got} subheadings for ${words} words. Aim for one every 300 words.`];
   });
-  needBody("read-ease", "Reading ease", 5, (md) => {
+  // Weight 0: Flesch punishes billing and CPT vocabulary that readers expect.
+  needBody("read-ease", "Reading ease", 0, (md) => {
     const text = prose(md);
     const words = text.match(/[A-Za-z']+/g) ?? [];
     if (!words.length || !sentences.length) return ["na", "Not enough text."];
