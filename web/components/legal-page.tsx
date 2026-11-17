@@ -58,7 +58,7 @@ export function LegalPage({
           </li>
           <li>
             <Link className="text-brand-accent underline underline-offset-2 hover:text-brand-ink" href="/who-we-serve/primary-care">
-              Who we serve: primary care, internal medicine, geriatrics
+              Who we serve: primary care practices
             </Link>
           </li>
           <li>
