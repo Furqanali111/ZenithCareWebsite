@@ -81,6 +81,7 @@ export default async function PostPage({
             reviewedBy: personId(reviewer.initials),
             datePublished: post.publishedAt,
             dateModified: post.updatedAt ?? post.publishedAt,
+            lastReviewed: post.reviewedAt,
           }),
           articleLd({
             title: post.title,
@@ -126,7 +127,7 @@ export default async function PostPage({
                 {post.description}
               </p>
               <p className="mt-4 text-sm text-muted-foreground">
-                Reviewed by {reviewer.name}, PharmD, co-founder of {site.name}.
+                Reviewed{post.reviewedAt ? ` on ${new Date(`${post.reviewedAt}T12:00:00Z`).toLocaleDateString("en-US", { dateStyle: "long", timeZone: "UTC" })}` : ""} by {reviewer.name}, PharmD, co-founder of {site.name}.
               </p>
             </header>
 

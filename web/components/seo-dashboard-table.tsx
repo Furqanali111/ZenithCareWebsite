@@ -62,6 +62,8 @@ const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; ne
   noindex: { label: "Hidden from Google", test: (r) => r.noindex },
   dup: { label: "Duplicate title, description or keyword", test: (r) => r.issues.some((i) => i.code.startsWith("dup-")) },
   site: { label: "Link, sitemap or canonical problem", test: (r) => r.issues.some((i) => !i.code.startsWith("dup-")) },
+  stale: { label: "Out of date (a year or more)", test: (r) => r.checks.some((c) => c.id === "fresh" && c.status !== "pass") },
+  pageTwo: { label: "Almost on page one (position 8 to 20)", test: (r) => !!r.search && r.search.impressions >= 20 && r.search.position >= 8 && r.search.position <= 20, needsSearch: true },
   pending: { label: "Edit waiting in a pull request", test: (r) => !!r.pending },
   ctr: { label: "Seen often, rarely clicked", test: lowCtr, needsSearch: true },
 };

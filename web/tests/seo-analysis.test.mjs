@@ -94,3 +94,12 @@ test("link suggestions skip pages already linked and rank keyword mentions first
   assert.deepEqual(s.map((x) => x.path), ["/resources/rpm", "/resources/ccm"]);
   assert.match(s[0].reason, /remote patient monitoring/);
 });
+
+test("freshness: old content fails, recent passes, density and reading ease do not change the score", () => {
+  const old = analyze({ ...good, updatedAt: "2020-01-01" });
+  assert.equal(status(old, "fresh"), "fail");
+  assert.equal(status(analyze({ ...good, updatedAt: new Date().toISOString().slice(0, 10) }), "fresh"), "pass");
+  const stuffed = analyze({ ...good, body: good.body + "\n\n" + "CCM billing ".repeat(200) });
+  assert.equal(stuffed.checks.find((c) => c.id === "kw-usage").weight, 0);
+  assert.equal(stuffed.checks.find((c) => c.id === "read-ease").weight, 0);
+});

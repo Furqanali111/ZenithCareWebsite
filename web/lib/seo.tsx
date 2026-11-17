@@ -258,6 +258,8 @@ type WebPageLdInput = {
   reviewedBy?: string;
   datePublished?: string;
   dateModified?: string;
+  /** Day the clinical reviewer last checked the page, ISO date. */
+  lastReviewed?: string;
 };
 
 /**
@@ -275,6 +277,7 @@ export function webPageLd({
   reviewedBy,
   datePublished,
   dateModified,
+  lastReviewed,
 }: WebPageLdInput): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -294,6 +297,7 @@ export function webPageLd({
     ...(reviewedBy && { reviewedBy: ref(reviewedBy) }),
     ...(datePublished && { datePublished: withTz(datePublished) }),
     ...(dateModified && { dateModified: withTz(dateModified) }),
+    ...(lastReviewed && { lastReviewed }),
   };
 }
 
