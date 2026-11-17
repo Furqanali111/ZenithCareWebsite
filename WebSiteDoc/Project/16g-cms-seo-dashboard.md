@@ -35,6 +35,17 @@ For the SEO team. Everything here is edited at `/keystatic` and checked again wh
 
 A Sitemap line is added when missing. A bad text fails the build, so it never goes live.
 
+## Live Google preview in the editor
+
+Blog posts and every entry in "Page titles and descriptions" show a **Google preview (live)** block right under the meta description. It updates as you type:
+
+- the search result as Google shows it on desktop and on mobile, with the site name added by the page title template
+- the title and description checks: title length, description length, and the focus keyword in the title, the description and the address
+
+It stores nothing in the content files. The checks that need the page text (keyword use, links, readability) stay on the SEO dashboard.
+
+How it works and its limit: Keystatic gives a field only its own value, so the preview reads the title, description, address and focus keyword fields from the page by their labels (`keystatic/snippet-preview.tsx`). If one of those labels is renamed in the schema, the preview says it cannot find the fields. The cut-off in the preview is by characters (about 60 for the title), while Google cuts by pixel width, so it is close but not exact.
+
 ## SEO dashboard
 
 Two ways in (`web/proxy.ts`):
@@ -120,7 +131,7 @@ Limits: rename detection needs the file to stay at least 50% similar. A slug cha
 
 Share this list with the SEO team.
 
-1. **Live preview and live score while typing in the editor.** Keystatic cannot show one field's value next to another, so a preview or score inside the post form needs a custom editor field and a change to how title and description are stored. The dashboard row shows the same preview and score, and quick edit has live character counters. A custom editor field is a separate piece of work.
+1. **Live score with the page text while typing in the editor.** The preview and the title and description checks are live in the editor. The checks that read the page body (keyword in the first paragraph, links, readability) are not, because the editor cannot hand the rich text to the preview. They are on the SEO dashboard.
 2. **Product schema.** Not needed, the site has no products. Any other type, Product included, can be pasted as custom structured data.
 3. **Passive voice and transition word checks.** Not built. Synonyms are matched by the list the editor adds plus simple endings, not by meaning, so irregular forms (child and children) need to be added as synonyms.
 4. **Instant publishing.** Edits, including quick edits, go to a branch and open a pull request. They go live after review, merge and deploy. This is by design.

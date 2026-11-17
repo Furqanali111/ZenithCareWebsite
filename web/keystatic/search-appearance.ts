@@ -1,4 +1,5 @@
 import { fields, singleton } from "@keystatic/core";
+import { googlePreview } from "./google-preview";
 
 /**
  * Search appearance fields, shared by the "Page titles and descriptions" singleton and
@@ -107,6 +108,7 @@ export const seoItem = fields.object({
     multiline: true,
     validation: { isRequired: true, length: { max: 160 } },
   }),
+  googlePreview: googlePreview("page"),
   ...ogFields,
   noindex: noindexField,
   ...seoExtraFields,
