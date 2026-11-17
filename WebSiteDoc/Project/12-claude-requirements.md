@@ -97,7 +97,7 @@ Invoke the right skill BEFORE acting. If a skill applies to the current task, us
 ### 3.6 SEO
 - Every page: unique title (≤ 60 chars), unique meta description (140–160), one `<h1>`, canonical URL, Open Graph image.
 - JSON-LD required per page type (see [`07-seo-and-aiseo-plan.md`](07-seo-and-aiseo-plan.md) §4). Validate with Rich Results Test.
-- `sitemap.ts`, `robots.ts`, `llms.txt` must stay in sync as pages are added/removed.
+- `sitemap.ts`, `robots.txt/route.ts`, `llms.txt` must stay in sync as pages are added/removed.
 - Do NOT block AI crawlers (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`, `CCBot`) in robots.txt.
 
 ### 3.7 Legal copy

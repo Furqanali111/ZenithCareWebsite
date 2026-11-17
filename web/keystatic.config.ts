@@ -1,5 +1,5 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
-import { collections as searchCollections, singletons as searchSingletons, ogFields, noindexField } from "./keystatic/search-appearance";
+import { collections as searchCollections, singletons as searchSingletons, globalSingletons, seoExtraFields, seoItem, ogFields, customJsonLdField } from "./keystatic/search-appearance";
 import * as blog from "./keystatic/blog-content";
 import * as technicalSeo from "./keystatic/technical-seo";
 import * as editablePages from "./keystatic/editable-pages";
@@ -141,6 +141,19 @@ export default config({
           defaultValue: false,
         }),
         ...ogFields,
+        ...seoExtraFields,
+        schemaType: fields.select({
+          label: "Schema type",
+          description: "Article is the default. The others are more specific kinds of article and are all valid.",
+          options: [
+            { label: "Article", value: "Article" },
+            { label: "BlogPosting", value: "BlogPosting" },
+            { label: "TechArticle", value: "TechArticle" },
+            { label: "NewsArticle", value: "NewsArticle" },
+          ],
+          defaultValue: "Article",
+        }),
+        customJsonLd: customJsonLdField,
         canonicalUrl: fields.url({
           label: "Canonical URL (optional)",
           description: "Only set this if the same article is published elsewhere and that copy should rank. Leave blank to use this page's own address.",
@@ -298,6 +311,7 @@ export default config({
   },
   singletons: {
     ...searchSingletons,
+    ...globalSingletons,
     ...blog.singletons,
     ...technicalSeo.singletons,
     ...editablePages.singletons,
@@ -348,33 +362,10 @@ export default config({
       path: "content/page-seo",
       format: "json",
       schema: {
-        pages: fields.array(
-          fields.object({
-            path: fields.text({
-              label: "Page URL path",
-              description: "For example /about. Do not change it: it picks which page the text applies to.",
-              validation: { isRequired: true, pattern: { regex: /^\/[a-z0-9/-]*$/, message: "Start with / and use lowercase letters, numbers, dashes and slashes" } },
-            }),
-            title: fields.text({
-              label: "SEO title",
-              description: "The site name is added after it (| Zenith Care Solutions). Keep it to 36 characters or fewer so the whole title stays under 60.",
-              validation: { isRequired: true, length: { max: 36 } },
-            }),
-            description: fields.text({
-              label: "Meta description",
-              description: "Shown in Google results. 160 characters or fewer.",
-              multiline: true,
-              validation: { isRequired: true, length: { max: 160 } },
-            }),
-            ogTitle: ogFields.ogTitle,
-            ogSubtitle: ogFields.ogSubtitle,
-            noindex: noindexField,
-          }),
-          {
-            label: "Pages",
-            itemLabel: (props) => props.fields.path.value,
-          },
-        ),
+        pages: fields.array(seoItem, {
+          label: "Pages",
+          itemLabel: (props) => props.fields.path.value,
+        }),
       },
     }),
   },

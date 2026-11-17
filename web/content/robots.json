@@ -1,0 +1,3 @@
+{
+  "content": "User-agent: *\nAllow: /\nDisallow: /keystatic\nDisallow: /api/keystatic\n\nSitemap: https://thezcs.com/sitemap.xml\n"
+}

@@ -74,7 +74,7 @@ web/
 │   ├── layout.tsx
 │   ├── not-found.tsx
 │   ├── sitemap.ts
-│   ├── robots.ts
+│   ├── robots.txt/route.ts
 │   └── opengraph-image.tsx
 ├── components/
 │   ├── ui/                                       # shadcn primitives
