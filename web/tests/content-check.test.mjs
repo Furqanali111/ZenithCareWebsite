@@ -1,4 +1,4 @@
-import test from "node:test";
+import test, { after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -75,7 +75,7 @@ test("files that steer module loading are refused", () => {
 const repo = mkdtempSync(join(tmpdir(), "check-content-"));
 const git = (...a) => execFileSync("git", ["-c", "user.name=t", "-c", "user.email=t@t", "-c", "commit.gpgsign=false", "-c", "core.autocrlf=false", ...a], { cwd: repo, encoding: "utf8", input: "" }).trim();
 const put = (p, text) => (mkdirSync(join(repo, p, ".."), { recursive: true }), writeFileSync(join(repo, p), text), git("add", p));
-const run = (head) => spawnSync(process.execPath, ["--experimental-strip-types", "--no-warnings", join(web, "scripts/check-content.mjs"), "base", head], { cwd: repo, encoding: "utf8" });
+const run = (head, base = "base") => spawnSync(process.execPath, ["--experimental-strip-types", "--no-warnings", join(web, "scripts/check-content.mjs"), base, head], { cwd: repo, encoding: "utf8" });
 const commitOn = (change) => {
   git("checkout", "-q", "--detach", "base");
   change();
@@ -87,6 +87,7 @@ put("web/content/posts/a.mdx", "---\ntitle: A\n---\nHello\n");
 git("add", "-A");
 git("commit", "-q", "-m", "base");
 git("tag", "base");
+after(() => rmSync(repo, { recursive: true, force: true }));
 
 test("check-content.mjs: an edit passes, a move out of content or a symlink fails", () => {
   const edit = run(commitOn(() => put("web/content/posts/a.mdx", "---\ntitle: A\n---\nHello again\n")));
@@ -108,5 +109,38 @@ test("check-content.mjs: an edit passes, a move out of content or a symlink fail
   const link = run(commitOn(() => git("update-index", "--add", "--cacheinfo", `120000,${execFileSync("git", ["hash-object", "-w", "--stdin"], { cwd: repo, input: "a.mdx" }).toString().trim()},web/content/posts/l.mdx`)));
   assert.equal(link.status, 1);
   assert.match(link.stdout, /l\.mdx: .*link/);
-  rmSync(repo, { recursive: true, force: true });
+});
+
+test("check-content.mjs: checks what merging would change, not only what the branch changed", () => {
+  const post = (body) => () => put("web/content/posts/a.mdx", `---\ntitle: A\n---\n${body}\n`);
+  const unusual = "Your private copy has an unusual history. Ask Furqan to look.\n";
+  const check = (head, base) => {
+    const { status, stdout } = run(head, base);
+    return [status, stdout];
+  };
+
+  // Both sides merged the same two commits, but the head kept only one: its diff can be empty while merging undoes the other.
+  const one = commitOn(post("Hello one"));
+  const two = commitOn(() => put("web/lib/x.ts", "reviewed"));
+  git("merge", "-q", "--no-edit", one);
+  const develop = git("rev-parse", "HEAD");
+  for (const kept of [one, two]) {
+    const crossed = git("commit-tree", `${kept}^{tree}`, "-p", one, "-p", two, "-m", "c");
+    assert.deepEqual(check(crossed, develop), [1, unusual]);
+  }
+  assert.deepEqual(check(git("commit-tree", "base^{tree}", "-m", "c"), develop), [1, unusual]);
+
+  // Develop moved a file out of content, so an edit of the old file would land in the new one.
+  const moved = commitOn(() => (mkdirSync(join(repo, "web/lib"), { recursive: true }), git("mv", "web/content/posts/a.mdx", "web/lib/a.mdx")));
+  const [status, reasons] = check(commitOn(post("Hello again")), moved);
+  assert.equal(status, 1);
+  assert.match(reasons, /^web\/lib\/a\.mdx: /);
+
+  // A branch behind a moved develop is normal, and a reason found by both looks is given once.
+  assert.deepEqual(check(commitOn(() => put("web/content/b.json", "{}")), develop), [0, ""]);
+  assert.equal(check(commitOn(() => put("web/content/b.json", "{")), develop)[1].trim().split("\n").length, 1);
+
+  // A conflict cannot be merged, so the build reports it. What the branch itself holds is still checked.
+  assert.deepEqual(check(commitOn(post("Hello two")), develop), [0, ""]);
+  assert.match(check(commitOn(post("{x}")), develop)[1], /curly bracket/);
 });

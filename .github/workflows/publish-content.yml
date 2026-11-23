@@ -1,6 +1,7 @@
 # Publishes SEO edits with no human review. A pull request into develop from feature/content-<login> (article editor)
 # or feature/seo-edits-<login> (SEO dashboard) is checked, built, squash-merged and deployed, or gets a comment that
-# says in plain English why not. A closed pull request or a moved branch ends quietly: the newer run handles it.
+# says in plain English why not. <login> must be its author, so a developer branch such as feature/content-plan is
+# left alone. A closed pull request or a moved branch ends quietly: the newer run handles it.
 # pull_request_target takes this file from develop, so an edit cannot change its own checks. Code from the edited
 # side runs only in the build job, which can write nothing. Off switch: disable this workflow in Actions.
 name: Publish content
@@ -30,7 +31,8 @@ jobs:
   check:
     if: >-
       github.event.pull_request.head.repo.full_name == github.repository
-      && (startsWith(github.head_ref, 'feature/content-') || startsWith(github.head_ref, 'feature/seo-edits-'))
+      && (github.head_ref == format('feature/content-{0}', github.event.pull_request.user.login)
+      || github.head_ref == format('feature/seo-edits-{0}', github.event.pull_request.user.login))
     runs-on: ubuntu-latest
     timeout-minutes: 3
     permissions:

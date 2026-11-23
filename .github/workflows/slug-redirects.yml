@@ -1,7 +1,7 @@
 # When a PR renames a post (its URL slug changed), add the 301 redirect to
 # web/content/redirects.json on the same PR branch, so the old link keeps working.
 # Deleted posts only get a warning. Never runs on forks and never pushes to develop.
-# Skips feature/content-* and feature/seo-edits-*: publish-content.yml runs the same script on those.
+# Skips a person's own feature/content-<login> or feature/seo-edits-<login>: publish-content.yml runs the same script there.
 name: Slug redirects
 
 on:
@@ -16,8 +16,8 @@ jobs:
   redirects:
     if: >-
       github.event.pull_request.head.repo.full_name == github.repository
-      && !startsWith(github.head_ref, 'feature/content-')
-      && !startsWith(github.head_ref, 'feature/seo-edits-')
+      && github.head_ref != format('feature/content-{0}', github.event.pull_request.user.login)
+      && github.head_ref != format('feature/seo-edits-{0}', github.event.pull_request.user.login)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
