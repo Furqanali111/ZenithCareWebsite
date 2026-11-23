@@ -59,7 +59,7 @@ Hard rule: **never store client PHI or client production data in this repo.** Ea
 - **Styling**: Tailwind CSS + shadcn/ui
 - **Content**: MDX for blog/resources + plain JSON for chatbot script
 - **Hosting**: Vercel (free tier)
-- **Backend**: no database and no server-side secrets at launch. The only API route is `web/app/api/keystatic` (blog editor, answers 404 unless its GitHub App secrets are set).
+- **Backend**: no database. API routes: `web/app/api/keystatic` (blog editor, answers 404 unless its GitHub App secrets are set), `web/app/api/publish` (Publish button of the editor), `web/app/api/seo-edit` and `web/app/api/seo-snapshot` (SEO dashboard). The editor and dashboard routes use the signed-in person's own GitHub token. Content edits are published by `.github/workflows/publish-content.yml`.
 - **Booking**: Calendly embed (off-site)
 - **Contracts**: email + e-sign (Dropbox Sign free tier or signed PDF). Off-site.
 - **Payments**: Stripe Invoicing / PayPal / bank transfer. Sent per-client via email. Off-site. No `/pay` page on the site.
@@ -103,6 +103,7 @@ Full details: `WebSiteDoc/Project/11-git-workflow.md`. Core rules every session 
 - Conventional Commits for messages: `feat(scope): …`, `fix(scope): …`, `docs(scope): …`, etc.
 - No force-push on shared branches. No direct push to `develop` or any `release/*` under any circumstance, including admin.
 - No merge of your own PR without at least one approval.
+- **One exception, content only.** PRs from `feature/content-<login>` (article editor) and `feature/seo-edits-<login>` (SEO dashboard), where `<login>` is the PR author, are checked and squash-merged by `.github/workflows/publish-content.yml` with no approval. The workflow refuses anything but `.json`, `.mdx` and images under `web/content`, `web/public/resources` and `web/public/social`. Code PRs still need one approval. The workflow also force-updates `feature/content-*` after a merge. Off switch: disable the workflow in Actions. Details: `WebSiteDoc/Project/11-git-workflow.md` section 10.
 - Hotfixes must be back-ported to `develop` via a second PR so the next release doesn't regress.
 - **Commit messages: one-line subject only** — Conventional Commits (`feat(scope): …`). No prose body. Everything explanatory goes in the PR body. Attribution lines (`Co-Authored-By:`) still appended per harness rule.
 - **Before handing a code PR back**: run the `ponytail:ponytail-review` skill on the diff and apply its findings. This is mandatory, not optional.

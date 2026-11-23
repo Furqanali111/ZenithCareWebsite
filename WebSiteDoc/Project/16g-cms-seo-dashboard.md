@@ -64,13 +64,13 @@ While the password is unset, anyone who is not a signed-in repo writer gets 404 
 
 ### Filter, sort, search, export
 
-Above the list: search by name, address, title or keyword, filter by type, and a Show menu (score under 80, no focus keyword, description problem, hidden from Google, duplicates, link/sitemap/canonical problems, edit waiting in a pull request, and when Search Console is connected, seen often but rarely clicked). Sort by score, name, title length, clicks or impressions. **Download CSV** saves exactly what is on screen, with the problems listed per row.
+Above the list: search by name, address, title or keyword, filter by type, and a Show menu (score under 80, no focus keyword, description problem, hidden from Google, duplicates, link/sitemap/canonical problems, edit not live yet, and when Search Console is connected, seen often but rarely clicked). Sort by score, name, title length, clicks or impressions. **Download CSV** saves exactly what is on screen, with the problems listed per row.
 
 ### Edit in a table
 
-Tick **Edit in a table** to edit SEO title, meta description, focus keyword and noindex for many rows at once. Changed rows are highlighted and checked with the same rules as the editor. **Save** sends up to 50 changed rows per click as ONE commit in your own pull request (a fixed few GitHub calls, however many rows). Once that pull request is merged or closed, the next save deletes the old `feature/seo-edits-<name>` branch and cuts a fresh one from develop, so squash-merged history never comes back. A branch with commits but no pull request yet is kept.
+Tick **Edit in a table** to edit SEO title, meta description, focus keyword and noindex for many rows at once. Changed rows are highlighted and checked with the same rules as the editor. **Save** sends up to 50 changed rows per click, and they go live by themselves a few minutes later. After a save the table says "Saved. Publishing now, live in a few minutes." If the site already has exactly that text it says "Nothing to publish: the site already has this text." Nothing needs reviewing or merging. For developers: one commit goes to `feature/seo-edits-<lowercase github name>` (a fixed few GitHub calls, however many rows), a pull request is opened, and `.github/workflows/publish-content.yml` checks, builds, merges and deploys it. Once that is merged or closed, the next save cuts a fresh branch from develop, so squash-merged history never comes back. A branch with commits but no pull request yet is kept, and if the pull request cannot be opened the form says "Your edit is saved but publishing could not start. Try Save again."
 
-People who sign in only with the shared password see the dashboard read only. Rows for CPT and denial code pages are read only too (edit them in their own collections); their keyword is the code itself. Scoring: a page with no focus keyword fails the keyword checks. Click rate is judged against the page position. Page text is cached per page for the life of a deployment. Rows with an open dashboard pull request show an **Edit in a pull request** link, found from the commit titles of open `feature/seo-edits-*` pull requests.
+People who sign in only with the shared password see the dashboard read only. Rows for CPT and denial code pages are read only too (edit them in their own collections); their keyword is the code itself. Scoring: a page with no focus keyword fails the keyword checks. Click rate is judged against the page position. Page text is cached per page for the life of a deployment. A row with an edit on its way shows a **Publishing** badge. If the edit could not be published, the badge says "Not published:" and the reason in plain English (for example a title over 60 characters, or "Someone else changed the same text. Ask Furqan to combine the two edits."), and "This is taking longer than usual. Ask Furqan to look." after 15 minutes. After a failure the pull request stays open, and the next save of a changed text tries again. Saving the same text again changes nothing and does not retry. When GitHub cannot be read, the dashboard says so and the badges may be missing.
 
 ### Site-wide checks
 
@@ -90,16 +90,20 @@ With `GSC_CLIENT_EMAIL`, `GSC_PRIVATE_KEY` and `GSC_SITE_URL` set (steps in `web
 
 ### Score history
 
-**Record today's scores** adds the date, average score and counts to `content/seo-history.json` through a pull request, and the chart above the list draws the trend after it is merged and deployed. It is manual (weekly is enough) because the site has no database: a snapshot per deploy would need one.
+**Record today's scores** adds the date, average score and counts to `content/seo-history.json`. It publishes by itself like any other save, and the chart above the list draws the trend a few minutes later. It is manual (weekly is enough) because the site has no database: a snapshot per deploy would need one.
 
 ### Quick edit
 
 Each row has a form for SEO title, meta description, focus keyword and noindex, with character counters. Save does this:
 
-- **On the live site:** commits the change to the editor's own branch (`feature/seo-edits-<github name>`) and opens one pull request against develop, or adds to the one already open. Nothing goes live until the PR is reviewed, merged and deployed. The editor must have signed in at `/keystatic` once (the same GitHub login), and GitHub decides who may write. If not signed in, the form says so.
+- **On the live site:** saves the change and publishes it by itself. The form says "Saved. Publishing now, live in a few minutes." (or "Nothing to publish: the site already has this text."), the row shows a **Publishing** badge, and the change is live a few minutes later (allow about 15). No review step. The editor must have signed in at `/keystatic` once (the same GitHub login), and GitHub decides who may write. If not signed in or the sign-in expired, the form says so. Developers: it commits to `feature/seo-edits-<lowercase github name>` and opens a pull request that `.github/workflows/publish-content.yml` merges.
 - **In local dev:** writes the content file directly, like the editor does.
 
 Only these four fields are quick-editable. Everything else (social card, schema, canonical) stays in the full editor. The save route is behind the same password as the dashboard and only accepts same-origin requests.
+
+### Where page titles and descriptions live
+
+A page's title and meta description live only in `content/page-seo.json` and `content/page-seo-services.json` (the "Page titles and descriptions" editor and the dashboard quick edit write there). The same text is no longer repeated in the page's code, so an edit always takes effect. A title can be up to 60 characters (it was 36), and the dashboard still warns when the whole title with the site name is over 60. A page with neither an entry nor a title in its code fails the build.
 
 ### Link suggestions
 
@@ -119,7 +123,7 @@ Pages written in code are analysed from their rendered text, so they get the sam
 
 ## Automatic redirects when a post URL changes
 
-`.github/workflows/slug-redirects.yml` runs on every pull request that touches `web/content/posts`. If a post file was renamed (its URL slug changed), it adds a 301 redirect from the old address to the new one in `content/redirects.json` and commits it to the same PR branch. It also:
+`.github/workflows/slug-redirects.yml` runs on every pull request that touches `web/content/posts`, except those from `feature/content-<login>` and `feature/seo-edits-<login>`. For those two branch families `.github/workflows/publish-content.yml` runs the same script before merging. If a post file was renamed (its URL slug changed), it adds a 301 redirect from the old address to the new one in `content/redirects.json` and commits it to the same PR branch. It also:
 
 - points older redirects straight at the newest address, so there are no chains
 - removes a redirect that would hide a page that lives at that address again
@@ -137,9 +141,9 @@ Limits: rename detection needs the file to stay at least 50% similar. A slug cha
 - **Google index status** (URL Inspection API, refreshed daily, needs the same Search Console setup): filter "Google has not indexed it".
 - **Search Console depth:** the 28 days before are shown next to the current 28, ten searches per page, results paged past 5000 rows, and pages that share a search are flagged.
 - **Core Web Vitals** from real visitors (CrUX API) for the whole site on phones. Needs `CRUX_API_KEY`. A small site may have no data yet.
-- **Weekly snapshot:** `.github/workflows/seo-snapshot.yml` reads `/api/seo-snapshot` every Monday and opens a pull request that adds the scores, including every page's score, to `content/seo-history.json`. Row arrows show the change since the last snapshot. Needs the secret `SEO_DASHBOARD_PASSWORD`, the variable `SITE_URL`, and the repo setting "Allow GitHub Actions to create and approve pull requests". Merge the PR to add the point.
+- **Weekly snapshot:** `.github/workflows/seo-snapshot.yml` reads `/api/seo-snapshot` every Monday and opens a pull request that adds the scores, including every page's score, to `content/seo-history.json`. Row arrows show the change since the last snapshot. Needs the secret `SEO_DASHBOARD_PASSWORD`, the variable `SITE_URL`, and the repo setting "Allow GitHub Actions to create and approve pull requests". The workflow merges its own pull request, so the point appears a few minutes later with no one merging anything.
 - **Preview button** in the editor opens the saved branch on its Vercel preview (`/preview`, set `PREVIEW_URL_TEMPLATE`). Without it, it opens the live page.
-- **Last updated date** is set to today by `.github/workflows/post-dates.yml` when a pull request changes a post's text and the date was left alone. Reading time is worked out from the text. Tags must be lowercase with dashes. Category is a fixed list. The page path in the page SEO list is read only on existing entries.
+- **Last updated date** is set to today by `.github/workflows/post-dates.yml` when a pull request changes a post's text and the date was left alone. For the branches `feature/content-<login>` and `feature/seo-edits-<login>` `publish-content.yml` does this (and `post-dates.yml` skips them). Reading time is worked out from the text. Tags must be lowercase with dashes. Category is a fixed list. The page path in the page SEO list is read only on existing entries.
 
 Still not built: a searchable list for the page SEO entries (Keystatic arrays have none), Core Web Vitals per page, and checks that read the rich text live in the editor.
 
@@ -150,10 +154,10 @@ Share this list with the SEO team.
 1. **Live score with the page text while typing in the editor.** The preview and the title and description checks are live in the editor. The checks that read the page body (keyword in the first paragraph, links, readability) are not, because the editor cannot hand the rich text to the preview. They are on the SEO dashboard.
 2. **Product schema.** Not needed, the site has no products. Any other type, Product included, can be pasted as custom structured data.
 3. **Passive voice and transition word checks.** Not built. Synonyms are matched by the list the editor adds plus simple endings, not by meaning, so irregular forms (child and children) need to be added as synonyms.
-4. **Instant publishing.** Edits, including quick edits, go to a branch and open a pull request. They go live after review, merge and deploy. This is by design.
+4. **Instant publishing.** Edits go live a few minutes after Save (dashboard) or Publish (editor): a check, a build, a merge and a deploy happen first. Nobody reads the edit before it goes live, and it is not instant.
 5. **Hiding focus keywords from the public GitHub repo.** The dashboard is password protected, but the keywords are saved in the content files and the repository is public. To hide them the repository would have to be made private (Keystatic, Vercel and the workflow all work with a private repo). Until then treat focus keywords as public. They are mostly visible in titles and headings anyway.
 6. **Quick edit of every field.** Only SEO title, meta description, focus keyword and noindex. The rest is in the full editor.
-7. **Quick edit without a GitHub login.** Saving needs the same GitHub sign-in as the editor, so access stays with GitHub and every change is reviewed.
-8. **Automatic score history.** Only recorded when someone presses the button, one point per press. A point per deploy needs a database or a scheduled job.
+7. **Quick edit without a GitHub login.** Saving needs the same GitHub sign-in as the editor, so access stays with GitHub and every change names its author.
+8. **Score history per deploy.** The weekly snapshot and the button each add one point. A point per deploy needs a database.
 9. **A live request for every link.** The broken link check compares against the sitemap, it does not fetch each address, so it can miss a page that errors and flag a real page hidden from the sitemap.
 10. **Search Console without setup.** It needs a Google Cloud service account added as a user on the Search Console property. Until then the search columns stay hidden.

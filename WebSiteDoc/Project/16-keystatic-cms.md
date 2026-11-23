@@ -22,18 +22,51 @@ In production the editor signs in with GitHub and saves to the repo. Until the s
    - `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` (the GitHub App's slug)
 3. Only people with write access to the repo can save. Add the SEO manager as a collaborator.
 
-Not yet verified against a real GitHub App: the login flow, saving to a branch, and whether the CSP in `next.config.ts` allows everything the editor needs (`api.github.com` and GitHub avatars are allowed).
+Not yet verified against a real GitHub App: the login flow, saving to a branch, the open and Publish flows (see Publishing workflow), and whether the CSP in `next.config.ts` allows everything the editor needs (`api.github.com` and GitHub avatars are allowed).
 
 ## Publishing workflow
 
-1. In the editor, create a new branch (branch picker, top left) before changing anything. Never save on `develop`; protect `develop` with branch protection so it cannot happen.
-2. Edit and save. Click "Create pull request".
-3. Check the Vercel preview on the PR, then squash-merge. Merging is the publish step.
+For the SEO team. You never need to know about branches or pull requests.
 
-The editor adds a small helper on top of Keystatic (`web/app/keystatic/branch-guard.tsx`, production only):
-- On `develop`, `deployment-branch` or `main`, a Save click (or Ctrl/Cmd+S) is stopped and a popup says to create a branch first. This is a reminder only; the real block is GitHub branch protection on `develop`.
-- On any other branch, a pill at the bottom right shows "Create pull request" (opens GitHub's compare page against `develop`). Once a PR is open it shows "PR #N is open" with a link. Every later Save adds a commit to that branch, which updates the PR; no new PR is needed.
-- It cannot change Keystatic's own toolbar buttons. It was tested with a faked branch address in dev, not with a real GitHub login.
+1. Open `/keystatic` and sign in with GitHub. If the address shows `develop`, the editor moves you to your own private copy of the site by itself. The address then ends in `feature/content-<your github name>`. This is normal.
+2. Edit and press **Save** as often as you like. Saving keeps your work private. Nothing is live.
+3. Press **Publish** (bottom right) when you want your changes live. The site checks them, builds, and goes live a few minutes later. Allow about 15 minutes in all.
+
+What the pill at the bottom right says:
+
+| You see | It means |
+|---|---|
+| No changes to publish. | Nothing saved since the last publish. |
+| Your changes are private until you publish. + **Publish** | You have saved changes. |
+| Publishing. This takes a few minutes. | Checking and building. Save, Create and Delete are paused, a popup says so: "Publishing. You can save again in a few minutes." |
+| Published. Live in a few minutes. + **Reload** | Done. The live site updates a few minutes after this. Press Reload to load the editor again. |
+| the reason, then **Publish again** | Not published, and why (below). Fix it, save, press Publish again. |
+| This is taking longer than usual. Ask Furqan to look. | Nothing happened for 15 minutes. |
+
+What is refused, and how to fix it. The reason is shown in plain English, with the file name:
+
+- Anything that is not text, data or an image in the content folders (code, settings, a folder starting with a dot). Only a developer can change those. Ask Furqan.
+- Code inside an article: a line starting with the word import or export, a curly bracket `{`, or a `<` that starts anything other than a Callout, BookCall or Toc box. Remove it, or put a backslash before the bracket or the `<` to show it as text.
+- A link or special file instead of a normal file, or an image that is not .webp, .jpg, .png or .avif. Add the file again as a normal file.
+- An article whose top section (between the two `---` lines) is broken, or a content file that is not valid JSON. Fix the typing mistake.
+- A build error, shown as "The site could not be built with this edit: ...". Usually a field that is empty or too long, or an ID used twice. Fix that field.
+- "Someone else changed the same text. Ask Furqan to combine the two edits." Two people edited the same text.
+
+After a refusal the private branch stays as it is. Fix the text, press Save, then press **Publish again**. A refused publish is not retried by itself.
+
+If you are not signed in, or the sign-in expired, the pill says so: open `/keystatic`, sign in again, then try again. A person without write access gets "Your GitHub account cannot publish to this site. Ask Furqan for access."
+
+Developers (not for the SEO team):
+
+- `web/app/keystatic/branch-guard.tsx` (production only) does the open flow: on `/keystatic/branch/develop`, `deployment-branch` or `main` it calls `POST /api/publish {action:"open"}`, replaces the branch in the address with `feature/content-<login>` and sends a `popstate` so Keystatic's router loads it. If that fails, an amber warning stays and Save, Create and Delete are stopped with a popup.
+- The pill polls `GET /api/publish` every 15 seconds (paused while the tab is hidden). The route (`web/app/api/publish/route.ts`) uses the person's own GitHub token from Keystatic's cookie, accepts same-origin JSON only, and needs push rights on the repo. The branch name is built on the server from the login, lower case.
+- Publish opens a PR from `feature/content-<login>` into `develop`. `.github/workflows/publish-content.yml` then checks, builds, squash-merges and deploys it (see `17-auto-publish-design.md`). It force-updates the branch onto the new `develop` afterwards, so later saves are kept. Failures are a PR comment from `github-actions[bot]` starting `<!-- publish-failed:<sha> -->`; the PR is closed, and Publish again opens a new one.
+- Re-running a finished run with "Re-run all jobs" ends quietly with no message. To retry, press Publish again (new PR) or reopen the PR.
+- On any other branch (a developer's own) the pill is the old one: "Create pull request" or "PR #N is open". Keystatic's own branch menu stays visible and is not hidden.
+- Real guard on `develop` is GitHub branch protection. The popup is only a reminder.
+- Setup, tests and the off switch: `17c-auto-publish-handover.md`.
+
+Not verified live: the open flow with a real GitHub sign-in (the address moves and Keystatic loads the branch), the Publish and failure flows against GitHub, and the labels of Keystatic's toolbar buttons in GitHub mode (checked only in local mode).
 
 ## Field rules
 
@@ -49,8 +82,8 @@ The editor adds a small helper on top of Keystatic (`web/app/keystatic/branch-gu
 The editor sidebar also has two items under "Singletons" (single files, not lists):
 
 - **FAQ** edits `web/content/faq.json` (24 questions). It feeds `/faq`, the chatbot and the FAQPage schema. Each question needs a unique ID (lowercase words joined by dashes). A duplicate ID or an empty question or answer fails the build, on purpose. Do not change an ID once published.
-- **Page titles and descriptions** edits `web/content/page-seo.json`: the Google title and meta description of the 26 main pages (home, about, pricing, FAQ, contact, resources, the service category pages, the legal pages and so on), matched by URL path. Keep the title to 36 characters or fewer: the site name is added after it and the whole title should stay under 60. Description 160 or fewer. Do not change the "Page URL path" of an entry.
-- These values win over the text written in the page's code. That code text is only a fallback, so editing it has no effect while an entry exists.
+- **Page titles and descriptions** edits `web/content/page-seo.json`: the Google title and meta description of the 26 main pages (home, about, pricing, FAQ, contact, resources, the service category pages, the legal pages and so on), matched by URL path. The title can be up to 60 characters. The site name is added after it and Google may cut a long title, so the dashboard warns above about 36 and checks the whole title against 60. Description 160 or fewer. Do not change the "Page URL path" of an entry.
+- These files (`web/content/page-seo.json` and `page-seo-services.json`) are the only place for a page's title and description. A page with neither fails the build. The text in the page's code is a fallback only for pages with no entry.
 - These change the page's title tag, meta description and the social sharing text (og:title, og:description, twitter). They do not change the name inside the page's structured data, the social preview image, or the visible headings.
 - Not covered: blog post titles (edit the post itself), the individual CPT code, denial code, service and specialty pages (their text comes from code), and the headings and paragraphs on the pages themselves. Those still need a developer.
 
@@ -66,7 +99,7 @@ The editor sidebar also has two items under "Singletons" (single files, not list
 
 ## Known quirks
 
-- Saving rewrites some formatting: curly quotes instead of `&rsquo;`, `*` bullets instead of `-`, tables re-aligned, `~` escaped as `\~`. The rendered page is the same. Always read the PR diff.
+- Saving rewrites some formatting: curly quotes instead of `&rsquo;`, `*` bullets instead of `-`, tables re-aligned, `~` escaped as `\~`. The rendered page is the same. Developers working on a branch: read the diff. Edits published from the editor are not read by a person.
 - Keystatic's editor drops text that follows a line break inside **bold**, *italic* or link text. The existing posts were normalized to avoid this. In new posts keep a bold phrase on one line.
 - A new post needs no code change: the post list is read from the folder.
-- Rollback: revert the PR.
+- Rollback: revert the squash commit (`fix(content): publish edits by <login>`) on `develop` with a PR.

@@ -116,6 +116,10 @@ Both `develop` and every `release/*` must have:
 - **Disallow direct pushes** (including from admins)
 - **Disallow force-push**
 - **Disallow deletion**
+- Require review from Code Owners (`.github/CODEOWNERS`). It is the rule that still asks for review on code while content PRs from the SEO team go through, see section 10.
+- Do **not** protect `feature/content-*`: the publish workflow force-pushes those branches only.
+
+The publish workflow merges as the GitHub Actions bot, which cannot approve and is not a code owner, so the rule for `develop` must let it through. Two ways, to be settled by a test PR: (1) content folders have no code owner in CODEOWNERS, so with "Require review from Code Owners" and without a plain "Require approvals" count, a content-only PR needs no review; or (2) allow `github-actions` to bypass the pull request requirement. From GitHub's documentation I can confirm that CODEOWNERS is read from the base branch, that the last matching pattern wins, and that a pattern with no owner removes ownership. I have **not** verified that an ownerless content PR may merge under the rule above, or that the bot is let through; Furqan must test this live (steps in `17c-auto-publish-handover.md`) before relying on it.
 
 ## 5. Commit messages
 
@@ -162,8 +166,8 @@ A Vercel preview URL appears automatically via the GitHub integration; no manual
 ## 7. Hard rules (never break)
 
 - **No direct push to `develop` or any `release/*`.** Admin override does not exist for these.
-- **No merge of your own PR without an approval.** Even Ali.
-- **No `--force` on shared branches.** `--force-with-lease` on your own feature branch is fine before review starts, forbidden after.
+- **No merge of your own PR without an approval.** Even Ali. The only exception is section 10: content-only PRs of the two editor branch families.
+- **No `--force` on shared branches.** `--force-with-lease` on your own feature branch is fine before review starts, forbidden after. The publish workflow itself force-updates `feature/content-*` (section 10).
 - **No secrets in commits.** If one slips, rotate immediately — git history is not security.
 - **No merge commits to `develop`.** Squash-only keeps history linear.
 - **No long-lived feature branches.** If a branch is open > 7 days, split the work or merge what's ready behind a feature flag.
@@ -192,3 +196,17 @@ Semantic versioning for release branches and tags:
 - `PATCH` — bug fix, copy edit, dependency bump
 
 Launch is `v1.0.0`. The first bug fix after launch is `v1.0.1`. Adding `/who-we-serve/cardiology` is `v1.1.0`.
+
+## 10. Content exception (automatic publishing)
+
+**What is exempt.** Pull requests into `develop` from `feature/content-<login>` (article editor at `/keystatic`) and `feature/seo-edits-<login>` (SEO dashboard). `<login>` must be the lowercase GitHub login of the PR author, so a developer branch such as `feature/content-plan` is not covered. Same repository only.
+
+**Who.** The SEO team, each person on their own branch. These are the only personal long-lived branches allowed (section 1 and the 7 day rule do not apply to them).
+
+**How it is enforced.** `.github/workflows/publish-content.yml` runs from `develop` (`pull_request_target`). It refuses unless every changed file is `.json`, `.mdx` or an image under `web/content`, `web/public/resources` or `web/public/social`, with no symlinks, and no code in articles (imports, exports, braces, unknown tags). It then runs the date and redirect scripts, builds the site with a read-only token and no secrets, squash-merges, calls `sync-deployment.yml`, and moves `feature/content-*` onto the new `develop` with a force-push (so later saves are kept). On any failure it leaves a comment in plain English, which the editor and dashboard show. The workflow merges as `github-actions[bot]`. `post-dates.yml` and `slug-redirects.yml` skip these branches because this workflow does the same work.
+
+**Not exempt.** Any code PR, any PR from another branch name, and anything touching files outside the three content folders (also `web/content/posts.ts`, which is code). They need one approval as before. `.github/CODEOWNERS` gives Furqan ownership of everything except the content folders.
+
+**Off switch.** Actions tab, "Publish content", Disable workflow. PRs are then merged by hand as before.
+
+**Not yet proven.** The workflow has not run on GitHub, and the branch protection and CODEOWNERS behaviour described in section 4 is untested. Test list: `17c-auto-publish-handover.md`.
