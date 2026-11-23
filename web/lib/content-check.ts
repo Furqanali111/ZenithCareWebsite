@@ -6,26 +6,35 @@ export type ChangedFile = { path: string; status: string; mode: string; text?: s
 
 const ROOTS = ["web/content/", "web/public/resources/", "web/public/social/"];
 const IMAGES = [".webp", ".jpg", ".jpeg", ".png", ".avif"];
-const STATUSES = ["A", "M", "D", "R", "T"];
+// JSON files that change how modules are loaded, so they are code.
+const STEERING = ["package.json", "tsconfig.json"];
+const STATUSES =["A", "M", "D", "R", "T"];
 // gray-matter and MDX both treat anything outside these as code or markup, so only these tags pass.
-const OK_TAG = /^<\/?(?:Callout|BookCall|Toc)(?=[ \t\r\n/>])/;
+// JSX allows whitespace (even a line break) before . and :, so after the name only > or a plain attribute may follow, on the same line.
+const OK_TAG = /<\/?(?:Callout|BookCall|Toc)(?:[ \t]*\/?>|[ \t]+[A-Za-z])/y;
 
 // File names are hostile input and end up in one-line-per-reason output.
 const clean = (s: string) => s.replace(/[\p{Cc}\p{Zl}\p{Zp}]/gu, "?");
 
 function mdxProblem(text: string): string | null {
   if (!/^---\r?(\n|$)/.test(text)) return "must start with a line that is exactly three dashes (---)";
-  // Same rule gray-matter uses: the first line starting with --- closes the front matter.
+  // gray-matter ends the top section at the first line starting with ---, MDX only at a line that is exactly ---
+  // (plus spaces or tabs). Any disagreement would let code hide in what one of them reads as text, so refuse it.
   const close = text.indexOf("\n---", 3);
   if (close < 0) return "has a top section (between two --- lines) that is never closed";
-  const body = text.slice(close + 4);
+  const end = text.indexOf("\n", close + 1);
+  if (!/^---[ \t]*\r?$/.test(text.slice(close + 1, end < 0 ? undefined : end))) return "has a line starting with --- that is not just three dashes. Put only --- on the line that closes the top section";
+  // MDX also counts a lone carriage return as a line break, which gray-matter does not.
+  if (/\r(?!\n)/.test(text.slice(0, close + 1))) return "has a stray line-break character in the top section. Retype the top section";
+  const body = end < 0 ? "" : text.slice(end + 1);
   if (/(^|[^\\])(\\\\)*\{/.test(body)) return "contains a curly bracket { in the text. Remove it, or put a backslash before it";
   if (/^[ \t]*(import|export)\b/m.test(body)) return "contains a line starting with the word import or export. Remove that line";
   for (let i = body.indexOf("<"); i >= 0; i = body.indexOf("<", i + 1)) {
     let slashes = 0;
     while (body[i - 1 - slashes] === "\\") slashes++;
     if (slashes % 2 || i + 1 >= body.length || /[ \t\r\n]/.test(body[i + 1])) continue;
-    if (!OK_TAG.test(body.slice(i, i + 12))) return "contains a < sign that starts something other than a Callout, BookCall or Toc box. Remove it, or put a backslash before it";
+    OK_TAG.lastIndex = i;
+    if (!OK_TAG.test(body)) return "contains a < sign that starts something other than a Callout, BookCall or Toc box. Remove it, or put a backslash before it";
   }
   return null;
 }
@@ -36,7 +45,7 @@ export function checkFile(f: ChangedFile): string | null {
   const parts = f.path.split("/");
   const ext = /\.[^./]+$/.exec(f.path)?.[0] ?? "";
   const textual = ext === ".mdx" || ext === ".json";
-  const inRoot = ROOTS.some((r) => f.path.startsWith(r)) && !parts.some((p) => p === "" || p === "." || p === "..") && !/[\\\p{Cc}]/u.test(f.path);
+  const inRoot = ROOTS.some((r) => f.path.startsWith(r)) && !parts.some((p) => p === "" || p.startsWith(".") || p.toLowerCase() === "node_modules") && !/[\\\p{Cc}]/u.test(f.path) && !STEERING.includes(parts.at(-1)!.toLowerCase());
   const allowed = inRoot && (textual ? f.path.startsWith("web/content/") : IMAGES.includes(ext));
   if (!allowed) return `${name}: this file is not an article, content data or image, so it needs a developer to look at it. Please remove it from your changes.`;
   if (!STATUSES.includes(f.status)) return `${name}: this kind of change is not recognised. Please ask a developer to look at it.`;

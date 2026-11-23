@@ -7,9 +7,15 @@ import { execFileSync } from "node:child_process";
 import { checkFile } from "../lib/content-check.ts";
 
 const [base, head] = process.argv.slice(2);
+// An empty head would silently compare HEAD with itself and pass, so insist on a full commit id.
+if (!base || !/^[0-9a-f]{40}$/.test(head ?? "")) {
+  console.log("The check was not given a starting point and a full commit id, so it could not look at your changes.");
+  process.exit(1);
+}
 const git = (...args) => execFileSync("git", args, { encoding: "utf8", maxBuffer: 1 << 28, stdio: ["ignore", "pipe", "ignore"] });
 // -z keeps odd file names intact; no external diff or textconv so repo config cannot run anything.
-const tokens = git("diff", "--raw", "-z", "-M", "--no-ext-diff", "--no-textconv", "--no-color", `${base}...${head}`, "--").split("\0");
+// --no-abbrev: a short id could be read as a tag or branch of the same name instead of the file.
+const tokens = git("diff", "--raw", "-z", "--no-abbrev", "-M", "--no-ext-diff", "--no-textconv", "--no-color", `${base}...${head}`, "--").split("\0");
 
 const reasons = [];
 const add = (file) => {

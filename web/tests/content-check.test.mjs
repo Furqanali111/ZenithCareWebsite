@@ -48,6 +48,29 @@ test("MDX that could run code is refused", () => {
   refused(mdx("---{x}\n", "---\nt: 1\n"));
 });
 
+test("the top section must end exactly where MDX ends it", () => {
+  const post = (front, body = "Hello\n") => ({ ...mdx("x"), text: front + body });
+  ok(post("---\ntitle: T\n--- \t\n"));
+  ok(post("---\r\ntitle: T\r\n---\r\n"));
+  refused(post("---\ntitle: T\n--- \n", "{x}\n"));
+  refused(post("---\ntitle: \"T {globalThis.PWN=1}\"\n---x\n"));
+  refused(post("---\ntitle: T\n----\n"));
+  refused(post("---\ntitle: T\n---\xa0\n"));
+  refused(post("---\n# a\r---\r\rexport const p = (globalThis.PWN=1)\r\r\n---\n"));
+  refused(post("---\ntitle: T\nzz: [a,\r---\r, \"{x}\"]\n---\n"));
+});
+
+test("only plain Callout, BookCall and Toc tags pass", () => {
+  for (const b of ['<Callout tone="info">hi</Callout>', "<Callout>x</Callout >", "<Toc />", "<Toc/>", "<BookCall />"]) ok(mdx(b + "\n"));
+  for (const b of ["<Callout .constructor/>", "<Callout . constructor>x</Callout . constructor>", "<Toc\n.constructor/>", "<Callout :x/>", "> <Callout\n> .constructor/>"]) refused(mdx(b + "\n"));
+});
+
+test("files that steer module loading are refused", () => {
+  for (const path of ["web/content/package.json", "web/content/node_modules/gray-matter/package.json", "web/content/.hidden/x.json", "web/content/posts/TSConfig.json", "web/content/NODE_MODULES/x.json"]) {
+    refused({ path, status: "M", mode: "100644", text: "{}" });
+  }
+});
+
 // End to end in a throwaway repo: the head is a commit that is never checked out.
 const repo = mkdtempSync(join(tmpdir(), "check-content-"));
 const git = (...a) => execFileSync("git", ["-c", "user.name=t", "-c", "user.email=t@t", "-c", "commit.gpgsign=false", "-c", "core.autocrlf=false", ...a], { cwd: repo, encoding: "utf8", input: "" }).trim();
@@ -68,7 +91,15 @@ git("tag", "base");
 test("check-content.mjs: an edit passes, a move out of content or a symlink fails", () => {
   const edit = run(commitOn(() => put("web/content/posts/a.mdx", "---\ntitle: A\n---\nHello again\n")));
   assert.deepEqual([edit.status, edit.stdout], [0, ""]);
-  assert.deepEqual([run("base").status, run("base").stdout], [0, ""]);
+  const baseSha = git("rev-parse", "base");
+  assert.deepEqual([run(baseSha).status, run(baseSha).stdout], [0, ""]);
+  // A head that is not a full commit id would silently compare nothing.
+  for (const head of ["", "HEAD", baseSha.slice(0, 7)]) assert.equal(run(head).status, 1, head);
+
+  // A tag named like the start of a blob id must not decide which file gets read.
+  const bad = commitOn(() => put("web/content/posts/a.mdx", "---\ntitle: A\n---\n{process.env.X}\n"));
+  git("tag", git("rev-parse", `${bad}:web/content/posts/a.mdx`).slice(0, 7), git("rev-parse", "base:web/content/posts/a.mdx"));
+  assert.equal(run(bad).status, 1);
 
   const moved = run(commitOn(() => (mkdirSync(join(repo, "web/app"), { recursive: true }), git("mv", "web/content/posts/a.mdx", "web/app/a.mdx"))));
   assert.equal(moved.status, 1);
