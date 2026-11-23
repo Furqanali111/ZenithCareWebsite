@@ -1,4 +1,5 @@
-# Every night at 00:00 Pakistan time (19:00 UTC), and right after publish-content.yml merges an edit:
+# Right after anything is merged into develop by a person, every night at 00:00 Pakistan time (19:00 UTC) as a safety net,
+# and right after publish-content.yml merges an edit (a merge made by the Actions bot starts no push run, so that one calls this directly):
 # merge everything on develop into deployment-branch, the branch
 # Vercel deploys to production. A normal merge commit, like the "develop into deployment-branch" PRs, never a force-push.
 # If the merge conflicts, the job fails (GitHub emails the repo owner at night, the editor after an edit) and nothing
@@ -6,6 +7,8 @@
 name: Sync develop to deployment-branch
 
 on:
+  push:
+    branches: [develop]
   schedule:
     - cron: "0 19 * * *"
   workflow_dispatch:
