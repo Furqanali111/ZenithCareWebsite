@@ -1,0 +1,14 @@
+# Code needs a review from Furqan. Content edits from the SEO team do not.
+# The last matching pattern wins, and a pattern with no owner clears the owner, so the three
+# content folders below need no code owner review. This only protects anything once develop has
+# branch protection with "Require review from Code Owners". GitHub reads this file from the base
+# branch (develop), so a pull request cannot change its own rules.
+* @Furqanali111
+
+# Content only: text, data and images edited through /keystatic and the SEO dashboard.
+/web/content/
+/web/public/resources/
+/web/public/social/
+
+# This one is code (it imports and builds the post list), so it keeps its owner.
+/web/content/posts.ts @Furqanali111

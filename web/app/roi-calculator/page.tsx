@@ -5,13 +5,10 @@ import { pageMetadata, JsonLd, serviceLd, breadcrumbLd } from "@/lib/seo";
 import { RoiCalculator } from "@/components/roi-calculator";
 
 const PATH = "/roi-calculator";
-const NAME = "CCM ROI Calculator";
 const DESCRIPTION =
   "Estimate monthly CCM Medicare reimbursement for your practice based on panel size and enrollment rate. Runs client-side.";
 
 export const metadata: Metadata = pageMetadata({
-  title: NAME,
-  description: DESCRIPTION,
   path: PATH,
 });
 

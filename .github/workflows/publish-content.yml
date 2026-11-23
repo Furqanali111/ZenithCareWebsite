@@ -1,0 +1,253 @@
+# Publishes SEO edits with no human review. A pull request into develop from feature/content-<login> (article editor)
+# or feature/seo-edits-<login> (SEO dashboard) is checked, built, squash-merged and deployed, or gets a comment that
+# says in plain English why not. <login> must be its author, so a developer branch such as feature/content-plan is
+# left alone. A closed pull request or a moved branch ends quietly: the newer run handles it.
+# pull_request_target takes this file from develop, so an edit cannot change its own checks. Code from the edited
+# side runs only in the build job, which can write nothing. Off switch: disable this workflow in Actions.
+name: Publish content
+
+on:
+  pull_request_target:
+    branches: [develop]
+    types: [opened, synchronize, reopened]
+
+permissions: {}
+
+# The label is owner:branch, so a fork with the same branch name cannot push a real publish out of the queue.
+concurrency:
+  group: publish-content-${{ github.event.pull_request.head.label }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash # fails on any command of a pipe, unlike the default shell
+
+env:
+  PR: ${{ github.event.pull_request.number }}
+  BRANCH: ${{ github.head_ref }}
+  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  check:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository
+      && (github.head_ref == format('feature/content-{0}', github.event.pull_request.user.login)
+      || github.head_ref == format('feature/seo-edits-{0}', github.event.pull_request.user.login))
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: write
+      pull-requests: read
+    outputs:
+      quiet: ${{ steps.gate.outputs.quiet || steps.prepare.outputs.quiet }}
+      reason: ${{ steps.content.outputs.reason }}
+      sha: ${{ steps.prepare.outputs.sha }}
+    steps:
+      - name: Stop quietly unless this is the newest commit of an open pull request
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          now=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR" --jq '"\(.state) \(.head.sha)"')
+          if [ "$now" != "open $HEAD_SHA" ]; then echo "quiet=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.quiet != 'true'
+        with:
+          ref: refs/heads/develop
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.quiet != 'true'
+        with:
+          node-version: 22
+      # Full ref names throughout: a tag called origin/develop would win over the branch.
+      - name: Check that the edit holds only content
+        id: content
+        if: steps.gate.outputs.quiet != 'true'
+        working-directory: web
+        run: |
+          git fetch -q --no-tags origin "$HEAD_SHA"
+          if node --experimental-strip-types --no-warnings scripts/check-content.mjs refs/remotes/origin/develop "$HEAD_SHA" \
+            > "$RUNNER_TEMP/reasons.txt" 2> "$RUNNER_TEMP/crash.txt"; then exit 0; fi
+          # File names are hostile input. Without : and # a log line cannot become a workflow command.
+          tr -d ':#' < "$RUNNER_TEMP/crash.txt"
+          reason=$(head -c 8000 "$RUNNER_TEMP/reasons.txt")
+          end=$(openssl rand -hex 16)
+          printf 'reason<<%s\n%s\n%s\n' "$end" "$reason" "$end" >> "$GITHUB_OUTPUT"
+          exit 1
+      # The scripts come from develop, only the files they work on are the edited ones.
+      - name: Update dates and redirects
+        id: prepare
+        if: steps.gate.outputs.quiet != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git worktree add -q --detach "$RUNNER_TEMP/head" "$HEAD_SHA"
+          cd "$RUNNER_TEMP/head/web"
+          for script in bump-updated slug-redirects; do
+            node --experimental-strip-types --no-warnings "$GITHUB_WORKSPACE/web/scripts/$script.mjs" refs/remotes/origin/develop
+          done
+          if ! git diff --quiet; then
+            git commit -qam "fix(content): update dates and redirects of edited posts"
+            if ! git push -q origin "HEAD:refs/heads/$BRANCH"; then
+              tip=$(git ls-remote origin "refs/heads/$BRANCH" | awk -v ref="refs/heads/$BRANCH" '$2 == ref { print $1 }')
+              if [ "$tip" = "$HEAD_SHA" ]; then exit 1; fi
+              echo "quiet=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          # A push made with this token starts no new run, so the rest of this run uses the new commit.
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  # Runs the edited content: read only, no kept credentials, no secrets, no cache.
+  build:
+    needs: check
+    if: needs.check.outputs.quiet != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    permissions:
+      contents: read
+    outputs:
+      conflict: ${{ steps.merge.outputs.conflict }}
+      error: ${{ steps.site.outputs.error }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.check.outputs.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Merge the current develop in
+        id: merge
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git merge -q --no-edit refs/remotes/origin/develop; then exit 0; fi
+          if [ -n "$(git ls-files --unmerged)" ]; then echo "conflict=true" >> "$GITHUB_OUTPUT"; fi
+          exit 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install
+        working-directory: web
+        run: |
+          npm install -g "$(node -p 'require("./package.json").packageManager.split("+")[0]')"
+          pnpm install --frozen-lockfile
+      - name: Test and build
+        id: site
+        working-directory: web
+        run: |
+          token=$(openssl rand -hex 16)
+          echo "::stop-commands::$token"
+          failed=
+          for task in test build; do
+            if ! pnpm run "$task" 2>&1 | tee "$RUNNER_TEMP/site.log"; then failed=$task; break; fi
+          done
+          echo "::$token::"
+          if [ -z "$failed" ]; then exit 0; fi
+          log=$(sed -E 's/\x1b\[[0-9;?]*[ -/]*[@-~]//g' "$RUNNER_TEMP/site.log")
+          line=$(grep -a -m1 Error <<< "$log" || grep -av '^[[:space:]]*$' <<< "$log" | tail -n 1)
+          end=$(openssl rand -hex 16)
+          printf 'error<<%s\n%s\n%s\n' "$end" "${line:0:2000}" "$end" >> "$GITHUB_OUTPUT"
+          exit 1
+
+  publish:
+    needs: [check, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      SHA: ${{ needs.check.outputs.sha }}
+    outputs:
+      merged: ${{ steps.merge.outputs.merged }}
+      conflict: ${{ steps.merge.outputs.conflict }}
+      quiet: ${{ steps.merge.outputs.quiet }}
+    steps:
+      - name: Squash-merge
+        id: merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          login=${BRANCH#feature/content-}
+          login=${login#feature/seo-edits-}
+          # GitHub needs a moment to work out whether it can merge, and refuses when develop moves meanwhile.
+          for try in 1 2 3 4 5 6; do
+            # The answer can hold the pull request title, so : and # go, as in the check job.
+            gh pr merge "$PR" --repo "$GITHUB_REPOSITORY" --squash --match-head-commit "$SHA" \
+              --subject "fix(content): publish edits by $login" --body "" 2>&1 | tr -d ':#' || true
+            now=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR" --jq '"\(.merged) \(.state) \(.head.sha) \(.mergeable)"') || now=unknown
+            case "$now" in
+              "true "*) echo "merged=true" >> "$GITHUB_OUTPUT"; exit 0 ;;
+              "false open $SHA false") echo "conflict=true" >> "$GITHUB_OUTPUT"; exit 1 ;;
+              "false open $SHA "* | unknown) sleep 10 ;;
+              *) echo "quiet=true" >> "$GITHUB_OUTPUT"; exit 0 ;;
+            esac
+          done
+          exit 1
+      # From here on the edit is on develop, so nothing may fail this job.
+      - uses: actions/checkout@v4
+        if: steps.merge.outputs.merged == 'true' && startsWith(github.head_ref, 'feature/content-')
+        continue-on-error: true
+        with:
+          ref: refs/heads/develop
+          fetch-depth: 0
+      # Commits saved after the checked one are kept. Any failure stops before the push and leaves the branch as it is.
+      - name: Move the editor branch onto the new develop
+        if: steps.merge.outputs.merged == 'true' && startsWith(github.head_ref, 'feature/content-')
+        continue-on-error: true
+        timeout-minutes: 1
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          tip=$(git rev-parse --verify "refs/remotes/origin/$BRANCH")
+          git merge-base --is-ancestor "$SHA" "$tip"
+          git rebase -q --onto refs/remotes/origin/develop "$SHA" "$tip" > /dev/null 2>&1
+          git push -q --force-with-lease="refs/heads/$BRANCH:$tip" origin "HEAD:refs/heads/$BRANCH"
+
+  # A merge made with this token starts no other workflow, so the deployment is called directly.
+  deploy:
+    needs: publish
+    if: ${{ !cancelled() && needs.publish.outputs.merged == 'true' }}
+    permissions:
+      contents: write
+    uses: ./.github/workflows/sync-deployment.yml
+
+  report:
+    needs: [check, build, publish]
+    if: >-
+      always()
+      && needs.check.result != 'skipped'
+      && needs.check.outputs.quiet != 'true'
+      && needs.publish.outputs.quiet != 'true'
+      && needs.publish.outputs.merged != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Say why it was not published
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LC_ALL: C.UTF-8 # so the cap counts characters, not bytes
+          SHA: ${{ needs.check.outputs.sha }}
+          CHECK_REASON: ${{ needs.check.outputs.reason }}
+          CONFLICT: ${{ needs.build.outputs.conflict || needs.publish.outputs.conflict }}
+          BUILD_ERROR: ${{ needs.build.outputs.error }}
+        run: |
+          now=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR" --jq '"\(.state) \(.head.sha)"')
+          case "$now" in
+            "open $HEAD_SHA" | "open $SHA") head=${now#open } ;;
+            *) exit 0 ;;
+          esac
+          # The build job ran the edited content, so its text is cleaned here, where that content cannot reach.
+          error=$(tr '\n' ' ' <<< "$BUILD_ERROR" | sed -E 's/[[:cntrl:]<@`]//g; s/^ +//; s/ +$//')
+          if [ -n "$CHECK_REASON" ]; then reason=$CHECK_REASON
+          elif [ "$CONFLICT" = true ]; then reason="Someone else changed the same text. Ask Furqan to combine the two edits."
+          elif [ -n "$error" ]; then reason="The site could not be built with this edit: ${error:0:300}"
+          else reason="Publishing failed. Ask Furqan to look."
+          fi
+          gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --silent -f body="<!-- publish-failed:$head -->"$'\n'"$reason"
+          # A dashboard pull request stays open: the next save retries it.
+          if [[ $BRANCH == feature/content-* ]]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/pulls/$PR" --silent -f state=closed
+          fi

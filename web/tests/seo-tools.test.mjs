@@ -99,8 +99,9 @@ test("validate edit: limits, shapes and bad addresses are refused", () => {
   assert.equal(validateEdit({ ...ok, values: { ...ok.values, description: "" } }).ok, false);
   assert.equal(validateEdit({ ...ok, values: { ...ok.values, title: "x".repeat(61) } }).ok, false);
   assert.equal(validateEdit({ ...ok, target: { kind: "post", slug: "../../etc/passwd" } }).ok, false);
-  const page = { target: { kind: "page", singleton: "pageSeo", path: "/about" }, values: { title: "x".repeat(37), description: "d", focusKeyword: "", noindex: false } };
+  const page = { target: { kind: "page", singleton: "pageSeo", path: "/about" }, values: { title: "x".repeat(61), description: "d", focusKeyword: "", noindex: false } };
   assert.equal(validateEdit(page).ok, false);
+  for (const n of [51, 60]) assert.equal(validateEdit({ ...page, values: { ...page.values, title: "x".repeat(n) } }).ok, true);
   assert.equal(validateEdit({ ...page, values: { ...page.values, title: "About" } }).ok, true);
   assert.equal(validateEdit({ ...page, target: { ...page.target, singleton: "x" } }).ok, false);
   assert.equal(validateEdit(null).ok, false);

@@ -2,7 +2,8 @@
  * Adds a 301 redirect for every post file renamed (slug changed) or warns about deleted ones.
  * Run from web/: node --experimental-strip-types --no-warnings scripts/slug-redirects.mjs [base-ref]
  * Compares HEAD with the base branch (default origin/develop), so commit first when running by hand.
- * In CI it runs on every PR that touches content/posts (.github/workflows/slug-redirects.yml).
+ * In CI it runs on every PR that touches content/posts (.github/workflows/slug-redirects.yml), and through
+ * .github/workflows/publish-content.yml for feature/content-<login> and feature/seo-edits-<login>.
  */
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";

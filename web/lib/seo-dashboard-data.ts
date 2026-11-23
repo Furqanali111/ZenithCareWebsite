@@ -42,7 +42,7 @@ const history = (historyFile as { entries: HistoryEntry[] }).entries;
 
 type Extra = {
   sitemap: string[] | null;
-  pending: Map<string, { url: string; login: string }>;
+  pending: Map<string, NonNullable<DashRow["pending"]>>;
   search: Awaited<ReturnType<typeof searchData>>["pages"];
   index: Awaited<ReturnType<typeof indexData>>["status"];
 };
@@ -150,8 +150,8 @@ export async function loadDashboard() {
     cwvData(site.url),
     githubWriter(token),
   ]);
-  const pending = new Map<string, { url: string; login: string }>();
-  for (const pr of open ?? []) for (const label of pendingLabels(pr.messages)) pending.set(label, { url: pr.url, login: pr.login });
+  const pending: Extra["pending"] = new Map();
+  for (const pr of open ?? []) for (const label of pendingLabels(pr.messages)) pending.set(label, { login: pr.login, failed: pr.failed });
 
   const { rows, unread } = buildRows(bodies, { sitemap, pending, search: search.pages, index: index.status });
   return {

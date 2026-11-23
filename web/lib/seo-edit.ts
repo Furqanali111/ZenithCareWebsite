@@ -10,11 +10,11 @@ export type EditTarget =
   | { kind: "page"; singleton: "pageSeo" | "serviceSeo"; path: string };
 export type Edit = { target: EditTarget; values: EditValues };
 
-// Same limits the editor enforces: a post's SEO title is 60 characters, a page's is 36 (the site name is added).
+// Same limits the editor enforces: a post's SEO title is 60 characters, a page's is 60.
 /** "a, b" to ["a", "b"]. */
 export const synonymList = (s = "") => s.split(",").map((x) => x.trim()).filter(Boolean);
 
-export const LIMITS = { postTitle: 60, pageTitle: 36, description: 160, keyword: 100 };
+export const LIMITS = { postTitle: 60, pageTitle: 60, description: 160, keyword: 100 };
 
 export function validateEdit(raw: unknown): { ok: true; edit: Edit } | { ok: false; error: string } {
   const bad = (error: string) => ({ ok: false as const, error });
@@ -41,7 +41,7 @@ export function validateEdit(raw: unknown): { ok: true; edit: Edit } | { ok: fal
   if (t.kind === "page") {
     if (t.singleton !== "pageSeo" && t.singleton !== "serviceSeo") return bad("Bad page group.");
     if (typeof t.path !== "string" || !/^\/[a-z0-9/-]*$/.test(t.path)) return bad("Bad page path.");
-    if (title.length < 1 || title.length > LIMITS.pageTitle) return bad(`SEO title must be 1 to ${LIMITS.pageTitle} characters (the site name is added).`);
+    if (title.length < 1 || title.length > LIMITS.pageTitle) return bad(`SEO title must be 1 to ${LIMITS.pageTitle} characters.`);
     return { ok: true, edit: { target: { kind: "page", singleton: t.singleton, path: t.path }, values } };
   }
   return bad("Unknown target.");

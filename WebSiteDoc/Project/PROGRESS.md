@@ -22,6 +22,12 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-11-24: `feature/auto-publish`
+SEO edits publish by themselves. The editor (`/keystatic`) moves each person to their own private branch `feature/content-<login>`, Save keeps work private and a new **Publish** button sends it live. The SEO dashboard saves on `feature/seo-edits-<login>` and publishes by itself. `.github/workflows/publish-content.yml` refuses anything but content files (and code in articles), builds, squash-merges, calls the deploy sync, and on failure leaves a plain-English comment shown in the editor pill and dashboard. Page titles and descriptions now live only in `content/page-seo*.json`, up to 60 characters. The weekly score snapshot merges its own PR. `.github/CODEOWNERS` added. Docs: `17-auto-publish-design.md`, `17c-auto-publish-handover.md` (Furqan's setup, tests and off switch), `11-git-workflow.md` section 10, `16-keystatic-cms.md`, `16g-cms-seo-dashboard.md`.
+- Verified: node tests (76 pass), type check, lint, production build; the workflow's shell steps against a scratch git origin with stubbed `gh` (54 checks); the route against a stubbed GitHub; the editor pill and write blocking in a browser with a stubbed API.
+- NOT verified: the workflow has never run on GitHub (merge by the bot, `gh pr merge --body ""`, the called deploy sync, run times against the 7 minute build limit, the force-push of `feature/content-*`); Keystatic's open flow with a real GitHub sign-in (the address moves, Keystatic loads the new branch; if not, saves would go to develop); Keystatic's toolbar labels in GitHub mode; Vercel plan deployment limits; CODEOWNERS and branch protection (an ownerless content PR merging without review, the bot let through, code PRs still blocked).
+- Next: Furqan merges this PR, turns on protection for develop and runs the live tests in `17c-auto-publish-handover.md`.
+
 ### 2026-11-18: `feature/keystatic-live-preview`
 Live Google preview in the Keystatic editor for blog posts and page SEO entries: desktop and mobile result plus title and description checks, updating as you type. Reads the sibling fields by label, stores nothing. `lib/google-snippet.ts` now holds the page title template shared with `lib/seo.tsx`. Doc: `16g-cms-seo-dashboard.md`.
 

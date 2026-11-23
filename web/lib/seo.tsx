@@ -48,7 +48,7 @@ export type SeoExtra = Pick<SeoEntry, "nofollow" | "socialTitle" | "socialDescri
 
 // Titles and descriptions edited in /keystatic (content/page-seo.json and
 // content/page-seo-services.json). They win over the text passed in code, which is only
-// the fallback for pages with no entry.
+// the fallback for pages with no entry (posts, code pages, 404).
 const seoByPath = new Map<string, SeoEntry>(
   [...pageSeoFile.pages, ...serviceSeoFile.pages].map((p: SeoEntry & { path: string }) => [p.path, p]),
 );
@@ -81,8 +81,9 @@ export const ogText = (path: string, title: string, subtitle?: string) => {
  * ------------------------------------------------------------------------ */
 
 type PageMetadataInput = {
-  title: string;
-  description: string;
+  /** Only for pages with no entry in the page SEO files (posts, code pages, 404). The entry wins. */
+  title?: string;
+  description?: string;
   /** Path like "/about". Omit for home. */
   path?: string;
   /** Prevent indexing (used for drafts, 404). */
@@ -113,6 +114,7 @@ export function pageMetadata({
   const edited = path === undefined ? undefined : seoByPath.get(path);
   const e = edited ?? extra;
   const title = edited?.title || codeTitle;
+  if (!title) throw new Error(`pageMetadata: no title for ${path ?? "(no path)"}`);
   const description = edited?.description || codeDescription || globalSeo.defaultDescription;
   const url = new URL(path ?? "/", site.url).toString();
   const full = fullTitle(title);

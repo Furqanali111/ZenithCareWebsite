@@ -9,9 +9,6 @@ const PATH = "/cookies";
 const UPDATED = "2026-10-26";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Cookie Policy",
-  description:
-    "Which cookies Zenith Care Solutions uses on this website and why, plus how to accept, reject or change your cookie choice at any time.",
   path: PATH,
   rootOgImage: true,
 });
