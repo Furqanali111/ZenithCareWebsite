@@ -69,8 +69,8 @@ const btn = {
   cursor: "pointer",
 } as const;
 // Inline styles cannot do :focus-visible, so the focus ring and touch size live here. The form padding lets
-// the last field scroll clear of the pill.
-const css = `#keystatic-main-panel form{padding-bottom:128px}.zc-guard a,.zc-guard button{min-height:44px;display:inline-flex;align-items:center}.zc-guard a:focus-visible,.zc-guard button:focus-visible{outline:3px solid #fff;outline-offset:2px}.zc-guard button:disabled{opacity:.7;cursor:wait}`;
+// the last field scroll clear of the pill, on phones only: on a wide screen the pill sits in the corner and the gap looked like an empty band.
+const css = `@media (max-width:640px){#keystatic-main-panel form{padding-bottom:72px}}.zc-guard a,.zc-guard button{min-height:44px;display:inline-flex;align-items:center}.zc-guard a:focus-visible,.zc-guard button:focus-visible{outline:3px solid #fff;outline-offset:2px}.zc-guard button:disabled{opacity:.7;cursor:wait}`;
 
 function Popup({ label, onClose, children }: { label: string; onClose: () => void; children: ReactNode }) {
   const ok = useRef<HTMLButtonElement>(null);
