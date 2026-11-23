@@ -9,9 +9,6 @@ const PATH = "/pricing";
 const UPDATED = "2026-10-23";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Pricing and Billing Model",
-  description:
-    "How Zenith Care Solutions prices care management, revenue cycle management and virtual staffing, what is included, and how billing works.",
   path: PATH,
 });
 

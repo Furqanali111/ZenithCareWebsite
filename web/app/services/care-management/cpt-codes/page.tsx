@@ -7,9 +7,6 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CPT_BASE, cptByProgram, cptPath, programMeta, type CptProgram } from "@/lib/cpt-codes";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Care Management CPT Codes Guide",
-  description:
-    "Plain-English guide to the Medicare CPT codes behind CCM, PCM, RPM, RTM and TCM: time thresholds, documentation, 2026 rates and common billing mistakes.",
   path: CPT_BASE,
   rootOgImage: true,
 });

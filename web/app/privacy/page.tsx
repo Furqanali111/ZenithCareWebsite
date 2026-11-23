@@ -12,9 +12,6 @@ const LAST_UPDATED = "2026-10-26";
 const PRIVACY_EMAIL = site.email;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Privacy Policy",
-  description:
-    "How Zenith Care Solutions handles information collected through this website, what we collect, what we don't, and your rights.",
   path: PATH,
   rootOgImage: true,
 });

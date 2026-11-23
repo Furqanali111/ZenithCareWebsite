@@ -7,9 +7,6 @@ import { site } from "@/lib/site";
 const PATH = "/how-it-works";
 
 export const metadata: Metadata = pageMetadata({
-  title: "How Remote Care Management Works",
-  description:
-    "What Zenith Care Solutions sells, who it serves, how a practice orders, how the work is delivered and how payment works.",
   path: PATH,
 });
 

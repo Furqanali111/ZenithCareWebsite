@@ -23,9 +23,6 @@ import {
 const PATH = "/about";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Our Team and Service Model",
-  description:
-    "Zenith Care Solutions brings care management, revenue cycle support and virtual staffing to U.S. practices, coordinated within your existing workflow.",
   path: PATH,
 });
 

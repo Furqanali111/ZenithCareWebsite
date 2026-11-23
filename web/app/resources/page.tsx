@@ -8,9 +8,6 @@ import categoryIntros from "@/content/category-intros.json";
 const PATH = "/resources";
 
 export const metadata: Metadata = pageMetadata({
-  title: "CCM, Billing & Staffing Guides",
-  description:
-    "Practical guides on Chronic Care Management, CPT billing, RPM, credentialing, claim denials and virtual medical staffing for U.S. physician practices.",
   path: PATH,
 });
 
