@@ -53,8 +53,6 @@ export async function generateMetadata({
   const s = getService(service);
   if (!s) return pageMetadata({ title: "Not found", description: "", noindex: true });
   return pageMetadata({
-    title: s.metaTitle,
-    description: s.metaDescription,
     path: `/services/${s.slug}`,
   });
 }

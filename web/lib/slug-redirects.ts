@@ -1,7 +1,7 @@
 /**
  * Turns renamed or deleted post files into 301 redirects. Pure, so the node tests can run it.
  * Used by scripts/slug-redirects.mjs (run by .github/workflows/slug-redirects.yml on every PR that
- * touches posts). Doc: WebSiteDoc/Project/16g-cms-seo-dashboard.md
+ * touches posts, and by publish-content.yml for feature/content-<login> and feature/seo-edits-<login>). Doc: WebSiteDoc/Project/16g-cms-seo-dashboard.md
  */
 
 export type Rule = { from: string; to: string; permanent: boolean };

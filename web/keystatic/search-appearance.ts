@@ -97,8 +97,8 @@ export const seoItem = fields.object({
   path: lockedPath("Page URL path"),
   title: fields.text({
     label: "SEO title",
-    description: "The site name is added after it (| Zenith Care Solutions). Keep it to 36 characters or fewer so the whole title stays under 60.",
-    validation: { isRequired: true, length: { max: 36 } },
+    description: "Up to 60 characters. Over 36, Google may cut it, because the site name is added after it.",
+    validation: { isRequired: true, length: { max: 60 } },
   }),
   description: fields.text({
     label: "Meta description",

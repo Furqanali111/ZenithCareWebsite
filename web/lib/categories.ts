@@ -13,7 +13,6 @@ import categoriesFile from "@/content/categories.json";
 export type CategoryContent = {
   path: string;
   serviceType: string;
-  metaTitle: string;
   metaDescription: string;
   title: string;
   lead: string;
@@ -26,7 +25,6 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
   rpm: {
     path: "/services/care-management",
     serviceType: "Care Management",
-    metaTitle: "Care Management Programs",
     metaDescription:
       "CCM, PCM, RPM, RTM and TCM services for U.S. physician practices. Monthly clinical coordination inside your EHR; you stay the billing provider.",
     ...categoriesFile.rpm,
@@ -35,7 +33,6 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
   rcm: {
     path: "/services/revenue-cycle-management",
     serviceType: "Revenue Cycle Management",
-    metaTitle: "Revenue Cycle Management Services",
     metaDescription:
       "Medical billing, coding, credentialing and AR follow-up services for U.S. physician practices. Inside your PM system, more claims collected.",
     ...categoriesFile.rcm,
@@ -44,7 +41,6 @@ export const categoryContent: Record<ServiceCategory, CategoryContent> = {
   staffing: {
     path: "/services/virtual-staffing",
     serviceType: "Virtual Staffing",
-    metaTitle: "Virtual Medical Staffing Services",
     metaDescription:
       "Remote medical scribes, schedulers, receptionists, coordinators and virtual assistants for U.S. physician practices. Inside your systems under a BAA.",
     ...categoriesFile.staffing,

@@ -8,12 +8,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { LIMITS, type EditTarget, type EditValues } from "@/lib/seo-edit";
 import type { Check } from "@/lib/seo-analysis";
 
-type Status = { kind: "idle" } | { kind: "saving" } | { kind: "ok"; text: string; url?: string } | { kind: "error"; text: string };
+type Status = { kind: "idle" } | { kind: "saving" } | { kind: "ok"; text: string } | { kind: "error"; text: string };
 
 /** Inline SEO edit for one row of the dashboard. Saves through /api/seo-edit. */
 const MARK: Record<Check["status"], string> = { pass: "Pass", warn: "Improve", fail: "Fix", na: "Skipped" };
 
-export function SeoQuickEdit({ target, initial, value: v, onChange, checks, onSaved }: { target: EditTarget; initial: EditValues; value: EditValues; onChange: (v: EditValues) => void; checks?: Check[]; onSaved?: (pullRequestUrl: string | undefined, saved: EditValues) => void }) {
+export function SeoQuickEdit({ target, initial, value: v, onChange, checks, onSaved }: { target: EditTarget; initial: EditValues; value: EditValues; onChange: (v: EditValues) => void; checks?: Check[]; onSaved?: (publishing: boolean, saved: EditValues) => void }) {
   const id = useId();
   const setV = onChange;
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -26,11 +26,11 @@ export function SeoQuickEdit({ target, initial, value: v, onChange, checks, onSa
     setStatus({ kind: "saving" });
     try {
       const res = await fetch("/api/seo-edit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ target, values: v }) });
-      const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string; url?: string; mode?: string };
+      const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string; mode?: string };
       if (!res.ok) setStatus({ kind: "error", text: data.error ?? `Save failed (${res.status}).` });
       else {
-        setStatus({ kind: "ok", text: data.mode === "pr" ? "Saved to a pull request. It goes live after review, merge and deploy." : (data.message ?? "Saved."), url: data.url });
-        onSaved?.(data.url, v);
+        setStatus({ kind: "ok", text: data.message ?? "Saved." });
+        onSaved?.(data.mode === "publishing", v);
       }
     } catch {
       setStatus({ kind: "error", text: "Could not reach the server." });
@@ -83,12 +83,8 @@ export function SeoQuickEdit({ target, initial, value: v, onChange, checks, onSa
           {status.kind === "saving" ? "Saving..." : "Save"}
         </Button>
         <p role="status" className={`text-sm ${status.kind === "error" ? "text-red-700" : "text-muted-foreground"}`}>
-          {(status.kind === "ok" || status.kind === "error") && status.text}{" "}
-          {status.kind === "ok" && status.url && (
-            <a href={status.url} className="underline" target="_blank" rel="noreferrer">
-              Open the pull request
-            </a>
-          )}
+          {/* Once typing starts again, "Saved" would describe text that is not saved. */}
+          {(status.kind === "error" || (status.kind === "ok" && !dirty)) && status.text}
         </p>
       </div>
     </form>

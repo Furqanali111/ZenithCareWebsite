@@ -26,9 +26,6 @@ import {
 const PATH = "/faq";
 
 export const metadata: Metadata = pageMetadata({
-  title: "CCM, Billing & Staffing FAQ",
-  description:
-    "Common questions about Chronic Care Management, Medicare billing, HIPAA posture, and working with Zenith Care Solutions.",
   path: PATH,
 });
 

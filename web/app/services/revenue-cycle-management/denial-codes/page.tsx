@@ -6,9 +6,6 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { DENIAL_BASE, denialCodes, denialPath } from "@/lib/denial-codes";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Claim Denial Codes Explained",
-  description:
-    "Plain-English guide to common claim denial codes (CO-16, CO-18, CO-29, CO-50, CO-97 and more): what they mean, how to fix them and how to prevent them.",
   path: DENIAL_BASE,
   rootOgImage: true,
 });

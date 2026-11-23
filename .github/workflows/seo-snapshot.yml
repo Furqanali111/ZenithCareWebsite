@@ -1,7 +1,8 @@
-# Every Monday: reads today's SEO scores from the live dashboard and opens a pull request that adds them
-# to web/content/seo-history.json, so the trend chart and the per-page change arrows fill themselves.
+# Every Monday: reads today's SEO scores from the live dashboard, opens a pull request that adds them
+# to web/content/seo-history.json and squash-merges it, so the trend chart and the per-page change arrows fill themselves.
 # Needs: secret SEO_DASHBOARD_PASSWORD, variable SITE_URL (https://thezcs.com), and the repo setting
-# "Allow GitHub Actions to create and approve pull requests". Never pushes to develop.
+# "Allow GitHub Actions to create and approve pull requests".
+# If the merge fails, the job fails and the pull request stays open to be merged by hand.
 name: SEO snapshot
 
 on:
@@ -33,7 +34,7 @@ jobs:
       - name: Add it to the history file
         working-directory: web
         run: node --experimental-strip-types --no-warnings scripts/append-snapshot.mjs "$RUNNER_TEMP/snapshot.json"
-      - name: Open the pull request
+      - name: Open and merge the pull request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -48,4 +49,11 @@ jobs:
           git push origin "$branch"
           gh pr create --base develop --head "$branch" \
             --title "chore(seo): record SEO score snapshot $day" \
-            --body "Weekly SEO score snapshot from the live dashboard. Squash-merge to add it to the trend chart."
+            --body "Weekly SEO score snapshot from the live dashboard. Merged automatically to add it to the trend chart."
+          # GitHub needs a moment to work out whether a new pull request can be merged.
+          for try in 1 2 3 4 5 6; do
+            if gh pr merge "$branch" --squash --match-head-commit "$(git rev-parse HEAD)" \
+              --subject "chore(seo): record SEO score snapshot $day" --body ""; then exit 0; fi
+            sleep 10
+          done
+          exit 1

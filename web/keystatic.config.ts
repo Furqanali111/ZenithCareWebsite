@@ -99,7 +99,7 @@ export default config({
         }),
         updatedAt: fields.date({
           label: "Last updated",
-          description: "Set to today automatically when a pull request changes the post text (.github/workflows/post-dates.yml). Set it by hand only to override.",
+          description: "Set to today automatically when a pull request changes the post text (.github/workflows/post-dates.yml, or publish-content.yml for feature/content-<login> and feature/seo-edits-<login>). Set it by hand only to override.",
           validation: { isRequired: true },
         }),
         reviewedAt: fields.date({

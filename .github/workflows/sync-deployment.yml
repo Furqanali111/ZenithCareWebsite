@@ -1,13 +1,15 @@
-# Every night at 00:00 Pakistan time (19:00 UTC): merge everything on develop into deployment-branch, the branch
+# Every night at 00:00 Pakistan time (19:00 UTC), and right after publish-content.yml merges an edit:
+# merge everything on develop into deployment-branch, the branch
 # Vercel deploys to production. A normal merge commit, like the "develop into deployment-branch" PRs, never a force-push.
-# If the merge conflicts, the job fails (GitHub emails the repo owner) and nothing is pushed. Run it by hand
-# from Actions -> Sync develop to deployment-branch -> Run workflow.
+# If the merge conflicts, the job fails (GitHub emails the repo owner at night, the editor after an edit) and nothing
+# is pushed. Run it by hand from Actions -> Sync develop to deployment-branch -> Run workflow.
 name: Sync develop to deployment-branch
 
 on:
   schedule:
     - cron: "0 19 * * *"
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: write
@@ -19,6 +21,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,12 +29,12 @@ jobs:
           fetch-depth: 0
       - name: Merge develop in
         run: |
-          git fetch origin develop
-          if git merge-base --is-ancestor origin/develop HEAD; then
+          git fetch origin +refs/heads/develop:refs/remotes/origin/develop
+          if git merge-base --is-ancestor refs/remotes/origin/develop HEAD; then
             echo "deployment-branch already has everything on develop"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git merge --no-ff origin/develop -m "chore(deploy): sync develop into deployment-branch"
+          git merge --no-ff refs/remotes/origin/develop -m "chore(deploy): sync develop into deployment-branch"
           git push origin deployment-branch

@@ -8,9 +8,6 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { specialties, specialtyLabel } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Who We Serve",
-  description:
-    "Zenith supports U.S. primary care, internal medicine and geriatric practices with remote care management, revenue cycle services and virtual staffing.",
   path: "/who-we-serve",
 });
 

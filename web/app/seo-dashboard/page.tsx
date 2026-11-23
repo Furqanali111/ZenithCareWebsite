@@ -26,7 +26,7 @@ export default function SeoDashboardPage() {
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
       <h1 className="text-3xl font-semibold tracking-tight">SEO dashboard</h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">
-        Score and status of every post and edited page. Filter, sort, export, or switch to the table to edit many rows at once. Edits are saved to a pull request, so they go live after review, merge and deploy.
+        Score and status of every post and edited page. Filter, sort, export, or switch to the table to edit many rows at once. Saved edits are published automatically and are live a few minutes later.
       </p>
       <Suspense fallback={<p className="mt-8 text-muted-foreground">Reading the pages...</p>}>
         <Dashboard />

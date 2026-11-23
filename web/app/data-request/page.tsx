@@ -8,9 +8,6 @@ const PATH = "/data-request";
 const UPDATED = "2026-10-26";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Data Access and Deletion Requests",
-  description:
-    "How to ask Zenith Care Solutions to access, correct or delete the personal information you gave us through this website.",
   path: PATH,
   rootOgImage: true,
 });

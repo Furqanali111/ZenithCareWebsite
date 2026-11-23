@@ -44,10 +44,7 @@ export async function generateMetadata({
   if (!isSpecialty(specialty))
     return pageMetadata({ title: "Not found", description: "", noindex: true });
 
-  const content = CONTENT[specialty];
   return pageMetadata({
-    title: content.metaTitle,
-    description: content.metaDescription,
     path: `/who-we-serve/${specialty}`,
   });
 }
@@ -394,7 +391,6 @@ function resolveProgram(ref: ProgramRef): ProgramCard {
 }
 
 type SpecialtyContent = {
-  metaTitle: string;
   metaDescription: string;
   heroHeadline: string;
   heroLead: string;
@@ -411,7 +407,6 @@ type SpecialtyContent = {
 
 const CONTENT: Record<Specialty, SpecialtyContent> = {
   "primary-care": {
-    metaTitle: "Services for Primary Care",
     metaDescription:
       "CCM, RPM, TCM, billing and virtual staffing for U.S. primary care practices. Zenith supplies the staff; your practice stays the billing provider.",
     ...specialtiesFile["primary-care"],
@@ -419,7 +414,6 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   },
 
   "internal-medicine": {
-    metaTitle: "Services for Internal Medicine",
     metaDescription:
       "CCM, RPM, TCM, billing and virtual staffing for U.S. internal medicine practices. Built for polychronic panels; your practice stays the billing provider.",
     ...specialtiesFile["internal-medicine"],
@@ -427,7 +421,6 @@ const CONTENT: Record<Specialty, SpecialtyContent> = {
   },
 
   geriatrics: {
-    metaTitle: "Services for Geriatric Practices",
     metaDescription:
       "CCM, RPM, TCM, billing and virtual staffing for U.S. geriatric practices, where many Medicare patients have multiple chronic conditions.",
     ...specialtiesFile["geriatrics"],

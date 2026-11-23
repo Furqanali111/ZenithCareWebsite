@@ -88,9 +88,6 @@ const WHY_ZENITH = home.why;
 const HOME_FAQ = home.faqs;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Outsourced CCM, Medical Billing & Staffing Services",
-  description:
-    "CCM, RPM, medical billing, coding, and virtual staffing for U.S. physician practices. HIPAA Business Associate. Your practice stays the billing provider.",
   path: "/",
 });
 

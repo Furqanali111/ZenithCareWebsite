@@ -8,9 +8,6 @@ import { BulletedListItem } from "@/components/bulleted-list";
 const PATH = "/hipaa-compliance";
 
 export const metadata: Metadata = pageMetadata({
-  title: "HIPAA Compliance",
-  description:
-    "How Zenith operates as a HIPAA Business Associate: signed BAA with every client, work inside your EHR, encrypted communications only.",
   path: PATH,
 });
 

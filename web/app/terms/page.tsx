@@ -12,9 +12,6 @@ const LAST_UPDATED = "2026-10-11";
 const LEGAL_EMAIL = site.email;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Terms of Service",
-  description:
-    "Terms of use for the Zenith Care Solutions website: access, permitted use, intellectual property, disclaimers and limits of liability. Please read before use.",
   path: PATH,
   rootOgImage: true,
 });
