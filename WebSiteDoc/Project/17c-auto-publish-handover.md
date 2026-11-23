@@ -1,6 +1,6 @@
 # Auto publish: setup for Furqan
 
-## Decision needed from Furqan
+## Decision (option 1 chosen by Furqan on 2026-11-24, option 2 stays a later hardening)
 
 Because content-only changes need no code owner review, ANY account with write access can merge a content-only PR from any branch name by hand, without `publish-content.yml` ever running. So the content check is not enforced against a person with write access. MDX can run code at build time, and files under `web/public/resources` or `web/public/social` could include script. Staff accounts with write access must therefore be trusted and protected (2FA). Two options:
 
