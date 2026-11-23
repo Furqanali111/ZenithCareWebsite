@@ -1,5 +1,6 @@
 # When a PR changes the text of an existing post and leaves its "Last updated" date alone, set the date to today.
 # A change to only the SEO title or description does not count. Never runs on forks and never pushes to develop.
+# Skips feature/content-* and feature/seo-edits-*: publish-content.yml runs the same script on those.
 name: Post dates
 
 on:
@@ -12,7 +13,10 @@ permissions:
 
 jobs:
   dates:
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository
+      && !startsWith(github.head_ref, 'feature/content-')
+      && !startsWith(github.head_ref, 'feature/seo-edits-')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
