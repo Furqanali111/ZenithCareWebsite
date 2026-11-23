@@ -1,7 +1,8 @@
 /**
  * Sets "Last updated" to today on every post whose text changed in this branch and whose date was left alone.
  * Run from web/: node --experimental-strip-types --no-warnings scripts/bump-updated.mjs [base-ref]
- * In CI it runs on every PR that touches content/posts (.github/workflows/post-dates.yml).
+ * In CI it runs on every PR that touches content/posts (.github/workflows/post-dates.yml), and through
+ * .github/workflows/publish-content.yml for feature/content-<login> and feature/seo-edits-<login>.
  */
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";

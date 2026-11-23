@@ -263,16 +263,12 @@ export default function BranchGuard() {
       <>
         <style>{css}</style>
         <div style={{ ...pill, background: "#7a4b00" }} role="status">
-          You are on {branch}. Create a new branch before editing.{openError ? ` ${openError}` : ""}
+          {openError ? `Could not open your private copy. Reload the page. If this stays, ask Furqan. ${openError}` : "Opening your private copy."}
         </div>
         {popup ? (
-          <Popup label="Create a branch first" onClose={closePopup}>
-            <p style={{ margin: 0, font: "600 17px system-ui, sans-serif" }}>Create a new branch first</p>
-            <p style={{ margin: "12px 0 0" }}>
-              Changes are never saved on {branch}. Open the branch menu at the top left of the editor, choose
-              New branch, give it a short name such as seo/update-titles, then make your changes there. When
-              you are done, use Create pull request.
-            </p>
+          <Popup label="Could not open your private copy" onClose={closePopup}>
+            <p style={{ margin: 0, font: "600 17px system-ui, sans-serif" }}>Could not open your private copy</p>
+            <p style={{ margin: "12px 0 0" }}>Reload the page. If this stays, ask Furqan.</p>
           </Popup>
         ) : null}
       </>

@@ -30,7 +30,7 @@ For the SEO team. You never need to know about branches or pull requests.
 
 1. Open `/keystatic` and sign in with GitHub. If the address shows `develop`, the editor moves you to your own private copy of the site by itself. The address then ends in `feature/content-<your github name>`. This is normal.
 2. Edit and press **Save** as often as you like. Saving keeps your work private. Nothing is live.
-3. Press **Publish** (bottom right) when you want your changes live. The site checks them, builds, and goes live a few minutes later. Allow about 15 minutes in all.
+3. Press **Publish** (bottom right) when you want your changes live. The site checks them, builds, and goes live a few minutes later. The time is not measured; the job time limits add up to 15 minutes.
 
 What the pill at the bottom right says:
 

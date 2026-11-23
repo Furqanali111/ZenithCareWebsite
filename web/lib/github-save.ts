@@ -152,8 +152,9 @@ export async function branchState(token: string, branch: string) {
   // A failure can only explain a closed, unpublished pull request still at the branch's newest commit.
   const failed = pr && at && pr.state === "closed" && !pr.merged_at && pr.head.sha === at.sha;
   const comments = failed ? (must(await gh(token, "GET", commentsPath(pr.number, at.date)), "read why publishing failed") as unknown as PrComment[]) : [];
-  const state = publishState({ pr, ahead: at?.ahead ?? 0, headSha: at?.sha ?? "", comments, now: Date.now() });
-  return { state, ahead: at?.ahead ?? 0, open: pr?.state === "open" };
+  const ahead = pr?.merged_at && at && pr.head.sha === at.sha ? 0 : at?.ahead ?? 0; // just merged, branch not moved onto develop yet: nothing to publish
+  const state = publishState({ pr, ahead, headSha: at?.sha ?? "", comments, now: Date.now() });
+  return { state, ahead, open: pr?.state === "open" };
 }
 
 async function read(token: string | undefined, path: string) {
