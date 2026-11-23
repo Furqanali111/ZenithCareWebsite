@@ -36,3 +36,23 @@ export function publishState({ pr, ahead, headSha, comments, now }: { pr: Publis
   if (pr.state === "open") return now - Date.parse(pr.created_at) > 15 * MINUTE ? { kind: "stuck", reason: STUCK } : { kind: "publishing" };
   return waiting;
 }
+
+/**
+ * What the editor pill says for a state (app/keystatic/branch-guard.tsx) and its one button, if any.
+ * `saw` is whether this tab saw a publish start: only then do published and clean read "Published",
+ * until the next edit (ready). Returns the new `saw`.
+ */
+export function pillView(state: PublishState, saw: boolean): { text: string; button: "Publish" | "Publish again" | "Reload" | null; saw: boolean } {
+  switch (state.kind) {
+    case "ready":
+      return { text: "Your changes are private until you publish.", button: "Publish", saw: false };
+    case "publishing":
+      return { text: "Publishing. This takes a few minutes.", button: null, saw: true };
+    case "failed":
+      return { text: state.reason, button: "Publish again", saw };
+    case "stuck":
+      return { text: state.reason, button: null, saw };
+    default:
+      return saw ? { text: "Published. Live in a few minutes.", button: "Reload", saw } : { text: "No changes to publish.", button: null, saw };
+  }
+}

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { editBranch, failureReason, publishState } from "../lib/publish-state.ts";
+import { editBranch, failureReason, pillView, publishState } from "../lib/publish-state.ts";
 
 const NOW = Date.parse("2026-11-23T12:00:00Z");
 const ago = (minutes) => new Date(NOW - minutes * 60_000).toISOString();
@@ -74,4 +74,19 @@ test("failure reason: the newest one, cleaned and capped", () => {
 test("edit branch: the lowercase login as it is, so it equals what the publish workflow compares", () => {
   assert.equal(editBranch("content", "Furqanali111"), "feature/content-furqanali111");
   assert.equal(editBranch("seo-edits", "A_Very-Long_Login-That-Is-Over-Thirty"), "feature/seo-edits-a_very-long_login-that-is-over-thirty");
+});
+
+test("pill: published shows only after this tab saw it publishing, until the next edit", () => {
+  assert.deepEqual(pillView({ kind: "published" }, false), { text: "No changes to publish.", button: null, saw: false });
+  assert.deepEqual(pillView({ kind: "clean" }, false), { text: "No changes to publish.", button: null, saw: false });
+  const p = pillView({ kind: "publishing" }, false);
+  assert.deepEqual(p, { text: "Publishing. This takes a few minutes.", button: null, saw: true });
+  assert.deepEqual(pillView({ kind: "published" }, p.saw), { text: "Published. Live in a few minutes.", button: "Reload", saw: true });
+  assert.deepEqual(pillView({ kind: "clean" }, true), { text: "Published. Live in a few minutes.", button: "Reload", saw: true });
+  assert.deepEqual(pillView({ kind: "ready" }, true), { text: "Your changes are private until you publish.", button: "Publish", saw: false });
+});
+
+test("pill: failed offers Publish again, stuck only explains", () => {
+  assert.deepEqual(pillView(FAILED, true), { text: FAILED.reason, button: "Publish again", saw: true });
+  assert.deepEqual(pillView(STUCK, false), { text: STUCK.reason, button: null, saw: false });
 });
