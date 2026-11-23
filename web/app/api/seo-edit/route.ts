@@ -2,13 +2,13 @@ import { cookies } from "next/headers";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { applyEdit, editFile, validateEdit, type Edit } from "@/lib/seo-edit";
-import { commitToEditBranch } from "@/lib/github-save";
+import { commitToEditBranch, SaveError } from "@/lib/github-save";
 import { appendHistory, validateHistoryEntry } from "@/lib/seo-site-checks";
 
 /**
  * Inline SEO edits from /seo-dashboard, and the "record today's scores" snapshot.
  * - `next dev`: writes the local content file, like the editor does.
- * - Production: commits to the signed-in editor's own branch and opens a PR (lib/github-save.ts).
+ * - Production: commits to the signed-in editor's own branch, where the publish workflow takes it live (lib/github-save.ts).
  *   The editor signs in once at /keystatic; this reads the same GitHub cookie.
  * The password gate in proxy.ts covers this route too.
  */
@@ -36,7 +36,7 @@ function plan(raw: unknown): { job: Job } | { error: string } {
   const byFile = new Map<string, typeof edits>();
   for (const e of edits) byFile.set(editFile(e.target), [...(byFile.get(editFile(e.target)) ?? []), e]);
   const label = (t: (typeof edits)[number]["target"]) => (t.kind === "post" ? t.slug : t.path);
-  // The subject and the lines below it are read back by pendingLabels to badge rows that wait in a pull request.
+  // The subject and the lines below it are read back by pendingLabels to badge rows that are not live yet.
   const lines = edits.map((e) => `update SEO text for ${label(e.target)}`);
   return {
     job: {
@@ -64,8 +64,9 @@ export async function POST(req: Request) {
     }
     const token = (await cookies()).get("keystatic-gh-access-token")?.value;
     if (!token) return json({ error: "Sign in to the editor at /keystatic first, then save again." }, 401);
-    return json({ ok: true, mode: "pr", url: await commitToEditBranch(token, job.files.map((f) => ({ file: `web/${f.file}`, change: f.change })), job.message) });
+    const done = await commitToEditBranch(token, job.files.map((f) => ({ file: `web/${f.file}`, change: f.change })), job.message);
+    return json({ ok: true, mode: done, message: done === "nothing" ? "Nothing to publish: the site already has this text." : "Saved. Publishing now, live in a few minutes." });
   } catch (e) {
-    return json({ error: e instanceof Error ? e.message : "Save failed." }, 502);
+    return json({ error: e instanceof Error ? e.message : "Save failed." }, e instanceof SaveError ? e.status : 502);
   }
 }

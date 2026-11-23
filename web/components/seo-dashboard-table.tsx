@@ -29,8 +29,8 @@ export type DashRow = {
   /** Missing on rows that are read only here (code pages): edited in their own editor page. */
   target?: EditTarget;
   initial?: EditValues;
-  /** An open pull request already holds an edit for this row. */
-  pending?: { url: string; login: string };
+  /** An edit for this row is being published, or failed to publish (the reason is in `failed`). */
+  pending?: { login: string; failed?: string };
   search?: PageSearch;
   /** Draft or scheduled post: scored before it goes live. */
   status?: "Draft" | "Scheduled";
@@ -51,7 +51,7 @@ type Props = {
   searchError?: string;
   /** Pages that were not analysed from their text. */
   unread: number;
-  /** GitHub could not be read, so "Edit in a pull request" badges may be missing. */
+  /** GitHub could not be read, so "Publishing" badges may be missing. */
   pendingUnavailable?: boolean;
   signedInAs: string | null;
   /** Google index status (URL Inspection) is available. */
@@ -74,6 +74,7 @@ const arrow = (d?: number) => (d === undefined || d === 0 ? "" : d > 0 ? ` ▲${
 const scoreLabel = (s: number) => (s >= 80 ? "Good" : s >= 50 ? "Needs work" : "Poor");
 const scoreTone = (s: number) => (s >= 80 ? "bg-emerald-100 text-emerald-900" : s >= 50 ? "bg-amber-100 text-amber-900" : "bg-red-100 text-red-900");
 const checkMark: Record<Check["status"], string> = { pass: "Pass", warn: "Improve", fail: "Fix", na: "Skipped" };
+const pendingText = (p: NonNullable<DashRow["pending"]>) => (p.failed ? `Not published: ${p.failed}` : "Publishing");
 // Judged against where the page ranks: a low click rate at position 14 is normal, at position 3 it is not.
 const lowCtr = (r: DashRow) => !!r.search && r.search.impressions >= 100 && r.search.ctr < expectedCtr(r.search.position) / 2;
 
@@ -93,7 +94,7 @@ const FILTERS: Record<string, { label: string; test: (r: DashRow) => boolean; ne
   notIndexed: { label: "Google has not indexed it", test: (r) => !!r.index && r.index.verdict !== "PASS" && !r.noindex && !r.status, needsIndex: true },
   nodata: { label: "No structured data", test: (r) => !!r.schema && r.schema.length === 0 && !r.noindex },
   compete: { label: "Competes with another page for a search", test: (r) => !!r.search?.competes?.length, needsSearch: true },
-  pending: { label: "Edit waiting in a pull request", test: (r) => !!r.pending },
+  pending: { label: "Edit not live yet", test: (r) => !!r.pending },
   ctr: { label: "Seen often, fewer clicks than its position suggests", test: lowCtr, needsSearch: true },
 };
 
@@ -156,7 +157,7 @@ function Trend({ history }: { history: HistoryEntry[] }) {
   );
 }
 
-type Saved = Record<string, { url: string; login: string }>;
+type Saved = Record<string, NonNullable<DashRow["pending"]>>;
 type BulkState = Record<string, { kind: "saving" } | { kind: "ok"; text: string } | { kind: "error"; text: string }>;
 const BULK_MAX = 50;
 const NO_VALUES: EditValues = { title: "", description: "", focusKeyword: "", noindex: false, synonyms: "" };
@@ -172,7 +173,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
   // What a row holds after a save: the server data on this page is old until the next deploy.
   const [base, setBase] = useState<Record<string, EditValues>>({});
   const [bulkState, setBulkState] = useState<BulkState>({});
-  const [snap, setSnap] = useState<{ kind: "idle" | "saving" } | { kind: "ok"; url?: string; text: string } | { kind: "error"; text: string }>({ kind: "idle" });
+  const [snap, setSnap] = useState<{ kind: "idle" | "saving" } | { kind: "ok"; text: string } | { kind: "error"; text: string }>({ kind: "idle" });
 
   const withPending = useMemo(() => rows.map((r) => (saved[r.key] ? { ...r, pending: saved[r.key] } : r)), [rows, saved]);
   const shown = useMemo(() => {
@@ -231,7 +232,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
 
   async function post(body: unknown) {
     const res = await fetch("/api/seo-edit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-    const data = (await res.json().catch(() => ({}))) as { error?: string; url?: string; message?: string };
+    const data = (await res.json().catch(() => ({}))) as { error?: string; mode?: string; message?: string };
     if (!res.ok) throw new Error(data.error ?? `Save failed (${res.status}).`);
     return data;
   }
@@ -243,9 +244,9 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
     setBulkState((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, { kind: "saving" as const }])) }));
     try {
       const data = await post({ edits: batch.map((r) => ({ target: r.target, values: draftOf(r) })) });
-      const ok = { kind: "ok" as const, text: data.url ? "Saved to a pull request" : (data.message ?? "Saved") };
+      const ok = { kind: "ok" as const, text: data.message ?? "Saved" };
       setBulkState((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, ok])) }));
-      if (data.url) setSaved((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, { url: data.url as string, login: signedInAs ?? "you" }])) }));
+      if (data.mode === "publishing") setSaved((s) => ({ ...s, ...Object.fromEntries(batch.map((r) => [r.key, { login: signedInAs ?? "you" }])) }));
       setBase((b) => ({ ...b, ...Object.fromEntries(batch.map((r) => [r.key, draftOf(r)])) }));
       setDrafts((d) => Object.fromEntries(Object.entries(d).filter(([k]) => !batch.some((r) => r.key === k))));
     } catch (e) {
@@ -258,7 +259,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
     setSnap({ kind: "saving" });
     try {
       const data = await post({ snapshot: snapshotOf(rows.filter((r) => !r.status), new Date().toISOString().slice(0, 10)) });
-      setSnap({ kind: "ok", url: data.url, text: data.url ? "Saved to a pull request. It shows here after merge and deploy." : (data.message ?? "Saved.") });
+      setSnap({ kind: "ok", text: data.message ?? "Saved." });
     } catch (e) {
       setSnap({ kind: "error", text: e instanceof Error ? e.message : "Save failed." });
     }
@@ -307,8 +308,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
             {snap.kind === "saving" ? "Saving..." : "Record today's scores"}
           </Button>
           <p role="status" className="max-w-xs text-xs text-muted-foreground">
-            {snap.kind === "ok" || snap.kind === "error" ? snap.text : "Adds one point to the chart through a pull request. Do it weekly."}{" "}
-            {snap.kind === "ok" && snap.url && <a className="underline" href={snap.url} target="_blank" rel="noreferrer">Open the pull request</a>}
+            {snap.kind === "ok" || snap.kind === "error" ? snap.text : "Adds one point to the chart, shown a few minutes after it is published. Do it weekly."}
           </p>
         </div>
       </div>
@@ -318,7 +318,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
         {unread > 0 && ` ${unread} pages could not be read, so only their title, description and keyword were checked.`}
         {hasSearch ? " Search numbers are from Google Search Console, last 28 days." : searchError ? ` Search Console is set up but failed: ${searchError}` : " Search Console is not connected, so there are no click or ranking numbers."}
         {hasIndex ? ` Index status is Google's own answer, refreshed daily.${indexMissing ? ` ${indexMissing} pages are still being read from Google: reload in a minute.` : ""}` : indexError ? ` Index status failed: ${indexError}` : ""}
-        {pendingUnavailable && " Could not check GitHub for edits waiting in pull requests (the rate limit may be used up), so those badges are missing. Sign in at /keystatic to avoid this."}
+        {pendingUnavailable && " Could not check which edits are still being published (too many requests for now), so those badges are missing. Sign in at /keystatic to avoid this."}
         {signedInAs && ` Signed in as ${signedInAs}.`}
         {!canSave && " You are viewing with the shared password, so this page is read only. To edit, sign in at /keystatic with a GitHub account that can write to the repo."}
       </p>
@@ -366,7 +366,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
               Save {Math.min(changed.length, BULK_MAX)} change{changed.length === 1 ? "" : "s"}
             </Button>
             <p className="text-xs text-muted-foreground">
-              Only the rows listed below are edited. At most {BULK_MAX} per click, saved as one commit in your own pull request.
+              Only the rows listed below are edited. At most {BULK_MAX} per click, saved and published together.
               {changedHidden > 0 && ` ${changedHidden} edited row${changedHidden > 1 ? "s are" : " is"} hidden by the filter and will be saved too.`}
               {changed.length > BULK_MAX && ` ${changed.length - BULK_MAX} more wait for the next click.`}
             </p>
@@ -403,7 +403,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                         {st?.kind === "ok" && <span className="text-emerald-700">{st.text}</span>}
                         {st?.kind === "error" && <span className="text-red-700">{st.text}</span>}
                         {!st && err && <span className="text-red-700">{err}</span>}
-                        {!st && !err && r.pending && <a className="underline" href={r.pending.url} target="_blank" rel="noreferrer">Edit in a pull request</a>}
+                        {!st && !err && r.pending && <span className={r.pending.failed ? "text-red-700" : undefined}>{pendingText(r.pending)}</span>}
                       </td>
                     </tr>
                   );
@@ -419,7 +419,8 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
               <details className="group">
                 <summary className="grid cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 px-4 py-3 hover:bg-muted/50 md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_auto_7rem_9rem]">
                   <span className="min-w-0">
-                    <span className="block truncate font-medium">{r.name}{r.pending && <a href={r.pending.url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 align-middle text-xs font-normal text-sky-900">Edit in a pull request</a>}</span>
+                    <span className="block truncate font-medium">{r.name}{r.pending && !r.pending.failed && <span className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 align-middle text-xs font-normal text-sky-900">Publishing</span>}</span>
+                    {r.pending?.failed && <span className="block text-xs text-red-700">{pendingText(r.pending)}</span>}
                     <span className="block truncate text-xs text-muted-foreground">
                       {r.kind} · {r.path} · {r.title.length} chars{r.issues.length ? ` · ${r.issues.length} site problem${r.issues.length > 1 ? "s" : ""}` : ""}
                       {r.search ? ` · ${r.search.clicks} clicks, ${r.search.impressions} impressions, position ${r.search.position.toFixed(1)}` : ""}
@@ -442,15 +443,14 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                     </div>
                     {r.target && canSave && (
                       <SeoQuickEdit
-                        key={JSON.stringify(baseOf(r))}
                         target={r.target}
                         initial={baseOf(r)}
                         value={draftOf(r)}
                         onChange={(v) => setDrafts((all) => ({ ...all, [r.key]: v }))}
                         checks={liveChecks(r)}
-                        onSaved={(url, values) => {
+                        onSaved={(publishing, values) => {
                           setBase((b) => ({ ...b, [r.key]: values }));
-                          if (url) setSaved((s) => ({ ...s, [r.key]: { url, login: signedInAs ?? "you" } }));
+                          if (publishing) setSaved((s) => ({ ...s, [r.key]: { login: signedInAs ?? "you" } }));
                         }}
                       />
                     )}
