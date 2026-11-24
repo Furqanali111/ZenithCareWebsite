@@ -28,3 +28,4 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = { matcher: ["/seo-dashboard", "/api/seo-edit", "/api/seo-snapshot"] };
+// protection test, delete me
