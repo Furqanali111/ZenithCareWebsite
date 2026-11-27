@@ -90,7 +90,7 @@ export type Service = {
   capabilitiesHeading: string;
   capabilitiesSubtitle: string;
   capabilities: Capability[];
-  /** 3-step "how it works" flow. */
+  /** 6-step "how it works" flow. */
   howItWorks: HowStep[];
   /** Care-management extras. */
   billing?: BillingCode[];
@@ -162,9 +162,12 @@ const RPM_SERVICES: Service[] = [
       note: "Representative: a 200-patient panel billing the base code alone. Actual results vary by locality and payer.",
     },
     howItWorks: [
-      { title: "Find & enroll eligible patients", body: "We run your panel for patients with 2+ chronic conditions, confirm Medicare Part B, and obtain documented consent." },
-      { title: "Deliver monthly coordination", body: "Our clinical team spends 20+ minutes per patient on calls, care plans, and medication reconciliation, inside your EHR." },
-      { title: "You bill, Zenith invoices", body: "Your practice bills CPT 99490 and add-ons; we invoice for the clinical labor. Monthly and predictable." },
+      { title: "Patient enrollment", body: "We review your panel for Medicare Part B patients with 2+ chronic conditions and document their consent." },
+      { title: "Comprehensive assessment", body: "Clinical staff review each patient's health status, needs and history." },
+      { title: "Care plan development", body: "We draft a personalized plan with goals and interventions for your provider to review." },
+      { title: "Care coordination", body: "We handle communication, referrals, resources and medication reconciliation inside your EHR." },
+      { title: "Ongoing monitoring", body: "Monthly calls track progress and symptoms, with time logged toward the 20-minute minimum." },
+      { title: "Plan review and adjustment", body: "The care plan is updated as needs change. Your practice bills CPT 99490 and add-ons, and Zenith invoices for the labor." },
     ],
     metaTitle: "Chronic Care Management Services",
     metaDescription:
@@ -222,9 +225,12 @@ const RPM_SERVICES: Service[] = [
       note: "Per enrolled patient, depending on who performs the time. Figures are 2026 national averages and vary by locality.",
     },
     howItWorks: [
-      { title: "Find the right patients", body: "We review your panel for patients with one serious condition who are not being managed under another monthly program." },
-      { title: "Deliver monthly management", body: "Clinical staff spend the required time each month on that condition and document it." },
-      { title: "You bill, Zenith invoices", body: "Your practice bills the PCM codes. Zenith invoices you for the clinical labor." },
+      { title: "Patient identification and enrollment", body: "We find patients with one serious, high-risk condition who meet PCM criteria and document their consent." },
+      { title: "Care planning", body: "We draft a plan for that condition, with goals and strategies for your provider to sign." },
+      { title: "Care coordination", body: "We keep the specialist, the pharmacy and your office on the same page." },
+      { title: "Monitoring and assessment", body: "Clinical staff check symptoms and readings and document the required time each month." },
+      { title: "Patient education and engagement", body: "We help the patient build the skills to manage the condition between visits." },
+      { title: "Progress review and updates", body: "The plan is adjusted as the condition changes. Your practice bills PCM, and Zenith invoices for the labor." },
     ],
     metaTitle: "Principal Care Management Services",
     metaDescription:
@@ -283,9 +289,12 @@ const RPM_SERVICES: Service[] = [
       note: "Per enrolled patient, combining device-supply and management codes. Representative; actual results vary.",
     },
     howItWorks: [
-      { title: "Set the thresholds", body: "Your provider orders monitoring and sets the alert limits for each patient." },
-      { title: "Onboard and monitor", body: "We set up the patient, confirm readings arrive, and review them on a regular schedule." },
-      { title: "Escalate and document", body: "Concerning readings go to your clinician fast, and every contact is logged for billing." },
+      { title: "Patient enrollment", body: "Your provider orders monitoring and sets alert limits, and the patient gives consent." },
+      { title: "Device setup and training", body: "We walk the patient through setting up the device and taking readings." },
+      { title: "Home measurements", body: "The patient takes readings at home on the schedule your provider sets." },
+      { title: "Data transmission", body: "We confirm readings are arriving and follow up when they stop." },
+      { title: "Data review", body: "Our staff check incoming readings against your provider's thresholds." },
+      { title: "Clinical follow-up", body: "Concerning readings go to your clinician, and every contact is logged. Your practice bills RPM, and Zenith invoices for the labor." },
     ],
     metaTitle: "Remote Patient Monitoring Services",
     metaDescription:
@@ -345,9 +354,12 @@ const RPM_SERVICES: Service[] = [
       note: "Per enrolled patient. Figures are 2026 national averages and vary by locality.",
     },
     howItWorks: [
-      { title: "Define what to track", body: "Your clinician chooses the therapy goals and the data to monitor." },
-      { title: "Monitor and engage", body: "Staff review data and contact patients who fall behind." },
-      { title: "Report and bill", body: "You receive organized monthly records, bill the codes, and Zenith invoices for the labor." },
+      { title: "Patient setup and enrollment", body: "Your clinician sets therapy goals and the data to track, and the patient gives consent." },
+      { title: "Device and app setup", body: "We help the patient connect the monitoring device or app." },
+      { title: "Home therapy tracking", body: "The patient follows the plan at home while therapy activity is recorded." },
+      { title: "Data and symptom reporting", body: "Adherence, pain and function data come in, and we follow up when entries stop." },
+      { title: "Data review", body: "Staff watch the trends and spot patients who are falling behind." },
+      { title: "Intervention and adjustment", body: "We contact patients and flag stalled progress so your clinician can adjust the plan. Your practice bills RTM, and Zenith invoices for the labor." },
     ],
     metaTitle: "Remote Therapeutic Monitoring (RTM)",
     metaDescription:
@@ -403,9 +415,12 @@ const RPM_SERVICES: Service[] = [
       note: "One of Medicare's highest-paying care-management codes. Figures are 2026 national averages and vary by locality.",
     },
     howItWorks: [
-      { title: "Catch the discharge", body: "We monitor admission and discharge notices and open a TCM case." },
-      { title: "Contact, reconcile, schedule", body: "Required outreach and medication work happen inside the deadline." },
-      { title: "Document and bill", body: "Your practice bills TCM after the visit. Zenith invoices for the labor." },
+      { title: "Hospital discharge", body: "We watch admission and discharge notices and open a TCM case." },
+      { title: "Interactive contact", body: "We reach the patient or caregiver within two business days of discharge." },
+      { title: "Medication reconciliation", body: "Discharge medicines are compared with the current list, no later than the date of the visit." },
+      { title: "Post-discharge visit", body: "We book the face-to-face visit within 7 or 14 days, depending on complexity." },
+      { title: "Patient education", body: "We support the patient and caregiver in managing their care at home." },
+      { title: "Follow-up and coordination", body: "We arrange referrals and services through the 30-day period. Your practice bills TCM, and Zenith invoices for the labor." },
     ],
     metaTitle: "Transitional Care Management (TCM)",
     metaDescription:
@@ -457,9 +472,12 @@ const RCM_SERVICES: Service[] = [
       { icon: "file-signature", title: "Patient statements", body: "Generate statements and follow up on balances." },
     ],
     howItWorks: [
-      { title: "Scope the work", body: "We map your specialties, payers and practice-management system." },
-      { title: "Match and onboard", body: "We place a biller with role-based access under a signed BAA." },
-      { title: "Bill and reconcile", body: "Your biller submits claims, posts payments and works denials in your system." },
+      { title: "Registration details", body: "Your biller checks patient demographics and insurance details against the schedule." },
+      { title: "Eligibility and authorization", body: "Coverage, benefits and required authorizations are verified up front." },
+      { title: "Coding and charge entry", body: "Charges are entered with the CPT and ICD-10 codes your documentation supports." },
+      { title: "Claim submission", body: "Claims are scrubbed and sent electronically from your system." },
+      { title: "Adjudication and payment posting", body: "We track payer decisions, post payments and work denials." },
+      { title: "Patient statements", body: "Remaining balances are billed to patients with clear statements and follow-up." },
     ],
     metaTitle: "Outsourced Medical Billing Services",
     metaDescription:
@@ -501,9 +519,12 @@ const RCM_SERVICES: Service[] = [
       { icon: "keyboard", title: "Code updates", body: "Apply annual code set changes to your workflow." },
     ],
     howItWorks: [
-      { title: "Define your specialty and volume", body: "We learn your visit types, templates and payers." },
-      { title: "Code from the chart", body: "Coders work in your EHR and send queries through your agreed channel." },
-      { title: "Review and improve", body: "You receive accuracy feedback and common documentation gaps." },
+      { title: "Record access", body: "Coders get role-based access to the charts in your EHR under a signed BAA." },
+      { title: "Documentation review", body: "They read the diagnoses, procedures and provider notes, and query anything unclear." },
+      { title: "ICD-10-CM coding", body: "Diagnosis codes are assigned for the documented conditions and reasons for the visit." },
+      { title: "CPT and HCPCS coding", body: "Procedure, service and supply codes are selected from the documentation." },
+      { title: "Validation and audit", body: "Samples are reviewed for accuracy, sequencing and compliance." },
+      { title: "Handoff for billing", body: "Coded encounters go to your billing process, with feedback on common documentation gaps." },
     ],
     metaTitle: "Outsourced Medical Coding Services",
     metaDescription:
@@ -545,9 +566,12 @@ const RCM_SERVICES: Service[] = [
       { icon: "arrow-left-right", title: "Group and location changes", body: "Handle additions, terminations and address updates." },
     ],
     howItWorks: [
-      { title: "Collect and verify", body: "We gather provider documents and check them against payer requirements." },
-      { title: "Submit and follow up", body: "Applications go out and each file is followed until approved." },
-      { title: "Maintain", body: "We track renewals and updates so your enrollment stays active." },
+      { title: "Application and intake", body: "We collect provider information and documents and review them for gaps." },
+      { title: "Document verification", body: "Licenses, education, training and board certifications are checked for accuracy and expiry." },
+      { title: "Exclusion checks", body: "We check federal exclusion lists before anything is submitted." },
+      { title: "References and work history", body: "We gather peer references and account for gaps in work history." },
+      { title: "Submission and payer review", body: "Applications go to payers, and we follow up while their committees review the file." },
+      { title: "Approval and maintenance", body: "We confirm enrollment, then track renewals and revalidation dates." },
     ],
     metaTitle: "Provider Credentialing Services",
     metaDescription:
@@ -589,9 +613,12 @@ const RCM_SERVICES: Service[] = [
       { icon: "clipboard-list", title: "Root-cause reporting", body: "Show which denial reasons and payers repeat." },
     ],
     howItWorks: [
-      { title: "Baseline your AR", body: "We review your aging report and set priorities with you." },
-      { title: "Work the claims", body: "Staff follow up, correct and appeal on a steady schedule." },
-      { title: "Report and prevent", body: "You receive progress reports and fixes for repeat denial causes." },
+      { title: "Identify aged claims", body: "We review your aging report for claims at 30, 60, 90 days and beyond." },
+      { title: "Prioritize and plan", body: "Claims are ranked with you by value, age and filing deadline." },
+      { title: "Payer follow-up", body: "We use payer portals and calls to get status and next steps." },
+      { title: "Correct and appeal", body: "Denials and billing errors are fixed, resubmitted or appealed." },
+      { title: "Escalate", body: "Claims still unpaid are escalated with the payer, and patient balances are followed up respectfully." },
+      { title: "Track and prevent", body: "You receive recovery reports and fixes for repeat denial causes." },
     ],
     metaTitle: "Medical AR Follow-Up Services",
     metaDescription:
@@ -640,9 +667,12 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "calendar-check", title: "Same-day completion", body: "Drafts ready for review without a backlog." },
     ],
     howItWorks: [
-      { title: "Learn your style", body: "We review your templates and note preferences for each provider." },
-      { title: "Scribe the encounter", body: "The scribe documents in real time or from recorded workflow, as your policy allows." },
-      { title: "Review and sign", body: "The provider edits, approves and signs. The record is the provider's." },
+      { title: "Pre-charting", body: "The scribe pulls prior notes, labs and medication lists before the visit." },
+      { title: "Provider preferences", body: "We learn each provider's templates, phrasing and way of working." },
+      { title: "Real-time documentation", body: "The scribe documents live or from a recording, as your policy and patient consent allow." },
+      { title: "HPI and review of systems", body: "History and review of systems are drafted from what the provider and patient say." },
+      { title: "Order staging", body: "Orders and referrals are queued for the provider to approve." },
+      { title: "Review and sign-off", body: "The provider edits, approves and signs. The record is the provider's." },
     ],
     metaTitle: "Remote Medical Scribes",
     metaDescription:
@@ -684,9 +714,12 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "clipboard-list", title: "Calendar maintenance", body: "Keep provider templates, holds and blocks accurate." },
     ],
     howItWorks: [
-      { title: "Set your rules", body: "We document visit types, durations, provider preferences and booking limits." },
-      { title: "Schedule and confirm", body: "The scheduler books, reminds and manages changes daily." },
-      { title: "Review the calendar", body: "You receive utilization and no-show reports to refine the template." },
+      { title: "Appointment request", body: "Requests come in by phone, portal or your own process." },
+      { title: "Verify information", body: "The scheduler confirms demographics and insurance details." },
+      { title: "Find a slot", body: "Visit type, length and provider are matched to your booking rules." },
+      { title: "Book and confirm", body: "The time and provider are confirmed with the patient." },
+      { title: "Reminders", body: "Reminders go out by call, text or portal, per your policy." },
+      { title: "Manage changes", body: "Cancellations are filled from the waitlist and missed visits are rebooked." },
     ],
     metaTitle: "Remote Medical Schedulers",
     metaDescription:
@@ -728,9 +761,12 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "bell", title: "Urgent-call escalation", body: "Send emergencies and urgent clinical concerns to your clinician right away." },
     ],
     howItWorks: [
-      { title: "Build the call script", body: "We document your greetings, hours, routing and escalation rules." },
-      { title: "Answer and route", body: "The receptionist handles calls during your agreed hours." },
-      { title: "Report", body: "You receive call logs and summaries of common patient questions." },
+      { title: "Answer the inquiry", body: "Calls are answered in your practice's name and the reason is identified." },
+      { title: "Gather details", body: "The receptionist confirms patient identity and follows your escalation script for urgent calls." },
+      { title: "Schedule the appointment", body: "Where you grant access, visits are booked with the right type and time." },
+      { title: "Registration and intake", body: "Demographics, insurance details and forms are collected before the visit." },
+      { title: "Manage messages", body: "Calls and messages are routed to the right person on your team." },
+      { title: "Follow up and report", body: "Open queries are followed up, and you receive call logs and summaries." },
     ],
     metaTitle: "Remote Medical Receptionists",
     metaDescription:
@@ -772,9 +808,12 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "messages-square", title: "Portal inbox triage & care-gap outreach", body: "Sort messages by urgency and contact patients due for care." },
     ],
     howItWorks: [
-      { title: "Map your workflows", body: "We list the tasks to hand off and the rules for each." },
-      { title: "Place your coordinator", body: "A coordinator joins your EHR with role-based access under a BAA." },
-      { title: "Track and adjust", body: "You review task completion and widen or narrow the scope." },
+      { title: "Pre-visit review", body: "Each chart is prepared with open gaps, results and records." },
+      { title: "Task planning", body: "We map the workflows, rules and priorities for each task." },
+      { title: "Referrals and authorizations", body: "Referrals are sent and tracked, and prior authorizations are followed up." },
+      { title: "Appointment scheduling", body: "Visits are booked and missed appointments are rescheduled." },
+      { title: "Patient outreach and support", body: "Patients due for care are contacted and inbox messages are sorted by urgency." },
+      { title: "Follow-up and tracking", body: "Open items are tracked to completion, and you adjust the scope as needed." },
     ],
     metaTitle: "Patient Care Coordinators",
     metaDescription:
@@ -817,9 +856,12 @@ const STAFFING_SERVICES: Service[] = [
       { icon: "arrow-left-right", title: "Research and vendor tasks", body: "Compare options and follow up with vendors." },
     ],
     howItWorks: [
-      { title: "List the tasks", body: "We write down what you want handed off and how you like it done." },
-      { title: "Grant limited access", body: "Your assistant gets only the system access the tasks need." },
-      { title: "Review weekly", body: "You check completed work and adjust the task list." },
+      { title: "Onboarding", body: "We agree the scope, sign the BAA and set up access limited to the tasks." },
+      { title: "Task management", body: "Priorities, deadlines and status updates are organized with you." },
+      { title: "Communication", body: "Inbox, calendar and follow-ups are handled the way you like." },
+      { title: "Data entry and records", body: "Records, files and demographics are kept accurate and handled securely." },
+      { title: "Forms, reports and vendors", body: "Paperwork, recurring reports and vendor follow-ups are taken care of." },
+      { title: "Review and delivery", body: "You check completed work and your feedback shapes the next round." },
     ],
     metaTitle: "Medical Virtual Assistants",
     metaDescription:
@@ -868,8 +910,8 @@ if (typeof window === "undefined") {
       throw new Error(`services: no capabilities on ${s.slug}`);
     if (s.trust.length !== 4)
       throw new Error(`services: "${s.slug}" needs exactly 4 trust items`);
-    if (s.howItWorks.length !== 3)
-      throw new Error(`services: "${s.slug}" needs exactly 3 how-it-works steps`);
+    if (s.howItWorks.length !== 6)
+      throw new Error(`services: "${s.slug}" needs exactly 6 how-it-works steps`);
     if (s.category === "rpm" && !s.billing?.length)
       throw new Error(`services: RPM service "${s.slug}" has no billing codes`);
     seen.add(s.slug);
