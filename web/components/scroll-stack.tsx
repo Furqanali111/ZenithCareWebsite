@@ -40,7 +40,7 @@ export function ScrollStack({
           ))}
         </ol>
 
-        <Button asChild size="lg" className="mt-8 h-12 px-7 text-sm">
+        <Button asChild size="cta" className="mt-8">
           <Link href="/contact">Book a 15-minute call</Link>
         </Button>
       </Reveal>

@@ -55,7 +55,7 @@ export function PageHero({
           {primaryCta || secondaryCta ? (
             <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
               {primaryCta ? (
-                <Button asChild size="lg" className="h-12 px-7 text-sm">
+                <Button asChild size="cta">
                   <Link href={primaryCta.href}>{primaryCta.label}</Link>
                 </Button>
               ) : null}

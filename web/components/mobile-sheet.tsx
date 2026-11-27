@@ -51,7 +51,7 @@ export default function MobileSheet({
         </SheetHeader>
         <nav aria-label="Mobile" className="mt-6 flex flex-col gap-1 px-4">
           <MobileGroup label="Services" items={services} close={close} />
-          <MobileGroup label="Who We Serve" items={whoWeServe} close={close} />
+          <MobileGroup label="Who we serve" items={whoWeServe} close={close} />
           {main.map((item) => (
             <Link
               key={item.href}

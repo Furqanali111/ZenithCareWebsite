@@ -132,12 +132,12 @@
   --sidebar-ring: #155e75;
 }
 
-/* Elevation tokens: offset and blur, never a glow. */
+/* Elevation tokens: stacked small shadows, offset and blur, never a glow. */
 :root {
-  --shadow-lift: 0 18px 40px -24px rgba(11, 32, 38, 0.4);
-  --shadow-float: 0 24px 60px -28px rgba(11, 37, 69, 0.35);
-  --shadow-float-hover: 0 28px 60px -24px rgba(11, 37, 69, 0.5);
-  --shadow-float-sm: 0 18px 40px -20px rgba(11, 37, 69, 0.35);
+  --shadow-lift: 0 1px 2px rgba(11, 32, 38, 0.06), 0 4px 8px -2px rgba(11, 32, 38, 0.08), 0 16px 32px -16px rgba(11, 32, 38, 0.22);
+  --shadow-float: 0 1px 2px rgba(11, 37, 69, 0.05), 0 6px 12px -4px rgba(11, 37, 69, 0.08), 0 24px 48px -24px rgba(11, 37, 69, 0.25);
+  --shadow-float-hover: 0 2px 4px rgba(11, 37, 69, 0.07), 0 10px 20px -6px rgba(11, 37, 69, 0.12), 0 28px 56px -24px rgba(11, 37, 69, 0.34);
+  --shadow-float-sm: 0 1px 2px rgba(11, 37, 69, 0.05), 0 4px 8px -2px rgba(11, 37, 69, 0.08), 0 14px 28px -16px rgba(11, 37, 69, 0.24);
 }
 
 /* Dark palette tokens; the .dark blocks below only reference these. */

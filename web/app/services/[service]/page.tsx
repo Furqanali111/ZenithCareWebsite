@@ -322,8 +322,8 @@ export default async function ServicePage({
               confirm the fit, and tell you honestly whether Zenith is the
               right partner.
             </p>
-            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-11 px-6 text-sm">
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+              <Button asChild size="cta">
                 <Link href="/contact">Book a 15-minute call</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-11 px-6 text-sm">

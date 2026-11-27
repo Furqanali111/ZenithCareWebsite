@@ -213,8 +213,8 @@ export default async function PostPage({
           patient count, run the per-code math, and tell you honestly
           whether Zenith is a fit.
         </p>
-        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button asChild size="lg">
+        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+          <Button asChild size="cta">
             <Link href="/contact">Book a 15-minute call</Link>
           </Button>
           <Button asChild size="lg" variant="outline">

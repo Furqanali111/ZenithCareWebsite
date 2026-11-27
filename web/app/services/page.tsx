@@ -85,7 +85,7 @@ export default function ServicesOverviewPage() {
                   <th scope="col" className="px-4 py-3 font-semibold">Program</th>
                   <th scope="col" className="px-4 py-3 font-semibold">Eligibility</th>
                   <th scope="col" className="px-4 py-3 font-semibold">Primary CPT</th>
-                  <th scope="col" className="px-4 py-3 font-semibold">Base reimbursement</th>
+                  <th scope="col" className="px-4 py-3 text-right font-semibold">Base reimbursement</th>
                   <th scope="col" className="px-4 py-3 font-semibold">Who can bill</th>
                 </tr>
               </thead>
@@ -102,7 +102,7 @@ export default function ServicesOverviewPage() {
                     </td>
                     <td className="px-4 py-3 leading-snug">{row.eligibility}</td>
                     <td className="px-4 py-3 font-mono text-xs leading-snug">{row.codes}</td>
-                    <td className="whitespace-nowrap px-4 py-3">{row.rate}</td>
+                    <td className="whitespace-nowrap px-4 py-3 text-right tabular-nums">{row.rate}</td>
                     <td className="px-4 py-3 leading-snug">{row.whoCanBill}</td>
                   </tr>
                 ))}
@@ -187,8 +187,8 @@ export default function ServicesOverviewPage() {
               patients qualify for and which roles would take the most off your
               team, and what it could mean for your monthly revenue.
             </p>
-            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-11 px-6 text-sm">
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+              <Button asChild size="cta">
                 <Link href="/contact">Book a 15-minute call</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-11 px-6 text-sm">
