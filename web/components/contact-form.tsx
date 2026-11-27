@@ -128,6 +128,17 @@ export function ContactForm() {
         role="status"
         className="animate-in fade-in zoom-in-95 rounded-xl border border-border bg-surface-tint p-8 text-center duration-250 ease-out motion-reduce:animate-none"
       >
+        <svg
+          aria-hidden
+          viewBox="0 0 52 52"
+          className="mx-auto mb-4 size-14 fill-none stroke-primary"
+          strokeWidth={3}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="26" cy="26" r="23" pathLength={1} className="draw-stroke" />
+          <path d="M15 27l7 7 15-15" pathLength={1} className="draw-stroke draw-stroke-late" />
+        </svg>
         <h3 className="font-serif text-xl font-semibold text-brand-ink">
           Thanks, your message is in.
         </h3>

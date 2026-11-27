@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { estimateRoi, formatRange } from "@/lib/roi";
+import { CountUp } from "@/components/count-up";
+import { estimateRoi, formatRange, roundToHundred } from "@/lib/roi";
 
 const DEFAULT_PATIENTS = 200;
 const DEFAULT_ENROLLMENT_PCT = 50;
@@ -71,14 +72,16 @@ export function RoiCalculator() {
         >
           <StatTile
             caption="Typical monthly reimbursement (±10% band)"
-            value={formatRange(result.monthlyLow, result.monthlyHigh)}
+            low={result.monthlyLow}
+            high={result.monthlyHigh}
             suffix="/ month"
             emphasis="primary"
           />
           <div className="my-6 border-t border-border/70" />
           <StatTile
             caption="Typical annual reimbursement (±10% band)"
-            value={formatRange(result.annualLow, result.annualHigh)}
+            low={result.annualLow}
+            high={result.annualHigh}
             suffix="/ year"
             emphasis="secondary"
           />
@@ -121,12 +124,14 @@ function Field({
 
 function StatTile({
   caption,
-  value,
+  low,
+  high,
   suffix,
   emphasis,
 }: {
   caption: string;
-  value: string;
+  low: number;
+  high: number;
   suffix: string;
   emphasis: "primary" | "secondary";
 }) {
@@ -140,10 +145,19 @@ function StatTile({
         {caption}
       </p>
       <p className="mt-2 flex items-baseline gap-2">
+        {/* Rolling digits are hidden from screen readers; the live region reads only the final range. */}
+        <span className="sr-only">{formatRange(low, high)}</span>
         <span
+          aria-hidden
           className={`font-serif font-semibold tabular-nums tracking-tight text-brand-ink ${valueSize}`}
         >
-          {value}
+          <CountUp value={roundToHundred(low)} prefix="$" />
+          {roundToHundred(low) !== roundToHundred(high) && (
+            <>
+              {" - "}
+              <CountUp value={roundToHundred(high)} prefix="$" />
+            </>
+          )}
         </span>
         <span className="text-sm font-medium text-muted-foreground">
           {suffix}
