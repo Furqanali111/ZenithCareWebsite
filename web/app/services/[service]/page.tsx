@@ -147,7 +147,7 @@ export default async function ServicePage({
         />
       </section>
 
-      {/* ─── How it works (3-step flow) ──────────────────────────────── */}
+      {/* ─── How it works (6-step flow) ──────────────────────────────── */}
       <section className="section-rhythm border-t border-border/60 bg-surface-tint">
         <ScrollStack heading={`How ${s.name} works`} steps={s.howItWorks} />
       </section>

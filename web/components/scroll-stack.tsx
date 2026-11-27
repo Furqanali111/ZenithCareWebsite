@@ -23,7 +23,7 @@ export function ScrollStack({
       <Reveal className="lg:sticky lg:top-28 lg:self-start">
         <h2 className="font-serif text-3xl font-semibold tracking-tight text-brand-ink md:text-4xl">{heading}</h2>
         <p className="mt-4 max-w-md text-base leading-relaxed text-body-ink">
-          {subtitle ?? "Three steps from the first call to a program running inside your EHR."}
+          {subtitle ?? "Six steps, carried out by Zenith staff under your rules."}
         </p>
 
         <ol className="mt-8 hidden max-w-md border-l border-border/80 lg:block">
