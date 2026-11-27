@@ -22,6 +22,9 @@ This is the "what has been done / what is being done / what is next" log. **Upda
 
 ## Done
 
+### 2026-11-27: `feature/roll-roi-totals-success-tick`
+ROI calculator totals roll to each new value (reuses `CountUp`; screen readers hear only the final range). Contact form success state draws a circle, then a tick. Both are instant under reduced motion. Verified in a headless browser with Formspree stubbed; not watched by eye.
+
 ### 2026-11-24: `feature/auto-publish`
 SEO edits publish by themselves. The editor (`/keystatic`) moves each person to their own private branch `feature/content-<login>`, Save keeps work private and a new **Publish** button sends it live. The SEO dashboard saves on `feature/seo-edits-<login>` and publishes by itself. `.github/workflows/publish-content.yml` refuses anything but content files (and code in articles), builds, squash-merges, calls the deploy sync, and on failure leaves a plain-English comment shown in the editor pill and dashboard. Page titles and descriptions now live only in `content/page-seo*.json`, up to 60 characters. The weekly score snapshot merges its own PR. `.github/CODEOWNERS` added. Docs: `17-auto-publish-design.md`, `17c-auto-publish-handover.md` (Furqan's setup, tests and off switch), `11-git-workflow.md` section 10, `16-keystatic-cms.md`, `16g-cms-seo-dashboard.md`.
 - Verified: node tests (76 pass), type check, lint, production build; the workflow's shell steps against a scratch git origin with stubbed `gh` (54 checks); the route against a stubbed GitHub; the editor pill and write blocking in a browser with a stubbed API.
