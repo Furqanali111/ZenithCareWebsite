@@ -22,7 +22,7 @@ const blurbs = {
 
 const crumbs = [
   { name: "Home", path: "/" },
-  { name: "Who We Serve", path: "/who-we-serve" },
+  { name: "Who we serve", path: "/who-we-serve" },
 ];
 
 export default function WhoWeServeIndexPage() {

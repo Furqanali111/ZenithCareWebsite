@@ -44,7 +44,7 @@ export function Nav() {
           className="hidden items-center gap-7 lg:flex"
         >
           <ServicesMegaMenu />
-          <NavGroup label="Who We Serve" items={nav.whoWeServe} />
+          <NavGroup label="Who we serve" items={nav.whoWeServe} />
           {nav.main.map((item) => (
             <NavLink
               key={item.href}

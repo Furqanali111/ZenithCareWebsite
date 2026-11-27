@@ -239,8 +239,8 @@ export function ContactForm() {
             >
               <option value="">Select role…</option>
               <option value="Physician">Physician</option>
-              <option value="Practice Manager">Practice Manager</option>
-              <option value="Office Manager">Office Manager</option>
+              <option value="Practice Manager">Practice manager</option>
+              <option value="Office Manager">Office manager</option>
               <option value="Other">Other</option>
             </select>
           </Field>

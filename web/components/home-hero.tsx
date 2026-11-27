@@ -45,8 +45,8 @@ export function HomeHero() {
           <div className="reveal-up reveal-up-4 mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <Button
               asChild
-              size="lg"
-              className="h-14 px-9 text-base font-semibold shadow-[var(--shadow-lift)] hover:bg-[color:var(--color-brand-700)]"
+              size="cta"
+              className="shadow-[var(--shadow-lift)] hover:bg-[color:var(--color-brand-700)]"
             >
               <Link href="/contact">Book a 15-minute call</Link>
             </Button>

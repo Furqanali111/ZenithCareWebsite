@@ -16,7 +16,7 @@ export default function HowItWorksPage() {
       <JsonLd
         data={breadcrumbLd([
           { name: "Home", path: "/" },
-          { name: "How It Works", path: PATH },
+          { name: "How it works", path: PATH },
         ])}
       />
       <LegalPage title="How remote care management works" lastUpdated="2026-10-23">

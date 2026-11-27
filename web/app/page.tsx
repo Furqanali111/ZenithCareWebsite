@@ -57,13 +57,13 @@ const COMPLEX_MIX_MONTHLY =
 // Labels and hrefs mirror nav.whoWeServe in lib/site.ts; keep in sync.
 const WHO_WE_SERVE = [
   {
-    label: "Primary Care",
+    label: "Primary care",
     href: "/who-we-serve/primary-care",
     icon: <Stethoscope className="size-5" aria-hidden="true" />,
     pain: home.whoPains.primaryCare,
   },
   {
-    label: "Internal Medicine",
+    label: "Internal medicine",
     href: "/who-we-serve/internal-medicine",
     icon: <HeartPulse className="size-5" aria-hidden="true" />,
     pain: home.whoPains.internalMedicine,
@@ -365,8 +365,8 @@ export default function HomePage() {
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body-ink">
               {home.ctaBody}
             </p>
-            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-11 px-6 text-sm">
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+              <Button asChild size="cta">
                 <Link href="/contact">Book a 15-minute call</Link>
               </Button>
               <Button
