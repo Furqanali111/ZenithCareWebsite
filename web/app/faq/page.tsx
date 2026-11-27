@@ -84,8 +84,8 @@ export default function FaqPage() {
             A 15-minute call is faster than another search. We&rsquo;ll
             answer specifics for your panel size, EHR, and timeline.
           </p>
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg">
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+            <Button asChild size="cta">
               <Link href="/contact">Book a 15-minute call</Link>
             </Button>
             <Button asChild size="lg" variant="outline">

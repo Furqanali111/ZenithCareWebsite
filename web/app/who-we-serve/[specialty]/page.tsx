@@ -82,7 +82,7 @@ export default async function WhoWeServePage({
           }),
           breadcrumbLd([
             { name: "Home", path: "/" },
-            { name: "Who We Serve", path: "/who-we-serve" },
+            { name: "Who we serve", path: "/who-we-serve" },
             { name: label, path },
           ]),
         ]}
@@ -91,7 +91,7 @@ export default async function WhoWeServePage({
       <Breadcrumbs
         items={[
           { name: "Home", path: "/" },
-          { name: "Who We Serve", path: "/who-we-serve" },
+          { name: "Who we serve", path: "/who-we-serve" },
           { name: label, path },
         ]}
       />
@@ -301,8 +301,8 @@ export default async function WhoWeServePage({
             patients qualify, map the programs that fit your practice, and tell
             you honestly whether Zenith is a fit.
           </p>
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg" className="h-11 px-6 text-sm">
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+            <Button asChild size="cta">
               <Link href="/contact">Book a 15-minute call</Link>
             </Button>
             <Button

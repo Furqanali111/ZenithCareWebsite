@@ -16,36 +16,36 @@ type Item = { label: string; href: string };
 // page yet, so they are intentionally omitted until those pages exist.)
 const QUICK_LINKS: Item[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "All Services", href: "/services" },
+  { label: "About us", href: "/about" },
+  { label: "All services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
-  { label: "How It Works", href: "/how-it-works" },
+  { label: "How it works", href: "/how-it-works" },
   { label: "Resources", href: "/resources" },
-  { label: "Contact Us", href: "/contact" },
-  { label: "Primary Care", href: "/who-we-serve/primary-care" },
-  { label: "Internal Medicine", href: "/who-we-serve/internal-medicine" },
+  { label: "Contact us", href: "/contact" },
+  { label: "Primary care", href: "/who-we-serve/primary-care" },
+  { label: "Internal medicine", href: "/who-we-serve/internal-medicine" },
   { label: "Geriatrics", href: "/who-we-serve/geriatrics" },
 ];
 
 const RESOURCE_LINKS: Item[] = [
   { label: "Blog / Articles", href: "/resources" },
-  { label: "ROI Calculator", href: "/roi-calculator" },
+  { label: "ROI calculator", href: "/roi-calculator" },
   // Sitewide links to the two reference hubs, so their code pages get crawled.
-  { label: "CPT Codes Guide", href: CPT_BASE },
-  { label: "Denial Codes Guide", href: DENIAL_BASE },
+  { label: "CPT codes guide", href: CPT_BASE },
+  { label: "Denial codes guide", href: DENIAL_BASE },
   { label: "FAQs", href: "/faq" },
 ];
 
 const LEGAL_LINKS: Item[] = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Cookie Policy", href: "/cookies" },
-  { label: "Data Requests", href: "/data-request" },
-  { label: "Refund and Cancellation", href: "/refund-policy" },
-  { label: "Service Delivery", href: "/service-delivery" },
+  { label: "Privacy policy", href: "/privacy" },
+  { label: "Terms of service", href: "/terms" },
+  { label: "Cookie policy", href: "/cookies" },
+  { label: "Data requests", href: "/data-request" },
+  { label: "Refund and cancellation", href: "/refund-policy" },
+  { label: "Service delivery", href: "/service-delivery" },
   { label: "Complaints", href: "/complaints" },
-  { label: "HIPAA Compliance", href: "/hipaa-compliance" },
-  { label: "HIPAA Statement", href: "/hipaa-statement" },
+  { label: "HIPAA compliance", href: "/hipaa-compliance" },
+  { label: "HIPAA statement", href: "/hipaa-statement" },
   { label: "Accessibility", href: "/accessibility" },
   { label: "Security", href: "/security" },
   { label: "Sitemap", href: "/sitemap.xml" },
@@ -132,7 +132,7 @@ export function Footer() {
 
           {/* Link columns */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-9 md:gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
-            <FooterColumn label="Quick Links" items={QUICK_LINKS} />
+            <FooterColumn label="Quick links" items={QUICK_LINKS} />
             <FooterColumn
               label={categoryMeta.rpm.label}
               items={toItems(servicesByCategory("rpm"))}

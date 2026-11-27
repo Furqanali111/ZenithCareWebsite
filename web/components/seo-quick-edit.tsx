@@ -80,7 +80,7 @@ export function SeoQuickEdit({ target, initial, value: v, onChange, checks, onSa
       </label>
       <div className="flex flex-wrap items-center gap-3">
         <Button type="submit" size="sm" disabled={!dirty || invalid || status.kind === "saving"}>
-          {status.kind === "saving" ? "Saving..." : "Save"}
+          {status.kind === "saving" ? "Saving..." : "Save changes"}
         </Button>
         <p role="status" className={`text-sm ${status.kind === "error" ? "text-red-700" : "text-muted-foreground"}`}>
           {/* Once typing starts again, "Saved" would describe text that is not saved. */}

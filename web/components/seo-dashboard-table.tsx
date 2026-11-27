@@ -145,10 +145,10 @@ function Trend({ history }: { history: HistoryEntry[] }) {
       <details className="mt-1 text-xs">
         <summary className="cursor-pointer text-muted-foreground">Show as a table</summary>
         <table className="mt-1 w-full max-w-xs text-left tabular-nums">
-          <thead><tr><th className="pr-3 font-medium">Date</th><th className="pr-3 font-medium">Average</th><th className="pr-3 font-medium">No keyword</th><th className="font-medium">No description</th></tr></thead>
+          <thead><tr><th className="pr-3 font-medium">Date</th><th className="pr-3 text-right font-medium">Average</th><th className="pr-3 text-right font-medium">No keyword</th><th className="text-right font-medium">No description</th></tr></thead>
           <tbody>
             {[...history].reverse().slice(0, 12).map((e) => (
-              <tr key={e.date}><td className="pr-3">{e.date}</td><td className="pr-3">{e.average}</td><td className="pr-3">{e.noKeyword}</td><td>{e.noDescription}</td></tr>
+              <tr key={e.date}><td className="pr-3">{e.date}</td><td className="pr-3 text-right">{e.average}</td><td className="pr-3 text-right">{e.noKeyword}</td><td className="text-right">{e.noDescription}</td></tr>
             ))}
           </tbody>
         </table>
@@ -490,10 +490,10 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
                           </p>
                         )}
                         <table className="w-full text-left text-xs tabular-nums">
-                          <thead><tr><th className="pr-2 font-medium">Search</th><th className="pr-2 font-medium">Clicks</th><th className="pr-2 font-medium">Shown</th><th className="font-medium">Position</th></tr></thead>
+                          <thead><tr><th className="pr-2 font-medium">Search</th><th className="pr-2 text-right font-medium">Clicks</th><th className="pr-2 text-right font-medium">Shown</th><th className="text-right font-medium">Position</th></tr></thead>
                           <tbody>
                             {r.search.queries.map((s) => (
-                              <tr key={s.query}><td className="pr-2">{s.query}</td><td className="pr-2">{s.clicks}</td><td className="pr-2">{s.impressions}</td><td>{s.position.toFixed(1)}</td></tr>
+                              <tr key={s.query}><td className="pr-2">{s.query}</td><td className="pr-2 text-right">{s.clicks}</td><td className="pr-2 text-right">{s.impressions}</td><td className="text-right">{s.position.toFixed(1)}</td></tr>
                             ))}
                           </tbody>
                         </table>
@@ -540,7 +540,7 @@ export function SeoDashboardTable({ rows, host, history, hasSearch, searchError,
               </details>
             </li>
           ))}
-          {!shown.length && <li className="px-4 py-6 text-sm text-muted-foreground">Nothing matches these filters.</li>}
+          {!shown.length && <li className="px-4 py-6 text-sm text-muted-foreground">Nothing matches these filters. <Button type="button" size="sm" variant="outline" className="ml-2" onClick={() => { setQ(""); setKind("all"); setFilter("all"); }}>Clear filters</Button></li>}
         </ul>
       )}
     </>

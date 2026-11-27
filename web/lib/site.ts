@@ -101,8 +101,8 @@ export function mailtoHref(subject = "CCM Inquiry") {
 /** Navigation groups surfaced in the top nav + footer. */
 export const nav = {
   whoWeServe: [
-    { label: "Primary Care", href: "/who-we-serve/primary-care" },
-    { label: "Internal Medicine", href: "/who-we-serve/internal-medicine" },
+    { label: "Primary care", href: "/who-we-serve/primary-care" },
+    { label: "Internal medicine", href: "/who-we-serve/internal-medicine" },
     { label: "Geriatrics", href: "/who-we-serve/geriatrics" },
   ],
   main: [
@@ -115,7 +115,7 @@ export const nav = {
     { label: "Privacy", href: "/privacy" },
     { label: "Terms", href: "/terms" },
     { label: "Cookies", href: "/cookies" },
-    { label: "HIPAA Statement", href: "/hipaa-statement" },
+    { label: "HIPAA statement", href: "/hipaa-statement" },
     { label: "Accessibility", href: "/accessibility" },
   ],
 } as const;
